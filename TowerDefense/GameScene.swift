@@ -8,12 +8,14 @@
 
 import SpriteKit
 
+
+
 class GameScene: SKScene , SKPhysicsContactDelegate{
      let satellite = SKSpriteNode(imageNamed: "Sat2")
      let myLabel = SKLabelNode(fontNamed:"Verdana")
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        physicsWorld.gravity = CGVectorMake(0,-2)
+        physicsWorld.gravity = CGVectorMake(0,-1.2)
         physicsWorld.contactDelegate = self
 
         myLabel.text = "DEFFEND!";
@@ -28,24 +30,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
        /* Called when a touch begins */
         
             myLabel.removeFromParent()
+        let touch = touches.first
         
-        for touch in touches {
-            let location = touch.locationInNode(self)
+        
+            let location = touch!.locationInNode(self)
             
             let sprite = SKSpriteNode(imageNamed: "Sat2")
             
             sprite.xScale = 0.5
             sprite.yScale = 0.5
             sprite.position = location
+        let vect = CGVector(dx: CGFloat(450), dy: CGFloat(203))
             sprite.physicsBody = SKPhysicsBody()
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Tower
+        sprite.physicsBody?.dynamic = true
+        
             
+            //let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
             
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
+            //sprite.runAction(SKAction.repeatActionForever(action))
             
             self.addChild(sprite)
-        }
+         sprite.physicsBody?.applyImpulse(vect)
+        
     }
    
     override func update(currentTime: CFTimeInterval) {
