@@ -15,6 +15,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
      let myLabel = SKLabelNode(fontNamed:"Verdana")
     let viewTime = UIView(frame: CGRectMake(0, 0, 200, 200))
     var b = UIButton(frame: CGRectMake(0,0, 200,10))
+    //Enemy Factory
+    var enemyFactory = EnemyFactory()
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -54,18 +56,26 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             sprite.xScale = 0.5
             sprite.yScale = 0.5
             sprite.position = location
-        let vect = CGVector(dx: CGFloat(-450), dy: CGFloat(0))
+        let vect = CGVector(dx: CGFloat(300), dy: CGFloat(0))
             sprite.physicsBody = SKPhysicsBody()
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Tower
+        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Tower
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
         sprite.physicsBody?.dynamic = true
         
             
-            //let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
+            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
             
-            //sprite.runAction(SKAction.repeatActionForever(action))
+            sprite.runAction(SKAction.repeatActionForever(action))
             
             self.addChild(sprite)
          sprite.physicsBody?.applyImpulse(vect)
+        
+        let enemy = enemyFactory.CreateEnemy(self)
+        
+       self.addChild(enemy.sprite)
+        enemy.Move()
+
         
     }
    

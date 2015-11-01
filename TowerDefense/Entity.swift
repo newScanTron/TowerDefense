@@ -7,9 +7,10 @@
 //
 
 import Foundation
-
+import SpriteKit
 protocol Entity
 {
     //variables that both towers and enemys have
     var health: Int {get set}
+    var sprite: SKSpriteNode {get set}
 }

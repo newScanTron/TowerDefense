@@ -121,8 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */,
-				9946E4051BE56EFB007E9559 /* EnemyAttackStrat.swift */,
 				9946E4141BE5721D007E9559 /* EnemyFactory.swift */,
+				9946E4051BE56EFB007E9559 /* EnemyAttackStrat.swift */,
 				9946E4171BE573D7007E9559 /* EnemyBase.swift */,
 			);
 			name = Enemy;
