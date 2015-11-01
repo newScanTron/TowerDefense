@@ -7,9 +7,29 @@
 //
 
 import Foundation
+import SpriteKit
 
-class BaseTower {
+class TowerBase: Entity{
     var health = 0
-    
-    
+    var sprite: SKSpriteNode
+    init (location: CGPoint)
+    {
+        sprite = SKSpriteNode(imageNamed: "Sat2")
+        
+        sprite.xScale = 0.5
+        sprite.yScale = 0.5
+        sprite.position = location
+        
+        sprite.physicsBody = SKPhysicsBody()
+        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Tower
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.dynamic = true
+        
+        
+        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
+        
+        sprite.runAction(SKAction.repeatActionForever(action))
+        
+    }
 }

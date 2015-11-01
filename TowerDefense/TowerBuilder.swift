@@ -7,8 +7,15 @@
 //
 
 import Foundation
-
+import SpriteKit
 class TowerBuilder
 {
     init() {}
+    
+    //build method
+    func BuildTower(point: CGPoint) -> TowerBase
+    {
+        let tower = TowerBase(location: point)
+        return tower
+    }
 }

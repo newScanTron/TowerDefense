@@ -17,6 +17,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var b = UIButton(frame: CGRectMake(0,0, 200,10))
     //Enemy Factory
     var enemyFactory = EnemyFactory()
+    var towerBuilder = TowerBuilder()
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -50,26 +51,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         
             let location = touch!.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed: "Sat2")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-        let vect = CGVector(dx: CGFloat(300), dy: CGFloat(0))
-            sprite.physicsBody = SKPhysicsBody()
-        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Tower
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.dynamic = true
+            let tower = towerBuilder.BuildTower(location)
         
             
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
-         sprite.physicsBody?.applyImpulse(vect)
+            self.addChild(tower.sprite)
+         
         
         let enemy = enemyFactory.CreateEnemy(self)
         
