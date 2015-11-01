@@ -20,14 +20,14 @@ class TowerBase: Entity{
         sprite.yScale = 0.5
         sprite.position = location
         
-        sprite.physicsBody = SKPhysicsBody()
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         sprite.physicsBody?.categoryBitMask = PhysicsCategory.Tower
         sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
         sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
         sprite.physicsBody?.dynamic = true
         
         
-        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
+        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:5)
         
         sprite.runAction(SKAction.repeatActionForever(action))
         
