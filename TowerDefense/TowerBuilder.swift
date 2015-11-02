@@ -8,14 +8,28 @@
 
 import Foundation
 import SpriteKit
+
 class TowerBuilder
 {
+    
+    
     init() {}
     
     //build method
     func BuildTower(point: CGPoint) -> TowerBase
     {
-        let tower = TowerBase(location: point)
+        let attack = TowerAttackBasic()
+        attack.range = 100
+        attack.damage = 40
+        attack.fireDelay = 1
+        attack.speed = 10
+        
+        let defense = TowerDefenseHeal()
+        defense.range = 100
+        defense.amount = 2
+        
+        
+        let tower = TowerBase(location: point, _attack: attack, _defense: defense)
         return tower
     }
 }

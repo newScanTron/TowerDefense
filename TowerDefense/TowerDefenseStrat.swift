@@ -8,7 +8,16 @@
 
 import Foundation
 
-protocol TowerDefenseStrat
+class TowerDefenseStrat
 {
-    func Defend()
+    var range : Float = 0
+    var amount : Int = 0
+    
+    init () {
+       // fatalError("Don't instantiate the base class!")
+    }
+
+    func Defend() {
+        //fatalError("Don't call Defend() on the base class!")
+    }
 }

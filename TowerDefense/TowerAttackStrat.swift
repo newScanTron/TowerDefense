@@ -7,8 +7,25 @@
 //
 
 import Foundation
+import SpriteKit
 
-protocol TowerAttackStrat
+class TowerAttackStrat
 {
-    func Attack()
+    var range : Int = 0
+    var damage : Int = 0
+    var fireDelay : Float = 0
+    var speed : Float = 0
+    var bullet : Bullet? = nil
+    var target : EnemyBase? = nil
+    var parent : TowerBase? = nil
+    
+    init () {
+        //fatalError("Don't instantiate the base class!")
+    }
+    
+    
+    func Attack() {
+       //fatalError("Don't call Attack() on the base class!")
+    }
+    
 }
