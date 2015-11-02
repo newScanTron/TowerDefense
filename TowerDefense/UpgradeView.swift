@@ -14,7 +14,9 @@ class UpgradeView: UIView {
     var b = UIButton(frame: CGRectMake(0,0, 200,10))
     
     
-    
+    required init?(coder aDecoder: (NSCoder!)) {
+        super.init(coder: aDecoder)
+    }
    
     init()
     {
@@ -25,8 +27,9 @@ class UpgradeView: UIView {
         self.addSubview(b)
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func SetViewLocation(x: CGFloat, y: CGFloat)
+    {
+        self.frame = CGRectMake(x, y, 200, 200)
     }
     
     func GetView() ->UIView

@@ -13,7 +13,7 @@ import UIKit
 class GameScene: SKScene , SKPhysicsContactDelegate{
     let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
-     let viewTime = UpgradeView()
+    
 
     //Enemy Factory
     var enemyFactory = EnemyFactory()
@@ -33,7 +33,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     
         
-        self.view?.addSubview(viewTime.GetView())
         
         
     }
@@ -53,6 +52,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         self.addChild(enemy.sprite)
         enemy.Move()
         
+        
+         let viewTime = UpgradeView()
+        viewTime.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+        
+        self.view?.addSubview(viewTime.GetView())
         
     }
     
