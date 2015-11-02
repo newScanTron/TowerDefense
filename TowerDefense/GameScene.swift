@@ -40,13 +40,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func buttonTime()
     {
-        if b.titleLabel == "nope"
+        if b.titleLabel?.text == "nope"
         {
             b.setTitle("yeah", forState: UIControlState.Normal)
         }
         else
         {
-        b.setTitle("nope", forState: UIControlState.Normal)
+            b.setTitle("nope", forState: UIControlState.Normal)
         }
     }
     //
