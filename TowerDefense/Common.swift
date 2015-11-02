@@ -13,6 +13,6 @@ struct PhysicsCategory {
     static let All          : UInt32 = UInt32.max
     static let Tower        : UInt32 = 0b1
     static let Enemy       : UInt32 = 0b10
-    static let Projectile   : UInt32 = 0b11
+    static let Bullet   : UInt32 = 0b11
 }
 

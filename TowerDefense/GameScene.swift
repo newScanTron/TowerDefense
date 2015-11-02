@@ -13,8 +13,8 @@ import UIKit
 class GameScene: SKScene , SKPhysicsContactDelegate{
     let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
-    let viewTime = UIView(frame: CGRectMake(0, 0, 200, 200))
-    var b = UIButton(frame: CGRectMake(0,0, 200,10))
+     let viewTime = UpgradeView()
+
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -29,26 +29,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
         
         self.addChild(myLabel)
+       
+        
+    
+        
+        self.view?.addSubview(viewTime.GetView())
         
         
-        b.setTitle("yeah", forState: UIControlState.Normal)
-        b.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
-        b.addTarget(self, action: "buttonTime", forControlEvents: UIControlEvents.TouchUpInside)
-        viewTime.addSubview(b)
-        
-        self.view?.addSubview(viewTime)
     }
-    func buttonTime()
-    {
-        if b.titleLabel?.text == "nope"
-        {
-            b.setTitle("yeah", forState: UIControlState.Normal)
-        }
-        else
-        {
-            b.setTitle("nope", forState: UIControlState.Normal)
-        }
-    }
+
     //
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
