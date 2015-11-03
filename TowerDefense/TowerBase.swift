@@ -11,8 +11,12 @@ import SpriteKit
 
 class TowerBase: Entity{
     var health = 0
-    var sprite: SKSpriteNode
-    init (location: CGPoint)
+    var sprite : SKSpriteNode
+    var attack : TowerAttackStrat
+    var defense : TowerDefenseStrat
+    var kills : Int = 0
+    var healed : Int = 0
+    init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
         sprite = SKSpriteNode(imageNamed: "Sat2")
         
@@ -31,5 +35,20 @@ class TowerBase: Entity{
         
         sprite.runAction(SKAction.repeatActionForever(action))
         
+        attack = _attack;
+        defense = _defense;
+        
+        
     }
+    
+    // Triggers attack strategy Attack function
+    func TriggerAttack() {
+        attack.Attack()
+    }
+    
+    // Triggers defense strategy Defend function
+    func TriggerDefend() {
+        defense.Defend()
+    }
+    
 }
