@@ -53,7 +53,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         enemy.Move()
         
         
-         let viewTime = UpgradeView()
+        let viewTime = UpgradeView()
+        
+        //this calls and displays the upgrade view.
         viewTime.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
         
         self.view?.addSubview(viewTime.GetView())
