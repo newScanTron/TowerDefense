@@ -61,13 +61,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         GameScene.enemies.append(enemy)
         enemy.Move()
         
-        
-        let viewTime = UpgradeView()
+        //need something to make the updrageView disapear if we are not interacting with it.
+        let upgradeView = UpgradeView()
         
         //this calls and displays the upgrade view.
-        viewTime.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+        upgradeView.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
         
-        self.view?.addSubview(viewTime.GetView())
+        self.view?.addSubview(upgradeView.GetView())
         
     }
     
