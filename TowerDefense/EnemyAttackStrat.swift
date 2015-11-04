@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import SpriteKit
 
 protocol EnemyAttackStrat
 {
-    func Move()
+    func Attack(e: EnemyBase, t: SKNode, s: SKScene)
 }

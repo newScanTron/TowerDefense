@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import SpriteKit
 
 protocol EnemyMoveStrat
 {
-    func Move()
+
+    func Move(sprite: SKSpriteNode, scene: SKScene)
+    func getMoveStrat() -> String
+
 }

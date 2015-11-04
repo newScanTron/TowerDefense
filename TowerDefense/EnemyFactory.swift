@@ -23,7 +23,6 @@ class EnemyFactory
         //add the bison to the scene
         
         
-
         
         return enemy
     }

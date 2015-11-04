@@ -19,6 +19,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
+    let tower = TowerBuilder()
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var gameTime : Float = 0
@@ -34,12 +35,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
         
         self.addChild(myLabel)
-       
         
-    
+        //create and add tower
+        let testLocation = CGPoint(x: -700, y: 100)
+        let tower = towerBuilder.BuildTower(testLocation)
+        GameScene.towers.append(tower)
+        self.addChild(tower.sprite)
         
-        
-        
+        runAction(SKAction.repeatActionForever(
+            SKAction.sequence([
+                SKAction.runBlock(addEnemy),
+                SKAction.waitForDuration(1.0)
+                ])
+            ))
     }
 
     //
@@ -55,19 +63,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         GameScene.towers.append(tower)
         self.addChild(tower.sprite)
         
-        //create and add enemy
-        let enemy = enemyFactory.CreateEnemy(self)
-        self.addChild(enemy.sprite)
-        GameScene.enemies.append(enemy)
-        enemy.Move()
+        
         
         //need something to make the updrageView disapear if we are not interacting with it.
         let upgradeView = UpgradeView()
         
         //this calls and displays the upgrade view.
-        upgradeView.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+        //upgradeView.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
         
-        self.view?.addSubview(upgradeView.GetView())
+        //self.view?.addSubview(upgradeView.GetView())
+        for e in GameScene.enemies {
+            
+            //
+            //let closestT = GameScene.getClosestTower(e.sprite.position)
+            let closestT = GameScene.towers.first?.sprite
+            e.Attack(e.sprite, t: closestT!)
+            //            e.TriggerMovement(currentTime);
+        }
         
     }
     
@@ -75,19 +87,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         /* Called before each frame is rendered */
         
         GameScene.gameTime = Float(currentTime)
-        
+
         // Trigger attack/defend strategies for each tower
         for t in GameScene.towers {
             t.TriggerAttack();
             t.TriggerDefend();
         }
         
-//        for e in GameScene.enemies {
-//            e.TriggerAttack(currentTime);
-//            e.TriggerMovement(currentTime);
-//        }
+
+
+        
+
+       
     }
-    
+    func addEnemy(){
+        
+        //create and add enemy
+        let enemy = enemyFactory.CreateEnemy(self)
+        self.addChild(enemy.sprite)
+        GameScene.enemies.append(enemy)
+        enemy.setMoveStrategy()
+    }
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         
         var closestEnemy : EnemyBase?
