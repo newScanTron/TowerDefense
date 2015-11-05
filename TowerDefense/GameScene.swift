@@ -49,8 +49,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.removeFromParent()
         let touch = touches.first
         let location = touch!.locationInNode(self)
-        let upgradeView = UpgradeView()
-        var disView = upgradeView.GetView()
+        
         //create and add tower
         let tower = towerBuilder.BuildTower(location)
         
@@ -61,29 +60,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         GameScene.enemies.append(enemy)
         enemy.Move()
         
-        
-        if ((touch?.locationInNode(tower.sprite)) != nil)
+    
+        for each in GameScene.towers
         {
+            if each.sprite.containsPoint(location)
+            {
+                let upgradeView = UpgradeView(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+                
+                self.view?.addSubview(upgradeView.GetView())
+            }
+        }
            
             
             
             //this calls and displays the upgrade view.
-            upgradeView.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
-            
-            self.view?.addSubview(upgradeView.GetView())
-            
-        }
-        else if ((touch?.locationInNode(tower.sprite)) == nil)
-        {
+           // upgradeView.SetViewLocation()
+        
+        
+       
             //need something to make the updrageView disapear if we are not interacting with it.
             GameScene.towers.append(tower)
             self.addChild(tower.sprite)
             
-        }
-        else if ((touch?.locationInView(disView)) == nil)
-        {
-            disView.removeFromSuperview()
-        }
+        
+       
         
         
     }

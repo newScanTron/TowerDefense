@@ -18,9 +18,9 @@ class UpgradeView: UIView {
         super.init(coder: aDecoder)
     }
    
-    init()
+    init(x: CGFloat, y: CGFloat)
     {
-        super.init(frame: CGRectMake(0, 0, 200, 200))
+        super.init(frame: CGRectMake(x, y, 200, 200))
         b.setTitle("yeah", forState: UIControlState.Normal)
         c.setTitle("What", forState: UIControlState.Normal)
         self.backgroundColor =  UIColor.yellowColor()
@@ -40,8 +40,15 @@ class UpgradeView: UIView {
     {
         return self
     }
+    //pressing the label will currently remove the UpgradeView
     func CheckLabel()
     {
+       self.removeFromSuperview()
+    }
+    //now that i understand the chain of repsonsiblity that is the UITuoch Objects
+    //this is easy to do.
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    
         if b.titleLabel?.text == "nope"
         {
             b.setTitle("yeah", forState: UIControlState.Normal)
@@ -50,6 +57,8 @@ class UpgradeView: UIView {
         {
             b.setTitle("nope", forState: UIControlState.Normal)
         }
+        
     }
+    
     
 }
