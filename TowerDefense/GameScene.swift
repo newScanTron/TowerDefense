@@ -67,7 +67,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             {
                 let upgradeView = UpgradeView(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
                 
-                self.view?.addSubview(upgradeView.GetView())
+                self.view?.addSubview(upgradeView.GetView())	
             }
         }
            
