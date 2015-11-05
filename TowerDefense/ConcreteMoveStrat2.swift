@@ -12,8 +12,8 @@ import SpriteKit
 class ConcreteMoveStrat2: EnemyMoveStrat{
     
     let moveStrat = "concrete2"
-    init() {}
-    func Move(sprite: SKSpriteNode, scene: SKScene){
+    override init() {}
+    override func Move(sprite: SKSpriteNode, scene: SKScene){
         //determine where to spawn the bison along the Y axis
         let actualY = random(min: sprite.size.height/2, max: scene.size.height - sprite.size.height/2)
         

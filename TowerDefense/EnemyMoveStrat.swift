@@ -9,10 +9,11 @@
 import Foundation
 import SpriteKit
 
-protocol EnemyMoveStrat
+class EnemyMoveStrat
 {
 
-    func Move(sprite: SKSpriteNode, scene: SKScene)
-    func getMoveStrat() -> String
+    func Move(sprite: SKSpriteNode, scene: SKScene){
+        
+    }
 
 }

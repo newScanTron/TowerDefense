@@ -10,18 +10,10 @@ import Foundation
 import SpriteKit
 
 class GruntAttack: EnemyAttackStrat{
+
+    override init(){}
     
-    var range : Int = 0
-    var damage : Int = 0
-    var fireDelay : Float = 0
-    var speed : Float = 0
-    var bullet : Bullet? = nil
-    var target : TowerBase? = nil
-    var parent : EnemyBase? = nil
-    
-    init(){}
-    
-    func Attack(e: EnemyBase, t: SKNode, s: SKScene){
+    override func Attack(e: EnemyBase, t: SKNode, s: SKScene){
         
     }
 }

@@ -12,8 +12,9 @@ import SpriteKit
 class ConcreteMoveStrat1: EnemyMoveStrat{
     
     let moveStrat = "concrete1"
-    init() {}
-    func Move(sprite: SKSpriteNode, scene: SKScene){
+    override init() {}
+
+    override func Move(sprite: SKSpriteNode, scene: SKScene){
         
         //determine where to spawn the bison along the Y axis
         let actualY = random(min: sprite.size.height/2, max: scene.size.height - sprite.size.height/2)
@@ -33,7 +34,7 @@ class ConcreteMoveStrat1: EnemyMoveStrat{
         
         let actionMove = SKAction.moveTo(CGPoint(x: -sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
-        sprite.runAction(SKAction.sequence([moveLeft, moveDown, moveLeft, moveUp, moveLeft, moveDiagonal,moveOff, actionMoveDone]))
+        sprite.runAction(SKAction.sequence([moveLeft, moveDown, moveLeft, moveUp, moveLeft, moveDiagonal, moveLeft, moveDiagonal.reversedAction(), moveUp, moveLeft, moveDown, moveLeft, moveUp, moveDiagonal, moveOff, actionMoveDone]))
     }
     func random() -> CGFloat{
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)

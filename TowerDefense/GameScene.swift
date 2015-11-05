@@ -36,16 +36,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         self.addChild(myLabel)
         
-        //create and add tower
-        let testLocation = CGPoint(x: -700, y: 100)
-        let tower = towerBuilder.BuildTower(testLocation)
-        GameScene.towers.append(tower)
-        self.addChild(tower.sprite)
-        
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
                 SKAction.runBlock(addEnemy),
-                SKAction.waitForDuration(1.0)
+                SKAction.waitForDuration(1.5)
                 ])
             ))
     }
@@ -75,9 +69,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         for e in GameScene.enemies {
             
             //
-            //let closestT = GameScene.getClosestTower(e.sprite.position)
+            //let closestT = (GameScene.getClosestTower(e.sprite.position))?.sprite
             let closestT = GameScene.towers.first?.sprite
-            e.Attack(e.sprite, t: closestT!)
+            e.TriggerAttack(e.sprite, t: closestT!)
             //            e.TriggerMovement(currentTime);
         }
         
@@ -93,11 +87,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             t.TriggerAttack();
             t.TriggerDefend();
         }
-        
-
-
-        
-
        
     }
     func addEnemy(){
@@ -107,6 +96,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         self.addChild(enemy.sprite)
         GameScene.enemies.append(enemy)
         enemy.setMoveStrategy()
+        
     }
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         

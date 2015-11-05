@@ -43,23 +43,49 @@ extension CGPoint {
 
 class RangedAttack: EnemyAttackStrat{
     
-    var range : Int = 0
-    var damage : Int = 0
-    var fireDelay : Float = 0
-    var speed : Float = 0
-    var bullet : Bullet? = nil
-    var target : TowerBase? = nil
-    var parent : EnemyBase? = nil
+    var lastFire : Float = 0
+
+    override init(){}
     
-    init(){}
-    
-    func Attack(e: EnemyBase, t: SKNode, s: SKScene){
+    /*override func Attack() {
+        
+        if (GameScene.gameTime > lastFire + fireDelay) {
+            lastFire = GameScene.gameTime
+            if (parent != nil) {
+                target = GameScene.getClosestTower(parent!.sprite.position)
+                EnemyBullet(
+                    start: parent!.sprite.position,
+                    _target: target!.sprite.position,
+                    _damage: damage,
+                    _speed: speed,
+                    _enemy: &parent!
+                )
+            }
+        }
+        
+        
+    }*/
+    override func Attack(e: EnemyBase, t: SKNode, s: SKScene){
 
         let attackLocation = t.position
         
         // Set up initial location of projectile
-        let projectile = SKSpriteNode(imageNamed: "Sat2")
+        let projectile = SKSpriteNode(imageNamed: "bullet")
+        projectile.size = CGSizeMake(43, 43)
         projectile.position = e.sprite.position
+        
+        //Set up collisions
+        projectile.physicsBody = SKPhysicsBody(rectangleOfSize: projectile.size)
+        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Tower
+        projectile.physicsBody?.collisionBitMask = PhysicsCategory.Tower
+        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Tower
+        projectile.physicsBody?.dynamic = true
+        
+        
+        //Point to target
+        //let action = SKAction.rotateByAngle(CGFloat(M_PI/2), duration:0.125)
+        //projectile.runAction(SKAction.repeatAction(action, count: 1))
+        
         
         // Determine offset of location to projectile
         let offset = attackLocation - projectile.position
