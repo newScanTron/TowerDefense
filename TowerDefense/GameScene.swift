@@ -14,7 +14,8 @@ import Foundation
 class GameScene: SKScene , SKPhysicsContactDelegate{
     let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
-    
+    let towerTotal = 5
+    let cero = 0
 
     //Enemy Factory
     var enemyFactory = EnemyFactory()
@@ -25,6 +26,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     
     override func didMoveToView(view: SKView) {
+        let background = SKSpriteNode(imageNamed: "beach")
+        background.position = CGPoint(x: 500, y: 200)
+        
+        
+        //sprite to be the edge/base
+        let wall = SKSpriteNode(imageNamed: "Castle_wall")
+         buildWall(wall)				
+        
+        self.addChild(background)
+        self.addChild(wall)
         /* Setup your scene here */
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
@@ -33,13 +44,39 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
         
+        
+        
+        
+        for var i = 0; i < 10; i++
+        {
+            addEnemy()
+        }
         self.addChild(myLabel)
        
+       
         
+ 
+    }
+    func buildWall(sprite: SKSpriteNode)
+    {
+        sprite.position = CGPoint(x: -125, y: 325)
+        sprite.yScale = 1.5
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
+        sprite.physicsBody?.categoryBitMask = PhysicsCategory.All
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.All
+        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.All
+        sprite.physicsBody?.dynamic = false
+        
+    }
     
+    func addEnemy()
+    {
         
-        
-        
+        //create and add enemy
+        let enemy = enemyFactory.CreateEnemy(self)
+        self.addChild(enemy.sprite)
+        GameScene.enemies.append(enemy)
+        enemy.Move()
     }
 //helper to make towers
     func addTower(location: CGPoint)
@@ -62,15 +99,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         
         
-        
-        //create and add enemy
-        let enemy = enemyFactory.CreateEnemy(self)
-        self.addChild(enemy.sprite)
-        GameScene.enemies.append(enemy)
-        enemy.Move()
+     
         
         //check if any and build one with first touch
-        if GameScene.towers.count <= 0
+        if GameScene.towers.count <= cero
         {
             addTower(location)
         }
@@ -83,23 +115,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 
                 self.view?.addSubview(upgradeView.GetView())	
             }
-            else if GameScene.towers.count < 5
+            else if GameScene.towers.count <= towerTotal
             {
                 addTower(location)
             }
         }
-           
-            
-            
-            //this calls and displays the upgrade view.
-           // upgradeView.SetViewLocation()
-        
-        
-       
-        
-        
-       
-        
         
     }
     
@@ -117,6 +137,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 //        for e in GameScene.enemies {
 //            e.TriggerAttack(currentTime);
 //            e.TriggerMovement(currentTime);
+//        }
+        
+        
+        //check number of baddies and create more
+//        if GameScene.enemies.count <= 5
+//        {
+//            addEnemy()
 //        }
     }
     

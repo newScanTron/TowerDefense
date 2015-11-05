@@ -12,7 +12,7 @@ import SpriteKit
 
 class UpgradeView: UIView {
     var b = UIButton(frame: CGRectMake(0,0, 200,40))
-    var c = UIButton(frame: CGRectMake(0,10, 200,40))
+    var c = UIButton(frame: CGRectMake(0,160, 200,40))
     
     required init?(coder aDecoder: (NSCoder!)) {
         super.init(coder: aDecoder)
