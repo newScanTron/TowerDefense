@@ -41,7 +41,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         
     }
-
+//helper to make towers
+    func addTower(location: CGPoint)
+    {
+        //create and add tower
+        let tower = towerBuilder.BuildTower(location)
+        //need something to make the updrageView disapear if we are not interacting with it.
+        GameScene.towers.append(tower)
+        self.addChild(tower.sprite)
+        
+    }
+    
     //
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
@@ -50,8 +60,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let touch = touches.first
         let location = touch!.locationInNode(self)
         
-        //create and add tower
-        let tower = towerBuilder.BuildTower(location)
+        
         
         
         //create and add enemy
@@ -60,6 +69,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         GameScene.enemies.append(enemy)
         enemy.Move()
         
+        //check if any and build one with first touch
+        if GameScene.towers.count <= 0
+        {
+            addTower(location)
+        }
     
         for each in GameScene.towers
         {
@@ -68,6 +82,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 let upgradeView = UpgradeView(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
                 
                 self.view?.addSubview(upgradeView.GetView())	
+            }
+            else if GameScene.towers.count < 5
+            {
+                addTower(location)
             }
         }
            
@@ -78,10 +96,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         
        
-            //need something to make the updrageView disapear if we are not interacting with it.
-            GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
-            
+        
         
        
         

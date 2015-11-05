@@ -11,8 +11,8 @@ import UIKit
 import SpriteKit
 
 class UpgradeView: UIView {
-    var b = UIButton(frame: CGRectMake(0,0, 200,10))
-    var c = UIButton(frame: CGRectMake(0,10, 200,10))
+    var b = UIButton(frame: CGRectMake(0,0, 200,40))
+    var c = UIButton(frame: CGRectMake(0,10, 200,40))
     
     required init?(coder aDecoder: (NSCoder!)) {
         super.init(coder: aDecoder)
@@ -22,10 +22,11 @@ class UpgradeView: UIView {
     {
         super.init(frame: CGRectMake(x, y, 200, 200))
         b.setTitle("yeah", forState: UIControlState.Normal)
-        c.setTitle("What", forState: UIControlState.Normal)
+        c.setTitle("Canel", forState: UIControlState.Normal)
         self.backgroundColor =  UIColor.yellowColor()
         b.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
-        b.addTarget(self, action: "CheckLabel", forControlEvents: UIControlEvents.TouchUpInside)
+        c.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
+        c.addTarget(self, action: "CheckLabel", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(b)
         self.addSubview(c)
 
