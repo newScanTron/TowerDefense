@@ -54,8 +54,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         self.addChild(myLabel)
        
        
-        
- 
+
     }
     func buildWall(sprite: SKSpriteNode)
     {

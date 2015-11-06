@@ -30,6 +30,31 @@ class TowerBuilder
         
         
         let tower = TowerBase(location: point, _attack: attack, _defense: defense)
+        
         return tower
+    }
+    func attackSetRange(range: Int)
+    {
+        
+    }
+    func attackSetDamage(damage: Int)
+    {
+        
+    }
+    func setFireDelay(delay: Int)
+    {
+        
+    }
+    func setSpeed(speed: Int)
+    {
+        
+    }
+    func deffenseSetRange(range: Int)
+    {
+        
+    }
+    func deffenseSetAmount(amount: Int)
+    {
+        
     }
 }
