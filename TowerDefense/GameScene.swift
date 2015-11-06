@@ -46,8 +46,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
         
         
-        
-        
 //        for var i = 0; i < 10; i++
 //        {
 //            addEnemy()
@@ -58,11 +56,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
                 SKAction.runBlock(addEnemy),
-                SKAction.waitForDuration(1.5)
+                SKAction.waitForDuration(2.5)
                 ])
             ))
-
-       
 
     }
     func buildWall(sprite: SKSpriteNode)
@@ -86,8 +82,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //need something to make the updrageView disapear if we are not interacting with it.
         GameScene.towers.append(tower)
         self.addChild(tower.sprite)
-
-        
     
     }
     
