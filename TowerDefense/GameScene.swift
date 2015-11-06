@@ -48,11 +48,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         
         
-        for var i = 0; i < 10; i++
-        {
-            addEnemy()
-        }
+//        for var i = 0; i < 10; i++
+//        {
+//            addEnemy()
+//        }
         self.addChild(myLabel)
+        
+        
+        runAction(SKAction.repeatActionForever(
+            SKAction.sequence([
+                SKAction.runBlock(addEnemy),
+                SKAction.waitForDuration(1.5)
+                ])
+            ))
 
        
 
@@ -80,12 +88,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         self.addChild(tower.sprite)
 
         
-        runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock(addEnemy),
-                SKAction.waitForDuration(1.5)
-                ])
-            ))
+    
     }
     
     //
