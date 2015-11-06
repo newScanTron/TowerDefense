@@ -7,8 +7,23 @@
 //
 
 import Foundation
+import SpriteKit
 
-protocol EnemyAttackStrat
+class EnemyAttackStrat
 {
-    func Move()
+    var range : Int = 0
+    var damage : Int = 0
+    var fireDelay : Float = 0
+    var speed : Float = 0
+    var bullet : EnemyBullet? = nil
+    var target : TowerBase? = nil
+    var parent : EnemyBase? = nil
+    
+    init () {
+        //fatalError("Don't instantiate the base class!")
+    }
+
+    func Attack(e: EnemyBase, t: SKNode, s: SKScene){
+        
+    }
 }

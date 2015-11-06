@@ -15,25 +15,18 @@ class EnemyFactory
     
     func CreateEnemy(scene: SKScene) -> EnemyBase{
         
-        //create sprite
-        let bison = SKSpriteNode(imageNamed: "Spaceship")
+        let attack = RangedAttack()
+        attack.range = 100
+        attack.damage = 40
+        attack.fireDelay = 1
+        attack.speed = 10
+        
+        let moveStrat = ConcreteMoveStrat1()
 
-        let enemy = EnemyBase(sprite: bison, scene: scene)
+        let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat)
         
         //add the bison to the scene
         
-        
-
-        
         return enemy
     }
-   
-    func random() -> CGFloat{
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-    }
-    
-    func random(min min: CGFloat, max: CGFloat) -> CGFloat{
-        return random() * (max - min) + min
-    }
-    
 }

@@ -1,22 +1,22 @@
 //
-//  Bullet.swift
+//  EnemyBullet.swift
 //  TowerDefense
 //
-//  Created by Aaron Cameron on 11/1/15.
+//  Created by Tobias Kundig on 11/5/15.
 //  Copyright © 2015 Chris Murphy. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 
-class Bullet {
+class EnemyBullet {
     
     var sprite : SKSpriteNode
     var speed : Float
     var damage : Int
-    var tower : TowerBase
+    var enemy : EnemyBase
     
-    init (start : CGPoint, _target : CGPoint, _damage: Int, _speed : Float, inout _tower : TowerBase ) {
+    init (start : CGPoint, _target : CGPoint, _damage: Int, _speed : Float, inout _enemy : EnemyBase ) {
         
         sprite = SKSpriteNode(imageNamed: "bullet")
         
@@ -25,18 +25,17 @@ class Bullet {
         sprite.position = start
         
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Tower
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Tower
+        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Tower
         sprite.physicsBody?.dynamic = true
-        
         
         speed = _speed
         let action = SKAction.moveTo(_target, duration: 1) // TODO: Calculate duration to be distance/velocity
         sprite.runAction(SKAction.repeatActionForever(action))
         
         damage = _damage
-        tower = _tower
+        enemy = _enemy
         
         
     }
