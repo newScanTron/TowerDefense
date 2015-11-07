@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import SpriteKit
 struct PhysicsCategory {
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max
@@ -16,3 +16,10 @@ struct PhysicsCategory {
     static let Bullet   : UInt32 = 0b11
 }
 
+struct ZPosition {
+    static let background  : CGFloat = -10
+    static let wall         : CGFloat = 0
+    static let tower        : CGFloat = 5
+    static let enemy        : CGFloat = 6
+    static let bullet       : CGFloat = 7
+}

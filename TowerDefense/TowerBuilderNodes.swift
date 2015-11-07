@@ -140,7 +140,7 @@ class DeffenseSetRange: UpgradeNode
     }
     
 }
-//Set amout of deffense
+//Set amout of deffenset
 class DeffenseSetAmount: UpgradeNode
 {
     var nextNode: UpgradeNode?

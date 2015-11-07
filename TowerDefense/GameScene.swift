@@ -12,6 +12,9 @@ import Foundation
 
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
+    
+    
+    
     let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
     let towerTotal = 5
@@ -29,7 +32,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     override func didMoveToView(view: SKView) {
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
-        
+        background.zPosition = -2;
         
         //sprite to be the edge/base
         let wall = SKSpriteNode(imageNamed: "Castle_wall")
@@ -70,6 +73,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         sprite.physicsBody?.collisionBitMask = PhysicsCategory.All
         sprite.physicsBody?.contactTestBitMask = PhysicsCategory.All
         sprite.physicsBody?.dynamic = false
+        sprite.zPosition = ZPosition.wall
         
     }
     
@@ -86,21 +90,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     
     //
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
         
         myLabel.removeFromParent()
         let touch = touches.first
         let location = touch!.locationInNode(self)
         
-        //create and add tower
-        let tower = towerBuilder.BuildTower(location)
-        GameScene.towers.append(tower)
-        self.addChild(tower.sprite)
-        
-
-     
-        
+   
         //check if any and build one with first touch
         if GameScene.towers.count <= cero
         {
@@ -151,11 +148,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEnemy(){
         
+        
+        if (GameScene.enemies.count <= 10)
         //create and add enemy
+        {
         let enemy = enemyFactory.CreateEnemy(self)
-        self.addChild(enemy.sprite)
-        GameScene.enemies.append(enemy)
+    self.addChild(enemy.sprite)
+    GameScene.enemies.append(enemy)
         enemy.setMoveStrategy()
+    }
         
 
 //        for e in GameScene.enemies {

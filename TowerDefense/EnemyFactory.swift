@@ -24,7 +24,7 @@ class EnemyFactory
         let moveStrat = ConcreteMoveStrat1()
 
         let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat)
-        
+        enemy.sprite.zPosition = ZPosition.enemy
         //add the bison to the scene
         
         return enemy

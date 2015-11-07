@@ -30,7 +30,7 @@ class TowerBuilder
         
         
         let tower = TowerBase(location: point, _attack: attack, _defense: defense)
-        
+        tower.sprite.zPosition = ZPosition.tower
         return tower
     }
     func attackSetRange(range: Int)
