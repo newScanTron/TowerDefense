@@ -13,7 +13,7 @@ class GruntAttack: EnemyAttackStrat{
 
     override init(){}
     
-    override func Attack(e: EnemyBase, t: SKNode, s: SKScene){
+    override func Attack(enemy: EnemyBase, scene: SKScene){
         
     }
 }

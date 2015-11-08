@@ -17,23 +17,25 @@ class EnemyBase: Entity{
     var scene: SKScene
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat)
+    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode)
     {
 
-        sprite = SKSpriteNode(imageNamed: "Spaceship")
+        sprite = _sprite
         
         sprite.xScale = 0.25
         sprite.yScale = 0.25
         scene = _scene
-  
+
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         sprite.physicsBody?.dynamic = true
         sprite.physicsBody?.categoryBitMask = PhysicsCategory.Enemy
         sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Tower
         sprite.physicsBody?.collisionBitMask = PhysicsCategory.Tower
-
+        sprite.zPosition = ZPosition.enemy
+        
         attack = _attack
         moveStrat = _moveStrat
+        moveStrat.Move(sprite, scene: scene)
     }
     
     func random() -> CGFloat{
@@ -72,8 +74,9 @@ class EnemyBase: Entity{
         
     }
     // Triggers attack strategy Attack function
-    func TriggerAttack(s: SKNode, t: SKNode) {
-        attack.Attack(self, t: t, s: scene)
+    func TriggerAttack(enemy: EnemyBase) {
+        attack.Attack(enemy, scene: scene)
+        
     }
     //attck function conforming to the EnemyAttackStart
 

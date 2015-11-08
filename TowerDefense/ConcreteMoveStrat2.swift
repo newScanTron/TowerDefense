@@ -27,7 +27,7 @@ class ConcreteMoveStrat2: EnemyMoveStrat{
         let moveLeft = SKAction.moveByX(-150, y:0, duration:1.0)
         let moveUp = SKAction.moveByX(0, y: 150, duration: 1.0)
         let moveDown = SKAction.moveByX(0, y: -150, duration: 1.0)
-        let moveOff = SKAction.moveByX(-1400, y:0, duration: 2.0)
+        let moveOff = SKAction.moveByX(-200, y:0, duration: 1.0)
         let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 0.5)
         
         let actionMove = SKAction.moveTo(CGPoint(x: -sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))

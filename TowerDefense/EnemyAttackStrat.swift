@@ -23,7 +23,7 @@ class EnemyAttackStrat
         //fatalError("Don't instantiate the base class!")
     }
 
-    func Attack(e: EnemyBase, t: SKNode, s: SKScene){
+    func Attack(enemy: EnemyBase, scene: SKScene){
         
     }
 }

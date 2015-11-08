@@ -65,14 +65,14 @@ class RangedAttack: EnemyAttackStrat{
         
         
     }*/
-    override func Attack(e: EnemyBase, t: SKNode, s: SKScene){
+    override func Attack(enemy: EnemyBase, scene: SKScene){
 
-        let attackLocation = t.position
+        let attackLocation = GameScene.getClosestTower(enemy.sprite.position)?.sprite.position
         
         // Set up initial location of projectile
         let projectile = SKSpriteNode(imageNamed: "bullet")
-        projectile.size = CGSizeMake(43, 43)
-        projectile.position = e.sprite.position
+        projectile.size = CGSizeMake(33, 33)
+        projectile.position = enemy.sprite.position
         
         //Set up collisions
         projectile.physicsBody = SKPhysicsBody(rectangleOfSize: projectile.size)
@@ -80,16 +80,15 @@ class RangedAttack: EnemyAttackStrat{
         projectile.physicsBody?.collisionBitMask = PhysicsCategory.Tower
         projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Tower
         projectile.physicsBody?.dynamic = true
-        
+        projectile.zPosition = ZPosition.enemy
         
         //Point to target
         //let action = SKAction.rotateByAngle(CGFloat(M_PI/2), duration:0.125)
         //projectile.runAction(SKAction.repeatAction(action, count: 1))
         
-        
         // Determine offset of location to projectile
-        let offset = attackLocation - projectile.position
-        s.addChild(projectile)
+        let offset = attackLocation! - projectile.position
+        scene.addChild(projectile)
         
         // Get the direction of where to shoot
         let direction = offset.normalized()
@@ -101,9 +100,8 @@ class RangedAttack: EnemyAttackStrat{
         let realDest = shootAmount + projectile.position
         
         // Create actions
-        let actionMove = SKAction.moveTo(realDest, duration: 2.0)
+        let actionMove = SKAction.moveTo(realDest, duration: 1.0)
         let actionMoveDone = SKAction.removeFromParent()
         projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
-        
     }
 }

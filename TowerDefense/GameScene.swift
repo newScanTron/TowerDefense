@@ -19,6 +19,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let myLabel = SKLabelNode(fontNamed:"Verdana")
     let towerTotal = 5
     let cero = 0
+    var enemyCount = 0
 
     //Enemy Factory
     var enemyFactory = EnemyFactory()
@@ -55,14 +56,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 //        }
         self.addChild(myLabel)
         
-        
+        initializeEnemyArray()
+        addEnemy()
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
-                SKAction.runBlock(addEnemy),
-                SKAction.waitForDuration(2.5)
-                ])
-            ))
-
+            SKAction.runBlock(addEnemy),
+            SKAction.waitForDuration(1.5)
+            ])
+        ))
     }
     func buildWall(sprite: SKSpriteNode)
     {
@@ -121,22 +122,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //upgradeView.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
         
         //self.view?.addSubview(upgradeView.GetView())
-        for e in GameScene.enemies {
-            
-            //
-            //let closestT = (GameScene.getClosestTower(e.sprite.position))?.sprite
-            let closestT = GameScene.towers.first?.sprite
-            e.TriggerAttack(e.sprite, t: closestT!)
-            //            e.TriggerMovement(currentTime);
 
-        }
-        
-    
+            for e in GameScene.enemies {
+                e.TriggerAttack(e)
+                //            e.TriggerMovement(currentTime);
+                
+            }
         }
     }
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        
         GameScene.gameTime = Float(currentTime)
 
         // Trigger attack/defend strategies for each tower
@@ -144,27 +139,51 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             t.TriggerAttack();
             t.TriggerDefend();
         }
-       
+        //for e in GameScene.enemies 
+        for var i = 0; i < GameScene.enemies.count ; i++
+        {
+            if (GameScene.enemies[i].sprite.position.x < -10){
+                GameScene.enemies[i].sprite.removeFromParent()
+                //GameScene.enemies.removeAtIndex(i)
+            }
+        }
+    }
+    func initializeEnemyArray(){
+        for var i = 0; i < 10 ; i++
+        {
+            let enemy = enemyFactory.CreateEnemy(self)
+            GameScene.enemies.append(enemy)
+            if(i == 9){
+                let enemy = enemyFactory.CreateEnemyBoss(self)
+                GameScene.enemies.append(enemy)
+
+            }
+        }
     }
     func addEnemy(){
         
+        if(enemyCount < 11){
+            self.addChild(GameScene.enemies[enemyCount].sprite)
+            enemyCount++
+            for var i = 0; i < enemyCount ; i++
+            {
+                if (GameScene.enemies[i].sprite.position.x < -10){
+                    GameScene.enemies[i].sprite.removeFromParent()
+                    //enemyCount--
+                }
+            }
+
+        }
         
-        if (GameScene.enemies.count <= 10)
+        /*if (GameScene.enemies.count <= 10)
         //create and add enemy
         {
-        let enemy = enemyFactory.CreateEnemy(self)
-    self.addChild(enemy.sprite)
-    GameScene.enemies.append(enemy)
-        enemy.setMoveStrategy()
-    }
+            let enemy = enemyFactory.CreateEnemy(self)
+            self.addChild(enemy.sprite)
+            GameScene.enemies.append(enemy)
+        }*/
         
 
-//        for e in GameScene.enemies {
-//            e.TriggerAttack(currentTime);
-//            e.TriggerMovement(currentTime);
-//        }
-        
-        
         //check number of baddies and create more
 //        if GameScene.enemies.count <= 5
 //        {

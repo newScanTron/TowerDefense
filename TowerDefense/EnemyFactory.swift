@@ -21,12 +21,31 @@ class EnemyFactory
         attack.fireDelay = 1
         attack.speed = 10
         
+        let sprite = SKSpriteNode(imageNamed: "Spaceship")
+        
         let moveStrat = ConcreteMoveStrat1()
 
-        let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat)
-        enemy.sprite.zPosition = ZPosition.enemy
+        let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat, _sprite: sprite)
+
         //add the bison to the scene
         
         return enemy
+    }
+    func CreateEnemyBoss(scene: SKScene) -> EnemyBase{
+        
+        let attack = RangedAttack()
+        attack.range = 150
+        attack.damage = 50
+        attack.fireDelay = 1
+        attack.speed = 10
+
+        let moveStrat = ConcreteMoveStrat1()
+        
+        let sprite = SKSpriteNode(imageNamed: "EnemyBoss")
+        
+        let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat, _sprite: sprite)
+        
+        return enemy
+        
     }
 }
