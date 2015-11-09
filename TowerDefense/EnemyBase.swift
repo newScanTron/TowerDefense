@@ -76,9 +76,20 @@ class EnemyBase: Entity{
         
     }
     // Triggers attack strategy Attack function
-    func TriggerAttack(enemy: EnemyBase) {
-        attack.Attack(enemy, scene: scene)
+    func TriggerAttack(e: EnemyBase) {
         
+        for g in scene.children{
+            for e in GameScene.enemies {
+                if(g == e.sprite){
+                    for t in GameScene.towers{
+                        if(GameScene.getDistance(e.sprite.position, to: t.sprite.position) <= e.range){
+                            attack.Attack(e, scene: scene)
+                        }
+                    }
+                    //e.TriggerMovement(currentTime);
+                }
+            }
+        }
     }
     //attck function conforming to the EnemyAttackStart
 

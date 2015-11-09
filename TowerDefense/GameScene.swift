@@ -123,17 +123,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //self.view?.addSubview(upgradeView.GetView())
             
         }
-        for g in self.children{
-            for e in GameScene.enemies {
-                if(g == e.sprite){
-                    for t in GameScene.towers{
-                        if(GameScene.getDistance(e.sprite.position, to: t.sprite.position) <= e.range){
-                            e.TriggerAttack(e)
-                        }
-                    }
-                    //e.TriggerMovement(currentTime);
-                }
-            }
+        for e in GameScene.enemies{
+            e.TriggerAttack(e)
         }
     }
     override func update(currentTime: CFTimeInterval) {
