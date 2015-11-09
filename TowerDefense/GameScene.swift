@@ -57,7 +57,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         self.addChild(myLabel)
         
         initializeEnemyArray()
-        addEnemy()
+
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
             SKAction.runBlock(addEnemy),

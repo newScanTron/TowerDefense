@@ -39,7 +39,7 @@ class EnemyFactory
         attack.fireDelay = 1
         attack.speed = 10
 
-        let moveStrat = ConcreteMoveStrat1()
+        let moveStrat = BossMoveStrat()
         
         let sprite = SKSpriteNode(imageNamed: "EnemyBoss")
         
