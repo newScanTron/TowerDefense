@@ -8,6 +8,8 @@
 
 import Foundation
 import SpriteKit
+import UIKit
+
 class EnemyBase: Entity{
     //Some variables for health and speed and whatnot
     var health = 0
@@ -38,6 +40,14 @@ class EnemyBase: Entity{
         attack = _attack
         moveStrat = _moveStrat
         moveStrat.Move(sprite, scene: scene)
+        
+        scene.runAction(SKAction.repeatActionForever(
+            SKAction.sequence([
+                SKAction.runBlock(TriggerAttack),
+                SKAction.waitForDuration(1)
+                ])
+            ))
+
     }
     
     func random() -> CGFloat{
@@ -76,20 +86,13 @@ class EnemyBase: Entity{
         
     }
     // Triggers attack strategy Attack function
-    func TriggerAttack(e: EnemyBase) {
-        
-        for g in scene.children{
-            for e in GameScene.enemies {
-                if(g == e.sprite){
-                    for t in GameScene.towers{
-                        if(GameScene.getDistance(e.sprite.position, to: t.sprite.position) <= e.range){
-                            attack.Attack(e, scene: scene)
-                        }
-                    }
-                    //e.TriggerMovement(currentTime);
-                }
+    func TriggerAttack() {
+        for t in GameScene.towers{
+            if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){
+                attack.Attack(self, scene: scene)
             }
         }
+
     }
     //attck function conforming to the EnemyAttackStart
 

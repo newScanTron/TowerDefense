@@ -71,7 +71,7 @@ class RangedAttack: EnemyAttackStrat{
         
         // Set up initial location of projectile
         let projectile = SKSpriteNode(imageNamed: "bullet")
-        projectile.size = CGSizeMake(33, 33)
+        projectile.size = CGSizeMake(27, 27)
         projectile.position = enemy.sprite.position
         
         //Set up collisions
