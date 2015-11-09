@@ -11,7 +11,6 @@ import SpriteKit
 
 class EnemyAttackStrat
 {
-    var range : Int = 0
     var damage : Int = 0
     var fireDelay : Float = 0
     var speed : Float = 0

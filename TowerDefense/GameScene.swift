@@ -98,7 +98,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let touch = touches.first
         let location = touch!.locationInNode(self)
         
-   
         //check if any and build one with first touch
         if GameScene.towers.count <= cero
         {
@@ -122,11 +121,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //upgradeView.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
         
         //self.view?.addSubview(upgradeView.GetView())
-
+            
+        }
+        for g in self.children{
             for e in GameScene.enemies {
-                e.TriggerAttack(e)
-                //            e.TriggerMovement(currentTime);
-                
+                if(g == e.sprite){
+                    for t in GameScene.towers{
+                        if(GameScene.getDistance(e.sprite.position, to: t.sprite.position) <= e.range){
+                            e.TriggerAttack(e)
+                        }
+                    }
+                    //e.TriggerMovement(currentTime);
+                }
             }
         }
     }

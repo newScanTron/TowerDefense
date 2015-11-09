@@ -12,16 +12,18 @@ class EnemyBase: Entity{
     //Some variables for health and speed and whatnot
     var health = 0
     var sprite: SKSpriteNode
+    var range: Float = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
     var scene: SKScene
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode)
+    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: Float)
     {
 
         sprite = _sprite
-        
+        range = _range
+
         sprite.xScale = 0.25
         sprite.yScale = 0.25
         scene = _scene
