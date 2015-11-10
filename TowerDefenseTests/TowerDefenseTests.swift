@@ -11,19 +11,28 @@ import XCTest
 
 class TowerDefenseTests: XCTestCase {
     
+    var scene: GameScene = GameScene()
     override func setUp() {
+        
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+       scene = GameScene();
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        scene.removeFromParent()
     }
-    
+    //this is a tottally contrived text but is an example of a passing test
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let enemey = EnemyFactory();
+        XCTAssertEqual(enemey.CreateEnemy(scene).range , enemey.CreateEnemy(scene).range)
+        
+        
     }
     
     func testPerformanceExample() {

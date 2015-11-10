@@ -20,7 +20,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let towerTotal = 5
     let cero = 0
     var enemyCount = 0
-
+    let enemyMin = 11
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -156,7 +156,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEnemy(){
         
-        if(enemyCount < 11){
+        if(GameScene.enemies.count < enemyMin){
             self.addChild(GameScene.enemies[enemyCount].sprite)
             enemyCount++
             for var i = 0; i < enemyCount ; i++
