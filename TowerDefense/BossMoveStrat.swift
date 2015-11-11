@@ -50,12 +50,12 @@ class BossMoveStrat: EnemyMoveStrat {
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
         
         //Create the actions
-        let moveLeft = SKAction.moveByX(-150, y:0, duration:1.0)
-        let moveRight = SKAction.moveByX(150, y: 0, duration: 1.0)
-        let moveUp = SKAction.moveByX(0, y: 150, duration: 1.0)
-        let moveDown = SKAction.moveByX(0, y: -150, duration: 1.0)
+        let moveLeft = SKAction.moveByX(-150, y:0, duration:3.0)
+        let moveRight = SKAction.moveByX(150, y: 0, duration: 2.0)
+        let moveUp = SKAction.moveByX(0, y: 150, duration: 3.0)
+        let moveDown = SKAction.moveByX(0, y: -150, duration: 2.0)
         let moveOff = SKAction.moveByX(-200, y:0, duration: 1.0)
-        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 0.5)
+        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 1.5)
         
         let spiral = SKAction.spiral(scene.size.width / 8,
             endRadius: 0,

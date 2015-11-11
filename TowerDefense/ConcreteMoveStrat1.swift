@@ -26,11 +26,11 @@ class ConcreteMoveStrat1: EnemyMoveStrat{
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
         
         //Create the actions
-        let moveLeft = SKAction.moveByX(-150, y:0, duration:1.0)
-        let moveUp = SKAction.moveByX(0, y: 150, duration: 1.0)
-        let moveDown = SKAction.moveByX(0, y: -150, duration: 1.0)
-        let moveOff = SKAction.moveByX(-200, y:0, duration: 1.0)
-        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 0.5)
+        let moveLeft = SKAction.moveByX(-150, y:0, duration:2.0)
+        let moveUp = SKAction.moveByX(0, y: 150, duration: 2.0)
+        let moveDown = SKAction.moveByX(0, y: -150, duration: 2.0)
+        let moveOff = SKAction.moveByX(-200, y:0, duration: 2.0)
+        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 1.5)
         
         let actionMove = SKAction.moveTo(CGPoint(x: -sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()

@@ -44,7 +44,8 @@ extension CGPoint {
 class RangedAttack: EnemyAttackStrat{
     
     var lastFire : Float = 0
-
+    
+    
     override init(){}
     
     /*override func Attack() {
@@ -62,13 +63,17 @@ class RangedAttack: EnemyAttackStrat{
                 )
             }
         }
-        
-        
     }*/
-    override func Attack(enemy: EnemyBase, scene: SKScene){
-
-        let attackLocation = GameScene.getClosestTower(enemy.sprite.position)?.sprite.position
+    
+    override func Attack(enemy: EnemyBase, scene: SKScene, target: CGPoint){
         
+        enum BodyType: UInt32 {
+            case Bullet = 3
+        }
+        
+        let attackLocation = target
+        var totalAngle : CGFloat = 0
+        var angle : CGFloat
         // Set up initial location of projectile
         let projectile = SKSpriteNode(imageNamed: "bullet")
         projectile.size = CGSizeMake(27, 27)
@@ -79,15 +84,21 @@ class RangedAttack: EnemyAttackStrat{
         projectile.physicsBody?.categoryBitMask = PhysicsCategory.Bullet
         projectile.physicsBody?.collisionBitMask = PhysicsCategory.Bullet
         projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Bullet
-        projectile.physicsBody?.dynamic = true
-        projectile.zPosition = ZPosition.enemy
+        projectile.physicsBody?.dynamic = false
+        projectile.physicsBody?.collisionBitMask = BodyType.Bullet.rawValue
+        projectile.zPosition = ZPosition.bullet
         
         //Point to target
-        //let action = SKAction.rotateByAngle(CGFloat(M_PI/2), duration:0.125)
-        //projectile.runAction(SKAction.repeatAction(action, count: 1))
+        // Calculate the angle using the relative positions of the enemy sprite and closest tower.
+        angle = atan2(enemy.sprite.position.y - attackLocation.y, enemy.sprite.position.x - attackLocation.x)
+        angle -= totalAngle
+        totalAngle += angle
+        
+        let action = SKAction.rotateByAngle(angle, duration:0.005)
+        projectile.runAction(SKAction.repeatAction(action, count: 1))
         
         // Determine offset of location to projectile
-        let offset = attackLocation! - projectile.position
+        let offset = attackLocation - projectile.position
         scene.addChild(projectile)
         
         // Get the direction of where to shoot
@@ -100,7 +111,7 @@ class RangedAttack: EnemyAttackStrat{
         let realDest = shootAmount + projectile.position
         
         // Create actions
-        let actionMove = SKAction.moveTo(realDest, duration: 1.0)
+        let actionMove = SKAction.moveTo(realDest, duration: 1.5)
         let actionMoveDone = SKAction.removeFromParent()
         projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }

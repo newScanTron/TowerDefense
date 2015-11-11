@@ -16,6 +16,11 @@ class TowerBase: Entity{
     var defense : TowerDefenseStrat
     var kills : Int = 0
     var healed : Int = 0
+    
+    enum BodyType: UInt32 {
+        case Tower = 1
+    }
+    
     init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
         sprite = SKSpriteNode(imageNamed: "Sat2")
@@ -28,12 +33,13 @@ class TowerBase: Entity{
         sprite.physicsBody?.categoryBitMask = PhysicsCategory.Tower
         sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
         sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.categoryBitMask = BodyType.Tower.rawValue
         sprite.physicsBody?.dynamic = true
         
         
-        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:5)
+        //let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:5)
         
-        sprite.runAction(SKAction.repeatActionForever(action))
+        //sprite.runAction(SKAction.repeatActionForever(action))
         
         attack = _attack;
         defense = _defense;

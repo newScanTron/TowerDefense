@@ -13,7 +13,11 @@ import Foundation
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
     
-    
+    enum BodyType: UInt32 {
+        case Tower = 1
+        case Enemy = 2
+        case Bullet = 3
+    }
     
     let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
@@ -87,7 +91,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //need something to make the updrageView disapear if we are not interacting with it.
         GameScene.towers.append(tower)
         self.addChild(tower.sprite)
-    
     }
     
     //
@@ -116,12 +119,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             {
                 addTower(location)
             }
-
         //this calls and displays the upgrade view.
         //upgradeView.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
         
         //self.view?.addSubview(upgradeView.GetView())
-            
         }
     }
     override func update(currentTime: CFTimeInterval) {
@@ -150,7 +151,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             if(i == 9){
                 let enemy = enemyFactory.CreateEnemyBoss(self)
                 GameScene.enemies.append(enemy)
-
             }
         }
     }
@@ -166,23 +166,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     //enemyCount--
                 }
             }
-
         }
-        
-        /*if (GameScene.enemies.count <= 10)
-        //create and add enemy
-        {
-            let enemy = enemyFactory.CreateEnemy(self)
-            self.addChild(enemy.sprite)
-            GameScene.enemies.append(enemy)
-        }*/
-        
-
-        //check number of baddies and create more
-//        if GameScene.enemies.count <= 5
-//        {
-//            addEnemy()
-//        }
     }
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         
@@ -221,5 +205,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     class func getDistance(from : CGPoint, to : CGPoint) -> Float {
         
         return Float(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
+    }
+    func didBeginContact(contact: SKPhysicsContact) {
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        switch(contactMask) {
+        case BodyType.Bullet.rawValue | BodyType.Tower.rawValue:
+            let secondNode = contact.bodyB.node
+            secondNode?.removeFromParent()
+            let firstNode = contact.bodyA.node
+            firstNode?.removeFromParent()
+        default:
+            return
+        }
     }
 }
