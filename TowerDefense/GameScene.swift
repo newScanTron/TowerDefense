@@ -12,19 +12,14 @@ import Foundation
 
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
-    
-    enum BodyType: UInt32 {
-        case Tower = 1
-        case Enemy = 2
-        case Bullet = 3
-    }
-    
+
     let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
     let towerTotal = 5
     let cero = 0
     var enemyCount = 0
-
+    static var scene : GameScene? = nil;
+    
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -102,10 +97,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let location = touch!.locationInNode(self)
         
         //check if any and build one with first touch
+
         if GameScene.towers.count <= cero
         {
             addTower(location)
         }
+
     
         for each in GameScene.towers
         {
@@ -211,9 +208,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         switch(contactMask) {
         case BodyType.Tower.rawValue | BodyType.Bullet.rawValue:
             let secondNode = contact.bodyB.node
+            //for s in GameScene.childNodeWithName(sprite)
             secondNode?.removeFromParent()
+            
+            
             let firstNode = contact.bodyA.node
-            firstNode?.removeFromParent()
+            for t in GameScene.towers{
+                if t.sprite == firstNode{
+                    t.health -= 10
+                    if (t.health <= 0)
+                    {
+                        firstNode?.removeFromParent()
+                    }
+                }
+            }
+
             
         default:
             return

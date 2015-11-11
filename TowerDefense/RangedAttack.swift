@@ -67,13 +67,10 @@ class RangedAttack: EnemyAttackStrat{
     
     override func Attack(enemy: EnemyBase, scene: SKScene, target: CGPoint){
         
-        enum BodyType: UInt32 {
-            case Bullet = 3
-        }
-        
         let attackLocation = target
         var totalAngle : CGFloat = 0
         var angle : CGFloat
+        
         // Set up initial location of projectile
         let projectile = SKSpriteNode(imageNamed: "bullet")
         projectile.size = CGSizeMake(27, 27)

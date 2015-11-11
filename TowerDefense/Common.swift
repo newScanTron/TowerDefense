@@ -23,3 +23,8 @@ struct ZPosition {
     static let enemy        : CGFloat = 6
     static let bullet       : CGFloat = 7
 }
+enum BodyType: UInt32 {
+    case Tower = 1
+    case Enemy = 2
+    case Bullet = 3
+}

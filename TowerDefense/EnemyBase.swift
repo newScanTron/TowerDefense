@@ -12,17 +12,13 @@ import UIKit
 
 class EnemyBase: Entity{
     //Some variables for health and speed and whatnot
-    var health = 0
+    var health = 20
     var sprite: SKSpriteNode
     var range: Float = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
     var scene: SKScene
     var totalAngle : CGFloat = 0
-    
-    enum BodyType: UInt32 {
-        case Enemy = 2
-    }
     
     //initlizer.
     init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: Float)
@@ -39,9 +35,9 @@ class EnemyBase: Entity{
         sprite.size = CGSizeMake(30, 30)
         sprite.physicsBody?.dynamic = false
         sprite.physicsBody?.categoryBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Tower
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Tower
-        //sprite.physicsBody?.collisionBitMask = BodyType.Enemy.rawValue
+        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.collisionBitMask = BodyType.Enemy.rawValue
         sprite.zPosition = ZPosition.enemy
         
         //Orient Enemy towards left
