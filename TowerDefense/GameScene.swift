@@ -28,6 +28,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var gameTime : Float = 0
+    static var scene : GameScene? = nil
     
     
     override func didMoveToView(view: SKView) {

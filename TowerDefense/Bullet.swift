@@ -12,11 +12,10 @@ import SpriteKit
 class Bullet {
     
     var sprite : SKSpriteNode
-    var speed : Float
     var damage : Int
-    var tower : TowerBase
+    var entity : Entity
     
-    init (start : CGPoint, _target : CGPoint, _damage: Int, _speed : Float, inout _tower : TowerBase ) {
+    init (start : CGPoint, _vector : CGVector, _damage: Int, inout _entity : Entity ) {
         
         sprite = SKSpriteNode(imageNamed: "bullet")
         
@@ -30,13 +29,12 @@ class Bullet {
         sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
         sprite.physicsBody?.dynamic = true
         
-        
-        speed = _speed
-        let action = SKAction.moveTo(_target, duration: 1) // TODO: Calculate duration to be distance/velocity
-        sprite.runAction(SKAction.repeatActionForever(action))
+        sprite.physicsBody?.applyImpulse(_vector);
         
         damage = _damage
-        tower = _tower
+        entity = _entity
+        
+        GameScene.scene!.addChild(sprite)
         
         
     }
