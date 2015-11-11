@@ -43,8 +43,7 @@ class TowerBase: Entity{
         
         attack = _attack;
         defense = _defense;
-        
-        
+
     }
     
     // Triggers attack strategy Attack function

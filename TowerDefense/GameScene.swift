@@ -209,11 +209,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func didBeginContact(contact: SKPhysicsContact) {
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         switch(contactMask) {
-        case BodyType.Bullet.rawValue | BodyType.Tower.rawValue:
+        case BodyType.Tower.rawValue | BodyType.Bullet.rawValue:
             let secondNode = contact.bodyB.node
             secondNode?.removeFromParent()
             let firstNode = contact.bodyA.node
             firstNode?.removeFromParent()
+            
         default:
             return
         }
