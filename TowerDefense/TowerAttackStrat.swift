@@ -13,8 +13,8 @@ class TowerAttackStrat
 {
     var range : Int = 0
     var damage : Int = 0
-    var fireDelay : Float = 0
-    var speed : Float = 0
+    var fireDelay : CGFloat = 0.5
+    var speed : CGFloat = 100
     var bullet : Bullet? = nil
     var target : EnemyBase? = nil
     var parent : TowerBase? = nil
@@ -26,6 +26,7 @@ class TowerAttackStrat
     
     func Attack() {
        //fatalError("Don't call Attack() on the base class!")
+        print("Fired!zzzz");
     }
     
 }

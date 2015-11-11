@@ -27,7 +27,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let tower = TowerBuilder()
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
-    static var gameTime : Float = 0
+    static var gameTime : CGFloat = 0
     static var scene : GameScene? = nil
     
     
@@ -71,9 +71,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         sprite.position = CGPoint(x: -125, y: 325)
         sprite.yScale = 1.5
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = PhysicsCategory.All
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.All
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.All
+        sprite.physicsBody?.categoryBitMask = CategoryMask.All
+        sprite.physicsBody?.collisionBitMask = CollisionMask.All
+        sprite.physicsBody?.contactTestBitMask = ContactMask.All
         sprite.physicsBody?.dynamic = false
         sprite.zPosition = ZPosition.wall
         
@@ -126,8 +126,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
     }
     override func update(currentTime: CFTimeInterval) {
+        
+
+        
         /* Called before each frame is rendered */
-        GameScene.gameTime = Float(currentTime)
+        GameScene.gameTime = CGFloat(currentTime)
 
         // Trigger attack/defend strategies for each tower
         for t in GameScene.towers {
@@ -188,8 +191,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         
         var closestEnemy : EnemyBase?
-        var closestDistance : Float = 999999
-        var tempDistance : Float
+        var closestDistance : CGFloat = 999999
+        var tempDistance : CGFloat
 
         for e in enemies {
             tempDistance = getDistance(point,to: e.sprite.position)
@@ -205,8 +208,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     class func getClosestTower(point : CGPoint) -> TowerBase? {
         
         var closestTower : TowerBase?
-        var closestDistance : Float = 999999
-        var tempDistance : Float
+        var closestDistance : CGFloat = 999999
+        var tempDistance : CGFloat
         
         for t in towers {
             tempDistance = getDistance(point,to: t.sprite.position)
@@ -219,8 +222,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         return closestTower;
     }
     
-    class func getDistance(from : CGPoint, to : CGPoint) -> Float {
+    
+    class func getDistance(from : CGPoint, to : CGPoint) -> CGFloat {
         
-        return Float(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
+        return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
     }
 }

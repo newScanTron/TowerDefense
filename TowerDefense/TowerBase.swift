@@ -25,9 +25,9 @@ class TowerBase: Entity{
         sprite.position = location
         
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Tower
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.categoryBitMask = CategoryMask.Tower
+        sprite.physicsBody?.collisionBitMask = CollisionMask.Tower
+        sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
         sprite.physicsBody?.dynamic = true
         
         
@@ -37,12 +37,14 @@ class TowerBase: Entity{
         
         attack = _attack;
         defense = _defense;
+        //defense.parent = self;
         
         
     }
     
     // Triggers attack strategy Attack function
     func TriggerAttack() {
+        attack.parent = self
         attack.Attack()
     }
     

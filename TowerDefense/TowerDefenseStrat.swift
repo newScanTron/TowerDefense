@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import SpriteKit
 
 class TowerDefenseStrat
 {
-    var range : Float = 0
+    var range : CGFloat = 0
     var amount : Int = 0
     
     init () {

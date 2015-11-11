@@ -76,9 +76,9 @@ class RangedAttack: EnemyAttackStrat{
         
         //Set up collisions
         projectile.physicsBody = SKPhysicsBody(rectangleOfSize: projectile.size)
-        projectile.physicsBody?.categoryBitMask = PhysicsCategory.Bullet
-        projectile.physicsBody?.collisionBitMask = PhysicsCategory.Bullet
-        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Bullet
+        projectile.physicsBody?.categoryBitMask = CategoryMask.Bullet
+        projectile.physicsBody?.collisionBitMask = CollisionMask.Bullet
+        projectile.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
         projectile.physicsBody?.dynamic = true
         projectile.zPosition = ZPosition.enemy
         

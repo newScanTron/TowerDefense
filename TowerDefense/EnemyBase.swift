@@ -14,13 +14,13 @@ class EnemyBase: Entity{
     //Some variables for health and speed and whatnot
     var health = 0
     var sprite: SKSpriteNode
-    var range: Float = 0
+    var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
     var scene: SKScene
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: Float)
+    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat)
     {
 
         sprite = _sprite
@@ -32,9 +32,9 @@ class EnemyBase: Entity{
 
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         sprite.physicsBody?.dynamic = true
-        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Tower
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Tower
+        sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
+        sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
+        sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
         sprite.zPosition = ZPosition.enemy
         
         attack = _attack

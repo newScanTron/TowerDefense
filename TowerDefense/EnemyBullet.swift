@@ -25,9 +25,9 @@ class EnemyBullet {
         sprite.position = start
         
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Tower
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Tower
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Tower
+        sprite.physicsBody?.categoryBitMask = CategoryMask.Tower
+        sprite.physicsBody?.collisionBitMask = CollisionMask.Tower
+        sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
         sprite.physicsBody?.dynamic = true
         
         speed = _speed
