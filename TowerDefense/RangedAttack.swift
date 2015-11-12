@@ -44,8 +44,7 @@ extension CGPoint {
 class RangedAttack: EnemyAttackStrat{
     
     var lastFire : Float = 0
-    
-    
+
     override init(){}
     
     /*override func Attack() {
@@ -65,11 +64,14 @@ class RangedAttack: EnemyAttackStrat{
         }
     }*/
     
-    override func Attack(enemy: EnemyBase, scene: SKScene, target: CGPoint){
+    override func Attack(enemy: EnemyBase){
         
-        let attackLocation = target
+        let attackLocation = GameScene.getClosestTower(enemy.sprite.position)?.sprite.position
         var totalAngle : CGFloat = 0
         var angle : CGFloat
+        
+        //This strategy rotates the enemy sprite towards the tower
+        rotateTowardTarget(enemy)
         
         // Set up initial location of projectile
         let projectile = SKSpriteNode(imageNamed: "bullet")
@@ -87,7 +89,7 @@ class RangedAttack: EnemyAttackStrat{
         
         //Point to target
         // Calculate the angle using the relative positions of the enemy sprite and closest tower.
-        angle = atan2(enemy.sprite.position.y - attackLocation.y, enemy.sprite.position.x - attackLocation.x)
+        angle = atan2(enemy.sprite.position.y - attackLocation!.y, enemy.sprite.position.x - attackLocation!.x)
         angle -= totalAngle
         totalAngle += angle
         
@@ -95,8 +97,8 @@ class RangedAttack: EnemyAttackStrat{
         projectile.runAction(SKAction.repeatAction(action, count: 1))
         
         // Determine offset of location to projectile
-        let offset = attackLocation - projectile.position
-        scene.addChild(projectile)
+        let offset = attackLocation! - projectile.position
+        GameScene.scene!.addChild(projectile)
         
         // Get the direction of where to shoot
         let direction = offset.normalized()

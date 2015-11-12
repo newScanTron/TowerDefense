@@ -66,19 +66,12 @@ class EnemyBase: Entity{
 
     // Triggers attack strategy Attack function
     func TriggerAttack() {
-        var angle : CGFloat
         let target : TowerBase? = GameScene.getClosestTower(self.sprite.position)
         
         if GameScene.towers.count > 0 {
             if target?.sprite.parent != nil{
                 if(GameScene.getDistance(self.sprite.position, to: target!.sprite.position) <= self.range){
-                    // Calculate the angle using the relative positions of the enemy sprite and closest tower.
-                    angle = atan2(sprite.position.y - target!.sprite.position.y, sprite.position.x - target!.sprite.position.x)
-                    angle -= totalAngle
-                    let action = SKAction.rotateByAngle(angle, duration:0.125)
-                    totalAngle += angle
-                    sprite.runAction(SKAction.repeatAction(action, count: 1))
-                    attack.Attack(self, scene: scene, target: target!.sprite.position)
+                    attack.Attack(self)
                 }
             }
         }
