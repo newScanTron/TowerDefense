@@ -7,12 +7,14 @@
 //
 
 import Foundation
+
+
 //this protocol represents the base node of the upgrade chain
-protocol UpgradeNode {
+protocol UpgradeNode{
     var nextNode: UpgradeNode? {get set}
 
     //pass the upgradeObj to the next node in the chain
     func setNextNode(node: UpgradeNode)
     //the method that all nodes will implement in different fashions.
-    func upgrade()
+    func upgrade(tower: TowerBase)
 }

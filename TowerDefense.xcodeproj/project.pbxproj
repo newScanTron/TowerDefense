@@ -57,6 +57,9 @@
 		99BA33CE1BF2A25F00152764 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E3FE1BE56E33007E9559 /* Common.swift */; };
 		99BA33CF1BF2A25F00152764 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926223A1BED2B2C0080D35A /* User.swift */; };
 		99BA33D01BF2A25F00152764 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926223D1BED2B910080D35A /* GameState.swift */; };
+		99BA33D41BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
+		99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
+		99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99D680EA1BE7FE2B00C877CE /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D680E91BE7FE2B00C877CE /* UpgradeView.swift */; };
 		99FD082C1BE035D80070F4B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082B1BE035D80070F4B8 /* AppDelegate.swift */; };
 		99FD082E1BE035D80070F4B8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 99FD082D1BE035D80070F4B8 /* GameScene.sks */; };
@@ -111,6 +114,7 @@
 		99A3BBE51BE94C1900AAB350 /* TowerAttackBasic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerAttackBasic.swift; sourceTree = "<group>"; };
 		99A3BBE61BE94C1900AAB350 /* TowerDefenseHeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseHeal.swift; sourceTree = "<group>"; };
 		99A3BBE71BE94C1900AAB350 /* TowerDefenseStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseStrat.swift; sourceTree = "<group>"; };
+		99BA33D31BF5171700152764 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		99D680E91BE7FE2B00C877CE /* UpgradeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		99FD08281BE035D80070F4B8 /* TowerDefense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FD082B1BE035D80070F4B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 				9946E3FE1BE56E33007E9559 /* Common.swift */,
 				9926223A1BED2B2C0080D35A /* User.swift */,
 				9926223D1BED2B910080D35A /* GameState.swift */,
+				99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -332,6 +337,11 @@
 					99FD08271BE035D80070F4B8 = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = D5ZY76JTJB;
+						SystemCapabilities = {
+							com.apple.DataProtection = {
+								enabled = 1;
+							};
+						};
 					};
 					99FD083F1BE035D80070F4B8 = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -412,6 +422,7 @@
 				99FD08321BE035D80070F4B8 /* GameViewController.swift in Sources */,
 				9926222F1BED1E9F0080D35A /* BossMoveStrat.swift in Sources */,
 				99FD082C1BE035D80070F4B8 /* AppDelegate.swift in Sources */,
+				99BA33D41BF5171700152764 /* UserModel.xcdatamodeld in Sources */,
 				99D680EA1BE7FE2B00C877CE /* UpgradeView.swift in Sources */,
 				9946E4031BE56EBB007E9559 /* EnemyMoveStrat.swift in Sources */,
 				998722931BED58ED0097B677 /* UpgradeNode.swift in Sources */,
@@ -449,6 +460,7 @@
 				99BA33C31BF2A24300152764 /* EnemyMoveStrat.swift in Sources */,
 				99BA33B31BF2A23C00152764 /* TowerBase.swift in Sources */,
 				99BA33C41BF2A24300152764 /* EnemyFactory.swift in Sources */,
+				99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */,
 				99BA33BF1BF2A24300152764 /* GruntAttack.swift in Sources */,
 				99BA33BB1BF2A24300152764 /* BossMoveStrat.swift in Sources */,
 				99BA33C21BF2A24300152764 /* EnemyAttackStrat.swift in Sources */,
@@ -467,6 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */,
 				99FD08501BE035D80070F4B8 /* TowerDefenseUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,10 +606,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TowerDefense/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thesonicneighborhood.TowerDefense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -604,10 +620,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TowerDefense/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thesonicneighborhood.TowerDefense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -701,6 +720,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				99BA33D31BF5171700152764 /* UserModel.xcdatamodel */,
+			);
+			currentVersion = 99BA33D31BF5171700152764 /* UserModel.xcdatamodel */;
+			path = UserModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 99FD08201BE035D80070F4B8 /* Project object */;
 }

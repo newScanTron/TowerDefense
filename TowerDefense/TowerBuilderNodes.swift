@@ -7,28 +7,42 @@
 //
 
 import Foundation
+import UIKit
 //set attack range node
-class AttackSetRange: UpgradeNode
+class AttackSetRange: UpgradeView, UpgradeNode
 {
     var nextNode: UpgradeNode?
-    init()
+    
+    override init(x: CGFloat, y: CGFloat)
     {
+        super.init(x: x, y: y)
         self.nextNode = nil
+        
+    }
+
+    required init?(coder aDecoder: (NSCoder!)) {
+        super.init(coder: aDecoder)
     }
     func setNextNode(node: UpgradeNode)
     {
          self.nextNode = node
     }
     //the method that all nodes will implement in different fashions.
-    func upgrade()
+    func upgrade(tower: TowerBase)
     {
+        tower.attack.range = 2
+        
+        self.mainLabel.text = "this is the Set Attach Range Node"
+        
+        b.addTarget(self, action: "Upgrage", forControlEvents:  UIControlEvents.TouchUpInside)
+        
         if self.nextNode != nil
         {
             
         }
         else
         {
-            
+            self.nextNode?.upgrade(tower)
         }
     }
  
@@ -47,7 +61,7 @@ class AttackSetDamage: UpgradeNode
         self.nextNode = node
     }
     //the method that all nodes will implement in different fashions.
-    func upgrade()
+    func upgrade(tower: TowerBase)
     {
         if self.nextNode != nil
         {
@@ -55,7 +69,7 @@ class AttackSetDamage: UpgradeNode
         }
         else
         {
-            
+            self.nextNode?.upgrade(tower)
         }
     }
     
@@ -74,7 +88,7 @@ class SetFireDelay: UpgradeNode
         self.nextNode = node
     }
     //the method that all nodes will implement in different fashions.
-    func upgrade()
+    func upgrade(tower: TowerBase)
     {
         if self.nextNode != nil
         {
@@ -82,7 +96,7 @@ class SetFireDelay: UpgradeNode
         }
         else
         {
-            
+            self.nextNode?.upgrade(tower)
         }
     }
     
@@ -101,7 +115,7 @@ class SetSpeed: UpgradeNode
         self.nextNode = node
     }
     //the method that all nodes will implement in different fashions.
-    func upgrade()
+    func upgrade(tower: TowerBase)
     {
         if self.nextNode != nil
         {
@@ -109,7 +123,7 @@ class SetSpeed: UpgradeNode
         }
         else
         {
-            
+            self.nextNode?.upgrade(tower)
         }
     }
     
@@ -127,7 +141,7 @@ class DeffenseSetRange: UpgradeNode
         self.nextNode = node
     }
     //the method that all nodes will implement in different fashions.
-    func upgrade()
+    func upgrade(tower: TowerBase)
     {
         if self.nextNode != nil
         {
@@ -135,7 +149,7 @@ class DeffenseSetRange: UpgradeNode
         }
         else
         {
-            
+            self.nextNode?.upgrade(tower)
         }
     }
     
@@ -154,7 +168,7 @@ class DeffenseSetAmount: UpgradeNode
         self.nextNode = node
     }
     //the method that all nodes will implement in different fashions.
-    func upgrade()
+    func upgrade(tower: TowerBase)
     {
         if self.nextNode != nil
         {
@@ -162,7 +176,7 @@ class DeffenseSetAmount: UpgradeNode
         }
         else
         {
-            
+            self.nextNode?.upgrade(tower)
         }
     }
     

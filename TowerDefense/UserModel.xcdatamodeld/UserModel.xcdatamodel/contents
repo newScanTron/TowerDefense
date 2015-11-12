@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+    <entity name="Enemy" syncable="YES"/>
+    <entity name="GameState" syncable="YES">
+        <attribute name="gold" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="xp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Tower" syncable="YES">
+        <attribute name="health" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="locationX" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="spirte" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="User" syncable="YES">
+        <attribute name="pswd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="GameState" positionX="-335" positionY="-162" width="128" height="88"/>
+        <element name="Enemy" positionX="-252" positionY="-295" width="128" height="43"/>
+        <element name="Tower" positionX="-137" positionY="-232" width="128" height="88"/>
+    </elements>
+</model>

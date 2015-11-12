@@ -34,7 +34,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     override func didMoveToView(view: SKView) {
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
-        background.zPosition = -2;
+        background.zPosition = ZPosition.background;
         
         //sprite to be the edge/base
         let wall = SKSpriteNode(imageNamed: "Castle_wall")
@@ -109,7 +109,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                let upgradeView = UpgradeView(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+                let upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
                 
                 self.view?.addSubview(upgradeView.GetView())	
             }
@@ -118,10 +118,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 addTower(location)
             }
 
-        //this calls and displays the upgrade view.
-        //upgradeView.SetViewLocation((touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
-        
-        //self.view?.addSubview(upgradeView.GetView())
             
         }
     }
@@ -173,20 +169,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         }
         
-        /*if (GameScene.enemies.count <= 10)
-        //create and add enemy
-        {
-            let enemy = enemyFactory.CreateEnemy(self)
-            self.addChild(enemy.sprite)
-            GameScene.enemies.append(enemy)
-        }*/
-        
 
-        //check number of baddies and create more
-//        if GameScene.enemies.count <= 5
-//        {
-//            addEnemy()
-//        }
     }
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         
