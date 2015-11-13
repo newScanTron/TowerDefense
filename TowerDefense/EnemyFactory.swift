@@ -16,7 +16,7 @@ class EnemyFactory
     func CreateEnemy(scene: SKScene) -> EnemyBase{
         
         let attack = RangedAttack()
-        let range: Float = 200.00
+        let range: CGFloat = 200.00
         attack.damage = 40
         attack.fireDelay = 1
         attack.speed = 10
@@ -34,7 +34,7 @@ class EnemyFactory
     func CreateEnemyBoss(scene: SKScene) -> EnemyBase{
         
         let attack = RangedAttack()
-        let range: Float = 350
+        let range: CGFloat = 350.00
         attack.damage = 50
         attack.fireDelay = 1
         attack.speed = 10

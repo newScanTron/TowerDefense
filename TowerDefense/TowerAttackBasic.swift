@@ -7,27 +7,37 @@
 //
 
 import Foundation
+import SpriteKit
 
 class TowerAttackBasic : TowerAttackStrat {
     
-    var lastFire : Float = 0
-
+    var lastFire : CGFloat = 0
+    
     
     override init () {}
     
     override func Attack() {
         
+        
         if (GameScene.gameTime > lastFire + fireDelay) {
+            
             lastFire = GameScene.gameTime
             if (parent != nil) {
                 target = GameScene.getClosestEnemy(parent!.sprite.position)
+
+                var bulletParent : Entity = parent!
+                
+                
+                
                 Bullet(
-                    start: parent!.sprite.position,
+                    _start: parent!.sprite.position,
                     _target: target!.sprite.position,
-                    _damage: damage,
                     _speed: speed,
-                    _tower: &parent!
+                    _damage: damage,
+                    _entity: &bulletParent,
+                    _shotByEnemy: false
                 )
+                
             }
         }
         

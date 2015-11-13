@@ -14,14 +14,14 @@ class EnemyBase: Entity{
     //Some variables for health and speed and whatnot
     var health = 20
     var sprite: SKSpriteNode
-    var range: Float = 0
+    var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
     var scene: SKScene
     var totalAngle : CGFloat = 0
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: Float)
+    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat)
     {
 
         sprite = _sprite
@@ -34,9 +34,9 @@ class EnemyBase: Entity{
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         sprite.size = CGSizeMake(30, 30)
         sprite.physicsBody?.dynamic = false
-        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
+        sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
+        sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
         sprite.physicsBody?.collisionBitMask = BodyType.Enemy.rawValue
         sprite.zPosition = ZPosition.enemy
         
@@ -50,12 +50,12 @@ class EnemyBase: Entity{
         moveStrat.Move(sprite, scene: scene)
         
         //Check to attack every two seconds
-        scene.runAction(SKAction.repeatActionForever(
+        /*scene.runAction(SKAction.repeatActionForever(
             SKAction.sequence([
                 SKAction.runBlock(TriggerAttack),
                 SKAction.waitForDuration(1.5)
                 ])
-            ))
+            ))*/
     }
 
     func setMoveStrategy()
@@ -66,17 +66,15 @@ class EnemyBase: Entity{
 
     // Triggers attack strategy Attack function
     func TriggerAttack() {
-        let target : TowerBase? = GameScene.getClosestTower(self.sprite.position)
         
-        if GameScene.towers.count > 0 {
-            if target?.sprite.parent != nil{
-                if(GameScene.getDistance(self.sprite.position, to: target!.sprite.position) <= self.range){
-                    attack.Attack(self)
-                }
+        attack.parent = self
+        attack.Attack()
+        /*for t in GameScene.towers{
+            if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){
+                attack.Attack(self)
             }
-        }
+        }*/
     }
-    
     func random() -> CGFloat{
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }

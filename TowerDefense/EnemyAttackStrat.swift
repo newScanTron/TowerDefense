@@ -12,8 +12,8 @@ import SpriteKit
 class EnemyAttackStrat
 {
     var damage : Int = 0
-    var fireDelay : Float = 0
-    var speed : Float = 0
+    var fireDelay : CGFloat = 0
+    var speed : CGFloat = 0
     var bullet : EnemyBullet? = nil
     var target : TowerBase? = nil
     var parent : EnemyBase? = nil
@@ -23,26 +23,23 @@ class EnemyAttackStrat
         //fatalError("Don't instantiate the base class!")
     }
 
-    func Attack(enemy: EnemyBase){
+    func Attack(){
         
     }
     func rotateTowardTarget(enemy: EnemyBase){
         var angle : CGFloat
-        let target : TowerBase? = GameScene.getClosestTower(enemy.sprite.position)
         
-        if GameScene.towers.count > 0 {
-            if target?.sprite.parent != nil{
-                if(GameScene.getDistance(enemy.sprite.position, to: target!.sprite.position) <= enemy.range){
-                    // Calculate the angle using the relative positions of the enemy sprite and closest tower.
-                    angle = atan2(enemy.sprite.position.y - target!.sprite.position.y, enemy.sprite.position.x - target!.sprite.position.x)
-                    angle -= enemyAngle
-                    let action = SKAction.rotateByAngle(angle, duration:0.125)
-                    enemyAngle += angle
-                    enemy.sprite.runAction(SKAction.repeatAction(action, count: 1))
+        for t in GameScene.towers{
+            if(GameScene.getDistance(enemy.sprite.position, to: t.sprite.position) <= enemy.range){
+                // Calculate the angle using the relative positions of the enemy sprite and closest tower.
+                angle = atan2(enemy.sprite.position.y - t.sprite.position.y, enemy.sprite.position.x - t.sprite.position.x)
+                angle -= enemyAngle
+                let action = SKAction.rotateByAngle(angle, duration:0.125)
+                enemyAngle += angle
+                enemy.sprite.runAction(SKAction.repeatAction(action, count: 1))
                     
-                }
             }
         }
-
     }
+
 }

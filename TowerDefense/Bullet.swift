@@ -12,33 +12,53 @@ import SpriteKit
 class Bullet {
     
     var sprite : SKSpriteNode
-    var speed : Float
     var damage : Int
-    var tower : TowerBase
+    var entity : Entity
     
-    init (start : CGPoint, _target : CGPoint, _damage: Int, _speed : Float, inout _tower : TowerBase ) {
+    init (_start : CGPoint, _target : CGPoint, _speed : CGFloat, _damage: Int, inout _entity : Entity, _shotByEnemy : Bool) {
         
+        // Set up initial location of projectile
         sprite = SKSpriteNode(imageNamed: "bullet")
+        sprite.size = CGSizeMake(27, 27)
+        sprite.position = _start
         
-        sprite.xScale = 0.5
-        sprite.yScale = 0.5
-        sprite.position = start
-        
+        //Set up collisions
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy
-        sprite.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
+        sprite.physicsBody?.categoryBitMask = CategoryMask.Bullet
+        sprite.physicsBody?.collisionBitMask = CollisionMask.Bullet
+        if (_shotByEnemy) {
+            sprite.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
+        }
+        else {
+            sprite.physicsBody?.contactTestBitMask = ContactMask.TowerBullet
+        }
+        sprite.physicsBody?.mass = 1
+        sprite.physicsBody?.friction = 0.0
+        sprite.physicsBody?.restitution = 0.0
+        sprite.physicsBody?.linearDamping = 0.0
+        sprite.physicsBody?.angularDamping = 0.0
         sprite.physicsBody?.dynamic = true
+        sprite.zPosition = ZPosition.bullet
         
         
-        speed = _speed
-        let action = SKAction.moveTo(_target, duration: 1) // TODO: Calculate duration to be distance/velocity
-        sprite.runAction(SKAction.repeatActionForever(action))
+        GameScene.scene!.addChild(sprite)
+        
+        let vec : CGVector = Bullet.getVector(_start, to: _target, speed: _speed * 10)
+        
+        print("x: ",vec.dx ," y: " ,vec.dy)
+        
+        sprite.physicsBody?.applyImpulse(Bullet.getVector(_start, to: _target, speed: _speed * 10))
         
         damage = _damage
-        tower = _tower
+        entity = _entity
         
         
+        
+    }
+    
+    class func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {
+        let dis : CGFloat = GameScene.getDistance(from,to: to)
+        return CGVectorMake((to.x - from.x)/dis * speed, (to.y - from.y)/dis * speed)
     }
     
 }

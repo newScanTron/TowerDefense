@@ -8,12 +8,29 @@
 
 import Foundation
 import SpriteKit
-struct PhysicsCategory {
+struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max
     static let Tower        : UInt32 = 0b1
-    static let Enemy       : UInt32 = 0b10
-    static let Bullet   : UInt32 = 0b11
+    static let Enemy        : UInt32 = 0b10
+    static let Bullet       : UInt32 = 0b100
+}
+
+struct CollisionMask { // Which categories should this object "collide" with, i.e. interact with physically. Match with categories above.
+    static let None         : UInt32 = 0
+    static let All          : UInt32 = UInt32.max
+    static let Tower        : UInt32 = 0b011
+    static let Enemy        : UInt32 = 0b011
+    static let Bullet       : UInt32 = 0
+}
+
+struct ContactMask { // Which categories should this object trigger notifications about, i.e. in didBeginContact(). Match with categories above.
+    static let None         : UInt32 = 0
+    static let All          : UInt32 = UInt32.max
+    static let Tower        : UInt32 = 0
+    static let Enemy        : UInt32 = 0
+    static let EnemyBullet  : UInt32 = 0b001 // EnemyBullet should only trigger contacts with Towers, so they can deal damage then be destroyed
+    static let TowerBullet  : UInt32 = 0b010 // TowerBullet should only trigger contacts with Enemies, so they can deal damage then be destroyed
 }
 
 struct ZPosition {
