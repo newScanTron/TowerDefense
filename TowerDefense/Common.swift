@@ -11,8 +11,8 @@ import SpriteKit
 struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max
-    static let Tower        : UInt32 = 0b1
-    static let Enemy        : UInt32 = 0b10
+    static let Tower        : UInt32 = 0b001
+    static let Enemy        : UInt32 = 0b010
     static let Bullet       : UInt32 = 0b100
 }
 

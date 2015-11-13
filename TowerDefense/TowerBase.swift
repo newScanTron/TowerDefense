@@ -39,6 +39,10 @@ class TowerBase: Entity{
         defense = _defense;
         //defense.parent = self;
         
+        // Store reference to self in userData
+        sprite.userData = NSMutableDictionary()
+        sprite.userData!.setValue(self,forKey: "object")
+        
         
     }
     

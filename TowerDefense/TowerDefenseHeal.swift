@@ -10,13 +10,20 @@ import Foundation
 
 class TowerDefenseHeal : TowerDefenseStrat {
     
-    
+    var inRange : [TowerBase] = [TowerBase]()
     
     override init () {}
     
     override func Defend() {
         
         // Find enemies in radius, heal them
+        
+        inRange = GameScene.getTowersInRange(parent!.sprite.position, range: range)
+        
+        for t in inRange {
+            t.health += amount
+            
+        }
         
     }
     
