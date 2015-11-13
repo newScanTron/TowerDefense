@@ -109,9 +109,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                let upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+                let upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
                 
-                self.view?.addSubview(upgradeView.GetView())	
+                self.view?.addSubview(upgradeView.GetView())
             }
             else if GameScene.towers.count <= towerTotal
             {

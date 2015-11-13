@@ -12,11 +12,14 @@ import UIKit
 class AttackSetRange: UpgradeView, UpgradeNode
 {
     var nextNode: UpgradeNode?
+    private var tower: TowerBase?
     
-    override init(x: CGFloat, y: CGFloat)
+    init(x: CGFloat, y: CGFloat, tower: TowerBase)
     {
         super.init(x: x, y: y)
         self.nextNode = nil
+        self.tower = tower
+        b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
         
     }
 
@@ -27,6 +30,16 @@ class AttackSetRange: UpgradeView, UpgradeNode
     {
          self.nextNode = node
     }
+    
+    //this node will be the initial node for our chain
+    func startUpgradeChain(){
+        
+        self.mainLabel.text = "this is the Set Attach Range Node"
+        
+
+    }
+    
+    
     //the method that all nodes will implement in different fashions.
     func upgrade(tower: TowerBase)
     {
@@ -34,7 +47,6 @@ class AttackSetRange: UpgradeView, UpgradeNode
         
         self.mainLabel.text = "this is the Set Attach Range Node"
         
-        b.addTarget(self, action: "Upgrage", forControlEvents:  UIControlEvents.TouchUpInside)
         
         if self.nextNode != nil
         {
