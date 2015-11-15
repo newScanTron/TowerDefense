@@ -45,7 +45,7 @@ class Bullet {
         
         let vec : CGVector = Bullet.getVector(_start, to: _target, speed: _speed * 10)
         
-        print("x: ",vec.dx ," y: " ,vec.dy)
+        //print("x: ",vec.dx ," y: " ,vec.dy)
         
         sprite.physicsBody?.applyImpulse(Bullet.getVector(_start, to: _target, speed: _speed * 10))
         

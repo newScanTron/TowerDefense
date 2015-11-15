@@ -32,7 +32,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
         background.zPosition = -2;
-        
+        print(scene?.size.width, scene?.size.height)
         //sprite to be the edge/base
         let wall = SKSpriteNode(imageNamed: "Castle_wall")
          buildWall(wall)				
@@ -49,7 +49,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         self.addChild(myLabel)
         
-        initializeEnemyArray()
+        //initializeEnemyArray()
 
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
@@ -127,6 +127,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         for e in GameScene.enemies {
             e.TriggerAttack()
+            //e.setMoveStrategy()
         }
         //for e in GameScene.enemies 
         for var i = 0; i < GameScene.enemies.count ; i++
@@ -150,7 +151,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEnemy(){
         
-        if(enemyCount < 11){
+        if(enemyCount < 1){
+            
+            
+            let enemy = enemyFactory.CreateEnemy(self)
+            GameScene.enemies.append(enemy)
             self.addChild(GameScene.enemies[enemyCount].sprite)
             enemyCount++
             for var i = 0; i < enemyCount ; i++

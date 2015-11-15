@@ -27,53 +27,63 @@ class EnemyBase: Entity{
         sprite = _sprite
         range = _range
         scene = _scene
-
+        attack = _attack
+        moveStrat = _moveStrat
+        
         sprite.xScale = 0.25
         sprite.yScale = 0.25
-        
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         sprite.size = CGSizeMake(30, 30)
-        sprite.physicsBody?.dynamic = false
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
+
+        let actualY = random(min: 10.0, max: scene.size.height)
+
+        sprite.position = CGPoint(x: GameScene.scene!.size.width, y:actualY)
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
         sprite.physicsBody?.collisionBitMask = BodyType.Enemy.rawValue
+        sprite.physicsBody?.mass = 1
+        sprite.physicsBody?.friction = 0.0
+        sprite.physicsBody?.restitution = 0.0
+        sprite.physicsBody?.linearDamping = 0.0
+        sprite.physicsBody?.angularDamping = 0.0
+        sprite.physicsBody?.dynamic = true
         sprite.zPosition = ZPosition.enemy
         
+               
         //Orient Enemy towards left
-        let action = SKAction.rotateByAngle(CGFloat(M_PI/2), duration:0.225)
-        sprite.runAction(action)
+        //let action = SKAction.rotateByAngle(CGFloat(M_PI/2), duration:0.225)
+        //sprite.runAction(action)
 
         //Set strategies
-        attack = _attack
-        moveStrat = _moveStrat
-        moveStrat.Move(sprite, scene: scene)
+        
+        //moveStrat.Move(sprite)
         
         //Check to attack every two seconds
-        /*scene.runAction(SKAction.repeatActionForever(
+        scene.runAction(SKAction.repeatActionForever(
             SKAction.sequence([
-                SKAction.runBlock(TriggerAttack),
-                SKAction.waitForDuration(1.5)
+                SKAction.runBlock(setMoveStrategy),
+                SKAction.waitForDuration(2.0)
                 ])
-            ))*/
+            ))
     }
 
     func setMoveStrategy()
     {
         //let string = moveStrat.getMoveStrat()
-        moveStrat.Move(sprite, scene: scene)
+        moveStrat.Move(sprite)
     }
 
     // Triggers attack strategy Attack function
     func TriggerAttack() {
         
-        attack.parent = self
-        attack.Attack()
-        /*for t in GameScene.towers{
+
+        for t in GameScene.towers{
             if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){
-                attack.Attack(self)
+                attack.parent = self
+                attack.Attack()
             }
-        }*/
+        }
     }
     func random() -> CGFloat{
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
