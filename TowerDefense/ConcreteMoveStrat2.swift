@@ -19,7 +19,7 @@ class ConcreteMoveStrat2: EnemyMoveStrat{
         
         //Position the bison slightly off-screen along the right edge,
         // and along a random position along the Y axis as calculated above
-        sprite.position = CGPoint(x: GameScene.scene!.size.width + sprite.size.width/2, y:actualY)
+        sprite.position = CGPoint(x: GameScene.scene!.size.width + sprite.size.width/2, y: 200)
         //determine speed of the monster
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
         

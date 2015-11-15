@@ -139,11 +139,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
     }
     func initializeEnemyArray(){
-        for var i = 0; i < 10 ; i++
+        for var i = 0; i < 15 ; i++
         {
-            let enemy = enemyFactory.CreateEnemy(self)
-            GameScene.enemies.append(enemy)
-            if(i == 9){
+            if(i <= 9){
+                let enemy = enemyFactory.CreateEnemy(self)
+                GameScene.enemies.append(enemy)
+            }
+            if(i > 9 && i < 14){
+                let enemy = enemyFactory.CreateEnemyGrunt(self)
+                GameScene.enemies.append(enemy)
+            }
+            if(i == 14){
                 let enemy = enemyFactory.CreateEnemyBoss(self)
                 GameScene.enemies.append(enemy)
             }
@@ -151,7 +157,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEnemy(){
         
-        if(enemyCount < 11){
+        if(enemyCount < 15){
 
             self.addChild(GameScene.enemies[enemyCount].sprite)
             enemyCount++
