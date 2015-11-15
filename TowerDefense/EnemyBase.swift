@@ -60,12 +60,18 @@ class EnemyBase: Entity{
         //moveStrat.Move(sprite)
         
         //Check to attack every two seconds
-        scene.runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock(setMoveStrategy),
-                SKAction.waitForDuration(2.0)
-                ])
-            ))
+        if let _ = moveStrat as? ConcreteMoveStrat1{
+            scene.runAction(SKAction.repeatActionForever(
+                SKAction.sequence([
+                    SKAction.runBlock(setMoveStrategy),
+                    SKAction.waitForDuration(2.0)
+                    ])
+                ))
+
+        }
+        else{
+            moveStrat.Move(sprite)
+        }
     }
 
     func setMoveStrategy()

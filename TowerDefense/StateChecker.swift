@@ -37,8 +37,10 @@ class StateChecker{
 
 class StateYLow: StateChecker{
     override func SetImpulse(state : StateContext, sprite: SKSpriteNode) {
+        sprite.physicsBody?.friction = 40.0
         sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYPos()*(3))))
         if(sprite.position.y > 10){
+            sprite.physicsBody?.friction = 0.0
             state.setState(StateNormal())
          }
     }
@@ -46,10 +48,11 @@ class StateYLow: StateChecker{
 
 class StateYHigh: StateChecker{
     override func SetImpulse(state : StateContext, sprite: SKSpriteNode) {
-
+        sprite.physicsBody?.friction = 40.0
         sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYNeg()*(3))))
         if (sprite.position.y < 758){
             state.setState(StateNormal())
+            sprite.physicsBody?.friction = 0.0
         }
     }
 }

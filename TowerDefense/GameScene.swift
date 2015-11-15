@@ -49,7 +49,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         self.addChild(myLabel)
         
-        //initializeEnemyArray()
+        initializeEnemyArray()
 
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
@@ -151,11 +151,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEnemy(){
         
-        if(enemyCount < 1){
-            
-            
-            let enemy = enemyFactory.CreateEnemy(self)
-            GameScene.enemies.append(enemy)
+        if(enemyCount < 11){
+
             self.addChild(GameScene.enemies[enemyCount].sprite)
             enemyCount++
             for var i = 0; i < enemyCount ; i++
