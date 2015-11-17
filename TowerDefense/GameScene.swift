@@ -110,6 +110,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             if each.sprite.containsPoint(location)
             {
                 let upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
+                setUpChain(upgradeView)
                 
                 self.view?.addSubview(upgradeView.GetView())
             }
@@ -153,6 +154,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
             }
         }
+    }
+    
+    //func that will set up the chain of reponsibility for updating
+    func setUpChain(node: UpgradeNode)
+    {
+        //initialize the nodes of the chain
+        let setDamageNode = AttackSetDamage()
+        let fireDeleyNode = SetFireDelay()
+        let setSpeed = SetSpeed()
+        let deffenseSetRange = DeffenseSetRange()
+        let deffenseSetAmount = DeffenseSetAmount()
+        
+        //set all the nodes to the seccuessor
+        node.setNextNode(setDamageNode)
+        setDamageNode.setNextNode(fireDeleyNode)
+        fireDeleyNode.setNextNode(setSpeed)
+        setSpeed.setNextNode(deffenseSetRange)
+        deffenseSetRange.setNextNode(deffenseSetAmount)
+        
+        
+        
     }
     func addEnemy(){
         

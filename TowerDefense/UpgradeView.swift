@@ -18,19 +18,21 @@ class UpgradeView: UIView {
     as what lables and inputs they will need. right now im thinking 
     lables sellector wheel and buttons */
     var rectOne = CGRectMake(0,0,200, 40)
-    var rectTwo = CGRectMake(0,50,200, 40)
-    var rectThree = CGRectMake(0,110,200, 60)
+    var rectTwo = CGRectMake(0,0,200, 40)
+    var rectThree = CGRectMake(0,75,200, 60)
 
 
     var mainLabel: UILabel
     var playerLabel: UILabel
     var upgradeSelection: UIPickerView
     
+    //this is the array that each node will use to pose their question
     
     required init?(coder aDecoder: (NSCoder!)) {
         mainLabel = UILabel(frame: rectTwo)
         playerLabel = UILabel(frame: rectThree)
         upgradeSelection = UIPickerView(frame: rectThree)
+        upgradeSelection.backgroundColor = SKColor.greenColor()
         super.init(coder: aDecoder)
     }
    
@@ -40,11 +42,15 @@ class UpgradeView: UIView {
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectTwo)
         upgradeSelection = UIPickerView(frame: rectThree)
+        upgradeSelection.backgroundColor = SKColor.greenColor()
+
         super.init(frame:CGRectMake(x, y, 200, 200))
         b.setTitle("yeah", forState: UIControlState.Normal)
         c.setTitle("Canel", forState: UIControlState.Normal)
         mainLabel.text = "This is Question about what to upgrade?"
         mainLabel.sizeToFit()
+
+        
         playerLabel.text = "Player: "
         self.backgroundColor =  UIColor.yellowColor()
         b.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
@@ -54,6 +60,8 @@ class UpgradeView: UIView {
         self.addSubview(b)
         self.addSubview(c)
         self.addSubview(mainLabel)
+        self.addSubview(playerLabel)
+        self.addSubview(upgradeSelection)
 
     }
     func setLabels()
