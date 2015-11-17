@@ -87,16 +87,11 @@ class UpgradeView: UIView {
     //this is easy to do.
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     
-        if b.titleLabel?.text == "nope"
-        {
-            b.setTitle("yeah", forState: UIControlState.Normal)
-        }
-        else
-        {
-            b.setTitle("nope", forState: UIControlState.Normal)
-        }
+
         
     }
     
+    
+  
     
 }

@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,10 +29,23 @@ class GameViewController: UIViewController {
             GameScene.scene = scene
 
             
+            let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedLeft:"))
+            swipeRight.direction = .Left
+            view.addGestureRecognizer(swipeRight)
+            
+            
             skView.presentScene(scene)
         }
     }
-
+    
+    override func viewDidDisappear(animated: Bool) {
+        
+    }
+    func swipedLeft(sender:UISwipeGestureRecognizer){
+        performSegueWithIdentifier("backToLogin", sender: nil)
+        
+    }
+    
     override func shouldAutorotate() -> Bool {
         return true
     }
