@@ -40,7 +40,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return nodeData[row]
     }
-    
+    //function
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         playerLabel.text = nodeData[row]
     }
@@ -75,8 +75,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
         else
         {
             
-            print("node not nill")
-        }
+        } 
     }
  
 }
