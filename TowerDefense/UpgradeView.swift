@@ -45,7 +45,7 @@ class UpgradeView: UIView {
         upgradeSelection.backgroundColor = SKColor.greenColor()
 
         super.init(frame:CGRectMake(x, y, 200, 200))
-        b.setTitle("yeah", forState: UIControlState.Normal)
+        b.setTitle("Next", forState: UIControlState.Normal)
         c.setTitle("Canel", forState: UIControlState.Normal)
         mainLabel.text = "This is Question about what to upgrade?"
         mainLabel.sizeToFit()
@@ -64,9 +64,9 @@ class UpgradeView: UIView {
         self.addSubview(upgradeSelection)
 
     }
-    func setLabels()
+    func setLabels() -> (first: CGFloat, second: CGFloat)
     {
-        
+        return (self.frame.midX, self.frame.midY)
     }
     func SetViewLocation(x: CGFloat, y: CGFloat)
     {

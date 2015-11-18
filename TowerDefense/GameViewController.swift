@@ -29,9 +29,9 @@ class GameViewController: UIViewController {
             GameScene.scene = scene
 
             
-            let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedLeft:"))
-            swipeRight.direction = .Left
-            view.addGestureRecognizer(swipeRight)
+            let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedLeft:"))
+            swipeLeft.direction = .Left
+            view.addGestureRecognizer(swipeLeft)
             
             
             skView.presentScene(scene)
