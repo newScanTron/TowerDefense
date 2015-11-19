@@ -14,7 +14,6 @@ import Foundation
 class GameScene: SKScene , SKPhysicsContactDelegate{
     
     
-    
     let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
     let towerTotal = 5
@@ -110,9 +109,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             if each.sprite.containsPoint(location)
             {
                 var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
-                //getting the chain set up and giving it a location
+                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
                 setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
-                
+                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
                 self.view?.addSubview(upgradeView.GetView())
             }
             else if GameScene.towers.count <= towerTotal
