@@ -11,110 +11,59 @@ import SpriteKit
 
 class ConcreteMoveStrat1: EnemyMoveStrat{
     
-    var totalImpulseX : CGFloat = 0
-    var totalImpulseY : CGFloat = 0
-    
-    let howToMove = StateContext()
-    
+    //Empty init
     override init() {}
 
-    override func Move(sprite: SKSpriteNode){
-        
-        
-        
-        var randForVecX = getImpulseX()
-        var randForVecY = getImpulseY()
-        
-        totalImpulseX += randForVecX
-        totalImpulseY += randForVecY
+    //Continuously call the execute method passing the strategy
+    // and sprite to be moved
+    override func Move(nodeToMove :EnemyBase){
+        let passedSprite = nodeToMove.sprite
+        let passedStrat = nodeToMove.moveStrat
         //print(sprite.position.x, sprite.position.y)
-        
-        
-        howToMove.setImpulse(sprite)
-        
-        /*if (sprite.position.x < 1024){
-
-            
-            if (sprite.position.y <= 0){
-                
-                
-                //sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), (getImpulseY()*(2))))
-                //totalImpulseY -= (totalImpulseY - 20)
-            }
-            else if(sprite.position.y >= 768){
-                sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), -(getImpulseY()*(2))))
-                //totalImpulseY -= (totalImpulseY - 20)
-        
-            }
-            else {
-                sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), getImpulseY()))
-        
-            }
-        }
-        else {
-            if (sprite.position.y <= 0){
-                sprite.physicsBody?.applyImpulse(CGVectorMake(randForVecX, (totalImpulseY*(2))))
-
-                totalImpulseY -= (totalImpulseY - 20)
-            }
-            else if(sprite.position.y >= 768){
-                sprite.physicsBody?.applyImpulse(CGVectorMake(randForVecX, -(totalImpulseY*(2))))
-                totalImpulseY -= (totalImpulseY - 20)
-
-            }
-            else{
-                sprite.physicsBody?.applyImpulse(CGVectorMake(randForVecX, randForVecY))
-            }
-        }
-        
-        */
-        
-         //GameScene.scene!.addChild(sprite)
-        
-
-        //determine speed of the monster
-        //let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
-        
-        //Create the actions
-        /*let moveLeft = SKAction.moveByX(-150, y:0, duration:2.0)
-        let moveUp = SKAction.moveByX(0, y: 150, duration: 2.0)
-        let moveDown = SKAction.moveByX(0, y: -150, duration: 2.0)
-        let moveOff = SKAction.moveByX(-200, y:0, duration: 2.0)
-        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 1.5)
-        
-        let actionMove = SKAction.moveTo(CGPoint(x: -sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
-        let actionMoveDone = SKAction.removeFromParent()
-        sprite.runAction(SKAction.sequence([moveLeft, moveDown, moveLeft, moveUp, moveLeft, moveDiagonal, moveLeft, moveDiagonal.reversedAction(), moveUp, moveLeft, moveDown, moveLeft, moveUp, moveDiagonal, moveOff, actionMoveDone]))
-        */
-    }
-    func getVector(from : CGPoint) -> CGVector {
-        let maxX : CGFloat = from.x + 300.0
-        
-        let randomX = random(min: 0.0, max: -300.0)
-        let randomY = random(min: 0.0, max: GameScene.scene!.size.height)
-        let newPoint = CGPoint(x: randomX, y:randomY)
-        
-        let dis : CGFloat = GameScene.getDistance(from,to: newPoint)
-        
-        return CGVectorMake(-500, from.y)
+        GameScene.scene!.runAction(SKAction.repeatActionForever(
+            SKAction.sequence([
+                SKAction.runBlock({self.execute(passedStrat, passedSprite: passedSprite)}),
+                SKAction.waitForDuration(2.0)
+                ])
+            ))
     }
     
-            class func NormalState(){
-        
+    //Handles what strategy to use depending on the sprite position
+    func execute(passedStrat : EnemyMoveStrat, passedSprite :SKSpriteNode){
+        if (passedSprite.position.y <= 10){
+            passedStrat.setState(stateYLow())
+        }
+        else if(passedSprite.position.y >= 758){
+            passedStrat.setState(stateYHigh())
+        }
+        else if (passedSprite.position.x < 200){
+            passedSprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-3), getImpulseY()))
+        }
+        else {
+            passedSprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), getImpulseY()))
+        }
     }
-    func lessThanY(){
-        
+}
+//Handles enemy wander - when the y coordinate is approaching zero
+class stateYLow : EnemyMoveStrat{
+    override func Move(nodeToMove : EnemyBase){
+        nodeToMove.sprite.physicsBody?.friction = 40.0
+        nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYPos()*(3))))
+        if(nodeToMove.sprite.position.y > 10){
+            nodeToMove.sprite.physicsBody?.friction = 0.0
+            nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+        }
     }
-    func greaterThanY(){
-        
-    }
-    func impulseCheck(){
-        
-    }
-    func getImpulseX() -> CGFloat{
-        return random(min: -20.0, max: 0)
-    }
-    func getImpulseY() -> CGFloat{
-        return random(min: -40.0, max: 40)
+    
+}
+//Handles enemy wander in the other direction, top of screen
+class stateYHigh : EnemyMoveStrat{
+    override func Move(nodeToMove : EnemyBase){
+        nodeToMove.sprite.physicsBody?.friction = 40.0
+        nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYNeg()*(3))))
+        if (nodeToMove.sprite.position.y < 758){
+            nodeToMove.sprite.physicsBody?.friction = 0.0
+            nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+        }
     }
 }

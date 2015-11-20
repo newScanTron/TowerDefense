@@ -150,8 +150,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 GameScene.enemies.append(enemy)
             }
             if(i == 14){
-                let enemy = enemyFactory.CreateEnemyBoss(self)
-                GameScene.enemies.append(enemy)
+                let enemyboss = enemyFactory.CreateEnemyBoss(self)
+    
+                GameScene.enemies.append(enemyboss)
             }
         }
     }

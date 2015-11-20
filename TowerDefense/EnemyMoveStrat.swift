@@ -11,16 +11,39 @@ import SpriteKit
 
 class EnemyMoveStrat
 {
-
-    func Move(sprite: SKSpriteNode){
+    
+    init(){
+        //Not to be initialized
+    }
+    
+    //Base function all classes need to implement
+    func Move(node : EnemyBase){
         
     }
     
+    // Change strategy context
+    func setState(newState : EnemyMoveStrat){
+        var daState : EnemyMoveStrat
+        daState = newState
+    }
+    
+    //Helper functions almost all strategies will need
     func random() -> CGFloat{
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }
-    
     func random(min min: CGFloat, max: CGFloat) -> CGFloat{
         return random() * (max - min) + min
+    }
+    func getImpulseX() -> CGFloat{
+        return random(min: -30.0, max: 10)
+    }
+    func getImpulseYPos() -> CGFloat{
+        return random(min: 0, max: 20)
+    }
+    func getImpulseY() -> CGFloat{
+        return random(min: -20, max: 20)
+    }
+    func getImpulseYNeg() -> CGFloat{
+        return random(min: -20, max: 0)
     }
 }
