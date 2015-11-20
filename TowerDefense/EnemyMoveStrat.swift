@@ -35,7 +35,7 @@ class EnemyMoveStrat
         return random() * (max - min) + min
     }
     func getImpulseX() -> CGFloat{
-        return random(min: -30.0, max: 10)
+        return random(min: -20.0, max: -10)
     }
     func getImpulseYPos() -> CGFloat{
         return random(min: 0, max: 20)

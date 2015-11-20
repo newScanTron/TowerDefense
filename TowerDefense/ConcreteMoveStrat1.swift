@@ -47,7 +47,7 @@ class ConcreteMoveStrat1: EnemyMoveStrat{
 //Handles enemy wander - when the y coordinate is approaching zero
 class stateYLow : EnemyMoveStrat{
     override func Move(nodeToMove : EnemyBase){
-        nodeToMove.sprite.physicsBody?.friction = 40.0
+        nodeToMove.sprite.physicsBody?.friction = 200.0
         nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYPos()*(3))))
         if(nodeToMove.sprite.position.y > 10){
             nodeToMove.sprite.physicsBody?.friction = 0.0
@@ -59,7 +59,7 @@ class stateYLow : EnemyMoveStrat{
 //Handles enemy wander in the other direction, top of screen
 class stateYHigh : EnemyMoveStrat{
     override func Move(nodeToMove : EnemyBase){
-        nodeToMove.sprite.physicsBody?.friction = 40.0
+        nodeToMove.sprite.physicsBody?.friction = 200.0
         nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYNeg()*(3))))
         if (nodeToMove.sprite.position.y < 758){
             nodeToMove.sprite.physicsBody?.friction = 0.0

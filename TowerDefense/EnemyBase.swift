@@ -42,7 +42,12 @@ class EnemyBase: Entity{
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
         sprite.physicsBody?.collisionBitMask = BodyType.Enemy.rawValue
-
+        sprite.physicsBody?.mass = 1
+        sprite.physicsBody?.friction = 30.0
+        sprite.physicsBody?.restitution = 0.0
+        sprite.physicsBody?.linearDamping = 0.0
+        sprite.physicsBody?.angularDamping = 0.0
+        
         sprite.zPosition = ZPosition.enemy
                
         //Orient Enemy towards enemy
