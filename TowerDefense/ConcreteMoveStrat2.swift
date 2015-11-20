@@ -25,14 +25,18 @@ class ConcreteMoveStrat2: EnemyMoveStrat{
         
         //Create the actions
         let moveLeft = SKAction.moveByX(-150, y:0, duration:2.0)
+        let moveLeftQuick = SKAction.moveByX(-150, y:0, duration:0.5)
+        let moveRight = SKAction.moveByX(150, y:0, duration: 0.5)
         let moveUp = SKAction.moveByX(0, y: 150, duration: 2.0)
+        let moveUpQuick = SKAction.moveByX(0, y: 150, duration: 0.5)
         let moveDown = SKAction.moveByX(0, y: -150, duration: 2.0)
-        let moveOff = SKAction.moveByX(-200, y:0, duration: 2.0)
+        let moveDownQuick = SKAction.moveByX(0, y: -150, duration: 0.5)
+        let moveOff = SKAction.moveByX(-400, y:0, duration: 2.0)
         let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 1.5)
         
         let actionMove = SKAction.moveTo(CGPoint(x: -nodeToMove.sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
-        nodeToMove.sprite.runAction(SKAction.sequence([moveLeft, moveLeft, moveUp, moveLeft, moveDown, moveDiagonal, moveOff, actionMoveDone]))
+        nodeToMove.sprite.runAction(SKAction.sequence([moveLeft, moveLeft, moveUp, moveLeft, moveDown, moveRight, moveUpQuick, moveLeftQuick, moveDownQuick, moveDiagonal, moveOff, actionMoveDone]))
     }
 
     func getMoveStrat() -> String
