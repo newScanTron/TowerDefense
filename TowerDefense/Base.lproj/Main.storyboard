@@ -31,7 +31,7 @@
         <!--Login Controller-->
         <scene sceneID="xRY-kW-HnC">
             <objects>
-                <viewController id="dCC-XD-tRi" customClass="LoginController" sceneMemberID="viewController">
+                <viewController id="dCC-XD-tRi" customClass="LoginController" customModule="TowerDefense" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6BP-mz-Mww"/>
                         <viewControllerLayoutGuide type="bottom" id="cp5-eA-BR3"/>
@@ -94,7 +94,6 @@
                                 <animations/>
                                 <state key="normal" title="New User"/>
                                 <connections>
-                                    <action selector="newUser:" destination="dCC-XD-tRi" eventType="touchUpInside" id="S0O-Hd-7Gj"/>
                                     <segue destination="kFa-mh-Vi3" kind="show" id="4pb-ee-IAQ"/>
                                 </connections>
                             </button>
@@ -127,7 +126,7 @@
         <!--Sign Up Controller-->
         <scene sceneID="r5w-E0-hPq">
             <objects>
-                <viewController id="kFa-mh-Vi3" customClass="SignUpController" sceneMemberID="viewController">
+                <viewController id="kFa-mh-Vi3" customClass="SignUpController" customModule="TowerDefense" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ftA-jS-QYz"/>
                         <viewControllerLayoutGuide type="bottom" id="sxj-5d-hvW"/>
@@ -204,13 +203,14 @@
                     </view>
                     <connections>
                         <outlet property="PasswordText" destination="QlD-5Y-OEy" id="kWN-F2-oJ0"/>
+                        <outlet property="PasswordTwoText" destination="dB1-4B-22V" id="Dht-xU-swA"/>
                         <outlet property="UserNameText" destination="bVw-uE-x7o" id="PlA-qg-mcb"/>
                         <segue destination="dCC-XD-tRi" kind="show" id="jBp-kB-KP0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bbQ-5J-ozr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1146" y="1397"/>
+            <point key="canvasLocation" x="-1392" y="1077"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

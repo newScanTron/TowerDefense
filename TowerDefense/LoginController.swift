@@ -10,19 +10,11 @@ import Foundation
 import CoreData
 import UIKit
 
-class LoginController
+class LoginController: UIViewController
 {
-    var user: User
+    var user = User()
     
-    init()
-    {
-        user = User()
-    }
-    @IBAction func newUser(sender: AnyObject) {
-        
-        
-      
-    }
+
     
     func saveName(name: String, passwd: String) {
         //1
