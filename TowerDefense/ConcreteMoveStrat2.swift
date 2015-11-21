@@ -13,13 +13,13 @@ class ConcreteMoveStrat2: EnemyMoveStrat{
     
     let moveStrat = "concrete2"
     override init() {}
-    override func Move(sprite: SKSpriteNode, scene: SKScene){
+    override func Move(sprite: SKSpriteNode){
         //determine where to spawn the bison along the Y axis
-        let actualY = random(min: sprite.size.height/2, max: scene.size.height - sprite.size.height/2)
+        let actualY = random(min: sprite.size.height/2, max: GameScene.scene!.size.height - sprite.size.height/2)
         
         //Position the bison slightly off-screen along the right edge,
         // and along a random position along the Y axis as calculated above
-        sprite.position = CGPoint(x: scene.size.width + sprite.size.width/2, y:actualY)
+        sprite.position = CGPoint(x: GameScene.scene!.size.width + sprite.size.width/2, y: 200)
         //determine speed of the monster
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
         
@@ -34,13 +34,7 @@ class ConcreteMoveStrat2: EnemyMoveStrat{
         let actionMoveDone = SKAction.removeFromParent()
         sprite.runAction(SKAction.sequence([moveLeft, moveLeft, moveUp, moveLeft, moveDown, moveDiagonal, moveOff, actionMoveDone]))
     }
-    func random() -> CGFloat{
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-    }
-    
-    func random(min min: CGFloat, max: CGFloat) -> CGFloat{
-        return random() * (max - min) + min
-    }
+
     func getMoveStrat() -> String
     {
         return moveStrat

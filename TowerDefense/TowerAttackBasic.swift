@@ -19,12 +19,15 @@ class TowerAttackBasic : TowerAttackStrat {
     override func Attack() {
 
         
+        
         if (GameScene.gameTime > lastFire + fireDelay) {
 
+            
             lastFire = GameScene.gameTime
             if (parent != nil) {
                 target = GameScene.getClosestEnemy(parent!.sprite.position)
-                target!.sprite.position - parent!.sprite.position;
+                
+
                 var bulletParent : Entity = parent!
                 
                 

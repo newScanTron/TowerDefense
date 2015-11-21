@@ -12,8 +12,7 @@ import Foundation
 
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
-    
-    
+
     let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
     let towerTotal = 5
@@ -27,14 +26,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var gameTime : CGFloat = 0
+
     static var scene : GameScene? = nil
-    
+
     
     override func didMoveToView(view: SKView) {
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
+
         background.zPosition = ZPosition.background;
-        
+
+        print(scene?.size.width, scene?.size.height)
+
         //sprite to be the edge/base
         let wall = SKSpriteNode(imageNamed: "Castle_wall")
          buildWall(wall)				
@@ -49,11 +52,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
         
-        
-//        for var i = 0; i < 10; i++
-//        {
-//            addEnemy()
-//        }
         self.addChild(myLabel)
         
         initializeEnemyArray()
@@ -87,7 +85,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //need something to make the updrageView disapear if we are not interacting with it.
         GameScene.towers.append(tower)
         self.addChild(tower.sprite)
-    
     }
     
     //
@@ -99,10 +96,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let location = touch!.locationInNode(self)
         
         //check if any and build one with first touch
+
         if GameScene.towers.count <= cero
         {
             addTower(location)
         }
+
     
         for each in GameScene.towers
         {
@@ -118,9 +117,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             {
                 addTower(location)
             }
-
-            
         }
+
     }
     override func update(currentTime: CFTimeInterval) {
         
@@ -134,6 +132,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             t.TriggerAttack();
             t.TriggerDefend();
         }
+        for e in GameScene.enemies {
+            e.TriggerAttack()
+            e.setMoveStrategy()
+            e.getMoveStrat().Move(e.sprite)
+            
+        }
         //for e in GameScene.enemies 
         for var i = 0; i < GameScene.enemies.count ; i++
         {
@@ -144,14 +148,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
     }
     func initializeEnemyArray(){
-        for var i = 0; i < 10 ; i++
+        for var i = 0; i < 15 ; i++
         {
-            let enemy = enemyFactory.CreateEnemy(self)
-            GameScene.enemies.append(enemy)
-            if(i == 9){
+            if(i <= 9){
+                let enemy = enemyFactory.CreateEnemy(self)
+                GameScene.enemies.append(enemy)
+            }
+            if(i > 9 && i < 14){
+                let enemy = enemyFactory.CreateEnemyGrunt(self)
+                GameScene.enemies.append(enemy)
+            }
+            if(i == 14){
                 let enemy = enemyFactory.CreateEnemyBoss(self)
                 GameScene.enemies.append(enemy)
-
             }
         }
     }
@@ -178,7 +187,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEnemy(){
         
+
         if(GameScene.enemies.count < enemyMin){
+
             self.addChild(GameScene.enemies[enemyCount].sprite)
             enemyCount++
             for var i = 0; i < enemyCount ; i++
@@ -188,9 +199,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     //enemyCount--
                 }
             }
-
         }
-        
 
     }
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
@@ -227,9 +236,35 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         return closestTower;
     }
     
-    
+
     class func getDistance(from : CGPoint, to : CGPoint) -> CGFloat {
         
         return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
+    }
+    func didBeginContact(contact: SKPhysicsContact) {
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        switch(contactMask) {
+        case ContactMask.Tower | ContactMask.EnemyBullet:
+            let secondNode = contact.bodyB.node
+            //for s in GameScene.childNodeWithName(sprite)
+            secondNode?.removeFromParent()
+            
+            
+            let firstNode = contact.bodyA.node
+            for t in GameScene.towers{
+                if t.sprite == firstNode{
+                    t.health -= 10
+                    if (t.health <= 0)
+                    {
+                        firstNode?.removeFromParent()
+                    }
+                }
+            }
+
+            
+        default:
+            return
+        }
+
     }
 }

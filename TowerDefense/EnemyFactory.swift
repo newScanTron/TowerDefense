@@ -34,7 +34,8 @@ class EnemyFactory
     func CreateEnemyBoss(scene: SKScene) -> EnemyBase{
         
         let attack = RangedAttack()
-        let range: CGFloat = 350
+        let range: CGFloat = 350.00
+
         attack.damage = 50
         attack.fireDelay = 1
         attack.speed = 10
@@ -48,4 +49,23 @@ class EnemyFactory
         return enemy
         
     }
+    func CreateEnemyGrunt(scene: SKScene) -> EnemyBase{
+        
+        let attack = RangedAttack()
+        let range: CGFloat = 200.00
+        attack.damage = 40
+        attack.fireDelay = 1
+        attack.speed = 10
+        
+        let sprite = SKSpriteNode(imageNamed: "Spaceship")
+        
+        let moveStrat = ConcreteMoveStrat2()
+        
+        let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat, _sprite: sprite, _range: range)
+        
+        //add the bison to the scene
+        
+        return enemy
+    }
+
 }

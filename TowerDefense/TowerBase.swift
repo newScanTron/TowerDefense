@@ -28,6 +28,7 @@ class TowerBase: Entity{
         sprite.physicsBody?.categoryBitMask = CategoryMask.Tower
         sprite.physicsBody?.collisionBitMask = CollisionMask.Tower
         sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
+
         sprite.physicsBody?.dynamic = true
         
         

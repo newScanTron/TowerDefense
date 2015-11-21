@@ -11,40 +11,110 @@ import SpriteKit
 
 class ConcreteMoveStrat1: EnemyMoveStrat{
     
-    let moveStrat = "concrete1"
+    var totalImpulseX : CGFloat = 0
+    var totalImpulseY : CGFloat = 0
+    
+    let howToMove = StateContext()
+    
     override init() {}
 
-    override func Move(sprite: SKSpriteNode, scene: SKScene){
+    override func Move(sprite: SKSpriteNode){
         
-        //determine where to spawn the bison along the Y axis
-        let actualY = random(min: sprite.size.height/2, max: scene.size.height - sprite.size.height/2)
         
-        //Position the bison slightly off-screen along the right edge,
-        // and along a random position along the Y axis as calculated above
-        sprite.position = CGPoint(x: scene.size.width + sprite.size.width/2, y:actualY)
+        
+        var randForVecX = getImpulseX()
+        var randForVecY = getImpulseY()
+        
+        totalImpulseX += randForVecX
+        totalImpulseY += randForVecY
+        //print(sprite.position.x, sprite.position.y)
+        
+        
+        howToMove.setImpulse(sprite)
+        
+        /*if (sprite.position.x < 1024){
+
+            
+            if (sprite.position.y <= 0){
+                
+                
+                //sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), (getImpulseY()*(2))))
+                //totalImpulseY -= (totalImpulseY - 20)
+            }
+            else if(sprite.position.y >= 768){
+                sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), -(getImpulseY()*(2))))
+                //totalImpulseY -= (totalImpulseY - 20)
+        
+            }
+            else {
+                sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), getImpulseY()))
+        
+            }
+        }
+        else {
+            if (sprite.position.y <= 0){
+                sprite.physicsBody?.applyImpulse(CGVectorMake(randForVecX, (totalImpulseY*(2))))
+
+                totalImpulseY -= (totalImpulseY - 20)
+            }
+            else if(sprite.position.y >= 768){
+                sprite.physicsBody?.applyImpulse(CGVectorMake(randForVecX, -(totalImpulseY*(2))))
+                totalImpulseY -= (totalImpulseY - 20)
+
+            }
+            else{
+                sprite.physicsBody?.applyImpulse(CGVectorMake(randForVecX, randForVecY))
+            }
+        }
+        
+        */
+        
+         //GameScene.scene!.addChild(sprite)
+        
+
         //determine speed of the monster
-        let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+        //let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
         
         //Create the actions
-        let moveLeft = SKAction.moveByX(-150, y:0, duration:1.0)
-        let moveUp = SKAction.moveByX(0, y: 150, duration: 1.0)
-        let moveDown = SKAction.moveByX(0, y: -150, duration: 1.0)
-        let moveOff = SKAction.moveByX(-200, y:0, duration: 1.0)
-        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 0.5)
+        /*let moveLeft = SKAction.moveByX(-150, y:0, duration:2.0)
+        let moveUp = SKAction.moveByX(0, y: 150, duration: 2.0)
+        let moveDown = SKAction.moveByX(0, y: -150, duration: 2.0)
+        let moveOff = SKAction.moveByX(-200, y:0, duration: 2.0)
+        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 1.5)
         
         let actionMove = SKAction.moveTo(CGPoint(x: -sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
         sprite.runAction(SKAction.sequence([moveLeft, moveDown, moveLeft, moveUp, moveLeft, moveDiagonal, moveLeft, moveDiagonal.reversedAction(), moveUp, moveLeft, moveDown, moveLeft, moveUp, moveDiagonal, moveOff, actionMoveDone]))
+        */
     }
-    func random() -> CGFloat{
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+    func getVector(from : CGPoint) -> CGVector {
+        let maxX : CGFloat = from.x + 300.0
+        
+        let randomX = random(min: 0.0, max: -300.0)
+        let randomY = random(min: 0.0, max: GameScene.scene!.size.height)
+        let newPoint = CGPoint(x: randomX, y:randomY)
+        
+        let dis : CGFloat = GameScene.getDistance(from,to: newPoint)
+        
+        return CGVectorMake(-500, from.y)
     }
     
-    func random(min min: CGFloat, max: CGFloat) -> CGFloat{
-        return random() * (max - min) + min
+            class func NormalState(){
+        
     }
-    func getMoveStrat() -> String
-    {
-        return moveStrat
+    func lessThanY(){
+        
+    }
+    func greaterThanY(){
+        
+    }
+    func impulseCheck(){
+        
+    }
+    func getImpulseX() -> CGFloat{
+        return random(min: -20.0, max: 0)
+    }
+    func getImpulseY() -> CGFloat{
+        return random(min: -40.0, max: 40)
     }
 }

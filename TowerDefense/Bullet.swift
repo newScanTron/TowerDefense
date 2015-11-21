@@ -41,12 +41,12 @@ class Bullet {
         sprite.zPosition = ZPosition.bullet
         
         
-         GameScene.scene!.addChild(sprite)
+
+        GameScene.scene!.addChild(sprite)
         
         let vec : CGVector = Bullet.getVector(_start, to: _target, speed: _speed * 10)
         
-        print("x: ",vec.dx ," y: " ,vec.dy)
-        
+
         sprite.physicsBody?.applyImpulse(Bullet.getVector(_start, to: _target, speed: _speed * 10))
         
         damage = _damage
