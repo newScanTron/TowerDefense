@@ -11,20 +11,17 @@ import SpriteKit
 
 class ConcreteMoveStrat1: EnemyMoveStrat{
     
-    //Empty init
-    override init() {}
-
+    var lastMove : CGFloat = 2
+ 
     //Continuously call the execute method passing the strategy
     // and sprite to be moved
-    override func Move(nodeToMove :EnemyBase){
+    override func Move(nodeToMove : EnemyBase){
 
-        //print(sprite.position.x, sprite.position.y)
-        GameScene.scene!.runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock({self.execute(nodeToMove)}),
-                SKAction.waitForDuration(2.0)
-                ])
-            ))
+        if (GameScene.gameTime > lastMove + moveDelay) {
+            
+            lastMove = GameScene.gameTime
+            execute(nodeToMove)
+        }
     }
     
     //Handles what strategy to use depending on the sprite position
@@ -43,26 +40,46 @@ class ConcreteMoveStrat1: EnemyMoveStrat{
         }
     }
 }
+
 //Handles enemy wander - when the y coordinate is approaching zero
 class stateYLow : EnemyMoveStrat{
+ 
+    var lastMove : CGFloat = 0
+    
     override func Move(nodeToMove : EnemyBase){
-        nodeToMove.sprite.physicsBody?.friction = 200.0
-        nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYPos()*(3))))
-        if(nodeToMove.sprite.position.y > 10){
-            nodeToMove.sprite.physicsBody?.friction = 0.0
-            nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+        if (GameScene.gameTime > lastMove + moveDelay) {
+            
+            lastMove = GameScene.gameTime
+
+            nodeToMove.sprite.physicsBody?.friction = 200.0
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYPos()*(3))))
+            
+            if(nodeToMove.sprite.position.y > 10){
+                nodeToMove.sprite.physicsBody?.friction = 0.0
+                nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+            }
         }
     }
     
 }
+
 //Handles enemy wander in the other direction, top of screen
 class stateYHigh : EnemyMoveStrat{
+    
+    var lastMove : CGFloat = 0
+    
     override func Move(nodeToMove : EnemyBase){
-        nodeToMove.sprite.physicsBody?.friction = 200.0
-        nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYNeg()*(3))))
-        if (nodeToMove.sprite.position.y < 758){
-            nodeToMove.sprite.physicsBody?.friction = 0.0
-            nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+        
+        if GameScene.gameTime > lastMove + moveDelay{
+            
+            lastMove = GameScene.gameTime
+            
+            nodeToMove.sprite.physicsBody?.friction = 200.0
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYNeg()*(3))))
+            if (nodeToMove.sprite.position.y < 758){
+                nodeToMove.sprite.physicsBody?.friction = 0.0
+                nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+            }
         }
     }
 }

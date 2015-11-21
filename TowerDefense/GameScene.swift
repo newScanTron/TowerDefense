@@ -127,7 +127,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         for e in GameScene.enemies {
             e.TriggerAttack()
-            //e.setMoveStrategy()
+            e.moveStrat.Move(e)
         }
         //for e in GameScene.enemies 
         for var i = 0; i < GameScene.enemies.count ; i++

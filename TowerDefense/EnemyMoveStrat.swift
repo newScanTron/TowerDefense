@@ -12,6 +12,8 @@ import SpriteKit
 class EnemyMoveStrat
 {
     
+    var moveDelay : CGFloat = 2
+    
     init(){
         //Not to be initialized
     }
