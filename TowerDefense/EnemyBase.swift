@@ -12,8 +12,7 @@ import UIKit
 
 class EnemyBase: Entity{
     //Some variables for health and speed and whatnot
-    var health = 20
-    var sprite: SKSpriteNode
+
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
@@ -23,16 +22,20 @@ class EnemyBase: Entity{
     //initlizer.
     init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat)
     {
-
-        sprite = _sprite
-        range = _range
         scene = _scene
         attack = _attack
         moveStrat = _moveStrat
         
+        
+        super.init()
+        sprite = _sprite
+        range = _range
+
+        moveStrat.Move(self)
+
         sprite.xScale = 0.25
         sprite.yScale = 0.25
-        sprite.size = CGSizeMake(30, 30)
+
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
 
         let actualY = random(min: 10.0, max: scene.size.height)
@@ -56,15 +59,7 @@ class EnemyBase: Entity{
 
         sprite.zPosition = ZPosition.enemy
 
-        
-        sprite.zPosition = ZPosition.enemy
-               
-        //Orient Enemy towards enemy
-        //let action = SKAction.rotateByAngle(CGFloat(M_PI/2), duration:0.225)
-        //sprite.runAction(action)
 
-        //Set strategies
-        moveStrat.Move(self)
         
         //Check to attack every two seconds
         /*if let _ = moveStrat as? ConcreteMoveStrat1{

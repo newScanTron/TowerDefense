@@ -8,9 +8,15 @@
 
 import Foundation
 import SpriteKit
-protocol Entity
+class Entity
 {
     //variables that both towers and enemys have
-    var health: Int {get set}
-    var sprite: SKSpriteNode {get set}
+    var maxHealth = 100
+    var health: CGFloat = 100
+    var kills: Int = 0
+    var sprite: SKSpriteNode
+    
+    init() {
+        sprite = SKSpriteNode()
+    }
 }

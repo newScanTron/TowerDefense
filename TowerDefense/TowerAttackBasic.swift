@@ -26,11 +26,8 @@ class TowerAttackBasic : TowerAttackStrat {
             lastFire = GameScene.gameTime
             if (parent != nil) {
                 target = GameScene.getClosestEnemy(parent!.sprite.position)
-                
 
                 var bulletParent : Entity = parent!
-                
-                
                 
                 Bullet(
                     _start: parent!.sprite.position,
