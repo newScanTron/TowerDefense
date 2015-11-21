@@ -12,7 +12,7 @@ import SpriteKit
 class TowerDefenseStrat
 {
     var range : CGFloat = 0
-    var amount : Int = 0
+    var amount : CGFloat = 0
     var parent : TowerBase? = nil
     
     init () {

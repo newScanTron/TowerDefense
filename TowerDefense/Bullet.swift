@@ -12,10 +12,10 @@ import SpriteKit
 class Bullet {
     
     var sprite : SKSpriteNode
-    var damage : Int // Damage that will be dealt
+    var damage : CGFloat // Damage that will be dealt
     var entity : Entity // Entity that fired this bullet
     
-    init (_start : CGPoint, _target : CGPoint, _speed : CGFloat, _damage: Int, inout _entity : Entity, _shotByEnemy : Bool) {
+    init (_start : CGPoint, _target : CGPoint, _speed : CGFloat, _damage: CGFloat, inout _entity : Entity, _shotByEnemy : Bool) {
         
         damage = _damage
         entity = _entity
