@@ -22,7 +22,7 @@ class TowerBuilder
         attack.range = 100
         attack.damage = 40
         attack.fireDelay = 1
-        attack.speed = 10
+        attack.speed = 100
         
         let defense = TowerDefenseHeal()
         defense.range = 100
@@ -30,6 +30,8 @@ class TowerBuilder
         
         
         let tower = TowerBase(location: point, _attack: attack, _defense: defense)
+        attack.parent = tower
+        defense.parent = tower
         tower.sprite.zPosition = ZPosition.tower
         return tower
     }

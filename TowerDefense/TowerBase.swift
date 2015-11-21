@@ -10,14 +10,17 @@ import Foundation
 import SpriteKit
 
 class TowerBase: Entity{
-    var health = 0
-    var sprite : SKSpriteNode
     var attack : TowerAttackStrat
     var defense : TowerDefenseStrat
-    var kills : Int = 0
     var healed : Int = 0
     init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
+        
+        attack = _attack;
+        defense = _defense;
+        
+        super.init()
+        
         sprite = SKSpriteNode(imageNamed: "Sat2")
         
         sprite.xScale = 0.5
@@ -28,15 +31,14 @@ class TowerBase: Entity{
         sprite.physicsBody?.categoryBitMask = CategoryMask.Tower
         sprite.physicsBody?.collisionBitMask = CollisionMask.Tower
         sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
-        sprite.physicsBody?.dynamic = true
+        sprite.physicsBody?.dynamic = false
         
         
-        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:5)
+//        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:5)
+//        
+//        sprite.runAction(SKAction.repeatActionForever(action))
         
-        sprite.runAction(SKAction.repeatActionForever(action))
         
-        attack = _attack;
-        defense = _defense;
         //defense.parent = self;
         
         // Store reference to self in userData

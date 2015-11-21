@@ -12,8 +12,6 @@ import UIKit
 
 class EnemyBase: Entity{
     //Some variables for health and speed and whatnot
-    var health = 0
-    var sprite: SKSpriteNode
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
@@ -22,13 +20,18 @@ class EnemyBase: Entity{
     //initlizer.
     init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat)
     {
-
+        scene = _scene
+        attack = _attack
+        moveStrat = _moveStrat
+        
+        
+        super.init()
         sprite = _sprite
         range = _range
+        moveStrat.Move(sprite, scene: scene)
 
         sprite.xScale = 0.25
         sprite.yScale = 0.25
-        scene = _scene
 
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         sprite.physicsBody?.dynamic = true
@@ -37,9 +40,6 @@ class EnemyBase: Entity{
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
         sprite.zPosition = ZPosition.enemy
         
-        attack = _attack
-        moveStrat = _moveStrat
-        moveStrat.Move(sprite, scene: scene)
         
         scene.runAction(SKAction.repeatActionForever(
             SKAction.sequence([

@@ -12,7 +12,7 @@ import SpriteKit
 class TowerAttackStrat
 {
     var range : Int = 0
-    var damage : Int = 0
+    var damage : CGFloat = 0
     var fireDelay : CGFloat = 0.5
     var speed : CGFloat = 100
     var bullet : Bullet? = nil
