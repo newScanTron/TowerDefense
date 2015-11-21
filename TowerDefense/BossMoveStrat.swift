@@ -37,14 +37,13 @@ func pointOnCircle(angle: CGFloat, radius: CGFloat, center: CGPoint) -> CGPoint 
 }
 
 class BossMoveStrat: EnemyMoveStrat {
-    let moveStrat = "concrete2"
-    override func Move(sprite: SKSpriteNode){
+    
+    override func Move(nodeToMove : EnemyBase){
         
         //determine where to spawn the bison along the Y axis
-        let actualY = random(min: sprite.size.height/2, max: GameScene.scene!.size.height - sprite.size.height/2)
-        sprite.size = CGSize(width: 80, height: 80)
-        //Position the bison slightly off-screen along the right edge,
-        // and along a random position along the Y axis as calculated above
+        let actualY = random(min: nodeToMove.sprite.size.height/2, max: GameScene.scene!.size.height - nodeToMove.sprite.size.height/2)
+        nodeToMove.sprite.size = CGSize(width: 80, height: 80)
+
         //determine speed of the monster
         let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
         
@@ -60,16 +59,39 @@ class BossMoveStrat: EnemyMoveStrat {
             endRadius: 0,
             angle: CGFloat(M_PI) * 2,
             centerPoint: CGPoint(x: 400, y: actualY),
-            duration: 5.0)
+            duration: 3.0)
         
-        let actionMove = SKAction.moveTo(CGPoint(x: -sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
+        TakeOverEnemies()
+        
+        let actionMove = SKAction.moveTo(CGPoint(x: -nodeToMove.sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
-        sprite.runAction(SKAction.sequence([moveLeft, moveLeft, moveLeft, spiral, moveRight, spiral, moveDiagonal.reversedAction(), moveUp, moveLeft, moveDown, moveLeft, moveUp, moveDiagonal, actionMoveDone]))
-        //sprite.runAction(spiral)
-    }
-    func getMoveStrat() -> String
-    {
-        return moveStrat
-    }
+        nodeToMove.sprite.runAction(SKAction.sequence([moveLeft, moveLeft, moveLeft, spiral, moveRight, spiral, moveDiagonal.reversedAction(), moveUp, moveLeft, moveDown, moveLeft, moveUp, moveDiagonal, actionMoveDone]))
 
+    }
+    func TakeOverEnemies() {
+        for e in GameScene.enemies{
+            if e.sprite.name != "Boss"{
+                e.setMoveStrategy(EnemySwarmStrat())
+            }
+        }
+    }
+}
+class EnemySwarmStrat : EnemyMoveStrat{
+    
+    override func Move(nodeToMove : EnemyBase) {
+        for e in GameScene.enemies{
+            
+            
+            //e.sprite.physicsBody?.applyForce(getVector(e.sprite.position, to: e.sprite.position, speed: 100.0))
+        }
+        
+        func execute(){
+            
+        }
+    }
+    
+    func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {
+        let dis : CGFloat = GameScene.getDistance(from,to: to)
+        return CGVectorMake((to.x - from.x)/dis * speed, (to.y - from.y)/dis * speed)
+    }
 }

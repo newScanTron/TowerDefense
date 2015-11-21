@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+
 struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max

@@ -43,10 +43,11 @@ class EnemyBase: Entity{
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
         sprite.physicsBody?.collisionBitMask = BodyType.Enemy.rawValue
         sprite.physicsBody?.mass = 1
-        sprite.physicsBody?.friction = 0.0
+        sprite.physicsBody?.friction = 30.0
         sprite.physicsBody?.restitution = 0.0
         sprite.physicsBody?.linearDamping = 0.0
         sprite.physicsBody?.angularDamping = 0.0
+
         sprite.physicsBody?.dynamic = true
 
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
@@ -54,21 +55,22 @@ class EnemyBase: Entity{
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
 
         sprite.zPosition = ZPosition.enemy
+
         
+        sprite.zPosition = ZPosition.enemy
                
-        //Orient Enemy towards left
+        //Orient Enemy towards enemy
         //let action = SKAction.rotateByAngle(CGFloat(M_PI/2), duration:0.225)
         //sprite.runAction(action)
 
         //Set strategies
-        
-        //moveStrat.Move(sprite)
+        moveStrat.Move(self)
         
         //Check to attack every two seconds
-        if let _ = moveStrat as? ConcreteMoveStrat1{
+        /*if let _ = moveStrat as? ConcreteMoveStrat1{
             scene.runAction(SKAction.repeatActionForever(
                 SKAction.sequence([
-                    SKAction.runBlock(setMoveStrategy),
+                    SKAction.runBlock(moveMore),
                     SKAction.waitForDuration(2.0)
                     ])
                 ))
@@ -76,15 +78,18 @@ class EnemyBase: Entity{
         }
         else{
             moveStrat.Move(sprite)
-        }
+        }*/
     }
 
-    func setMoveStrategy()
+    func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {
         //let string = moveStrat.getMoveStrat()
-        moveStrat.Move(sprite)
+        self.moveStrat = sentStrat
     }
 
+    func moveMore(){
+        moveStrat.Move(self)
+    }
     // Triggers attack strategy Attack function
     func TriggerAttack() {
         

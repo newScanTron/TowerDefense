@@ -22,6 +22,8 @@ class EnemyFactory
         attack.speed = 10
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
+
+        sprite.physicsBody?.dynamic = false
         
         let moveStrat = ConcreteMoveStrat1()
 
@@ -43,9 +45,10 @@ class EnemyFactory
         let moveStrat = BossMoveStrat()
         
         let sprite = SKSpriteNode(imageNamed: "EnemyBoss")
+        sprite.physicsBody?.dynamic = false
         
         let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat, _sprite: sprite, _range: range)
-        
+        enemy.sprite.name = "Boss"
         return enemy
         
     }
@@ -58,6 +61,7 @@ class EnemyFactory
         attack.speed = 10
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
+        sprite.physicsBody?.dynamic = true
         
         let moveStrat = ConcreteMoveStrat2()
         
