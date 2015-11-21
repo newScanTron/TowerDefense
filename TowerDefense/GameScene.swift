@@ -9,7 +9,7 @@
 import SpriteKit
 import UIKit
 import Foundation
-
+import CoreData
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
@@ -23,12 +23,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
     let tower = TowerBuilder()
+    //making all of these static allows us to not have to pass them around method calls
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var gameTime : CGFloat = 0
-
     static var scene : GameScene? = nil
-
+     
     
     override func didMoveToView(view: SKView) {
         let background = SKSpriteNode(imageNamed: "beach")
@@ -126,6 +126,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         /* Called before each frame is rendered */
         GameScene.gameTime = CGFloat(currentTime)
+        
+        
 
         // Trigger attack/defend strategies for each tower
         for t in GameScene.towers {
@@ -134,8 +136,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         for e in GameScene.enemies {
             e.TriggerAttack()
-            e.setMoveStrategy()
-            e.getMoveStrat().Move(e.sprite)
+            e.setMoveStrategy(e.moveStrat)
+            e.moveMore()
             
         }
         //for e in GameScene.enemies 

@@ -8,8 +8,12 @@
 
 import UIKit
 import SpriteKit
+import CoreData
 
 class GameViewController: UIViewController {
+    
+    //a object to represent the usrrent player
+    var player = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,5 +71,33 @@ class GameViewController: UIViewController {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+   //saves a user to CoreData
+    func saveUser(name: String, passwd: String) {
+        //1
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        //2
+        let entity =  NSEntityDescription.entityForName("Person",
+            inManagedObjectContext:managedContext)
+        
+        let user = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext: managedContext)
+        
+        //3
+        user.setValue(name, forKey: "userName")
+        user.setValue(passwd, forKey: "pswd")
+        
+        //4
+        do {
+            try managedContext.save()
+            //5
+            player.setUser(name, psswd: passwd)
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
     }
 }

@@ -13,13 +13,13 @@
         <relationship name="gameState" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameState" inverseName="tower" inverseEntity="GameState" syncable="YES"/>
     </entity>
     <entity name="User" syncable="YES">
-        <attribute name="pswd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="psswd" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="gameState" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameState" inverseName="user" inverseEntity="GameState" syncable="YES"/>
     </entity>
     <elements>
         <element name="GameState" positionX="-371" positionY="-135" width="128" height="103"/>
         <element name="Tower" positionX="-162" positionY="-180" width="128" height="103"/>
-        <element name="User" positionX="-162" positionY="-45" width="128" height="88"/>
+        <element name="User" positionX="-162" positionY="-45" width="128" height="90"/>
     </elements>
 </model>
