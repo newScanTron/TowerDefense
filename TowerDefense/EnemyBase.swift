@@ -18,10 +18,10 @@ class EnemyBase: Entity{
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
     var scene: SKScene
-    var totalAngle : CGFloat = 0
+    var moveDelay : CGFloat
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat)
+    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat)
     {
 
         sprite = _sprite
@@ -29,6 +29,7 @@ class EnemyBase: Entity{
         scene = _scene
         attack = _attack
         moveStrat = _moveStrat
+        moveDelay = _moveDelay
         
         sprite.xScale = 0.25
         sprite.yScale = 0.25

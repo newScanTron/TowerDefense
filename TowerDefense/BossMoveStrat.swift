@@ -42,7 +42,7 @@ class BossMoveStrat: EnemyMoveStrat {
     
     override func Move(nodeToMove : EnemyBase){
         
-        if GameScene.gameTime > lastMove + moveDelay{
+        if GameScene.gameTime > lastMove + nodeToMove.moveDelay{
             
             lastMove = GameScene.gameTime
             
@@ -74,11 +74,17 @@ class BossMoveStrat: EnemyMoveStrat {
             let actionMoveDone = SKAction.removeFromParent()
             nodeToMove.sprite.runAction(SKAction.sequence([moveLeft, moveLeft, moveLeft, spiral, moveRight, spiral, moveDiagonal.reversedAction(), moveUp, moveLeft, moveDown, moveLeft, moveUp, moveDiagonal, actionMoveDone]))
 
-        }        
+        }
+        
+        
+        if nodeToMove.sprite.position.x < 1000{
+            self.TakeOverEnemies(nodeToMove)
+        }
     }
     func TakeOverEnemies(bossNode : EnemyBase) {
         for e in GameScene.enemies{
-            if e.sprite.name != "Boss"{
+            if e.sprite.name != "Boss"
+            {
                 e.setMoveStrategy(EnemySwarmStrat())
                 e.moveStrat.Move(e)
             }
@@ -87,13 +93,21 @@ class BossMoveStrat: EnemyMoveStrat {
 }
 class EnemySwarmStrat : EnemyMoveStrat{
     
+    var lastMove : CGFloat = 0
+    
     override func Move(nodeToMove : EnemyBase) {
-        for e in GameScene.enemies{
-            if e.sprite.name == "Boss"{
-                nodeToMove.sprite.physicsBody?.applyForce(getVector(e.sprite.position, to: e.sprite.position, speed: 100.0))
+        nodeToMove.moveDelay = 0
+        //if GameScene.gameTime > lastMove + moveDelay{
+         
+            //lastMove = GameScene.gameTime
+            
+            for e in GameScene.enemies{
+                
+                if e.sprite.name == "Boss"{
+                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(e.sprite.position, to: e.sprite.position, speed: 200.0))
+                }
             }
-        }
-        
+        //}
         func execute(){
             
         }

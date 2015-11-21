@@ -17,7 +17,7 @@ class ConcreteMoveStrat2: EnemyMoveStrat{
     
     override func Move(nodeToMove: EnemyBase){
         
-        if GameScene.gameTime > lastMove + moveDelay {
+        if GameScene.gameTime > lastMove + nodeToMove.moveDelay {
             
             lastMove = GameScene.gameTime
             
