@@ -26,7 +26,6 @@ class TowerAttackStrat
     
     func Attack() {
        //fatalError("Don't call Attack() on the base class!")
-        print("Fired!zzzz");
     }
     
 }

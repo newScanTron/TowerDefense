@@ -27,6 +27,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var gameTime : CGFloat = 0
+    static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
     
     
@@ -127,6 +128,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         
         /* Called before each frame is rendered */
+        GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
 
         // Trigger attack/defend strategies for each tower
@@ -208,6 +210,26 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         
         return closestEnemy;
+    }
+    
+    class func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
+        var inRange : [TowerBase] = [TowerBase]()
+        for t in towers {
+            if (getDistance(point,to:t.sprite.position) < range) {
+                inRange.append(t);
+            }
+        }
+        return inRange
+    }
+    
+    class func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
+        var inRange : [EnemyBase] = [EnemyBase]()
+        for e in enemies {
+            if (getDistance(point,to:e.sprite.position) < range) {
+                inRange.append(e);
+            }
+        }
+        return inRange
     }
     
     class func getClosestTower(point : CGPoint) -> TowerBase? {
