@@ -77,6 +77,7 @@ class EnemyBase: Entity{
         //let string = moveStrat.getMoveStrat()
         self.moveStrat = sentStrat
     }
+
     func moveMore(){
         moveStrat.Move(self)
     }

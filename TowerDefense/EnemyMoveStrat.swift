@@ -21,12 +21,6 @@ class EnemyMoveStrat
         
     }
     
-    // Change strategy context
-    func setState(newState : EnemyMoveStrat){
-        var daState : EnemyMoveStrat
-        daState = newState
-    }
-    
     //Helper functions almost all strategies will need
     func random() -> CGFloat{
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)

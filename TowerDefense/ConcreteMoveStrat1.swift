@@ -17,30 +17,29 @@ class ConcreteMoveStrat1: EnemyMoveStrat{
     //Continuously call the execute method passing the strategy
     // and sprite to be moved
     override func Move(nodeToMove :EnemyBase){
-        let passedSprite = nodeToMove.sprite
-        let passedStrat = nodeToMove.moveStrat
+
         //print(sprite.position.x, sprite.position.y)
         GameScene.scene!.runAction(SKAction.repeatActionForever(
             SKAction.sequence([
-                SKAction.runBlock({self.execute(passedStrat, passedSprite: passedSprite)}),
+                SKAction.runBlock({self.execute(nodeToMove)}),
                 SKAction.waitForDuration(2.0)
                 ])
             ))
     }
     
     //Handles what strategy to use depending on the sprite position
-    func execute(passedStrat : EnemyMoveStrat, passedSprite :SKSpriteNode){
-        if (passedSprite.position.y <= 10){
-            passedStrat.setState(stateYLow())
+    func execute(nodeToMove : EnemyBase){
+        if (nodeToMove.sprite.position.y <= 10){
+            nodeToMove.setMoveStrategy(stateYLow())
         }
-        else if(passedSprite.position.y >= 758){
-            passedStrat.setState(stateYHigh())
+        else if(nodeToMove.sprite.position.y >= 758){
+            nodeToMove.setMoveStrategy(stateYHigh())
         }
-        else if (passedSprite.position.x < 200){
-            passedSprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-3), getImpulseY()))
+        else if (nodeToMove.sprite.position.x < 200){
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-3), getImpulseY()))
         }
         else {
-            passedSprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), getImpulseY()))
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), getImpulseY()))
         }
     }
 }
