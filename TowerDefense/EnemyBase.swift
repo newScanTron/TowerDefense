@@ -49,7 +49,7 @@ class EnemyBase: Entity{
         sprite.physicsBody?.linearDamping = 0.0
         sprite.physicsBody?.angularDamping = 0.0
 
-        sprite.physicsBody?.dynamic = true
+        //sprite.physicsBody?.dynamic = false
         
         sprite.zPosition = ZPosition.enemy
 

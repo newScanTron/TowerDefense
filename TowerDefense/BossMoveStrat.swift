@@ -76,17 +76,12 @@ class BossMoveStrat: EnemyMoveStrat {
 
         }
         
-        
         if nodeToMove.sprite.position.x < 1000{
-            self.TakeOverEnemies(nodeToMove)
-        }
-    }
-    func TakeOverEnemies(bossNode : EnemyBase) {
-        for e in GameScene.enemies{
-            if e.sprite.name != "Boss"
-            {
-                e.setMoveStrategy(EnemySwarmStrat())
-                e.moveStrat.Move(e)
+            for e in GameScene.enemies{
+                if e.sprite.name != "Boss"
+                {
+                    e.setMoveStrategy(EnemySwarmStrat())
+                }
             }
         }
     }
@@ -104,7 +99,7 @@ class EnemySwarmStrat : EnemyMoveStrat{
             for e in GameScene.enemies{
                 
                 if e.sprite.name == "Boss"{
-                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(e.sprite.position, to: e.sprite.position, speed: 200.0))
+                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: e.sprite.position, speed: 100.0))
                 }
             }
         //}

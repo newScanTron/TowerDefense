@@ -25,6 +25,7 @@ class EnemyFactory
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
         sprite.physicsBody?.dynamic = false
+        sprite.size = CGSizeMake(100, 100)
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
 
@@ -46,13 +47,11 @@ class EnemyFactory
         
         let sprite = SKSpriteNode(imageNamed: "EnemyBoss")
         sprite.physicsBody?.dynamic = false
-        
+        sprite.size = CGSizeMake(100, 100)
         sprite.name = "Boss"
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
-        
-        
-        
+ 
         return enemy
         
     }
@@ -67,13 +66,11 @@ class EnemyFactory
         var moveDelay : CGFloat = 99.0
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
-        sprite.physicsBody?.dynamic = true
-        
+        sprite.physicsBody?.dynamic = false
+        sprite.size = CGSizeMake(100, 100)        
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
-        
-        //add the bison to the scene
-        
+ 
         return enemy
     }
 
