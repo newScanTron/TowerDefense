@@ -16,30 +16,27 @@ class EnemyBase: Entity{
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
-    var scene: SKScene
+
     var moveDelay : CGFloat
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat)
+    init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat)
     {
-        scene = _scene
+
         attack = _attack
         moveStrat = _moveStrat
         moveDelay = _moveDelay
         
-        
         super.init()
         sprite = _sprite
         range = _range
-
-        moveStrat.Move(self)
 
         sprite.xScale = 0.25
         sprite.yScale = 0.25
 
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
 
-        let actualY = random(min: 10.0, max: scene.size.height)
+        let actualY = random(min: 10.0, max: GameScene.scene!.size.height)
 
         sprite.position = CGPoint(x: GameScene.scene!.size.width, y:actualY)
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
@@ -53,29 +50,12 @@ class EnemyBase: Entity{
         sprite.physicsBody?.angularDamping = 0.0
 
         sprite.physicsBody?.dynamic = true
-
-        sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
-        sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
-        sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
-
+        
         sprite.zPosition = ZPosition.enemy
 
-
+        moveStrat.Move(self)
         
-        //Check to attack every two seconds
-        /*if let _ = moveStrat as? ConcreteMoveStrat1{
-            scene.runAction(SKAction.repeatActionForever(
-                SKAction.sequence([
-                    SKAction.runBlock(moveMore),
-                    SKAction.waitForDuration(2.0)
-                    ])
-                ))
-
         }
-        else{
-            moveStrat.Move(sprite)
-        }*/
-    }
 
     func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {

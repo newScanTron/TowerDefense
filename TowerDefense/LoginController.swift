@@ -17,7 +17,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
     
     @IBOutlet weak var userNameLbl: UILabel!
     var user = User()
-    var people = [NSManagedObject]()
+    var people = [String]()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -28,7 +28,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
         let managedContext = appDelegate.managedObjectContext
         
         //2
-        let fetchRequest = NSFetchRequest(entityName: "Person")
+        let fetchRequest = NSFetchRequest(entityName: "User")
         
         //3
         do {
@@ -50,11 +50,11 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return people
+        return people[row]
     }
     //function
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        userNameLbl.text = people[row].valueForKey("userName")
+        userNameLbl.text = people[row]
     }
 
     
