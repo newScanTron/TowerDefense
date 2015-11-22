@@ -77,8 +77,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
-
-//helper to make towers
+    //helper to make towers
     func addTower(location: CGPoint)
     {
         //create and add tower
@@ -119,18 +118,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 addTower(location)
             }
         }
-
     }
+    
     override func update(currentTime: CFTimeInterval) {
-        
-
         
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
         
-        
-
         // Trigger attack/defend strategies for each tower
         for t in GameScene.towers {
             t.TriggerAttack();
@@ -138,9 +133,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         for e in GameScene.enemies {
             e.TriggerAttack()
-
             e.moveStrat.Move(e)
-
         }
         //for e in GameScene.enemies 
         for var i = 0; i < GameScene.enemies.count ; i++
@@ -186,13 +179,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         fireDeleyNode.setNextNode(setSpeed)
         setSpeed.setNextNode(deffenseSetRange)
         deffenseSetRange.setNextNode(deffenseSetAmount)
-        
-        
-        
     }
     func addEnemy(){
         
-
         if(enemyCount < 15){
 
             self.addChild(GameScene.enemies[enemyCount].sprite)
@@ -267,7 +256,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
     }
     func didBeginContact(contact: SKPhysicsContact) {
-        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        let node1:SKNode = contact.bodyA.node!
+        let node2:SKNode = contact.bodyB.node!
+        
+        //if node1 categoryBitMask == Enemy && contact.bodyB.categoryBitMask == Tower {
+            
+        //}
+        
+        /*let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         switch(contactMask) {
         case ContactMask.Tower | ContactMask.EnemyBullet:
             let secondNode = contact.bodyB.node
@@ -289,7 +285,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
         default:
             return
-        }
+        }*/
 
     }
 }

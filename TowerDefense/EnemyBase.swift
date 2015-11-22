@@ -34,28 +34,27 @@ class EnemyBase: Entity{
         sprite.xScale = 0.25
         sprite.yScale = 0.25
 
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
 
         let actualY = random(min: 10.0, max: GameScene.scene!.size.height)
 
         sprite.position = CGPoint(x: GameScene.scene!.size.width, y:actualY)
+        sprite.physicsBody?.dynamic = true
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
         sprite.physicsBody?.collisionBitMask = BodyType.Enemy.rawValue
         sprite.physicsBody?.mass = 1
-        sprite.physicsBody?.friction = 30.0
+        sprite.physicsBody?.friction = 30000.0
         sprite.physicsBody?.restitution = 0.0
         sprite.physicsBody?.linearDamping = 0.0
         sprite.physicsBody?.angularDamping = 0.0
 
-        //sprite.physicsBody?.dynamic = false
-        
         sprite.zPosition = ZPosition.enemy
 
         moveStrat.Move(self)
         
-        }
+    }
 
     func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {
@@ -69,7 +68,6 @@ class EnemyBase: Entity{
     // Triggers attack strategy Attack function
     func TriggerAttack() {
         
-
         for t in GameScene.towers{
             if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){
                 attack.parent = self
