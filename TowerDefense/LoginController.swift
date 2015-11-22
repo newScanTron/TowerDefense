@@ -15,12 +15,15 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
 {
     
     
+    @IBOutlet weak var UserPicker: UIPickerView!
     @IBOutlet weak var userNameLbl: UILabel!
     var user = User()
     var people = [""]
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        UserPicker.dataSource = self
+        UserPicker.delegate = self
         //1
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
@@ -43,7 +46,6 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
                     if let u = result.valueForKey("userName") as? String {
                         
                         people.append(u)
-                        print("u ", u)
                     }
                 }
                     

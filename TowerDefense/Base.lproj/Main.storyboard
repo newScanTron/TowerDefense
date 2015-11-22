@@ -119,6 +119,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fUQ-sg-3Sf"/>
                     <connections>
+                        <outlet property="UserPicker" destination="j4N-Uy-uob" id="q5Y-uG-9w2"/>
                         <outlet property="userNameLbl" destination="kss-K5-f40" id="rgu-Es-9F5"/>
                     </connections>
                 </viewController>
