@@ -20,6 +20,7 @@
 		993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B81C011A6D009596FA /* SignUpController.swift */; };
 		993BC2BA1C011A6D009596FA /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B81C011A6D009596FA /* SignUpController.swift */; };
 		993BC2BB1C011B2A009596FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08331BE035D80070F4B8 /* Main.storyboard */; };
+		99403FA41C01780C00A3B4E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08331BE035D80070F4B8 /* Main.storyboard */; };
 		9946E3FF1BE56E33007E9559 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E3FE1BE56E33007E9559 /* Common.swift */; };
 		9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4001BE56E54007E9559 /* TowerBase.swift */; };
 		9946E4031BE56EBB007E9559 /* EnemyMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */; };
@@ -408,6 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99403FA41C01780C00A3B4E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
