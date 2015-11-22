@@ -17,14 +17,15 @@ class EnemyBase: Entity{
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
     var scene: SKScene
-    var totalAngle : CGFloat = 0
+    var moveDelay : CGFloat
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat)
+    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat)
     {
         scene = _scene
         attack = _attack
         moveStrat = _moveStrat
+        moveDelay = _moveDelay
         
         
         super.init()
