@@ -193,7 +193,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func addEnemy(){
         
 
-        if(GameScene.enemies.count < enemyMin){
+        if(enemyCount < 15){
 
             self.addChild(GameScene.enemies[enemyCount].sprite)
             enemyCount++
