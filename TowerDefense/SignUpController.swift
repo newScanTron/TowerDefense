@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 
 class SignUpController: UIViewController
@@ -34,6 +35,32 @@ class SignUpController: UIViewController
             print("passwords match")
         }
     }
-    
+    func saveName(name: String, passwd: String) {
+        //1
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        //2
+        let entity =  NSEntityDescription.entityForName("Person",
+            inManagedObjectContext:managedContext)
+        
+        let person = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext: managedContext)
+        
+        //3
+        person.setValue(name, forKey: "userName")
+        person.setValue(passwd, forKey: "passwd")
+        
+        //4
+        do {
+            try managedContext.save()
+            print(person.valueForKey("userName"))
+            //5
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
     
 }

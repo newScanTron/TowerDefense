@@ -118,6 +118,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fUQ-sg-3Sf"/>
+                    <connections>
+                        <outlet property="userNameLbl" destination="kss-K5-f40" id="rgu-Es-9F5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4A-yY-IUl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

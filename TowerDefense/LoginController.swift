@@ -10,13 +10,17 @@ import Foundation
 import CoreData
 import UIKit
 
-class LoginController: UIViewController
-{
-    var user = User()
-    
+class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
 
+{
     
-    func saveName(name: String, passwd: String) {
+    
+    @IBOutlet weak var userNameLbl: UILabel!
+    var user = User()
+    var people = [NSManagedObject]()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         //1
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
@@ -24,25 +28,43 @@ class LoginController: UIViewController
         let managedContext = appDelegate.managedObjectContext
         
         //2
-        let entity =  NSEntityDescription.entityForName("Person",
-            inManagedObjectContext:managedContext)
-        
-        let person = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext: managedContext)
+        let fetchRequest = NSFetchRequest(entityName: "Person")
         
         //3
-        person.setValue(name, forKey: "userName")
-        person.setValue(passwd, forKey: "passwd")
-        
-        //4
         do {
-            try managedContext.save()
-            print(person.valueForKey("userName"))
-            //5
-            user = User(userName: name, pswd: passwd)
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
+            let results =
+            try managedContext.executeFetchRequest(fetchRequest)
+            people = results as! [NSManagedObject]
+            
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
         }
     }
+    func getManagedObjects()
+    {  for result: AnyObject in results! {
+        
+        
+        
+        if let u = result.valueForKey("userName") as? String {
+            
+            colors.append(u)
+        
+    }
+    //functions conforming to the UIPickerView DataSource
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return people.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return people
+    }
+    //function
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        userNameLbl.text = people[row].valueForKey("userName")
+    }
+
     
 }
