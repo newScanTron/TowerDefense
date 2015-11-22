@@ -32,24 +32,15 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
         
         //3
         do {
-            let results =
-            try managedContext.executeFetchRequest(fetchRequest)
-            people = results as! [NSManagedObject]
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            
+            
             
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
     }
-    func getManagedObjects()
-    {  for result: AnyObject in results! {
-        
-        
-        
-        if let u = result.valueForKey("userName") as? String {
-            
-            colors.append(u)
-        
-    }
+   
     //functions conforming to the UIPickerView DataSource
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
