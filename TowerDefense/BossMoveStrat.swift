@@ -113,15 +113,15 @@ class EnemySwarmStrat : EnemyMoveStrat{
                 
                 if GameScene.getDistance(nodeToMove.sprite.position, to: e.sprite.position) > CGFloat(250){
                     nodeToMove.sprite.physicsBody?.linearDamping = 0.75
-                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 2.0))
+                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 9.0))
                 }
-                else if GameScene.getDistance(nodeToMove.sprite.position, to: e.sprite.position) > CGFloat(50) && GameScene.getDistance(nodeToMove.sprite.position, to: e.sprite.position) < 250 {
+                else if GameScene.getDistance(nodeToMove.sprite.position, to: e.sprite.position) > CGFloat(75) && GameScene.getDistance(nodeToMove.sprite.position, to: e.sprite.position) < 250 {
                     nodeToMove.sprite.physicsBody?.linearDamping = 0.5
-                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 5.0))
+                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 8.0))
                 }
                 else {
                     nodeToMove.sprite.physicsBody?.linearDamping = 0
-                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 18.0))
+                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 20.0))
                 }
                 
                 /*if nodeToMove.sprite.speed > 30{

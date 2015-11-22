@@ -255,37 +255,36 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
     }
+    
     func didBeginContact(contact: SKPhysicsContact) {
-        let node1:SKNode = contact.bodyA.node!
-        let node2:SKNode = contact.bodyB.node!
-        
-        //if node1 categoryBitMask == Enemy && contact.bodyB.categoryBitMask == Tower {
+        // Bitiwse OR the bodies' categories to find out what kind of contact we have
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        switch contactMask {
             
-        //}
-        
-        /*let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        switch(contactMask) {
-        case ContactMask.Tower | ContactMask.EnemyBullet:
-            let secondNode = contact.bodyB.node
-            //for s in GameScene.childNodeWithName(sprite)
-            secondNode?.removeFromParent()
-            
-            
-            let firstNode = contact.bodyA.node
-            for t in GameScene.towers{
-                if t.sprite == firstNode{
-                    t.health -= 10
-                    if (t.health <= 0)
-                    {
-                        firstNode?.removeFromParent()
-                    }
-                }
+        case PhysicsCategory.Enemy.rawValue | PhysicsCategory.Bullet.rawValue:
+
+            if contact.bodyA.categoryBitMask == PhysicsCategory.Bullet.rawValue {
+                print("In Enemy Vs TowerBullet")
+            } else {
+                print("In else of Enemy Vs TowerBullet")
             }
+            
+        case PhysicsCategory.Enemy.rawValue | PhysicsCategory.Tower.rawValue:
+
+            if contact.bodyA.categoryBitMask == PhysicsCategory.Enemy.rawValue {
+                print("In Enemy Vs TowerBullet")
+            } else {
+                print("In else of Enemy Vs TowerBullet")
+            }
+            
+        case PhysicsCategory.Bullet.rawValue | PhysicsCategory.Tower.rawValue:
+            
+            print("bullet + tower")
 
             
         default:
-            return
-        }*/
-
+            
+            print("other collision: \(contactMask)")
+        }
     }
 }

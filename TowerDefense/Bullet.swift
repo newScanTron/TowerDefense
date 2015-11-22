@@ -28,7 +28,8 @@ class Bullet {
         //Set up collisions
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         sprite.physicsBody?.categoryBitMask = CategoryMask.Bullet
-        sprite.physicsBody?.collisionBitMask = CollisionMask.Bullet
+        //sprite.physicsBody?.collisionBitMask = CollisionMask.Bullet
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Bullet.rawValue
         if (_shotByEnemy) {
             sprite.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
         }
