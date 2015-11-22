@@ -33,6 +33,7 @@ class SignUpController: UIViewController
         if PasswordText.text == PasswordTwoText.text
         {
             print("passwords match")
+            saveName(UserNameText.text!, passwd: PasswordText.text!)
         }
     }
     func saveName(name: String, passwd: String) {
@@ -43,7 +44,7 @@ class SignUpController: UIViewController
         let managedContext = appDelegate.managedObjectContext
         
         //2
-        let entity =  NSEntityDescription.entityForName("Person",
+        let entity =  NSEntityDescription.entityForName("User",
             inManagedObjectContext:managedContext)
         
         let person = NSManagedObject(entity: entity!,
@@ -51,12 +52,13 @@ class SignUpController: UIViewController
         
         //3
         person.setValue(name, forKey: "userName")
-        person.setValue(passwd, forKey: "passwd")
+        person.setValue(passwd, forKey: "psswd")
         
         //4
         do {
             try managedContext.save()
             print(person.valueForKey("userName"))
+            performSegueWithIdentifier("backToLogin", sender: nil)
             //5
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")

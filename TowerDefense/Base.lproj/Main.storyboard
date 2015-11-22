@@ -208,7 +208,7 @@
                         <outlet property="PasswordText" destination="QlD-5Y-OEy" id="kWN-F2-oJ0"/>
                         <outlet property="PasswordTwoText" destination="dB1-4B-22V" id="Dht-xU-swA"/>
                         <outlet property="UserNameText" destination="bVw-uE-x7o" id="PlA-qg-mcb"/>
-                        <segue destination="dCC-XD-tRi" kind="show" id="jBp-kB-KP0"/>
+                        <segue destination="dCC-XD-tRi" kind="show" identifier="backToLogin" id="jBp-kB-KP0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bbQ-5J-ozr" userLabel="First Responder" sceneMemberID="firstResponder"/>
