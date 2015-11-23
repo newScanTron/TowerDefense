@@ -3,23 +3,24 @@
     <entity name="GameState" syncable="YES">
         <attribute name="gold" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="xp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="newRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="gameState" inverseEntity="User" syncable="YES"/>
         <relationship name="tower" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tower" inverseName="gameState" inverseEntity="Tower" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="gameState" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Tower" syncable="YES">
         <attribute name="health" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="locationX" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="locationY" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="spirte" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="gameState" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameState" inverseName="tower" inverseEntity="GameState" syncable="YES"/>
     </entity>
     <entity name="User" syncable="YES">
         <attribute name="psswd" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="gameState" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameState" inverseName="user" inverseEntity="GameState" syncable="YES"/>
+        <relationship name="gameState" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GameState" inverseName="newRelationship" inverseEntity="GameState" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GameState" positionX="-371" positionY="-135" width="128" height="103"/>
-        <element name="Tower" positionX="-162" positionY="-180" width="128" height="103"/>
-        <element name="User" positionX="-162" positionY="-45" width="128" height="90"/>
+        <element name="Tower" positionX="-162" positionY="-180" width="128" height="118"/>
+        <element name="User" positionX="180" positionY="-342" width="128" height="88"/>
+        <element name="GameState" positionX="-99" positionY="-436" width="128" height="103"/>
     </elements>
 </model>

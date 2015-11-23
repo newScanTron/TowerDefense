@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  TowerDefense
@@ -13,7 +14,11 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    //I had to make init() in both of these classes to to allow be to declare them here before we know what they are going to be.
     var user = User()
+    var gameState = GameState()
+    var gameScene = GameScene()
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -41,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         self.saveContext()
+        
     }
 //methods to handle CoreData applications
     // MARK: - Core Data stack
@@ -105,8 +111,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    //function save user
     
-    
+    //saves a user to CoreData
+    func saveUser(name: String, passwd: String) {
+        
+        let managedContext = self.managedObjectContext
+        
+        //2
+        let entity =  NSEntityDescription.entityForName("User",
+            inManagedObjectContext:managedContext)
+        
+        let user = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext: managedContext)
+        
+        //3
+        user.setValue(name, forKey: "userName")
+        user.setValue(passwd, forKey: "psswd")
+        
+        //4
+        do {
+            try managedContext.save()
+            //5
+            self.user.setUser(name, psswd: passwd)
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
 
 }
 

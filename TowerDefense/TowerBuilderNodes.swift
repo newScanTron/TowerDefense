@@ -16,7 +16,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     var nextNode: UpgradeNode?
     //each node needs a towerBase variable because we need access to it outside of the upgrade function
     var tower: TowerBase?
-    var nodeData = ["Range", "is", "up"]
+    var nodeData = ["Close", "Proximity", "Ranged"]
     init(x: CGFloat, y: CGFloat, tower: TowerBase)
     {
         super.init(x: x, y: y)
@@ -56,6 +56,9 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     //fucntion to begin the upgrade request down the chain
     func startUpgradeChain()
     {
+        
+        
+        
         if self.nextNode != nil
         {
             
@@ -155,7 +158,7 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
     var nextNode: UpgradeNode?
     
     var tower: TowerBase?
-    var nodeData = ["fire", "deley", "up"]
+    var nodeData = ["fast", "medium", "slow"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
@@ -189,6 +192,8 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         playerLabel.text = nodeData[row]
+        //this is very simple way to see that the fireDeley is being ajusted.
+        self.tower?.attack.fireDelay = CGFloat((Double(row)+1 * 0.5))
     }
     func startUpgradeChain()
     {

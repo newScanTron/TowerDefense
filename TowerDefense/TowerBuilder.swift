@@ -33,6 +33,9 @@ class TowerBuilder
         attack.parent = tower
         defense.parent = tower
         tower.sprite.zPosition = ZPosition.tower
+        tower.sprite.name = "tower"
+        
+        
         return tower
     }
     func attackSetRange(range: Int)

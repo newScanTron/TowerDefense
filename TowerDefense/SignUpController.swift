@@ -13,6 +13,9 @@ import CoreData
 
 class SignUpController: UIViewController
 {
+    //1
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     //IB outlets and one action to gather the user input from the SignUp view
     @IBOutlet weak var PasswordTwoText: UITextField!
     @IBOutlet weak var UserNameText: UITextField!
@@ -32,37 +35,10 @@ class SignUpController: UIViewController
     {
         if PasswordText.text == PasswordTwoText.text
         {
-            print("passwords match")
-            saveName(UserNameText.text!, passwd: PasswordText.text!)
-        }
-    }
-    func saveName(name: String, passwd: String) {
-        //1
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        //2
-        let entity =  NSEntityDescription.entityForName("User",
-            inManagedObjectContext:managedContext)
-        
-        let person = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext: managedContext)
-        
-        //3
-        person.setValue(name, forKey: "userName")
-        person.setValue(passwd, forKey: "psswd")
-        
-        //4
-        do {
-            try managedContext.save()
-            print(person.valueForKey("userName"))
+            appDelegate.saveUser(UserNameText.text!, passwd: PasswordText.text!)
             performSegueWithIdentifier("backToLogin", sender: nil)
-            //5
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
         }
     }
+
     
 }

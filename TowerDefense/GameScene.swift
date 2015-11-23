@@ -129,7 +129,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
         
-        
+        self.enumerateChildNodesWithName("tower", usingBlock: {
+            node, stop in
+            // do something with node or stop
+    
+            })
 
         // Trigger attack/defend strategies for each tower
         for t in GameScene.towers {
@@ -183,9 +187,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //set all the nodes to the seccuessor
         node.setNextNode(setDamageNode)
         setDamageNode.setNextNode(fireDeleyNode)
-        fireDeleyNode.setNextNode(setSpeed)
+        fireDeleyNode.setNextNode(deffenseSetRange)
         setSpeed.setNextNode(deffenseSetRange)
-        deffenseSetRange.setNextNode(deffenseSetAmount)
+        deffenseSetRange.setNextNode(setSpeed)
+        deffenseSetAmount.setNextNode(deffenseSetRange)
         
         
         
