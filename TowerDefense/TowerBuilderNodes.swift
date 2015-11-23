@@ -261,7 +261,7 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
     //intersting fucntion to how the tower gets affected.
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         playerLabel.text = nodeData[row]
-        self.tower?.attack.speed = CGFloat((Double(row)+1 * 1.5))
+        self.tower?.attack.speed = CGFloat(((Double(row)+1) * 5 * 55.15))
     }
     func startUpgradeChain()
     {
