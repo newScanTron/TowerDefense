@@ -261,26 +261,40 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         switch contactMask {
             
-        case PhysicsCategory.Enemy.rawValue | PhysicsCategory.Bullet.rawValue:
-
-            if contact.bodyA.categoryBitMask == PhysicsCategory.Bullet.rawValue {
-                print("In Enemy Vs TowerBullet")
-            } else {
-                print("In else of Enemy Vs TowerBullet")
-            }
-            
-        case PhysicsCategory.Enemy.rawValue | PhysicsCategory.Tower.rawValue:
+        case PhysicsCategory.Enemy.rawValue | PhysicsCategory.TowerBullet.rawValue:
 
             if contact.bodyA.categoryBitMask == PhysicsCategory.Enemy.rawValue {
-                print("In Enemy Vs TowerBullet")
+                //print("In Enemy Vs Bullet")
+                
+                for e in GameScene.enemies{
+                    if e.sprite == contact.bodyA.node{
+                        e.health -= 10
+                        if e.health <= 0 {
+                            contact.bodyA.node?.removeFromParent()
+                        }
+                    }
+                }
+                contact.bodyB.node?.removeFromParent()
             } else {
-                print("In else of Enemy Vs TowerBullet")
+                print("In else of Enemy Vs Bullet")
             }
             
-        case PhysicsCategory.Bullet.rawValue | PhysicsCategory.Tower.rawValue:
-            
-            print("bullet + tower")
+        case PhysicsCategory.Tower.rawValue | PhysicsCategory.EnemyBullet.rawValue:
 
+            if contact.bodyA.categoryBitMask == PhysicsCategory.Tower.rawValue {
+                //print("In Bullet Vs Tower")
+                for t in GameScene.towers{
+                    if t.sprite == contact.bodyA{
+                        t.health -= 10
+                        if t.health <= 0{
+                            contact.bodyA.node?.removeFromParent()
+                        }
+                    }
+                }
+                
+            } else {
+                print("In else of Bullet Vs Tower")
+            }
             
         default:
             

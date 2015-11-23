@@ -28,10 +28,10 @@ class ConcreteMoveStrat1: EnemyMoveStrat{
                 nodeToMove.setMoveStrategy(stateYHigh())
             }
             else if (nodeToMove.sprite.position.x < 200){
-                nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-3), getImpulseY()))
+                nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXPos(), getImpulseYRand()))
             }
             else {
-                nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX(), getImpulseY()))
+                nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXNeg(), getImpulseYRand()))
             }
         }
     }
@@ -47,11 +47,12 @@ class stateYLow : EnemyMoveStrat{
             
             lastMove = GameScene.gameTime
 
-            nodeToMove.sprite.physicsBody?.friction = 200.0
-            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYPos()*(3))))
+            nodeToMove.sprite.physicsBody?.linearDamping = 0.50
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), (getImpulseYPos()*(3))))
             
+            //Return to move strategy after enemy is back onto screen
             if(nodeToMove.sprite.position.y > 10){
-                nodeToMove.sprite.physicsBody?.friction = 10.0
+                nodeToMove.sprite.physicsBody?.linearDamping = 0.0
                 nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
             }
         }
@@ -69,10 +70,12 @@ class stateYHigh : EnemyMoveStrat{
             
             lastMove = GameScene.gameTime
             
-            nodeToMove.sprite.physicsBody?.friction = 200.0
-            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseX()*(-1), (getImpulseYNeg()*(3))))
+            nodeToMove.sprite.physicsBody?.linearDamping = 0.50
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), (getImpulseYNeg()*(3))))
+            
+            //Return to move strategy after enemy is back onto screen
             if (nodeToMove.sprite.position.y < 758){
-                nodeToMove.sprite.physicsBody?.friction = 10.0
+                nodeToMove.sprite.physicsBody?.linearDamping = 0.0
                 nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
             }
         }

@@ -42,10 +42,9 @@ class EnemyBase: Entity{
         sprite.physicsBody?.dynamic = true
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
-        //sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
+        sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
         sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy.rawValue
         sprite.physicsBody?.mass = 1
-        sprite.physicsBody?.friction = 30000.0
         sprite.physicsBody?.restitution = 0.0
         sprite.physicsBody?.linearDamping = 0.0
         sprite.physicsBody?.angularDamping = 0.0
@@ -62,6 +61,9 @@ class EnemyBase: Entity{
         self.moveStrat = sentStrat
     }
 
+    func setAttackStrategy(sentAttack: EnemyAttackStrat){
+        self.attack = sentAttack
+    }
     func moveMore(){
         moveStrat.Move(self)
     }

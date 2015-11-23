@@ -18,6 +18,7 @@ class EnemyFactory
         let attack = RangedAttack()
         let moveStrat = ConcreteMoveStrat1()
         let range: CGFloat = 200.00
+        
         attack.damage = 40
         attack.fireDelay = 1
         attack.speed = 10
@@ -36,7 +37,6 @@ class EnemyFactory
         let attack = RangedAttack()
         let moveStrat = BossMoveStrat()
         let range: CGFloat = 350.00
-
         attack.damage = 50
         attack.fireDelay = 1
         attack.speed = 10

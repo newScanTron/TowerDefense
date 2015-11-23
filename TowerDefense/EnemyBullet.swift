@@ -25,15 +25,15 @@ class EnemyBullet {
         //Set up collisions
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
 
-        sprite.physicsBody?.categoryBitMask = CategoryMask.Bullet
-        sprite.physicsBody?.collisionBitMask = CollisionMask.Bullet
+        sprite.physicsBody?.categoryBitMask = CategoryMask.EnemyBullet
+        sprite.physicsBody?.collisionBitMask = CollisionMask.EnemyBullet
         sprite.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
-        if (_shotByEnemy) {
+        /*if (_shotByEnemy) {
             sprite.physicsBody?.contactTestBitMask = ContactMask.TowerBullet
         }
         else {
             sprite.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
-        }
+        }*/
         sprite.physicsBody?.mass = 1
         sprite.physicsBody?.friction = 0.0
         sprite.physicsBody?.restitution = 0.0
