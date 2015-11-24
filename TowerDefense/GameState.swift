@@ -26,8 +26,8 @@ struct GameState {
     init()
     {
         user = User()
-        xp = 0
-        gold = 0
+//        xp = 0
+//        gold = 0
         towers = []
         enemies = []
     }

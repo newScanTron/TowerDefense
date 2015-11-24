@@ -16,6 +16,9 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     var nextNode: UpgradeNode?
     //each node needs a towerBase variable because we need access to it outside of the upgrade function
     var tower: TowerBase?
+    //this array represents the datasource for the UIPickerView
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     var nodeData = ["Close", "Proximity", "Ranged"]
     init(x: CGFloat, y: CGFloat, tower: TowerBase)
     {
@@ -46,9 +49,12 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     }
     //function with each of the this method will do the actuall calling of things that effect the player gold
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if appDelegate.gameState.gold > 400
+        {
         playerLabel.text = nodeData[row]
         self.tower?.attack.range = (row+2)*3
         
+        }
     }
     
     func setNextNode(node: UpgradeNode)
@@ -58,8 +64,6 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     //fucntion to begin the upgrade request down the chain
     func startUpgradeChain()
     {
-        
-        
         
         if self.nextNode != nil
         {
