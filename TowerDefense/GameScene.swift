@@ -77,8 +77,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
-
-//helper to make towers
+    //helper to make towers
     func addTower(location: CGPoint)
     {
         //create and add tower
@@ -119,16 +118,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 addTower(location)
             }
         }
-
     }
+    
     override func update(currentTime: CFTimeInterval) {
-        
-
         
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
         
+
         self.enumerateChildNodesWithName("tower", usingBlock: {
             node, stop in
             // do something with node or stop
@@ -142,9 +140,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         for e in GameScene.enemies {
             e.TriggerAttack()
-
             e.moveStrat.Move(e)
-
         }
         //for e in GameScene.enemies 
         for var i = 0; i < GameScene.enemies.count ; i++
@@ -189,15 +185,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         setDamageNode.setNextNode(fireDeleyNode)
         fireDeleyNode.setNextNode(deffenseSetRange)
         setSpeed.setNextNode(deffenseSetRange)
+
         deffenseSetRange.setNextNode(setSpeed)
         deffenseSetAmount.setNextNode(deffenseSetRange)
-        
-        
-        
+
+        deffenseSetRange.setNextNode(deffenseSetAmount)
+
     }
     func addEnemy(){
         
-
         if(enemyCount < 15){
 
             self.addChild(GameScene.enemies[enemyCount].sprite)
@@ -271,30 +267,50 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
     }
+    
     func didBeginContact(contact: SKPhysicsContact) {
+        // Bitiwse OR the bodies' categories to find out what kind of contact we have
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        switch(contactMask) {
-        case ContactMask.Tower | ContactMask.EnemyBullet:
-            let secondNode = contact.bodyB.node
-            //for s in GameScene.childNodeWithName(sprite)
-            secondNode?.removeFromParent()
+        switch contactMask {
             
-            
-            let firstNode = contact.bodyA.node
-            for t in GameScene.towers{
-                if t.sprite == firstNode{
-                    t.health -= 10
-                    if (t.health <= 0)
-                    {
-                        firstNode?.removeFromParent()
+        case PhysicsCategory.Enemy.rawValue | PhysicsCategory.TowerBullet.rawValue:
+
+            if contact.bodyA.categoryBitMask == PhysicsCategory.Enemy.rawValue {
+                //print("In Enemy Vs Bullet")
+                
+                for e in GameScene.enemies{
+                    if e.sprite == contact.bodyA.node{
+                        e.health -= 10
+                        if e.health <= 0 {
+                            contact.bodyA.node?.removeFromParent()
+                        }
                     }
                 }
+                contact.bodyB.node?.removeFromParent()
+            } else {
+                print("In else of Enemy Vs Bullet")
             }
+            
+        case PhysicsCategory.Tower.rawValue | PhysicsCategory.EnemyBullet.rawValue:
 
+            if contact.bodyA.categoryBitMask == PhysicsCategory.Tower.rawValue {
+                //print("In Bullet Vs Tower")
+                for t in GameScene.towers{
+                    if t.sprite == contact.bodyA{
+                        t.health -= 10
+                        if t.health <= 0{
+                            contact.bodyA.node?.removeFromParent()
+                        }
+                    }
+                }
+                
+            } else {
+                print("In else of Bullet Vs Tower")
+            }
             
         default:
-            return
+            
+            print("other collision: \(contactMask)")
         }
-
     }
 }

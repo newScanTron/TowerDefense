@@ -11,6 +11,7 @@ import SpriteKit
 
 class EnemyMoveStrat
 {
+    let moveConstant : CGFloat = 10
     
     init(){
         //Not to be initialized
@@ -20,6 +21,9 @@ class EnemyMoveStrat
     func Move(node : EnemyBase){
         
     }
+    func stopEnemy(nodeToMove: EnemyBase){
+        nodeToMove.sprite.physicsBody!.linearDamping = 1
+    }
     
     //Helper functions almost all strategies will need
     func random() -> CGFloat{
@@ -28,16 +32,26 @@ class EnemyMoveStrat
     func random(min min: CGFloat, max: CGFloat) -> CGFloat{
         return random() * (max - min) + min
     }
-    func getImpulseX() -> CGFloat{
-        return random(min: -20.0, max: -10)
+    func getImpulseXRand() -> CGFloat{
+        return random(min: -moveConstant, max: moveConstant)
     }
     func getImpulseYPos() -> CGFloat{
-        return random(min: 0, max: 20)
+        return random(min: 0, max: moveConstant)
     }
-    func getImpulseY() -> CGFloat{
-        return random(min: -20, max: 20)
+    func getImpulseYRand() -> CGFloat{
+        return random(min: -moveConstant, max: moveConstant)
     }
     func getImpulseYNeg() -> CGFloat{
-        return random(min: -20, max: 0)
+        return random(min: -moveConstant, max: 0)
+    }
+    func getImpulseXPos() -> CGFloat{
+        return random(min: 0, max: moveConstant)
+    }
+    func getImpulseXNeg() -> CGFloat{
+        return random(min: -moveConstant, max: 0)
+    }
+    func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {
+        let dis : CGFloat = GameScene.getDistance(from,to: to)
+        return CGVectorMake((to.x - from.x)/dis * speed, (to.y - from.y)/dis * speed)
     }
 }
