@@ -45,15 +45,24 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
                 {
                     
                     print(result)
-                    
                     if let u = result.valueForKey("userName") as? String
                     {
                         if let p = result.valueForKey("psswd") as? String
                         {
                              user = User(userName: u, pswd: p)
                             people.append(user)
+                            
+//                            let addresses = result.mutableArrayValueForKey("hasGameState")
+//                            print(addresses)
+//                            //some weak debug loopoing
+//                            if addresses.count > 0
+//                            {
+//                                for gameSt: AnyObject in addresses
+//                                {
+//                                    print(gameSt)
+//                                }
+//                            }
                         }
-                        
                     }
                 }
             }

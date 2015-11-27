@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             
-            dict[NSUnderlyingErrorKey] = error as NSError
+            dict[NSUnderlyingErrorKey] = error as? NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -128,6 +128,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //3
         user.setValue(name, forKey: "userName")
         user.setValue(passwd, forKey: "psswd")
+        
+        // Create Address
+        let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
+        let newAddress = NSManagedObject(entity: gameState!, insertIntoManagedObjectContext: self.managedObjectContext)
+        
+        // Populate Address
+        newAddress.setValue(1000, forKey: "gold")
+        newAddress.setValue(1, forKey: "xp")
+    
+        let addresses = user.mutableSetValueForKey("hasGameState")
+        addresses.addObject(newAddress)
+        
+        do {
+            try user.managedObjectContext?.save()
+        } catch {
+            let saveError = error as NSError
+            print(saveError)
+        }
+        
+        
         
         //4
         do {
