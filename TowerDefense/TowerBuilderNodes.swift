@@ -52,7 +52,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
         if appDelegate.gameState.gold > 400
         {
         playerLabel.text = nodeData[row]
-        self.tower?.attack.range = (row+2)*3
+        self.tower?.attack.range = CGFloat((row+2)*3)
         
         }
     }
