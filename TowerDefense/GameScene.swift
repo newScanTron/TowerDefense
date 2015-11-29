@@ -183,13 +183,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //set all the nodes to the seccuessor
         node.setNextNode(setDamageNode)
         setDamageNode.setNextNode(fireDeleyNode)
-        fireDeleyNode.setNextNode(deffenseSetRange)
+        fireDeleyNode.setNextNode(setSpeed)
         setSpeed.setNextNode(deffenseSetRange)
 
-        deffenseSetRange.setNextNode(setSpeed)
-        deffenseSetAmount.setNextNode(deffenseSetRange)
-
         deffenseSetRange.setNextNode(deffenseSetAmount)
+        //deffenseSetAmount is not set to have a node following it so it
+
 
     }
     func addEnemy(){

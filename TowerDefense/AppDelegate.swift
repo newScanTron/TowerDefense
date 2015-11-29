@@ -128,6 +128,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //3
         user.setValue(name, forKey: "userName")
         user.setValue(passwd, forKey: "psswd")
+        user.setValue(0, forKey: "xp" )
+        user.setValue(1000, forKey: "gold")
         
         // Create Address
         let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)

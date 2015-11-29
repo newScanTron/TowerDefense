@@ -24,6 +24,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
     @IBOutlet weak var userNameLbl: UILabel!
     var user = User()
     var people = [User]()
+    var gameSt = [GameState]()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -49,14 +50,24 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
                     {
                         if let p = result.valueForKey("psswd") as? String
                         {
-                             user = User(userName: u, pswd: p)
+                            user = User(userName: u, pswd: p)
                             people.append(user)
                             
-                            if let addresses = result.valueForKey("hasGameState")
-                            {
-                                print("yeah", addresses)
-                                print(addresses.valueForKey("gold"))
-                            }//some weak debug loopoing
+//                            if let addresses = result.valueForKey("hasGameState")
+//                            {
+//                                
+//                                if addresses.count > 0
+//                                {
+//                               
+//                                
+//                                
+////                                let gold = addresses.valueForKey("gold") as? String
+////                                let  xp = result.valueForKey("hasGameState.xp") as? String
+////                                print("thtp", xp)
+////                                gameSt.append(GameState(user: user, xp: xp!, gold: gold!))
+//                                }
+//                                
+//                            }//some weak debug loopoing
                         }
                     }
                 }
@@ -95,6 +106,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         userNameLbl.text = people[row].userName
         appDelegate.user = people[row]
+        //appDelegate.gameState = gameSt[row]
         
         
     }
