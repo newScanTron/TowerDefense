@@ -32,46 +32,51 @@ class TowerAttackPulse : TowerAttackStrat {
             lastFire = GameScene.gameTime
             pulsing = true
             currentRadius = 0
-            print("PULSE START")
                 
         }
         
 
         
         if (pulsing) {
+            // If pulse's current radius has exceeded range
             if (currentRadius > (range)) {
+                // End pulse
                 pulsing = false
                 circle?.removeFromParent()
-                print("PULSE END")
             }
+            // If pulse's current radius has not exceeded range
             else {
-                print("PULSING")
-                
+                // Grow current radius by speed
                 currentRadius += speed
+                
+                // Ratio for pulses progress
                 let ratio : CGFloat = (1-(currentRadius/(range)))
+                
+                // Linearly decreasing damage
                 currentDamage = ratio * damage
-                //print("currentDamage = (1-(" + String(currentRadius)  + "/(" + String(range) + "))) * " + String(damage) + " = " + String(currentDamage))
                 
                 for e in GameScene.getEnemiesInRange(parent!.sprite.position,range: currentRadius) {
-                    
-                    
-                    //var out : String = "PULSE: " + String(e.health) + " - " + String(currentDamage)
+                    // Apply damage to each enemy within pulse
                     e.health -= currentDamage
-                    //out = out + " = " + String(e.health)
-                    //print(out)
                 }
                 
-                circle?.removeFromParent()
-                circle = SKShapeNode(circleOfRadius: currentRadius)
-               // ball = SKShapeNode.shapeNodeWithCircleOfRadius(radius: currentRadius)
                 
+                // Remove old circle
+                circle?.removeFromParent()
+                // Create new circle
+                circle = SKShapeNode(circleOfRadius: currentRadius)
                 circle?.position = parent!.sprite.position
                 circle?.lineWidth = 1.0;
+                
+                // Color fades as pulse progresses
                 circle?.fillColor = SKColor(red: 0, green: 0, blue: 1, alpha: 1 * ratio)
                 circle?.strokeColor = SKColor(red: 1, green: 1, blue: 1, alpha: 1 * ratio*2)
+                
                 circle?.glowWidth = 0.5;
                 circle?.zPosition = ZPosition.tower-1
                 circle?.blendMode = SKBlendMode.Screen
+                
+                // Add circle back to scene
                 GameScene.scene?.addChild(circle!)
                 
 
