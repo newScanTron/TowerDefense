@@ -48,9 +48,10 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
                    // print(result)
                     if let u = result.valueForKey("userName") as? String
                     {
-                        if let p = result.valueForKey("psswd") as? String
+                        if let p = result.valueForKey("psswd") as? String, let xp = result.valueForKey("xp") as? Int, let gold = result.valueForKey("gold") as? Int
                         {
-                            user = User(userName: u, pswd: p)
+                            user = User(userName: u, pswd: p, xp: xp, gold: gold)
+                            
                             people.append(user)
                             
 //                            if let addresses = result.valueForKey("hasGameState")
@@ -68,6 +69,11 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
 //                                }
 //                                
 //                            }//some weak debug loopoing
+                        }
+                        else
+                        {
+                            print("could not add user and create")
+                            
                         }
                     }
                 }

@@ -14,7 +14,7 @@ import CoreData
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
     let satellite = SKSpriteNode(imageNamed: "Sat2")
-    let myLabel = SKLabelNode(fontNamed:"Verdana")
+    var myLabel = SKLabelNode(fontNamed:"Verdana")
     let towerTotal = 5
     let cero = 0
     var enemyCount = 0
@@ -29,9 +29,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
-     
+  
     
     override func didMoveToView(view: SKView) {
+
+        
+     
+        
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
 
@@ -39,6 +43,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         print(scene?.size.width, scene?.size.height)
 
+        
+        
+        myLabel.text = "DEFFEND!";
+        myLabel.fontSize = 45;
+        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 100, y:CGRectGetMinY(self.frame));
+        
+        self.addChild(myLabel)
+        myLabel.zPosition = ZPosition.bullet
+        
         //sprite to be the edge/base
         let wall = SKSpriteNode(imageNamed: "Castle_wall")
          buildWall(wall)				
@@ -49,11 +62,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
         
-        myLabel.text = "DEFFEND!";
-        myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
-        
-        self.addChild(myLabel)
+       
         
         initializeEnemyArray()
 
@@ -90,8 +99,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
-        
-        myLabel.removeFromParent()
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        myLabel.text = ("Gold: \(appDelegate.user.gold)")
         let touch = touches.first
         let location = touch!.locationInNode(self)
         

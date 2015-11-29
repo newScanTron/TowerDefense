@@ -16,6 +16,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     var nextNode: UpgradeNode?
     //each node needs a towerBase variable because we need access to it outside of the upgrade function
     var tower: TowerBase?
+    var moneySpent = 0
     //this array represents the datasource for the UIPickerView
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
@@ -29,7 +30,6 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        
         
     }
 
@@ -49,11 +49,16 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     }
     //function with each of the this method will do the actuall calling of things that effect the player gold
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if appDelegate.gameState.gold > 400
+        if appDelegate.user.gold >= (row+1) * 100
         {
-        playerLabel.text = nodeData[row]
-        self.tower?.attack.range = (row+2)*3
-        
+            playerLabel.text = nodeData[row]
+            self.tower?.attack.range = (row+2)*3
+            moneySpent = (row+1) * 100
+            print(appDelegate.user.gold)
+        }
+        else
+        {
+            playerLabel.text = "not enough gold"
         }
     }
     
@@ -67,10 +72,12 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
         
         if self.nextNode != nil
         {
-            
+            //this is kinda goofy cus this first node calls these two methods diffrently than the onther nodes that follow this one.
             upgrade(self.tower!)
         }
         else{ }
+        appDelegate.user.gold -= moneySpent
+        appDelegate.updateMyLabel()
         self.removeFromSuperview()
         
     }
@@ -78,7 +85,6 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     //the method that all nodes will implement in different fashions. Taking values from the UIPickerView to select the correct array elements.
     func upgrade(tower: TowerBase)
     {
-        self.tower!.attack.range = 2
         
         GameScene.scene?.view?.addSubview(self)
 
@@ -93,8 +99,10 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
 class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewDataSource
 {
     var nextNode: UpgradeNode?
-   
+    var moneySpent = 0
     var tower: TowerBase?
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     var nodeData = ["low", "med", "hight"]
     override init(x: CGFloat, y: CGFloat)
     {
@@ -128,21 +136,30 @@ class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerV
     }
     //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if appDelegate.user.gold >= (row+1) * 100
+        {
         playerLabel.text = nodeData[row]
         self.tower?.attack.damage = CGFloat(row+2)*1.4
-        
+        moneySpent = (row+1) * 100
+        }
+        else
+        {
+            playerLabel.text = "not enough gold"
+        }
     }
     func startUpgradeChain()
     {
         if self.nextNode != nil
         {
-            
+           
             self.nextNode?.upgrade(self.tower!)
         }
         else
         {
             
         }
+         appDelegate.user.gold -= moneySpent
+        appDelegate.updateMyLabel()
         self.removeFromSuperview()
     }
     
@@ -161,7 +178,9 @@ class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerV
 class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewDataSource
 {
     var nextNode: UpgradeNode?
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    var moneySpent = 0
     var tower: TowerBase?
     var nodeData = ["fast", "medium", "slow"]
     override init(x: CGFloat, y: CGFloat)
@@ -196,21 +215,32 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if appDelegate.user.gold >= (row+1) * 100
+        {
         playerLabel.text = nodeData[row]
+            moneySpent = (row+1) * 100
         //this is very simple way to see that the fireDeley is being ajusted.
-        self.tower?.attack.fireDelay = CGFloat((Double(row)+1 * 0.5))
+            self.tower?.attack.fireDelay = CGFloat((Double(row)+1 * 0.5))
+        }
+        else
+        {
+            playerLabel.text = "not enough gold"
+        }
     }
     func startUpgradeChain()
     {
         if self.nextNode != nil
         {
-            
+        
             self.nextNode?.upgrade(self.tower!)
         }
         else
         {
             
         }
+            appDelegate.user.gold -= moneySpent
+         appDelegate.updateMyLabel()
         self.removeFromSuperview()
     }
     
@@ -229,8 +259,10 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
 class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewDataSource
 {
     var nextNode: UpgradeNode?
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     var tower: TowerBase?
+    var moneySpent = 0
     var nodeData = ["Slow", "Med", "Fast"]
     override init(x: CGFloat, y: CGFloat)
     {
@@ -264,16 +296,27 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
     }
     //intersting fucntion to how the tower gets affected.
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if appDelegate.user.gold >= (row+1) * 100
+        {
         playerLabel.text = nodeData[row]
         self.tower?.attack.speed = CGFloat(((Double(row)+1) * 5 * 55.15))
+            moneySpent = (row+1) * 100
+        }
+        else
+        {
+            playerLabel.text = "not enough gold"
+        }
     }
     func startUpgradeChain()
     {
         if self.nextNode != nil
         {
+            
             self.nextNode?.upgrade(self.tower!)
         }
         else{}
+        appDelegate.user.gold -= moneySpent
+         appDelegate.updateMyLabel()
         self.removeFromSuperview()
     }
     
@@ -290,8 +333,10 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
 class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewDataSource
 {
     var nextNode: UpgradeNode?
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     var tower: TowerBase?
+    var moneySpent = 0
     var nodeData = ["close", "med", "Far"]
     override init(x: CGFloat, y: CGFloat)
     {
@@ -325,20 +370,30 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if appDelegate.user.gold >= (row+1) * 100
+        {
         playerLabel.text = nodeData[row]
         self.tower?.defense.range = CGFloat((Double(row)+1 * 2.5))
+            moneySpent = (row+1) * 100
+        }
+        else
+        {
+            playerLabel.text = "not enough gold"
+        }
     }
     func startUpgradeChain()
     {
         if self.nextNode != nil
         {
-       
+           
             self.nextNode?.upgrade(self.tower!)
         }
         else
         {
             
         }
+         appDelegate.user.gold -= moneySpent
+         appDelegate.updateMyLabel()
         self.removeFromSuperview()
     }
     
@@ -356,8 +411,10 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
 class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewDataSource
 {
     var nextNode: UpgradeNode?
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     var tower: TowerBase?
+    var moneySpent = 0
     var nodeData = ["low", "med", "high"]
     override init(x: CGFloat, y: CGFloat)
     {
@@ -391,8 +448,16 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if appDelegate.user.gold >= (row+1) * 100
+        {
         playerLabel.text = nodeData[row]
         self.tower?.defense.amount = CGFloat((Double(row)+1 * 3.5))
+        moneySpent = (row+1) * 100
+        }
+        else
+        {
+            playerLabel.text = "not enough gold"
+        }
     }
     func startUpgradeChain()
     {
@@ -405,6 +470,8 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
         {
             
         }
+        appDelegate.user.gold -= moneySpent
+        appDelegate.updateMyLabel()
         self.removeFromSuperview()
     }
     

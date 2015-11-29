@@ -160,6 +160,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
-
+    func updateMyLabel()
+    {
+        self.gameScene.myLabel.text = ("Gold: \(self.user.gold)")
+    }
 }
 

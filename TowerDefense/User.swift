@@ -14,15 +14,21 @@ class User
     //which states belong to which user.
     var userName: String
     var pswd: String
+    var xp: Int
+    var gold: Int
     init()
     {
         self.userName = ""
         self.pswd = ""
+        self.xp = 0
+        self.gold = 100
     }
-    init(userName: String, pswd: String)
+    init(userName: String, pswd: String, xp: Int, gold: Int)
     {
         self.userName = userName
         self.pswd = pswd
+        self.xp = xp
+        self.gold = gold
     }
     //getters and setters
     func getUser() -> (userName: String, passwd: String)
