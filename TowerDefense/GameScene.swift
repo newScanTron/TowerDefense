@@ -47,7 +47,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 100, y:CGRectGetMinY(self.frame));
+        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 120, y:CGRectGetMaxY(self.frame) - 60);
         
         self.addChild(myLabel)
         myLabel.zPosition = ZPosition.bullet

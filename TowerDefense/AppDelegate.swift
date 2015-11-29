@@ -28,11 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        
+        
+        
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        updateUser()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -118,14 +122,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let managedContext = self.managedObjectContext
         
-        //2
+        //look to see that we infact have a User object
         let entity =  NSEntityDescription.entityForName("User",
             inManagedObjectContext:managedContext)
-        
         let user = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext: managedContext)
         
-        //3
+        //set the different attributes for the user.
         user.setValue(name, forKey: "userName")
         user.setValue(passwd, forKey: "psswd")
         user.setValue(0, forKey: "xp" )
@@ -135,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
         let newAddress = NSManagedObject(entity: gameState!, insertIntoManagedObjectContext: self.managedObjectContext)
         
-        // Populate Address
+        // this stuff could be removed it is not working the way i would like it too.
         newAddress.setValue(1000, forKey: "gold")
         newAddress.setValue(1, forKey: "xp")
     
@@ -149,8 +152,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(saveError)
         }
         
-        
-        
         //4
         do {
             try managedContext.save()
@@ -160,6 +161,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
+    //function to update the user when the app is left
+    func updateUser()
+    {
+        let managedContext = self.managedObjectContext
+        
+        //look to see that we infact have a User object
+        let fetchRequest = NSFetchRequest(entityName: "User")
+        
+        //3
+        do {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            
+            if results.count > 0
+            {
+                
+                for result: AnyObject in results
+                {
+                    
+                    // print(result)
+                    if let u = result.valueForKey("userName") as? String
+                    {
+                        if self.user.userName == u
+                        {
+//                            let managedContext = self.managedObjectContext
+//                            
+//                            //look to see that we infact have a User object
+//                            let entity =  NSEntityDescription.entityForName("User",
+//                                inManagedObjectContext:managedContext)
+//                            let user = NSManagedObject(entity: entity!,
+//                                insertIntoManagedObjectContext: managedContext)
+                            
+                            //set the different attributes for the user.
+                            result.setValue(self.user.xp, forKey: "xp" )
+                            result.setValue(self.user.gold, forKey: "gold")
+                            
+                            //4
+                            do {
+                                try managedContext.save()
+                                
+                            } catch let error as NSError  {
+                                print("Could not save \(error), \(error.userInfo)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch let error as NSError {
+             print("Could not fetch \(error), \(error.userInfo)")
+        }
+        
+                
+    }
+    
+    
+    //little helper function to update the HUD as it were
     func updateMyLabel()
     {
         self.gameScene.myLabel.text = ("Gold: \(self.user.gold)")
