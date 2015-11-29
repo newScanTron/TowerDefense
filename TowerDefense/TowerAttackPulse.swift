@@ -48,7 +48,8 @@ class TowerAttackPulse : TowerAttackStrat {
                 print("PULSING")
                 
                 currentRadius += speed
-                currentDamage = (1-(currentRadius/(range))) * damage
+                let ratio : CGFloat = (1-(currentRadius/(range)))
+                currentDamage = ratio * damage
                 //print("currentDamage = (1-(" + String(currentRadius)  + "/(" + String(range) + "))) * " + String(damage) + " = " + String(currentDamage))
                 
                 for e in GameScene.getEnemiesInRange(parent!.sprite.position,range: currentRadius) {
@@ -66,8 +67,8 @@ class TowerAttackPulse : TowerAttackStrat {
                 
                 circle?.position = parent!.sprite.position
                 circle?.lineWidth = 1.0;
-                circle?.fillColor = SKColor(red: 0, green: 0, blue: 1, alpha: 0.1)
-                circle?.strokeColor = SKColor.whiteColor()
+                circle?.fillColor = SKColor(red: 0, green: 0, blue: 1, alpha: 1 * ratio)
+                circle?.strokeColor = SKColor(red: 1, green: 1, blue: 1, alpha: 1 * ratio*2)
                 circle?.glowWidth = 0.5;
                 circle?.zPosition = ZPosition.tower-1
                 circle?.blendMode = SKBlendMode.Screen
