@@ -28,6 +28,7 @@ class EnemyBullet {
         sprite.physicsBody?.categoryBitMask = CategoryMask.EnemyBullet
         sprite.physicsBody?.collisionBitMask = CollisionMask.EnemyBullet
         sprite.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.EnemyBullet.rawValue
         /*if (_shotByEnemy) {
             sprite.physicsBody?.contactTestBitMask = ContactMask.TowerBullet
         }

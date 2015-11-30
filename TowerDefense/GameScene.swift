@@ -142,7 +142,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             let t = GameScene.towers[i]
             t.TriggerAttack()
-            //t.TriggerDefend()
+            t.TriggerDefend()
             
             if t.health <= 0{
                 t.sprite.removeFromParent()
