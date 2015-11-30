@@ -36,7 +36,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var odd : Bool = false
     var limitTouch : Bool = false
     
-
+   
     
     override func didMoveToView(view: SKView) {
 
@@ -163,6 +163,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
+        //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
         
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
@@ -185,9 +189,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
             if e.health <= 0{
             e.sprite.removeFromParent()
+                
             GameScene.enemies.removeAtIndex(i)
             enemyMax -= 1
             enemyCount -= 1
+                
+                //add gold to user when enemys die
+                appDelegate.user.gold += 100
+                
             }
         }
     }
@@ -303,7 +312,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         // Bitiwse OR the bodies' categories to find out what kind of contact we have
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         switch contactMask {
-            
+        
         case CategoryMask.Enemy | CategoryMask.TowerBullet:
             
             for e in GameScene.enemies{
