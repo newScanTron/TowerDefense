@@ -18,6 +18,7 @@ class TowerBuilder
     //build method
     func BuildTower(point: CGPoint) -> TowerBase
     {
+        print("BASIC")
         let attack = TowerAttackBasic()
         attack.range = 300
         attack.damage = 40
@@ -51,6 +52,8 @@ class TowerBuilder
 //        attack.damage = 40
 //        attack.fireDelay = 1 //1
 //        attack.speed = 100 //100
+        
+        print("PULSE")
         
                 let attack = TowerAttackPulse()
                 attack.range = 100

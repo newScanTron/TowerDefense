@@ -22,21 +22,21 @@ class Bullet {
         
         // Set up initial location of projectile
         sprite = SKSpriteNode(imageNamed: "bullet")
-        sprite.size = CGSizeMake(27, 27)
+        sprite.size = CGSizeMake(15, 15)
         sprite.position = _start
         
         //Set up collisions
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = CategoryMask.TowerBullet
-        sprite.physicsBody?.collisionBitMask = CollisionMask.TowerBullet
-        sprite.physicsBody?.contactTestBitMask = ContactMask.TowerBullet
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.TowerBullet.rawValue
-        /*if (_shotByEnemy) {
+        if (_shotByEnemy) {
+            sprite.physicsBody?.categoryBitMask = CategoryMask.EnemyBullet
+            sprite.physicsBody?.collisionBitMask = CollisionMask.EnemyBullet
             sprite.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
         }
         else {
+            sprite.physicsBody?.categoryBitMask = CategoryMask.TowerBullet
+            sprite.physicsBody?.collisionBitMask = CollisionMask.TowerBullet
             sprite.physicsBody?.contactTestBitMask = ContactMask.TowerBullet
-        }*/
+        }
         
         // Set up physics traits
         sprite.physicsBody?.mass = 1
