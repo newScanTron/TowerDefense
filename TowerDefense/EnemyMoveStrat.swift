@@ -11,8 +11,8 @@ import SpriteKit
 
 class EnemyMoveStrat
 {
-    let moveConstant : CGFloat = 10
-    
+    let moveConstant : CGFloat = 5
+    var parent : EnemyBase? = nil
     var slagged : Bool = false
     
     init(){

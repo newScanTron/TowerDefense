@@ -17,9 +17,10 @@ class BossMoveStrat: EnemyMoveStrat {
     
     override func Move(nodeToMove : EnemyBase){
 
+        let offSet : CGFloat = 150
         bossNode = nodeToMove
         
-        if bossNode.sprite.position.x >= GameScene.scene?.size.width{
+        /*if bossNode.sprite.position.x >= GameScene.scene?.size.width{
             if nodeToMove.sprite.speed > 1{
                 stopEnemy(nodeToMove)
             }
@@ -42,10 +43,13 @@ class BossMoveStrat: EnemyMoveStrat {
                 stopEnemy(nodeToMove)
             }
             bottomHalf()
-        }
+        }*/
         
-        if nodeToMove.sprite.position.x < GameScene.scene?.size.width && nodeToMove.sprite.position.x > 0 && nodeToMove.sprite.position.y < GameScene.scene?.size.height && nodeToMove.sprite.position.y > 0{
+        if nodeToMove.sprite.position.x < GameScene.scene!.size.width - offSet && nodeToMove.sprite.position.x > 0 + offSet && nodeToMove.sprite.position.y < GameScene.scene!.size.height - offSet && nodeToMove.sprite.position.y > 0 + offSet {
             nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYRand()))
+        }
+        else{
+            outOfBounds()
         }
         
         //Changes all enemy move strategies to Swarm Strategy ... except da boss of course
@@ -59,6 +63,14 @@ class BossMoveStrat: EnemyMoveStrat {
         }
     }
 
+    func outOfBounds(){
+        let centerPoint = CGPointMake(GameScene.scene!.size.width/2, GameScene.scene!.size.height/2)
+        let center = getVector(bossNode.sprite.position, to: centerPoint, speed: 3)
+        if (parent != nil) {
+            parent!.sprite.physicsBody?.applyImpulse(center)
+        }
+        
+    }
     func rightSide(){
         bossNode.sprite.physicsBody?.linearDamping = 0
         bossNode.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXNeg(), getImpulseYRand()))

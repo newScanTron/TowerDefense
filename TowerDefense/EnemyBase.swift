@@ -17,7 +17,6 @@ class EnemyBase: Entity{
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
     
-
     var moveDelay : CGFloat
     
     //initlizer.
@@ -75,6 +74,7 @@ class EnemyBase: Entity{
         self.attack = sentAttack
     }
     func moveMore(){
+        moveStrat.parent = self
         moveStrat.Move(self)
     }
     // Triggers attack strategy Attack function
