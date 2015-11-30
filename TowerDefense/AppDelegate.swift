@@ -135,22 +135,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         user.setValue(1000, forKey: "gold")
         
         // Create Address
-        let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
-        let newAddress = NSManagedObject(entity: gameState!, insertIntoManagedObjectContext: self.managedObjectContext)
+//        let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
+//        let newAddress = NSManagedObject(entity: gameState!, insertIntoManagedObjectContext: self.managedObjectContext)
         
-        // this stuff could be removed it is not working the way i would like it too.
-        newAddress.setValue(1000, forKey: "gold")
-        newAddress.setValue(1, forKey: "xp")
-    
-        let addresses = user.mutableSetValueForKey("hasGameState")
-        addresses.addObject(newAddress)
-        
-        do {
-            try user.managedObjectContext?.save()
-        } catch {
-            let saveError = error as NSError
-            print(saveError)
-        }
+//        // this stuff could be removed it is not working the way i would like it too.
+//        newAddress.setValue(1000, forKey: "gold")
+//        newAddress.setValue(1, forKey: "xp")
+//    
+//        let addresses = user.mutableSetValueForKey("hasGameState")
+//        addresses.addObject(newAddress)
+//        
+//        do {
+//            try user.managedObjectContext?.save()
+//        } catch {
+//            let saveError = error as NSError
+//            print(saveError)
+//        }
         
         //4
         do {
