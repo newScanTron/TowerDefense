@@ -22,7 +22,7 @@ class Bullet {
         
         // Set up initial location of projectile
         sprite = SKSpriteNode(imageNamed: "bullet")
-        sprite.size = CGSizeMake(27, 27)
+        sprite.size = CGSizeMake(15, 15)
         sprite.position = _start
         
         //Set up collisions
