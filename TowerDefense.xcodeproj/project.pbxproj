@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9919CF261C0CECA00024DFBB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF251C0CECA00024DFBB /* main.swift */; };
+		9919CF271C0CECA00024DFBB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF251C0CECA00024DFBB /* main.swift */; };
 		9926222F1BED1E9F0080D35A /* BossMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */; };
 		992622351BED1ECB0080D35A /* ConcreteMoveStrat1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622301BED1ECB0080D35A /* ConcreteMoveStrat1.swift */; };
 		992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622311BED1ECB0080D35A /* ConcreteMoveStrat2.swift */; };
@@ -96,6 +98,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9919CF251C0CECA00024DFBB /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BossMoveStrat.swift; sourceTree = "<group>"; };
 		992622301BED1ECB0080D35A /* ConcreteMoveStrat1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteMoveStrat1.swift; sourceTree = "<group>"; };
 		992622311BED1ECB0080D35A /* ConcreteMoveStrat2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteMoveStrat2.swift; sourceTree = "<group>"; };
@@ -208,6 +211,7 @@
 				99FD083B1BE035D80070F4B8 /* Info.plist */,
 				99FD08331BE035D80070F4B8 /* Main.storyboard */,
 				99FD08381BE035D80070F4B8 /* LaunchScreen.storyboard */,
+				9919CF251C0CECA00024DFBB /* main.swift */,
 			);
 			name = Visual;
 			sourceTree = "<group>";
@@ -432,6 +436,7 @@
 				99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */,
 				992622351BED1ECB0080D35A /* ConcreteMoveStrat1.swift in Sources */,
 				99A3BBEA1BE94C1900AAB350 /* TowerDefenseHeal.swift in Sources */,
+				9919CF261C0CECA00024DFBB /* main.swift in Sources */,
 				99FD08321BE035D80070F4B8 /* GameViewController.swift in Sources */,
 				993BC2B61C003A50009596FA /* LoginController.swift in Sources */,
 				9926222F1BED1E9F0080D35A /* BossMoveStrat.swift in Sources */,
@@ -467,6 +472,7 @@
 				998722941BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				99BA33C91BF2A24800152764 /* UpgradeView.swift in Sources */,
 				99BA33C81BF2A24800152764 /* GameViewController.swift in Sources */,
+				9919CF271C0CECA00024DFBB /* main.swift in Sources */,
 				99BA33C11BF2A24300152764 /* EnemyBase.swift in Sources */,
 				998722911BED58C60097B677 /* TowerBuilderNodes.swift in Sources */,
 				99BA33C01BF2A24300152764 /* RangedAttack.swift in Sources */,

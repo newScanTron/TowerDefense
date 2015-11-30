@@ -46,9 +46,10 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
                 {
                     
                    // print(result)
-                    if let u = result.valueForKey("userName") as? String
-                    {
-                        if let p = result.valueForKey("psswd") as? String, let xp = result.valueForKey("xp") as? Int, let gold = result.valueForKey("gold") as? Int
+                    if let u = result.valueForKey("userName") as? String,
+                      let  p = result.valueForKey("psswd") as? String,
+                        let xp = result.valueForKey("xp") as? Int,
+                        let gold = result.valueForKey("gold") as? Int
                         {
                             user = User(userName: u, pswd: p, xp: xp, gold: gold)
                             
@@ -75,7 +76,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
                             print("could not add user and create")
                             
                         }
-                    }
+                    
                 }
             }
             

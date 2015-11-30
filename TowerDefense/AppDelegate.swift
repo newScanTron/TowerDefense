@@ -10,7 +10,7 @@
 import UIKit
 import CoreData
 
-@UIApplicationMain
+//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
-    //function to update the user when the app is left
+    //function to update the user when the user wants to save or leave the app abruptly
     func updateUser()
     {
         let managedContext = self.managedObjectContext
@@ -184,15 +184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     {
                         if self.user.userName == u
                         {
-//                            let managedContext = self.managedObjectContext
-//                            
-//                            //look to see that we infact have a User object
-//                            let entity =  NSEntityDescription.entityForName("User",
-//                                inManagedObjectContext:managedContext)
-//                            let user = NSManagedObject(entity: entity!,
-//                                insertIntoManagedObjectContext: managedContext)
-                            
-                            //set the different attributes for the user.
+
                             result.setValue(self.user.xp, forKey: "xp" )
                             result.setValue(self.user.gold, forKey: "gold")
                             
@@ -205,13 +197,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             }
                         }
                     }
+                    else
+                    {
+                        print("no user found and could not save")
+                    }
                 }
             }
         }
         catch let error as NSError {
              print("Could not fetch \(error), \(error.userInfo)")
         }
-        
                 
     }
     
