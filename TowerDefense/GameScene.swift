@@ -12,13 +12,13 @@ import Foundation
 import CoreData
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
-
-    let satellite = SKSpriteNode(imageNamed: "Sat2")
+    
+    //let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Verdana")
-    let towerTotal = 5
+    let towerTotal = 20
     let cero = 0
     var enemyCount = 0
-    let enemyMin = 11
+    var enemyMax = 14
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -26,25 +26,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //making all of these static allows us to not have to pass them around method calls
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
+    static var bullets : [Bullet] = [Bullet]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
-     
+    var odd : Bool = false
+    
     
     override func didMoveToView(view: SKView) {
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
-
+        
         background.zPosition = ZPosition.background;
-
-        print(scene?.size.width, scene?.size.height)
-
+        
         //sprite to be the edge/base
         let wall = SKSpriteNode(imageNamed: "Castle_wall")
-         buildWall(wall)				
+        //buildWall(wall)
         
         self.addChild(background)
-        self.addChild(wall)
+        //self.addChild(wall)
         /* Setup your scene here */
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
@@ -56,13 +56,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         self.addChild(myLabel)
         
         initializeEnemyArray()
-
+        
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
-            SKAction.runBlock(addEnemy),
-            SKAction.waitForDuration(1.5)
-            ])
-        ))
+                SKAction.runBlock(addEnemy),
+                SKAction.waitForDuration(1.5)
+                ])
+            ))
     }
     func buildWall(sprite: SKSpriteNode)
     {
@@ -80,11 +80,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //helper to make towers
     func addTower(location: CGPoint)
     {
+        
         //create and add tower
-        let tower = towerBuilder.BuildTower(location)
+        if (odd) {
+            let tower = towerBuilder.BuildPulseTower(location)
+            GameScene.towers.append(tower)
+            self.addChild(tower.sprite)
+            odd = false
+        }
+        else {
+            let tower = towerBuilder.BuildTower(location)
+            GameScene.towers.append(tower)
+            self.addChild(tower.sprite)
+            odd = true
+        }
         //need something to make the updrageView disapear if we are not interacting with it.
-        GameScene.towers.append(tower)
-        self.addChild(tower.sprite)
+//        GameScene.towers.append(tower)
+//        self.addChild(tower.sprite)
     }
     
     //
@@ -96,13 +108,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let location = touch!.locationInNode(self)
         
         //check if any and build one with first touch
-
+        
         if GameScene.towers.count <= cero
         {
             addTower(location)
         }
-
-    
+        
         for each in GameScene.towers
         {
             if each.sprite.containsPoint(location)
@@ -126,28 +137,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
         
-
-        self.enumerateChildNodesWithName("tower", usingBlock: {
-            node, stop in
-            // do something with node or stop
-    
-            })
-
         // Trigger attack/defend strategies for each tower
-        for t in GameScene.towers {
-            t.TriggerAttack();
-            t.TriggerDefend();
-        }
-        for e in GameScene.enemies {
-            e.TriggerAttack()
-            e.moveStrat.Move(e)
-        }
-        //for e in GameScene.enemies 
-        for var i = 0; i < GameScene.enemies.count ; i++
+        for (var i = 0; i < GameScene.towers.count; i++)
         {
-            if (GameScene.enemies[i].sprite.position.x < -10){
-                GameScene.enemies[i].sprite.removeFromParent()
-                //GameScene.enemies.removeAtIndex(i)
+            let t = GameScene.towers[i]
+            t.TriggerAttack()
+            //t.TriggerDefend()
+            
+            if t.health <= 0{
+                t.sprite.removeFromParent()
+                //t.towerLabel.removeFromParent()
+                GameScene.towers.removeAtIndex(i)
+            }
+        }
+        for (var i = 0; i < GameScene.enemies.count; i++)
+        {
+            let e = GameScene.enemies[i]
+            e.TriggerAttack()
+            e.moveMore()
+            
+            if e.health <= 0{
+            e.sprite.removeFromParent()
+            GameScene.enemies.removeAtIndex(i)
+            enemyMax -= 1
+            enemyCount -= 1
             }
         }
     }
@@ -164,7 +177,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             }
             if(i == 14){
                 let enemyboss = enemyFactory.CreateEnemyBoss(self)
-    
+                
                 GameScene.enemies.append(enemyboss)
             }
         }
@@ -183,37 +196,24 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //set all the nodes to the seccuessor
         node.setNextNode(setDamageNode)
         setDamageNode.setNextNode(fireDeleyNode)
-        fireDeleyNode.setNextNode(deffenseSetRange)
+        fireDeleyNode.setNextNode(setSpeed)
         setSpeed.setNextNode(deffenseSetRange)
-
-        deffenseSetRange.setNextNode(setSpeed)
-        deffenseSetAmount.setNextNode(deffenseSetRange)
-
         deffenseSetRange.setNextNode(deffenseSetAmount)
-
     }
     func addEnemy(){
         
-        if(enemyCount < 15){
-
+        if(enemyCount <= enemyMax && GameScene.towers.count > 0){
+            print(enemyCount)
             self.addChild(GameScene.enemies[enemyCount].sprite)
             enemyCount++
-            for var i = 0; i < enemyCount ; i++
-            {
-                if (GameScene.enemies[i].sprite.position.x < -10){
-                    GameScene.enemies[i].sprite.removeFromParent()
-                    //enemyCount--
-                }
-            }
         }
-
     }
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         
         var closestEnemy : EnemyBase?
         var closestDistance : CGFloat = 999999
         var tempDistance : CGFloat
-
+        
         for e in enemies {
             tempDistance = getDistance(point,to: e.sprite.position)
             if (tempDistance < closestDistance) {
@@ -262,7 +262,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         return closestTower;
     }
     
-
+    
     class func getDistance(from : CGPoint, to : CGPoint) -> CGFloat {
         
         return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
@@ -273,39 +273,37 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         switch contactMask {
             
-        case PhysicsCategory.Enemy.rawValue | PhysicsCategory.TowerBullet.rawValue:
-
-            if contact.bodyA.categoryBitMask == PhysicsCategory.Enemy.rawValue {
-                //print("In Enemy Vs Bullet")
-                
-                for e in GameScene.enemies{
-                    if e.sprite == contact.bodyA.node{
-                        e.health -= 10
-                        if e.health <= 0 {
-                            contact.bodyA.node?.removeFromParent()
-                        }
-                    }
+        case CategoryMask.Enemy | CategoryMask.TowerBullet:
+            
+            for e in GameScene.enemies{
+                if e.sprite == contact.bodyA.node{
+                    let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
+                    e.health -= contactTest.damage
+                    //e.UpdateLabel()
+                    contact.bodyB.node?.removeFromParent()
+                } else if e.sprite == contact.bodyB.node{
+                    let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
+                    e.health -= contactTest.damage
+                   // e.UpdateLabel()
+                    contact.bodyA.node?.removeFromParent()
                 }
-                contact.bodyB.node?.removeFromParent()
-            } else {
-                print("In else of Enemy Vs Bullet")
             }
             
-        case PhysicsCategory.Tower.rawValue | PhysicsCategory.EnemyBullet.rawValue:
-
-            if contact.bodyA.categoryBitMask == PhysicsCategory.Tower.rawValue {
-                //print("In Bullet Vs Tower")
-                for t in GameScene.towers{
-                    if t.sprite == contact.bodyA{
-                        t.health -= 10
-                        if t.health <= 0{
-                            contact.bodyA.node?.removeFromParent()
-                        }
-                    }
-                }
+        case CategoryMask.Tower | CategoryMask.EnemyBullet:
+            
+            for t in GameScene.towers{
                 
-            } else {
-                print("In else of Bullet Vs Tower")
+                if t.sprite == contact.bodyA.node{
+                    let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
+                    t.health -= CGFloat(contactTest.damage)
+                    //t.UpdateLabel()
+                    contact.bodyB.node?.removeFromParent()
+                } else if t.sprite == contact.bodyB.node{
+                    let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
+                    t.health -= CGFloat(contactTest.damage)
+                    //t.UpdateLabel()
+                    contact.bodyA.node?.removeFromParent()
+                }
             }
             
         default:
