@@ -16,6 +16,7 @@ class EnemyBase: Entity{
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
+    
 
     var moveDelay : CGFloat
     
@@ -53,12 +54,21 @@ class EnemyBase: Entity{
 
         moveStrat.Move(self)
         
+        healthLabel = SKLabelNode(fontNamed:"Verdana")
+        healthLabel.position = sprite.position
+        healthLabel.position.y -= 10
+        healthLabel.zPosition = 7
+        //GameScene.scene!.addChild(healthLabel)
+        
+        
+        
     }
 
     func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {
         //let string = moveStrat.getMoveStrat()
         self.moveStrat = sentStrat
+
     }
 
     func setAttackStrategy(sentAttack: EnemyAttackStrat){
@@ -69,6 +79,10 @@ class EnemyBase: Entity{
     }
     // Triggers attack strategy Attack function
     func TriggerAttack() {
+        
+        healthLabel.text = String(health)
+        healthLabel.position = sprite.position
+        healthLabel.position.y -= 20
         
         for t in GameScene.towers{
             if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){

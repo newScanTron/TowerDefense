@@ -51,14 +51,16 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if appDelegate.user.gold >= (row+1) * 100
         {
+
             playerLabel.text = nodeData[row]
-            self.tower?.attack.range = (row+2)*3
+            self.tower?.attack.range = CGFloat((row+2)*3)
             moneySpent = (row+1) * 100
             print(appDelegate.user.gold)
         }
         else
         {
             playerLabel.text = "not enough gold"
+
         }
     }
     

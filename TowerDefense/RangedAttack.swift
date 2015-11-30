@@ -27,7 +27,7 @@ class RangedAttack: EnemyAttackStrat{
                 
                     var bulletParent : Entity = parent!
     
-                    EnemyBullet(
+                    Bullet(
                         _start: parent!.sprite.position,
                         _target: target!.sprite.position,
                         _speed: speed,

@@ -13,6 +13,8 @@ class EnemyMoveStrat
 {
     let moveConstant : CGFloat = 10
     
+    var slagged : Bool = false
+    
     init(){
         //Not to be initialized
     }
