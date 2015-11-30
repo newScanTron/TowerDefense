@@ -12,44 +12,71 @@ import UIKit
 
 class EnemyBase: Entity{
     //Some variables for health and speed and whatnot
+
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
-    var scene: SKScene
+
+    var moveDelay : CGFloat
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _scene: SKScene, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat)
+    init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat)
     {
-        scene = _scene
+
         attack = _attack
         moveStrat = _moveStrat
-        
+        moveDelay = _moveDelay
         
         super.init()
         sprite = _sprite
         range = _range
-        moveStrat.Move(sprite, scene: scene)
 
         sprite.xScale = 0.25
         sprite.yScale = 0.25
 
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
+
+        let actualY = random(min: 10.0, max: GameScene.scene!.size.height)
+
+        sprite.position = CGPoint(x: GameScene.scene!.size.width, y:actualY)
         sprite.physicsBody?.dynamic = true
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
-        sprite.zPosition = ZPosition.enemy
-        
-        
-        scene.runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock(TriggerAttack),
-                SKAction.waitForDuration(1)
-                ])
-            ))
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy.rawValue
+        sprite.physicsBody?.mass = 1
+        sprite.physicsBody?.restitution = 0.0
+        sprite.physicsBody?.linearDamping = 0.0
+        sprite.physicsBody?.angularDamping = 0.0
 
+        sprite.zPosition = ZPosition.enemy
+
+        moveStrat.Move(self)
+        
     }
-    
+
+    func setMoveStrategy(sentStrat: EnemyMoveStrat)
+    {
+        //let string = moveStrat.getMoveStrat()
+        self.moveStrat = sentStrat
+    }
+
+    func setAttackStrategy(sentAttack: EnemyAttackStrat){
+        self.attack = sentAttack
+    }
+    func moveMore(){
+        moveStrat.Move(self)
+    }
+    // Triggers attack strategy Attack function
+    func TriggerAttack() {
+        
+        for t in GameScene.towers{
+            if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){
+                attack.parent = self
+                attack.Attack()
+            }
+        }
+    }
     func random() -> CGFloat{
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
     }
@@ -60,42 +87,6 @@ class EnemyBase: Entity{
     func randomVect(min min: CGFloat, max: CGFloat) -> CGVector{
         return CGVector(dx: random() * (max - min) + min, dy: 0)
     }
-    func setMoveStrategy()
-    {
-        //let string = moveStrat.getMoveStrat()
-        moveStrat.Move(sprite, scene: scene)
-    }
-
-    //move function conforming to the EnemyMoveStart
-    func Move()
-    {
-        
-        let action = SKAction.rotateByAngle(CGFloat(M_PI/2), duration:0.125)
-        
-        sprite.runAction(SKAction.repeatAction(action, count: 1))
-        
-        //determine where to spawn the bison along the Y axis
-        let actualY = random(min: sprite.size.height/2, max: scene.size.height - sprite.size.height/2)
-        
-        //Position the bison slightly off-screen along the right edge,
-        // and along a random position along the Y axis as calculated above
-        sprite.position = CGPoint(x: scene.size.width + sprite.size.width/2, y:actualY)
-        //determine speed of the monster
-        sprite.physicsBody?.applyImpulse(randomVect(min: -50, max: -25))
-
-        
-    }
-    // Triggers attack strategy Attack function
-    func TriggerAttack() {
-        for t in GameScene.towers{
-            if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){
-                attack.Attack(self, scene: scene)
-            }
-        }
-
-    }
-    //attck function conforming to the EnemyAttackStart
-
     func getMoveStrat() -> EnemyMoveStrat
     {
         return moveStrat

@@ -27,14 +27,16 @@ class Bullet {
         
         //Set up collisions
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = CategoryMask.Bullet
-        sprite.physicsBody?.collisionBitMask = CollisionMask.Bullet
-        if (_shotByEnemy) {
+        sprite.physicsBody?.categoryBitMask = CategoryMask.TowerBullet
+        sprite.physicsBody?.collisionBitMask = CollisionMask.TowerBullet
+        sprite.physicsBody?.contactTestBitMask = ContactMask.TowerBullet
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.TowerBullet.rawValue
+        /*if (_shotByEnemy) {
             sprite.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
         }
         else {
             sprite.physicsBody?.contactTestBitMask = ContactMask.TowerBullet
-        }
+        }*/
         
         // Set up physics traits
         sprite.physicsBody?.mass = 1
@@ -48,17 +50,16 @@ class Bullet {
         // Add to scene
         GameScene.scene!.addChild(sprite)
         
+
         // Store reference to self in userData
         sprite.userData = NSMutableDictionary()
         sprite.userData!.setValue(self,forKey: "object")
+
         
-        print(sprite.userData!["object"] as! Bullet)
+        //print(sprite.userData!["object"] as! Bullet)
 
         // Apply impulse vector
         sprite.physicsBody?.applyImpulse(Bullet.getVector(_start, to: _target, speed: _speed))
-        
-        
-        
         
     }
     

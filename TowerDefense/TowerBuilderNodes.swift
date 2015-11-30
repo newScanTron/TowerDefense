@@ -16,7 +16,10 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     var nextNode: UpgradeNode?
     //each node needs a towerBase variable because we need access to it outside of the upgrade function
     var tower: TowerBase?
-    var nodeData = ["Range", "is", "up"]
+    //this array represents the datasource for the UIPickerView
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    var nodeData = ["Close", "Proximity", "Ranged"]
     init(x: CGFloat, y: CGFloat, tower: TowerBase)
     {
         super.init(x: x, y: y)
@@ -44,9 +47,14 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return nodeData[row]
     }
-    //function
+    //function with each of the this method will do the actuall calling of things that effect the player gold
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if appDelegate.gameState.gold > 400
+        {
         playerLabel.text = nodeData[row]
+        self.tower?.attack.range = CGFloat((row+2)*3)
+        
+        }
     }
     
     func setNextNode(node: UpgradeNode)
@@ -56,15 +64,13 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     //fucntion to begin the upgrade request down the chain
     func startUpgradeChain()
     {
+        
         if self.nextNode != nil
         {
             
             upgrade(self.tower!)
         }
-        else
-        {
-        
-        }
+        else{ }
         self.removeFromSuperview()
         
     }
@@ -89,12 +95,12 @@ class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerV
     var nextNode: UpgradeNode?
    
     var tower: TowerBase?
-    var nodeData = ["attack", "set", "up"]
+    var nodeData = ["low", "med", "hight"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
         self.nextNode = nil
-        self.mainLabel.text = "this is the Set Attach Damage Node"
+        self.mainLabel.text = "Set Damgae Amount"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
@@ -120,9 +126,11 @@ class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerV
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return nodeData[row]
     }
-    
+    //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         playerLabel.text = nodeData[row]
+        self.tower?.attack.damage = CGFloat(row+2)*1.4
+        
     }
     func startUpgradeChain()
     {
@@ -155,12 +163,12 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
     var nextNode: UpgradeNode?
     
     var tower: TowerBase?
-    var nodeData = ["fire", "deley", "up"]
+    var nodeData = ["fast", "medium", "slow"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
         self.nextNode = nil
-        self.mainLabel.text = "Set Fire Node"
+        self.mainLabel.text = "Set Fire Rate"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
@@ -189,6 +197,8 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         playerLabel.text = nodeData[row]
+        //this is very simple way to see that the fireDeley is being ajusted.
+        self.tower?.attack.fireDelay = CGFloat((Double(row)+1 * 0.5))
     }
     func startUpgradeChain()
     {
@@ -221,12 +231,12 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
     var nextNode: UpgradeNode?
     
     var tower: TowerBase?
-    var nodeData = ["speed", "deley", "up"]
+    var nodeData = ["Slow", "Med", "Fast"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
         self.nextNode = nil
-        self.mainLabel.text = "Set Fire Node"
+        self.mainLabel.text = "Set Bullet Speed"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
@@ -252,9 +262,10 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return nodeData[row]
     }
-    
+    //intersting fucntion to how the tower gets affected.
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         playerLabel.text = nodeData[row]
+        self.tower?.attack.speed = CGFloat(((Double(row)+1) * 5 * 55.15))
     }
     func startUpgradeChain()
     {
@@ -262,21 +273,16 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
         {
             self.nextNode?.upgrade(self.tower!)
         }
-        else
-        {
-           
-        }
-         self.removeFromSuperview()
+        else{}
+        self.removeFromSuperview()
     }
     
     
     //the method that all nodes will implement in different fashions.
     func upgrade(tower: TowerBase)
     {
-        print("Set Speed Node")
         GameScene.scene?.view?.addSubview(self)
         self.tower = tower
-        
     }
     
 }
@@ -286,12 +292,12 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
     var nextNode: UpgradeNode?
     
     var tower: TowerBase?
-    var nodeData = ["defnece", "Range", "up"]
+    var nodeData = ["close", "med", "Far"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
         self.nextNode = nil
-        self.mainLabel.text = "Set Fire Node"
+        self.mainLabel.text = "Defense Range"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
@@ -320,6 +326,7 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         playerLabel.text = nodeData[row]
+        self.tower?.defense.range = CGFloat((Double(row)+1 * 2.5))
     }
     func startUpgradeChain()
     {
@@ -351,12 +358,12 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
     var nextNode: UpgradeNode?
     
     var tower: TowerBase?
-    var nodeData = ["Deffense", "Amount", "up"]
+    var nodeData = ["low", "med", "high"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
         self.nextNode = nil
-        self.mainLabel.text = "Deffense Set Amount Node"
+        self.mainLabel.text = "Deffense Set Amount"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
@@ -385,6 +392,7 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         playerLabel.text = nodeData[row]
+        self.tower?.defense.amount = CGFloat((Double(row)+1 * 3.5))
     }
     func startUpgradeChain()
     {

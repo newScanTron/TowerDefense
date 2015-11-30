@@ -16,36 +16,60 @@ class EnemyFactory
     func CreateEnemy(scene: SKScene) -> EnemyBase{
         
         let attack = RangedAttack()
+        let moveStrat = ConcreteMoveStrat1()
         let range: CGFloat = 200.00
+        
         attack.damage = 40
         attack.fireDelay = 1
         attack.speed = 10
+        let moveDelay : CGFloat = 1.5
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
-        
-        let moveStrat = ConcreteMoveStrat1()
 
-        let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat, _sprite: sprite, _range: range)
-
-        //add the bison to the scene
+        sprite.size = CGSizeMake(100, 100)
         
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
+
         return enemy
     }
     func CreateEnemyBoss(scene: SKScene) -> EnemyBase{
         
         let attack = RangedAttack()
-        let range: CGFloat = 350
+        let moveStrat = BossMoveStrat()
+        let range: CGFloat = 350.00
         attack.damage = 50
         attack.fireDelay = 1
         attack.speed = 10
-
-        let moveStrat = BossMoveStrat()
+        let moveDelay :CGFloat = 99.0
+        let name : String = "Boss"
         
         let sprite = SKSpriteNode(imageNamed: "EnemyBoss")
+
+        sprite.size = CGSizeMake(100, 100)
+        sprite.name = "Boss"
         
-        let enemy = EnemyBase(_attack: attack, _scene: scene, _moveStrat: moveStrat, _sprite: sprite, _range: range)
-        
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
+ 
         return enemy
         
     }
+    func CreateEnemyGrunt(scene: SKScene) -> EnemyBase{
+        
+        let attack = RangedAttack()
+        let moveStrat = ConcreteMoveStrat2()
+        let range: CGFloat = 200.00
+        attack.damage = 40
+        attack.fireDelay = 1
+        attack.speed = 10
+        var moveDelay : CGFloat = 99.0
+        
+        let sprite = SKSpriteNode(imageNamed: "Spaceship")
+
+        sprite.size = CGSizeMake(100, 100)        
+        
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
+ 
+        return enemy
+    }
+
 }

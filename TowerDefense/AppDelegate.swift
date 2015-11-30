@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  TowerDefense
@@ -13,7 +14,11 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    //I had to make init() in both of these classes to to allow be to declare them here before we know what they are going to be.
+    var user = User()
+    var gameState = GameState()
+    var gameScene = GameScene()
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -41,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         self.saveContext()
+        
     }
 //methods to handle CoreData applications
     // MARK: - Core Data stack
@@ -71,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             
-            dict[NSUnderlyingErrorKey] = error as NSError
+            dict[NSUnderlyingErrorKey] = error as? NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -105,8 +111,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    //function save user
     
+    //saves a user to CoreData
+    func saveUser(name: String, passwd: String) {
+        
+        let managedContext = self.managedObjectContext
+        
+        //2
+        let entity =  NSEntityDescription.entityForName("User",
+            inManagedObjectContext:managedContext)
+        
+        let user = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext: managedContext)
+        
+        //3
+        user.setValue(name, forKey: "userName")
+        user.setValue(passwd, forKey: "psswd")
+        
+        // Create Address
+        let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
+        let newAddress = NSManagedObject(entity: gameState!, insertIntoManagedObjectContext: self.managedObjectContext)
+        
+        // Populate Address
+        newAddress.setValue(1000, forKey: "gold")
+        newAddress.setValue(1, forKey: "xp")
     
+        let addresses = user.mutableSetValueForKey("hasGameState")
+        addresses.addObject(newAddress)
+        
+        do {
+            try user.managedObjectContext?.save()
+        } catch {
+            let saveError = error as NSError
+            print(saveError)
+        }
+        
+        
+        
+        //4
+        do {
+            try managedContext.save()
+            //5
+            self.user.setUser(name, psswd: passwd)
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
 
 }
 

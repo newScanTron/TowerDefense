@@ -2,19 +2,25 @@
 //  GameViewController.swift
 //  TowerDefense
 //
-//  Created by Chris Murphy on 10/27/15.
+//  Created by Chris Murphy on 10/27/
 //  Copyright (c) 2015 Chris Murphy. All rights reserved.
 //
 
 import UIKit
 import SpriteKit
+import CoreData
 
 class GameViewController: UIViewController {
+    //1
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    //a object to represent the usrrent player
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let scene = GameScene(fileNamed:"GameScene") {
+      appDelegate.gameScene = GameScene(fileNamed:"GameScene")!
             // Configure the view.
             let skView = self.view as! SKView
             skView.showsFPS = true
@@ -24,26 +30,46 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            appDelegate.gameScene.scaleMode = .AspectFill
             
-            GameScene.scene = scene
+
+            GameScene.scene = appDelegate.gameScene
 
             
             let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedLeft:"))
             swipeLeft.direction = .Left
+            swipeLeft.numberOfTouchesRequired = 3
             view.addGestureRecognizer(swipeLeft)
             
+            let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedRight:"))
+            swipeRight.numberOfTouchesRequired = 3
+            swipeRight.direction = .Right
+            view.addGestureRecognizer(swipeRight)
             
-            skView.presentScene(scene)
-        }
+
+            
+            skView.presentScene(appDelegate.gameScene)
+        
     }
     
     override func viewDidDisappear(animated: Bool) {
         
     }
+    //two methods to be the action performed when swipe actions call them
     func swipedLeft(sender:UISwipeGestureRecognizer){
-        performSegueWithIdentifier("backToLogin", sender: nil)
+        if GameScene.scene!.view!.paused == false
+        {
+            GameScene.scene!.view!.paused = true
+        }
+        else
+        {
+            GameScene.scene!.view!.paused = false
+        }
         
+    }
+    func swipedRight(sender:UISwipeGestureRecognizer) {
+       
+        performSegueWithIdentifier("backToLogin", sender: nil)
     }
     
     override func shouldAutorotate() -> Bool {
@@ -66,4 +92,5 @@ class GameViewController: UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+   //saves a user to CoreData
 }

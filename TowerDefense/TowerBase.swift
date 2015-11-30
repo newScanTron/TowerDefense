@@ -31,7 +31,9 @@ class TowerBase: Entity{
         sprite.physicsBody?.categoryBitMask = CategoryMask.Tower
         sprite.physicsBody?.collisionBitMask = CollisionMask.Tower
         sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
+        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Tower.rawValue
         sprite.physicsBody?.dynamic = false
+
         
         
 //        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:5)

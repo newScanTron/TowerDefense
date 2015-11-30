@@ -11,40 +11,73 @@ import SpriteKit
 
 class ConcreteMoveStrat1: EnemyMoveStrat{
     
-    let moveStrat = "concrete1"
-    override init() {}
+    var lastMove : CGFloat = 0
+ 
+    //Continuously call the execute method passing the strategy
+    // and sprite to be moved
+    override func Move(nodeToMove : EnemyBase){
 
-    override func Move(sprite: SKSpriteNode, scene: SKScene){
-        
-        //determine where to spawn the bison along the Y axis
-        let actualY = random(min: sprite.size.height/2, max: scene.size.height - sprite.size.height/2)
-        
-        //Position the bison slightly off-screen along the right edge,
-        // and along a random position along the Y axis as calculated above
-        sprite.position = CGPoint(x: scene.size.width + sprite.size.width/2, y:actualY)
-        //determine speed of the monster
-        let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
-        
-        //Create the actions
-        let moveLeft = SKAction.moveByX(-150, y:0, duration:1.0)
-        let moveUp = SKAction.moveByX(0, y: 150, duration: 1.0)
-        let moveDown = SKAction.moveByX(0, y: -150, duration: 1.0)
-        let moveOff = SKAction.moveByX(-200, y:0, duration: 1.0)
-        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 0.5)
-        
-        let actionMove = SKAction.moveTo(CGPoint(x: -sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
-        let actionMoveDone = SKAction.removeFromParent()
-        sprite.runAction(SKAction.sequence([moveLeft, moveDown, moveLeft, moveUp, moveLeft, moveDiagonal, moveLeft, moveDiagonal.reversedAction(), moveUp, moveLeft, moveDown, moveLeft, moveUp, moveDiagonal, moveOff, actionMoveDone]))
+        if (GameScene.gameTime > lastMove + nodeToMove.moveDelay) {
+            
+            lastMove = GameScene.gameTime
+            //Handles what strategy to use depending on the sprite position
+            if (nodeToMove.sprite.position.y <= 10){
+                nodeToMove.setMoveStrategy(stateYLow())
+            }
+            else if(nodeToMove.sprite.position.y >= 758){
+                nodeToMove.setMoveStrategy(stateYHigh())
+            }
+            else if (nodeToMove.sprite.position.x < 200){
+                nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXPos(), getImpulseYRand()))
+            }
+            else {
+                nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXNeg(), getImpulseYRand()))
+            }
+        }
     }
-    func random() -> CGFloat{
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-    }
+}
+
+//Handles enemy wander - when the y coordinate is approaching zero
+class stateYLow : EnemyMoveStrat{
+ 
+    var lastMove : CGFloat = 0
     
-    func random(min min: CGFloat, max: CGFloat) -> CGFloat{
-        return random() * (max - min) + min
+    override func Move(nodeToMove : EnemyBase){
+        if (GameScene.gameTime > lastMove + nodeToMove.moveDelay) {
+            
+            lastMove = GameScene.gameTime
+
+            nodeToMove.sprite.physicsBody?.linearDamping = 0.50
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), (getImpulseYPos()*(3))))
+            
+            //Return to move strategy after enemy is back onto screen
+            if(nodeToMove.sprite.position.y > 10){
+                nodeToMove.sprite.physicsBody?.linearDamping = 0.0
+                nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+            }
+        }
     }
-    func getMoveStrat() -> String
-    {
-        return moveStrat
+}
+
+//Handles enemy wander in the other direction, top of screen
+class stateYHigh : EnemyMoveStrat{
+    
+    var lastMove : CGFloat = 0
+    
+    override func Move(nodeToMove : EnemyBase){
+        
+        if GameScene.gameTime > lastMove + nodeToMove.moveDelay{
+            
+            lastMove = GameScene.gameTime
+            
+            nodeToMove.sprite.physicsBody?.linearDamping = 0.50
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), (getImpulseYNeg()*(3))))
+            
+            //Return to move strategy after enemy is back onto screen
+            if (nodeToMove.sprite.position.y < 758){
+                nodeToMove.sprite.physicsBody?.linearDamping = 0.0
+                nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+            }
+        }
     }
 }

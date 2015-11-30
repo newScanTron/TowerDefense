@@ -10,10 +10,34 @@ import Foundation
 import SpriteKit
 
 class GruntAttack: EnemyAttackStrat{
-
+    
+    var lastFire : CGFloat = 0
+    
     override init(){}
     
-    override func Attack(enemy: EnemyBase, scene: SKScene){
+    override func Attack(){
         
+        
+        if (GameScene.gameTime > lastFire + fireDelay) {
+            
+            lastFire = GameScene.gameTime
+            if (parent != nil) {
+                target = GameScene.getClosestTower(parent!.sprite.position)
+
+                var bulletParent : Entity = parent!
+    
+                EnemyBullet(
+                    _start: parent!.sprite.position,
+                    _target: target!.sprite.position,
+                    _speed: speed,
+                    _damage: damage,
+                    _entity: &bulletParent,
+                    _shotByEnemy: true
+                )
+                
+            }
+        }
+        
+
     }
 }

@@ -9,74 +9,107 @@
 import Foundation
 import SpriteKit
 
-extension SKAction {
-    
-    static func spiral(startRadius: CGFloat, endRadius: CGFloat, angle
-        totalAngle: CGFloat, centerPoint: CGPoint, duration: NSTimeInterval) -> SKAction {
-            
-            // The distance the node will travel away from/towards the
-            // center point, per revolution.
-            let radiusPerRevolution = (endRadius - startRadius) / totalAngle
-            
-            let action = SKAction.customActionWithDuration(duration) { node, time in
-                // The current angle the node is at.
-                let θ = totalAngle * time / CGFloat(duration)
-                
-                // The equation, r = a + bθ
-                let radius = startRadius + radiusPerRevolution * θ
-               
-                node.position = pointOnCircle(θ, radius: radius, center: centerPoint)
-            }
-            
-            return action
-    }
-}
-func pointOnCircle(angle: CGFloat, radius: CGFloat, center: CGPoint) -> CGPoint {
-    return CGPoint(x: center.x + radius * cos(angle),
-        y: center.y + radius * sin(angle))
-}
-
 class BossMoveStrat: EnemyMoveStrat {
-    let moveStrat = "concrete2"
-    override func Move(sprite: SKSpriteNode, scene: SKScene){
-        
-        //determine where to spawn the bison along the Y axis
-        let actualY = random(min: sprite.size.height/2, max: scene.size.height - sprite.size.height/2)
-        sprite.size = CGSize(width: 80, height: 80)
-        //Position the bison slightly off-screen along the right edge,
-        // and along a random position along the Y axis as calculated above
-        sprite.position = CGPoint(x: scene.size.width + sprite.size.width/2, y:actualY)
-        //determine speed of the monster
-        let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
-        
-        //Create the actions
-        let moveLeft = SKAction.moveByX(-150, y:0, duration:1.0)
-        let moveRight = SKAction.moveByX(150, y: 0, duration: 1.0)
-        let moveUp = SKAction.moveByX(0, y: 150, duration: 1.0)
-        let moveDown = SKAction.moveByX(0, y: -150, duration: 1.0)
-        let moveOff = SKAction.moveByX(-200, y:0, duration: 1.0)
-        let moveDiagonal = SKAction.moveByX(-150, y: 150, duration: 0.5)
-        
-        let spiral = SKAction.spiral(scene.size.width / 8,
-            endRadius: 0,
-            angle: CGFloat(M_PI) * 2,
-            centerPoint: CGPoint(x: 400, y: actualY),
-            duration: 5.0)
-        
-        let actionMove = SKAction.moveTo(CGPoint(x: -sprite.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
-        let actionMoveDone = SKAction.removeFromParent()
-        sprite.runAction(SKAction.sequence([moveLeft, moveLeft, moveLeft, spiral, moveRight, spiral, moveDiagonal.reversedAction(), moveUp, moveLeft, moveDown, moveLeft, moveUp, moveDiagonal, actionMoveDone]))
-        //sprite.runAction(spiral)
-    }
-    func getMoveStrat() -> String
-    {
-        return moveStrat
-    }
-    func random() -> CGFloat{
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-    }
     
-    func random(min min: CGFloat, max: CGFloat) -> CGFloat{
-        return random() * (max - min) + min
+    var lastMove : CGFloat = 0
+    var spiral : SKAction! = nil
+    var bossNode : EnemyBase! = nil
+    
+    override func Move(nodeToMove : EnemyBase){
+
+        bossNode = nodeToMove
+        
+        if bossNode.sprite.position.x >= GameScene.scene?.size.width{
+            if nodeToMove.sprite.speed > 1{
+                stopEnemy(nodeToMove)
+            }
+            rightSide()
+        }
+        else if bossNode.sprite.position.x <= 0{
+            if nodeToMove.sprite.speed > 1{
+                stopEnemy(nodeToMove)
+            }
+            leftSide()
+        }
+        if bossNode.sprite.position.y >= GameScene.scene?.size.height{
+            if nodeToMove.sprite.speed > 1{
+                stopEnemy(nodeToMove)
+            }
+            topHalf()
+        }
+        else if bossNode.sprite.position.y <= 0{
+            if nodeToMove.sprite.speed > 1{
+                stopEnemy(nodeToMove)
+            }
+            bottomHalf()
+        }
+        
+        if nodeToMove.sprite.position.x < GameScene.scene?.size.width && nodeToMove.sprite.position.x > 0 && nodeToMove.sprite.position.y < GameScene.scene?.size.height && nodeToMove.sprite.position.y > 0{
+            nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYRand()))
+        }
+        
+        //Changes all enemy move strategies to Swarm Strategy ... except da boss of course
+        if nodeToMove.sprite.position.x < 1000{
+            for e in GameScene.enemies{
+                if e.sprite.name != "Boss"
+                {
+                    e.setMoveStrategy(EnemySwarmStrat())
+                }
+            }
+        }
+    }
+
+    func rightSide(){
+        bossNode.sprite.physicsBody?.linearDamping = 0
+        bossNode.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXNeg(), getImpulseYRand()))
+    }
+    func leftSide(){
+        bossNode.sprite.physicsBody?.linearDamping = 0
+        bossNode.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXPos(), getImpulseYRand()))
+    }
+    func topHalf(){
+        bossNode.sprite.physicsBody?.linearDamping = 0
+        bossNode.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYNeg()))
+    }
+    func bottomHalf(){
+        bossNode.sprite.physicsBody?.linearDamping = 0
+        bossNode.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYPos()))
+    }
+    func upwardSpiral(){
+        bossNode.sprite.physicsBody?.linearDamping = 0
+        bossNode.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYPos()))
+    }
+    func downwardSpiral(){
+        
+    }
+}
+class EnemySwarmStrat : EnemyMoveStrat{
+    
+    var lastMove : CGFloat = 0
+    
+    override func Move(nodeToMove : EnemyBase) {
+
+        for e in GameScene.enemies{
+            
+            if e.sprite.name == "Boss"{
+                
+                let shifted = e.sprite.position.y - CGFloat(5)
+                let shiftedPoint = CGPointMake(e.sprite.position.x, shifted)
+                
+                
+                if GameScene.getDistance(nodeToMove.sprite.position, to: e.sprite.position) > CGFloat(250){
+                    nodeToMove.sprite.physicsBody?.linearDamping = 0.75
+                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 9.0))
+                }
+                else if GameScene.getDistance(nodeToMove.sprite.position, to: e.sprite.position) > CGFloat(75) && GameScene.getDistance(nodeToMove.sprite.position, to: e.sprite.position) < 250 {
+                    nodeToMove.sprite.physicsBody?.linearDamping = 0.5
+                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 8.0))
+                }
+                else {
+                    nodeToMove.sprite.physicsBody?.linearDamping = 0
+                    nodeToMove.sprite.physicsBody?.applyImpulse(getVector(nodeToMove.sprite.position, to: shiftedPoint, speed: 20.0))
+                }
+            }
+        }
     }
 }

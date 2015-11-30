@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97502E181C0B7C9800A21954 /* TowerAttackPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97502E171C0B7C9800A21954 /* TowerAttackPulse.swift */; };
+		97502E191C0B857D00A21954 /* TowerAttackPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97502E171C0B7C9800A21954 /* TowerAttackPulse.swift */; };
+		97A074601C0BAC2E0070DC6D /* TowerDefenseSlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A0745F1C0BAC2E0070DC6D /* TowerDefenseSlag.swift */; };
+		97A074611C0BAEAA0070DC6D /* TowerDefenseSlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A0745F1C0BAC2E0070DC6D /* TowerDefenseSlag.swift */; };
 		9926222F1BED1E9F0080D35A /* BossMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */; };
 		992622351BED1ECB0080D35A /* ConcreteMoveStrat1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622301BED1ECB0080D35A /* ConcreteMoveStrat1.swift */; };
 		992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622311BED1ECB0080D35A /* ConcreteMoveStrat2.swift */; };
@@ -15,6 +19,12 @@
 		992622391BED1ECB0080D35A /* RangedAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622341BED1ECB0080D35A /* RangedAttack.swift */; };
 		9926223B1BED2B2C0080D35A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926223A1BED2B2C0080D35A /* User.swift */; };
 		9926223E1BED2B910080D35A /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926223D1BED2B910080D35A /* GameState.swift */; };
+		993BC2B61C003A50009596FA /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B51C003A50009596FA /* LoginController.swift */; };
+		993BC2B71C003A50009596FA /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B51C003A50009596FA /* LoginController.swift */; };
+		993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B81C011A6D009596FA /* SignUpController.swift */; };
+		993BC2BA1C011A6D009596FA /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B81C011A6D009596FA /* SignUpController.swift */; };
+		993BC2BB1C011B2A009596FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08331BE035D80070F4B8 /* Main.storyboard */; };
+		99403FA41C01780C00A3B4E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08331BE035D80070F4B8 /* Main.storyboard */; };
 		9946E3FF1BE56E33007E9559 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E3FE1BE56E33007E9559 /* Common.swift */; };
 		9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4001BE56E54007E9559 /* TowerBase.swift */; };
 		9946E4031BE56EBB007E9559 /* EnemyMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */; };
@@ -90,6 +100,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		97502E171C0B7C9800A21954 /* TowerAttackPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerAttackPulse.swift; sourceTree = "<group>"; };
+		97A0745F1C0BAC2E0070DC6D /* TowerDefenseSlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseSlag.swift; sourceTree = "<group>"; };
 		9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BossMoveStrat.swift; sourceTree = "<group>"; };
 		992622301BED1ECB0080D35A /* ConcreteMoveStrat1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteMoveStrat1.swift; sourceTree = "<group>"; };
 		992622311BED1ECB0080D35A /* ConcreteMoveStrat2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteMoveStrat2.swift; sourceTree = "<group>"; };
@@ -98,6 +110,8 @@
 		992622341BED1ECB0080D35A /* RangedAttack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangedAttack.swift; sourceTree = "<group>"; };
 		9926223A1BED2B2C0080D35A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9926223D1BED2B910080D35A /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		993BC2B51C003A50009596FA /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		993BC2B81C011A6D009596FA /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		9946E3FE1BE56E33007E9559 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		9946E4001BE56E54007E9559 /* TowerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerBase.swift; sourceTree = "<group>"; };
 		9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveStrat.swift; sourceTree = "<group>"; };
@@ -164,7 +178,9 @@
 				9946E4001BE56E54007E9559 /* TowerBase.swift */,
 				99A3BBE41BE94C1900AAB350 /* Bullet.swift */,
 				99A3BBE51BE94C1900AAB350 /* TowerAttackBasic.swift */,
+				97502E171C0B7C9800A21954 /* TowerAttackPulse.swift */,
 				99A3BBE61BE94C1900AAB350 /* TowerDefenseHeal.swift */,
+				97A0745F1C0BAC2E0070DC6D /* TowerDefenseSlag.swift */,
 				99A3BBE71BE94C1900AAB350 /* TowerDefenseStrat.swift */,
 				9946E4081BE56F35007E9559 /* TowerAttackStrat.swift */,
 				9946E40B1BE56F7D007E9559 /* TowerDefenseStrat.swift */,
@@ -213,6 +229,8 @@
 				9926223A1BED2B2C0080D35A /* User.swift */,
 				9926223D1BED2B910080D35A /* GameState.swift */,
 				99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */,
+				993BC2B51C003A50009596FA /* LoginController.swift */,
+				993BC2B81C011A6D009596FA /* SignUpController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -391,6 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				993BC2BB1C011B2A009596FA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +417,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99403FA41C01780C00A3B4E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,15 +431,19 @@
 				9946E4091BE56F35007E9559 /* TowerAttackStrat.swift in Sources */,
 				9946E4121BE571E5007E9559 /* TowerBuilder.swift in Sources */,
 				9926223E1BED2B910080D35A /* GameState.swift in Sources */,
+				97A074601C0BAC2E0070DC6D /* TowerDefenseSlag.swift in Sources */,
 				99A3BBE81BE94C1900AAB350 /* Bullet.swift in Sources */,
 				9946E4151BE5721D007E9559 /* EnemyFactory.swift in Sources */,
+				993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */,
 				9946E3FF1BE56E33007E9559 /* Common.swift in Sources */,
 				992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */,
 				992622381BED1ECB0080D35A /* GruntAttack.swift in Sources */,
 				99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */,
 				992622351BED1ECB0080D35A /* ConcreteMoveStrat1.swift in Sources */,
+				97502E181C0B7C9800A21954 /* TowerAttackPulse.swift in Sources */,
 				99A3BBEA1BE94C1900AAB350 /* TowerDefenseHeal.swift in Sources */,
 				99FD08321BE035D80070F4B8 /* GameViewController.swift in Sources */,
+				993BC2B61C003A50009596FA /* LoginController.swift in Sources */,
 				9926222F1BED1E9F0080D35A /* BossMoveStrat.swift in Sources */,
 				99FD082C1BE035D80070F4B8 /* AppDelegate.swift in Sources */,
 				99BA33D41BF5171700152764 /* UserModel.xcdatamodeld in Sources */,
@@ -446,6 +470,7 @@
 				99BA33CC1BF2A25F00152764 /* AppDelegate.swift in Sources */,
 				99BA33CD1BF2A25F00152764 /* Entity.swift in Sources */,
 				99BA33CE1BF2A25F00152764 /* Common.swift in Sources */,
+				97502E191C0B857D00A21954 /* TowerAttackPulse.swift in Sources */,
 				99BA33BE1BF2A24300152764 /* EnemyBullet.swift in Sources */,
 				9946E40A1BE56F35007E9559 /* TowerAttackStrat.swift in Sources */,
 				99BA33CF1BF2A25F00152764 /* User.swift in Sources */,
@@ -458,15 +483,18 @@
 				99BA33C01BF2A24300152764 /* RangedAttack.swift in Sources */,
 				99FD08451BE035D80070F4B8 /* TowerDefenseTests.swift in Sources */,
 				99BA33C31BF2A24300152764 /* EnemyMoveStrat.swift in Sources */,
+				993BC2BA1C011A6D009596FA /* SignUpController.swift in Sources */,
 				99BA33B31BF2A23C00152764 /* TowerBase.swift in Sources */,
 				99BA33C41BF2A24300152764 /* EnemyFactory.swift in Sources */,
 				99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */,
 				99BA33BF1BF2A24300152764 /* GruntAttack.swift in Sources */,
+				993BC2B71C003A50009596FA /* LoginController.swift in Sources */,
 				99BA33BB1BF2A24300152764 /* BossMoveStrat.swift in Sources */,
 				99BA33C21BF2A24300152764 /* EnemyAttackStrat.swift in Sources */,
 				99BA33B11BF2A23000152764 /* TowerDefenseHeal.swift in Sources */,
 				99BA33D01BF2A25F00152764 /* GameState.swift in Sources */,
 				9946E40D1BE56F7D007E9559 /* TowerDefenseStrat.swift in Sources */,
+				97A074611C0BAEAA0070DC6D /* TowerDefenseSlag.swift in Sources */,
 				99BA33BD1BF2A24300152764 /* ConcreteMoveStrat2.swift in Sources */,
 				99BA33C71BF2A24800152764 /* GameScene.swift in Sources */,
 				99BA33B21BF2A23400152764 /* TowerAttackBasic.swift in Sources */,
