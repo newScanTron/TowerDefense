@@ -34,6 +34,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var scene : GameScene? = nil
 
     var odd : Bool = false
+    var limitTouch : Bool = false
     
 
     
@@ -119,9 +120,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
+
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
         myLabel.text = ("Gold: \(appDelegate.user.gold)")
+
+        
+        if (!limitTouch) {
+        limitTouch = true;
+       // myLabel.removeFromParent()
+
         let touch = touches.first
         let location = touch!.locationInNode(self)
         
@@ -147,10 +155,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 addTower(location)
             }
         }
+        }
     }
     
     override func update(currentTime: CFTimeInterval) {
-        
+        limitTouch = false
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
