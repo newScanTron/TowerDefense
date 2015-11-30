@@ -48,7 +48,7 @@ class EnemyBase: Entity{
         sprite.physicsBody?.restitution = 0.0
         sprite.physicsBody?.linearDamping = 0.0
         sprite.physicsBody?.angularDamping = 0.0
-
+        sprite.physicsBody?.allowsRotation = false
         sprite.zPosition = ZPosition.enemy
 
         moveStrat.Move(self)

@@ -30,7 +30,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
-    var odd : Bool = false
+    var odd : Bool = true
     
     
     override func didMoveToView(view: SKView) {
@@ -146,7 +146,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
             if t.health <= 0{
                 t.sprite.removeFromParent()
-                //t.towerLabel.removeFromParent()
+                
                 GameScene.towers.removeAtIndex(i)
             }
         }
