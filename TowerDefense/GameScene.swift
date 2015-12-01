@@ -15,7 +15,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
     
     //let satellite = SKSpriteNode(imageNamed: "Sat2")
-    let myLabel = SKLabelNode(fontNamed:"Verdana")
+    let myLabel = SKLabelNode(fontNamed:"Square")
+    let xpLabel = SKLabelNode(fontNamed:"Square")
     let towerTotal = 20
 
     let cero = 0
@@ -28,21 +29,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //making all of these static allows us to not have to pass them around method calls
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
+    static var explosions : [Explosion] = [Explosion]()
     static var bullets : [Bullet] = [Bullet]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
 
-    var odd : Bool = false
-    var limitTouch : Bool = false
+    var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
+    var towerHardLimit : Int = 20
     
    
     
     override func didMoveToView(view: SKView) {
 
-        
-     
-        
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
         
@@ -55,10 +54,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 120, y:CGRectGetMaxY(self.frame) - 60);
+        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
+        myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        
+        xpLabel.fontSize = 45;
+        xpLabel.position = CGPoint(x:CGRectGetMaxX(self.frame) - 10, y:CGRectGetMaxY(self.frame) - 60);
+        xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
         
         self.addChild(myLabel)
         myLabel.zPosition = ZPosition.bullet
+        
+        self.addChild(xpLabel)
+        xpLabel.zPosition = ZPosition.bullet
 
         
         //sprite to be the edge/base
@@ -99,67 +106,67 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func addTower(location: CGPoint)
     {
         
+        var tower : TowerBase?
+        
         //create and add tower
         if (odd) {
-            let tower = towerBuilder.BuildPulseTower(location)
-            GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
-            odd = false
+            tower = towerBuilder.BuildPulseTower(location)
         }
         else {
-            let tower = towerBuilder.BuildTower(location)
-            GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
-            odd = true
+            tower = towerBuilder.BuildTower(location)
         }
+        if (tower != nil) {
+            odd = !odd
+            GameScene.towers.append(tower!)
+            self.addChild(tower!.sprite)
+        }
+        
         //need something to make the updrageView disapear if we are not interacting with it.
 //        GameScene.towers.append(tower)
 //        self.addChild(tower.sprite)
     }
     
+    
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
 
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
-        myLabel.text = ("Gold: \(appDelegate.user.gold)")
-
         
-        if (!limitTouch) {
-        limitTouch = true;
        // myLabel.removeFromParent()
 
         let touch = touches.first
         let location = touch!.locationInNode(self)
         
-        //check if any and build one with first touch
-        
-        if GameScene.towers.count <= cero
+        if GameScene.towers.count <= towerHardLimit
         {
             addTower(location)
         }
         
-        for each in GameScene.towers
-        {
-            if each.sprite.containsPoint(location)
-            {
-                var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
-                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
-                setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
-                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
-                self.view?.addSubview(upgradeView.GetView())
-            }
-            else if GameScene.towers.count <= towerTotal
-            {
-                addTower(location)
-            }
-        }
-        }
+        //check if any and build one with first touch
+        
+//        if GameScene.towers.count <= cero
+//        {
+//            addTower(location)
+//        }
+//        
+//        for each in GameScene.towers
+//        {
+//            if each.sprite.containsPoint(location)
+//            {
+//                var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
+//                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
+//                setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+//                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
+//                self.view?.addSubview(upgradeView.GetView())
+//            }
+//            else if GameScene.towers.count <= towerTotal
+//            {
+//                addTower(location)
+//            }
+//        }
     }
     
     override func update(currentTime: CFTimeInterval) {
-        limitTouch = false
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
@@ -167,6 +174,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
         
+        myLabel.text = ("GOLD: \(appDelegate.user.gold)")
+        xpLabel.text = ("XP: \(appDelegate.user.xp)")
         
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
@@ -175,10 +184,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             t.TriggerAttack()
             t.TriggerDefend()
             
-            if t.health <= 0{
+            if t.CheckIfDead(){
                 t.sprite.removeFromParent()
                 //t.towerLabel.removeFromParent()
                 GameScene.towers.removeAtIndex(i)
+                i -= 1
             }
         }
         for (var i = 0; i < GameScene.enemies.count; i++)
@@ -187,17 +197,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             e.TriggerAttack()
             e.moveMore()
             
-            if e.health <= 0{
-            e.sprite.removeFromParent()
-                
-            GameScene.enemies.removeAtIndex(i)
-            enemyMax -= 1
-            enemyCount -= 1
+            if e.CheckIfDead(){
+                e.sprite.removeFromParent()
                 
                 //add gold to user when enemys die
-                appDelegate.user.gold += 100
+                appDelegate.user.gold += e.reward
+                appDelegate.user.xp += e.reward
+                
+                GameScene.enemies.removeAtIndex(i)
+                i -= 1
+                enemyMax -= 1
+                enemyCount -= 1
                 
                 
+            }
+        }
+        
+        for (var i = 0; i < GameScene.explosions.count; i++) {
+            let e = GameScene.explosions[i]
+            if (e.destroy) {
+                GameScene.explosions.removeAtIndex(i)
+                i -= 1;
+            }
+            else {
+                e.update()
             }
         }
     }
@@ -307,6 +330,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         return closestTower;
     }
     
+    class func addGold(amount : Int) -> Bool{
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        if (appDelegate.user.gold + amount >= 0) {
+            // User has enough gold, return true
+            appDelegate.user.gold += amount
+            return true
+        }
+        // User does not have enough gold, return false
+        return false
+    }
+    
     
     class func getDistance(from : CGPoint, to : CGPoint) -> CGFloat {
         
@@ -325,11 +360,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
                     //e.UpdateLabel()
+                    contactTest.Destroy()
                     contact.bodyB.node?.removeFromParent()
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
                    // e.UpdateLabel()
+                    contactTest.Destroy()
                     contact.bodyA.node?.removeFromParent()
                 }
             }
@@ -342,11 +379,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
+                    contactTest.Destroy()
                     contact.bodyB.node?.removeFromParent()
                 } else if t.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
+                    contactTest.Destroy()
                     contact.bodyA.node?.removeFromParent()
                 }
             }

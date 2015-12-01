@@ -20,12 +20,16 @@ class TowerAttackStrat
     var parent : TowerBase? = nil
     
     init () {
-        //fatalError("Don't instantiate the base class!")
+        print("Don't instantiate the base class!")
     }
     
     
     func Attack() {
-       //fatalError("Don't call Attack() on the base class!")
+        print("Don't call Attack() on the base class!")
+    }
+    
+    func Die() {
+        //print("Don't call Die() on the base class!")
     }
     
 }

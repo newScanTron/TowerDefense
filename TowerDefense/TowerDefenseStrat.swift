@@ -24,4 +24,8 @@ class TowerDefenseStrat
        //fatalError("Don't call Defend() on the base class!")
     }
     
+    func Die() {
+        //print("Don't call Die() on the base class!")
+    }
+    
 }

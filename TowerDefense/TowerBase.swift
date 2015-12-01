@@ -56,6 +56,15 @@ class TowerBase: Entity{
         attack.Attack()
     }
     
+    override func CheckIfDead() -> Bool {
+        if health <= 0 {
+            attack.Die()
+            defense.Die()
+            return true
+        }
+        return false
+    }
+    
     // Triggers defense strategy Defend function
     func TriggerDefend() {
         defense.Defend()

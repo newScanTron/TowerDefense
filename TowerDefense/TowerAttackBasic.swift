@@ -28,13 +28,13 @@ class TowerAttackBasic : TowerAttackStrat {
                 target = GameScene.getClosestEnemy(parent!.sprite.position)
                 if (target != nil) {
                     var bulletParent : Entity = parent!
-                    print("FIRE")
                     Bullet(
                         _start: parent!.sprite.position,
                         _target: target!.sprite.position,
                         _speed: speed,
                         _damage: damage,
                         _entity: &bulletParent,
+                        _explosion: Explosion(_radius: 100,_damage: 30),
                         _shotByEnemy: false)
                 }
                 

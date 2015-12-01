@@ -21,4 +21,12 @@ class Entity
         sprite = SKSpriteNode()
         healthLabel = SKLabelNode()
     }
+    
+    func CheckIfDead() -> Bool {
+        print("Entity.CheckIfDead() This should be overriden!")
+        if health <= 0 {
+            return true
+        }
+        return false
+    }
 }

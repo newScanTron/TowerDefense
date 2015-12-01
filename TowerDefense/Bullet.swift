@@ -14,11 +14,13 @@ class Bullet {
     var sprite : SKSpriteNode
     var damage : CGFloat // Damage that will be dealt
     var entity : Entity // Entity that fired this bullet
+    var explosion : Explosion?
     
-    init (_start : CGPoint, _target : CGPoint, _speed : CGFloat, _damage: CGFloat, inout _entity : Entity, _shotByEnemy : Bool) {
+    init (_start : CGPoint, _target : CGPoint, _speed : CGFloat, _damage: CGFloat, inout _entity : Entity, _explosion : Explosion?, _shotByEnemy : Bool) {
         
         damage = _damage
         entity = _entity
+        explosion = _explosion
         
         // Set up initial location of projectile
         sprite = SKSpriteNode(imageNamed: "bullet")
@@ -73,6 +75,13 @@ class Bullet {
         
         entity.kills += 1; // Adds 1 to the parent entitys kill count
         
+    }
+    
+    func Destroy() {
+        print("bullet destroy")
+        if (explosion != nil) {
+            explosion!.trigger(sprite.position)
+        }
     }
     
     class func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {
