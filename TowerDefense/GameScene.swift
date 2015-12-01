@@ -29,6 +29,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //making all of these static allows us to not have to pass them around method calls
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
+    static var explosions : [Explosion] = [Explosion]()
     static var bullets : [Bullet] = [Bullet]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
@@ -125,6 +126,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 //        self.addChild(tower.sprite)
     }
     
+    
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
@@ -207,6 +209,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 enemyMax -= 1
                 enemyCount -= 1
                 
+            }
+        }
+        
+        for (var i = 0; i < GameScene.explosions.count; i++) {
+            let e = GameScene.explosions[i]
+            if (e.destroy) {
+                GameScene.explosions.removeAtIndex(i)
+                i -= 1;
+            }
+            else {
+                e.update()
             }
         }
     }
@@ -342,11 +355,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
                     //e.UpdateLabel()
+                    contactTest.Destroy()
                     contact.bodyB.node?.removeFromParent()
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
                    // e.UpdateLabel()
+                    contactTest.Destroy()
                     contact.bodyA.node?.removeFromParent()
                 }
             }
@@ -359,11 +374,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
+                    contactTest.Destroy()
                     contact.bodyB.node?.removeFromParent()
                 } else if t.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
+                    contactTest.Destroy()
                     contact.bodyA.node?.removeFromParent()
                 }
             }

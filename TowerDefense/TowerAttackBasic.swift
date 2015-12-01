@@ -34,6 +34,7 @@ class TowerAttackBasic : TowerAttackStrat {
                         _speed: speed,
                         _damage: damage,
                         _entity: &bulletParent,
+                        _explosion: Explosion(_radius: 100,_damage: 30),
                         _shotByEnemy: false)
                 }
                 

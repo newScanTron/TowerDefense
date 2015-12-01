@@ -32,6 +32,7 @@ class GruntAttack: EnemyAttackStrat{
                     _speed: speed,
                     _damage: damage,
                     _entity: &bulletParent,
+                    _explosion: nil,
                     _shotByEnemy: true
                 )
                 
