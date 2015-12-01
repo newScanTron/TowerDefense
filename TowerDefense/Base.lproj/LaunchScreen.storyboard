@@ -30,7 +30,7 @@
                                     <constraint firstAttribute="width" constant="370" id="2lc-14-BgR"/>
                                     <constraint firstAttribute="height" constant="59" id="kMm-ZB-jMN"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Square" family="Square" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="Square" family="Square" pointSize="50"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>

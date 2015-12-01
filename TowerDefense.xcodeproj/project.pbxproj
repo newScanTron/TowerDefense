@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		975FF2701C0D34BD00682B74 /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 975FF26F1C0D34BD00682B74 /* Square.ttf */; };
+		97B633BD1C0D4D5500CB6B8B /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BC1C0D4C3E00CB6B8B /* Square.ttf */; };
+		97B633BE1C0D4D5600CB6B8B /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BC1C0D4C3E00CB6B8B /* Square.ttf */; };
+		97B633C01C0D517B00CB6B8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BF1C0D517B00CB6B8B /* Assets.xcassets */; };
 		9919CF291C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF281C0CF7690024DFBB /* TowerAttackPulse.swift */; };
 		9919CF2A1C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF281C0CF7690024DFBB /* TowerAttackPulse.swift */; };
 		9919CF2C1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF2B1C0CF77E0024DFBB /* TowerDefenseSlag.swift */; };
@@ -77,7 +79,6 @@
 		99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082F1BE035D80070F4B8 /* GameScene.swift */; };
 		99FD08321BE035D80070F4B8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD08311BE035D80070F4B8 /* GameViewController.swift */; };
 		99FD08351BE035D80070F4B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08331BE035D80070F4B8 /* Main.storyboard */; };
-		99FD08371BE035D80070F4B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08361BE035D80070F4B8 /* Assets.xcassets */; };
 		99FD083A1BE035D80070F4B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08381BE035D80070F4B8 /* LaunchScreen.storyboard */; };
 		99FD08451BE035D80070F4B8 /* TowerDefenseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD08441BE035D80070F4B8 /* TowerDefenseTests.swift */; };
 		99FD08501BE035D80070F4B8 /* TowerDefenseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD084F1BE035D80070F4B8 /* TowerDefenseUITests.swift */; };
@@ -101,7 +102,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		975FF26F1C0D34BD00682B74 /* Square.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Square.ttf; path = ../../Library/Fonts/Square.ttf; sourceTree = "<group>"; };
+		97B633BC1C0D4C3E00CB6B8B /* Square.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Square.ttf; sourceTree = "<group>"; };
+		97B633BF1C0D517B00CB6B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9919CF281C0CF7690024DFBB /* TowerAttackPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerAttackPulse.swift; sourceTree = "<group>"; };
 		9919CF2B1C0CF77E0024DFBB /* TowerDefenseSlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseSlag.swift; sourceTree = "<group>"; };
 		9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BossMoveStrat.swift; sourceTree = "<group>"; };
@@ -138,7 +140,6 @@
 		99FD082F1BE035D80070F4B8 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		99FD08311BE035D80070F4B8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		99FD08341BE035D80070F4B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		99FD08361BE035D80070F4B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99FD08391BE035D80070F4B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		99FD083B1BE035D80070F4B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99FD08401BE035D80070F4B8 /* TowerDefenseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TowerDefenseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,9 +214,8 @@
 		9946E41D1BE5771E007E9559 /* Visual */ = {
 			isa = PBXGroup;
 			children = (
-				99FD08361BE035D80070F4B8 /* Assets.xcassets */,
-				975FF26F1C0D34BD00682B74 /* Square.ttf */,
 				99FD082D1BE035D80070F4B8 /* GameScene.sks */,
+				97B633BC1C0D4C3E00CB6B8B /* Square.ttf */,
 				99FD083B1BE035D80070F4B8 /* Info.plist */,
 				99FD08331BE035D80070F4B8 /* Main.storyboard */,
 				99FD08381BE035D80070F4B8 /* LaunchScreen.storyboard */,
@@ -226,6 +226,7 @@
 		9946E41E1BE5775F007E9559 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				97B633BF1C0D517B00CB6B8B /* Assets.xcassets */,
 				99FD082B1BE035D80070F4B8 /* AppDelegate.swift */,
 				9946E41A1BE5766C007E9559 /* Entity.swift */,
 				9946E3FE1BE56E33007E9559 /* Common.swift */,
@@ -401,11 +402,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				975FF2701C0D34BD00682B74 /* Square.ttf in Resources */,
+				97B633BD1C0D4D5500CB6B8B /* Square.ttf in Resources */,
 				99FD082E1BE035D80070F4B8 /* GameScene.sks in Resources */,
 				99FD083A1BE035D80070F4B8 /* LaunchScreen.storyboard in Resources */,
-				99FD08371BE035D80070F4B8 /* Assets.xcassets in Resources */,
 				99FD08351BE035D80070F4B8 /* Main.storyboard in Resources */,
+				97B633C01C0D517B00CB6B8B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				993BC2BB1C011B2A009596FA /* Main.storyboard in Resources */,
+				97B633BE1C0D4D5600CB6B8B /* Square.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
