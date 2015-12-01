@@ -185,10 +185,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             t.TriggerAttack()
             t.TriggerDefend()
             
-            if t.health <= 0{
+            if t.CheckIfDead(){
                 t.sprite.removeFromParent()
                 //t.towerLabel.removeFromParent()
                 GameScene.towers.removeAtIndex(i)
+                i -= 1
             }
         }
         for (var i = 0; i < GameScene.enemies.count; i++)
@@ -197,17 +198,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             e.TriggerAttack()
             e.moveMore()
             
-            if e.health <= 0{
-            e.sprite.removeFromParent()
-                
-            appDelegate.user.xp += e.reward
-                
-            GameScene.enemies.removeAtIndex(i)
-            enemyMax -= 1
-            enemyCount -= 1
+            if e.CheckIfDead(){
+                e.sprite.removeFromParent()
                 
                 //add gold to user when enemys die
-            appDelegate.user.gold += e.reward
+                appDelegate.user.gold += e.reward
+                appDelegate.user.xp += e.reward
+                
+                GameScene.enemies.removeAtIndex(i)
+                i -= 1
+                enemyMax -= 1
+                enemyCount -= 1
                 
             }
         }

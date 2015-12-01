@@ -23,6 +23,11 @@ class TowerAttackPulse : TowerAttackStrat {
     
     override init () {}
     
+    override func Die()  {
+        circle?.removeFromParent()
+        circle = nil
+    }
+    
     override func Attack() {
         
         

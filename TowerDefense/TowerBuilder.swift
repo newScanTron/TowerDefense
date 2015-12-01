@@ -20,7 +20,7 @@ class TowerBuilder
     {
         let attack = TowerAttackBasic()
         attack.range = 300
-        attack.damage = 10
+        attack.damage = 20
         attack.fireDelay = 1
         attack.speed = 100
         

@@ -21,6 +21,11 @@ class TowerDefenseSlag : TowerDefenseStrat {
     
     }
     
+    override func Die()  {
+        circle?.removeFromParent()
+        circle = nil
+    }
+    
     override func Defend() {
         
         if (circle == nil) {
