@@ -197,6 +197,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 //add gold to user when enemys die
                 appDelegate.user.gold += 100
                 
+                
             }
         }
     }
@@ -217,6 +218,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 GameScene.enemies.append(enemyboss)
             }
         }
+    }
+    func getXp(enmey: EnemyBase)
+    {
+        
     }
     
     //func that will set up the chain of reponsibility for updating
