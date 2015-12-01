@@ -33,16 +33,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
 
-    var odd : Bool = false
+    var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
     
    
     
     override func didMoveToView(view: SKView) {
 
-        
-     
-        
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
         
@@ -99,19 +96,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func addTower(location: CGPoint)
     {
         
+        var tower : TowerBase
+        
         //create and add tower
         if (odd) {
-            let tower = towerBuilder.BuildPulseTower(location)
-            GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
+            tower = towerBuilder.BuildPulseTower(location)
             odd = false
         }
         else {
-            let tower = towerBuilder.BuildTower(location)
-            GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
+            tower = towerBuilder.BuildTower(location)
             odd = true
         }
+        
+        GameScene.towers.append(tower)
+        self.addChild(tower.sprite)
+        
         //need something to make the updrageView disapear if we are not interacting with it.
 //        GameScene.towers.append(tower)
 //        self.addChild(tower.sprite)
