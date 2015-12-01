@@ -28,7 +28,9 @@ class EnemyFactory
 
         sprite.size = CGSizeMake(100, 100)
         
-        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
+        let reward = 100
+        
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
 
         return enemy
     }
@@ -48,7 +50,9 @@ class EnemyFactory
         sprite.size = CGSizeMake(300, 300)
         sprite.name = "Boss"
         
-        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
+        let reward = 500
+        
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
  
         return enemy
         
@@ -65,9 +69,11 @@ class EnemyFactory
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
 
-        sprite.size = CGSizeMake(100, 100)        
+        sprite.size = CGSizeMake(100, 100)
         
-        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay)
+        let reward = 100
+        
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
  
         return enemy
     }

@@ -16,16 +16,18 @@ class EnemyBase: Entity{
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
+    var reward : Int
     
     var moveDelay : CGFloat
     
     //initlizer.
-    init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat)
+    init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int)
     {
 
         attack = _attack
         moveStrat = _moveStrat
         moveDelay = _moveDelay
+        reward  = _reward
         
         super.init()
         sprite = _sprite

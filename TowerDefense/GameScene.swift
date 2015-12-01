@@ -15,7 +15,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
     
     //let satellite = SKSpriteNode(imageNamed: "Sat2")
-    let myLabel = SKLabelNode(fontNamed:"Verdana")
+    let myLabel = SKLabelNode(fontNamed:"Square")
+    let xpLabel = SKLabelNode(fontNamed:"Square")
     let towerTotal = 20
 
     let cero = 0
@@ -52,10 +53,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 120, y:CGRectGetMaxY(self.frame) - 60);
+        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
+        myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        
+        xpLabel.fontSize = 45;
+        xpLabel.position = CGPoint(x:CGRectGetMaxX(self.frame) - 10, y:CGRectGetMaxY(self.frame) - 60);
+        xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
         
         self.addChild(myLabel)
         myLabel.zPosition = ZPosition.bullet
+        
+        self.addChild(xpLabel)
+        xpLabel.zPosition = ZPosition.bullet
 
         
         //sprite to be the edge/base
@@ -122,7 +131,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
-        myLabel.text = ("Gold: \(appDelegate.user.gold)")
+        myLabel.text = ("GOLD: \(appDelegate.user.gold)")
+        xpLabel.text = ("XP: \(appDelegate.user.xp)")
 
         
        // myLabel.removeFromParent()
@@ -190,12 +200,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             if e.health <= 0{
             e.sprite.removeFromParent()
                 
+            appDelegate.user.xp += e.reward
+                
             GameScene.enemies.removeAtIndex(i)
             enemyMax -= 1
             enemyCount -= 1
                 
                 //add gold to user when enemys die
-                appDelegate.user.gold += 100
+            appDelegate.user.gold += e.reward
                 
             }
         }
