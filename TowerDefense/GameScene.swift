@@ -34,7 +34,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var scene : GameScene? = nil
 
     var odd : Bool = false
-    var limitTouch : Bool = false
+    var towerHardLimit : Int = 20
     
    
     
@@ -126,40 +126,41 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.text = ("Gold: \(appDelegate.user.gold)")
 
         
-        if (!limitTouch) {
-        limitTouch = true;
        // myLabel.removeFromParent()
 
         let touch = touches.first
         let location = touch!.locationInNode(self)
         
-        //check if any and build one with first touch
-        
-        if GameScene.towers.count <= cero
+        if GameScene.towers.count <= towerHardLimit
         {
             addTower(location)
         }
         
-        for each in GameScene.towers
-        {
-            if each.sprite.containsPoint(location)
-            {
-                var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
-                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
-                setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
-                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
-                self.view?.addSubview(upgradeView.GetView())
-            }
-            else if GameScene.towers.count <= towerTotal
-            {
-                addTower(location)
-            }
-        }
-        }
+        //check if any and build one with first touch
+        
+//        if GameScene.towers.count <= cero
+//        {
+//            addTower(location)
+//        }
+//        
+//        for each in GameScene.towers
+//        {
+//            if each.sprite.containsPoint(location)
+//            {
+//                var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
+//                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
+//                setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+//                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
+//                self.view?.addSubview(upgradeView.GetView())
+//            }
+//            else if GameScene.towers.count <= towerTotal
+//            {
+//                addTower(location)
+//            }
+//        }
     }
     
     override func update(currentTime: CFTimeInterval) {
-        limitTouch = false
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
