@@ -16,7 +16,7 @@ class TowerBuilder
     init() {}
     
     //build method
-    func BuildTower(point: CGPoint) -> TowerBase
+    func BuildTower(point: CGPoint) -> TowerBase?
     {
         let attack = TowerAttackBasic()
         attack.range = 300
@@ -35,16 +35,19 @@ class TowerBuilder
         tower.sprite.zPosition = ZPosition.tower
         tower.sprite.name = "tower"
         
+        if GameScene.addGold(-100) {
+            return tower
+        }
         
-        return tower
+        return nil
     }
-    func BuildPulseTower(point: CGPoint) -> TowerBase
+    func BuildPulseTower(point: CGPoint) -> TowerBase?
     {
         
         
         let attack = TowerAttackPulse()
         attack.range = 100
-        attack.damage = 40
+        attack.damage = 30
         attack.fireDelay = 3 //1
         attack.speed = 10 //100
         
@@ -60,7 +63,11 @@ class TowerBuilder
         tower.sprite.name = "tower"
         
         
-        return tower
+        if GameScene.addGold(-100) {
+            return tower
+        }
+        
+        return nil
     }
 
     func attackSetRange(range: Int)

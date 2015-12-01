@@ -105,20 +105,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func addTower(location: CGPoint)
     {
         
-        var tower : TowerBase
+        var tower : TowerBase?
         
         //create and add tower
         if (odd) {
             tower = towerBuilder.BuildPulseTower(location)
-            odd = false
         }
         else {
             tower = towerBuilder.BuildTower(location)
-            odd = true
         }
-        
-        GameScene.towers.append(tower)
-        self.addChild(tower.sprite)
+        if (tower != nil) {
+            odd = !odd
+            GameScene.towers.append(tower!)
+            self.addChild(tower!.sprite)
+        }
         
         //need something to make the updrageView disapear if we are not interacting with it.
 //        GameScene.towers.append(tower)
@@ -128,11 +128,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
-
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
-        myLabel.text = ("GOLD: \(appDelegate.user.gold)")
-        xpLabel.text = ("XP: \(appDelegate.user.xp)")
 
         
        // myLabel.removeFromParent()
@@ -177,6 +172,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
         
+        myLabel.text = ("GOLD: \(appDelegate.user.gold)")
+        xpLabel.text = ("XP: \(appDelegate.user.xp)")
         
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
@@ -313,6 +310,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         
         return closestTower;
+    }
+    
+    class func addGold(amount : Int) -> Bool{
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        if (appDelegate.user.gold + amount >= 0) {
+            // User has enough gold, return true
+            appDelegate.user.gold += amount
+            return true
+        }
+        // User does not have enough gold, return false
+        return false
     }
     
     
