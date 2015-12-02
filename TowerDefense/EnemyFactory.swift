@@ -11,9 +11,35 @@ import SpriteKit
 
 class EnemyFactory
 {
+
+    var enemyCount : CGFloat = 0
     init(){}
     
-    func CreateEnemy(scene: SKScene) -> EnemyBase{
+    func getNextEnemy() -> EnemyBase? {
+        
+        var enemy :EnemyBase? = nil
+        
+            if(enemyCount <= 9){
+                enemy = CreateEnemy()
+                enemyCount++
+                return enemy!
+            }
+            if(enemyCount > 9 && enemyCount < 14){
+                enemy = CreateEnemyGrunt()
+                enemyCount++
+                return enemy!
+            }
+            if(enemyCount == 14){
+                enemy = CreateEnemyBoss()
+                enemyCount++
+                return enemy!
+            }
+            else {
+                return nil
+        }
+    }
+    
+    func CreateEnemy() -> EnemyBase{
         
         let attack = RangedAttack()
         let moveStrat = ConcreteMoveStrat1()
@@ -34,7 +60,7 @@ class EnemyFactory
 
         return enemy
     }
-    func CreateEnemyBoss(scene: SKScene) -> EnemyBase{
+    func CreateEnemyBoss() -> EnemyBase{
         
         let attack = GruntAttack()
         let moveStrat = BossMoveStrat()
@@ -45,14 +71,11 @@ class EnemyFactory
         let moveDelay :CGFloat = 99.0
         let bossName : String = "Boss"
         
-
         let sprite = SKSpriteNode(imageNamed: bossName)
-
 
         sprite.size = CGSizeMake(300, 300)
         sprite.name = bossName
-        
-
+    
         let reward = 500
 
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
@@ -61,7 +84,7 @@ class EnemyFactory
         return enemy
         
     }
-    func CreateEnemyGrunt(scene: SKScene) -> EnemyBase{
+    func CreateEnemyGrunt() -> EnemyBase{
         
         let attack = RangedAttack()
         let moveStrat = ConcreteMoveStrat2()

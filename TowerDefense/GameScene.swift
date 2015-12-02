@@ -22,6 +22,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let cero = 0
     var enemyCount = 0
     var enemyMax = 14
+    var waveDelay : CGFloat = 2
+    var lastEnemy : CGFloat = 0
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -80,16 +82,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
         
-       
-        
-        initializeEnemyArray()
-        
-        runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock(addEnemy),
-                SKAction.waitForDuration(1.5)
-                ])
-            ))
     }
     func buildWall(sprite: SKSpriteNode)
     {
@@ -173,6 +165,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         myLabel.text = ("GOLD: \(appDelegate.user.gold)")
         xpLabel.text = ("XP: \(appDelegate.user.xp)")
+
+        if GameScene.gameTime > lastEnemy + waveDelay{
+            lastEnemy = GameScene.gameTime
+            let newEnemy = enemyFactory.getNextEnemy()
+            if newEnemy != nil {
+                GameScene.enemies.append(newEnemy!)
+                GameScene.scene?.addChild(newEnemy!.sprite)
+            }
+        }
         
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
@@ -194,7 +195,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             e.TriggerAttack()
             e.moveMore()
             
-
             if e.CheckIfDead(){
                 e.sprite.removeFromParent()
                 
@@ -206,8 +206,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 i -= 1
                 enemyMax -= 1
                 enemyCount -= 1
-                
-                
             }
         }
         
@@ -223,24 +221,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             }
         }
     }
-    func initializeEnemyArray(){
-        for var i = 0; i < 15 ; i++
-        {
-            if(i <= 9){
-                let enemy = enemyFactory.CreateEnemy(self)
-                GameScene.enemies.append(enemy)
-            }
-            if(i > 9 && i < 14){
-                let enemy = enemyFactory.CreateEnemyGrunt(self)
-                GameScene.enemies.append(enemy)
-            }
-            if(i == 14){
-                let enemyboss = enemyFactory.CreateEnemyBoss(self)
-                
-                GameScene.enemies.append(enemyboss)
-            }
-        }
-    }
+
     //function to add xp to the player currently based on the damage of the strategy of the enemy
     func giveXp(enmey: EnemyBase)
     {
@@ -271,14 +252,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //deffenseSetAmount is not set to have a node following it so it
 
     }
-    func addEnemy(){
-        
-        if(enemyCount <= enemyMax && GameScene.towers.count > 0){
-            print(enemyCount)
-            self.addChild(GameScene.enemies[enemyCount].sprite)
-            enemyCount++
-        }
-    }
+
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         
         var closestEnemy : EnemyBase?
