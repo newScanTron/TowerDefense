@@ -13,7 +13,7 @@ class EnemyFactory
 {
     init(){}
     
-    func CreateEnemy(scene: SKScene) -> EnemyBase{
+    func CreateEnemy() -> EnemyBase{
         
         let attack = RangedAttack()
         let moveStrat = ConcreteMoveStrat1()
@@ -34,7 +34,7 @@ class EnemyFactory
 
         return enemy
     }
-    func CreateEnemyBoss(scene: SKScene) -> EnemyBase{
+    func CreateEnemyBoss() -> EnemyBase{
         
         let attack = GruntAttack()
         let moveStrat = BossMoveStrat()
@@ -47,8 +47,8 @@ class EnemyFactory
         
 
         let sprite = SKSpriteNode(imageNamed: bossName)
-
-
+        
+        //set the size and name of the boss so we can locate is as a child of its parent.
         sprite.size = CGSizeMake(300, 300)
         sprite.name = bossName
         
@@ -61,7 +61,7 @@ class EnemyFactory
         return enemy
         
     }
-    func CreateEnemyGrunt(scene: SKScene) -> EnemyBase{
+    func CreateEnemyGrunt() -> EnemyBase{
         
         let attack = RangedAttack()
         let moveStrat = ConcreteMoveStrat2()
@@ -69,7 +69,7 @@ class EnemyFactory
         attack.damage = 3
         attack.fireDelay = 1
         attack.speed = 100
-        var moveDelay : CGFloat = 99.0
+        let moveDelay : CGFloat = 99.0
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
 

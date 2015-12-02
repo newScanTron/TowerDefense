@@ -151,7 +151,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         //check if any and build one with first touch
     }
-    
+    //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
@@ -217,15 +217,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         for var i = 0; i < 15 ; i++
         {
             if(i <= 9){
-                let enemy = enemyFactory.CreateEnemy(self)
+                let enemy = enemyFactory.CreateEnemy()
                 GameScene.enemies.append(enemy)
             }
             if(i > 9 && i < 14){
-                let enemy = enemyFactory.CreateEnemyGrunt(self)
+                let enemy = enemyFactory.CreateEnemyGrunt()
                 GameScene.enemies.append(enemy)
             }
             if(i == 14){
-                let enemyboss = enemyFactory.CreateEnemyBoss(self)
+                let enemyboss = enemyFactory.CreateEnemyBoss()
                 
                 GameScene.enemies.append(enemyboss)
             }

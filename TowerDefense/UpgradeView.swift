@@ -17,9 +17,9 @@ class UpgradeView: UIView {
     /*/hopoing to have the same set up for each node as far
     as what lables and inputs they will need. right now im thinking 
     lables sellector wheel and buttons */
-    var rectOne = CGRectMake(0,0,200, 40)
-    var rectTwo = CGRectMake(0,0,200, 40)
-    var rectThree = CGRectMake(0,75,200, 60)
+    var rectOne = CGRectMake(0,0,200, 60)
+    var rectTwo = CGRectMake(0,0,200, 60)
+    var rectThree = CGRectMake(0,75,200, 65)
 
 
     var mainLabel: UILabel
@@ -51,7 +51,7 @@ class UpgradeView: UIView {
         mainLabel.sizeToFit()
 
         
-        playerLabel.text = "Player: "
+        playerLabel.text = "Choose An Option."
         self.backgroundColor =  UIColor.yellowColor()
         b.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
         
