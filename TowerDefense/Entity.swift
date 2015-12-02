@@ -11,7 +11,7 @@ import SpriteKit
 class Entity
 {
     //variables that both towers and enemys have
-    var maxHealth = 100
+    var maxHealth: CGFloat = 100
     var health: CGFloat = 100
     var kills: Int = 0
     var sprite: SKSpriteNode

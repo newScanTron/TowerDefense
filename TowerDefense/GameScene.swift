@@ -153,6 +153,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 t.sprite.removeFromParent()
                 
                 GameScene.towers.removeAtIndex(i)
+                i -= 1
             }
         }
         for (var i = 0; i < GameScene.enemies.count; i++)
@@ -162,10 +163,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             e.moveMore()
             
             if e.health <= 0{
+                if e.sprite.name == "Boss"{
+                    for g in GameScene.enemies{
+                        g.setMoveStrategy(ConcreteMoveStrat1())
+                    }
+                }
             e.sprite.removeFromParent()
             GameScene.enemies.removeAtIndex(i)
             enemyMax -= 1
             enemyCount -= 1
+            i -= 1
             }
         }
     }
@@ -284,12 +291,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-                    //e.UpdateLabel()
+                    e.UpdateLabel()
                     contact.bodyB.node?.removeFromParent()
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-                   // e.UpdateLabel()
+                    e.UpdateLabel()
                     contact.bodyA.node?.removeFromParent()
                 }
             }
