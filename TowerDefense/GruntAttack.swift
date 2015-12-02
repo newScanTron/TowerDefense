@@ -13,18 +13,31 @@ class GruntAttack: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
     var circle : SKShapeNode? = nil
-    let healingTarget = [EnemyBase]()
+    var healingTarget = [EnemyBase]()
     let color = SKColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 10)
     
     override init(){}
     
+    override func Die()  {
+        circle?.removeFromParent()
+        circle = nil
+    }
+    
     override func Attack(){
         var allHealthy = false
-
+        healingTarget = GameScene.getEnemiesInRange(parent!.sprite.position, range: 125)
+        
         for e in GameScene.enemies{
             if e.health < e.maxHealth && e.sprite.name != "Boss"{
                 allHealthy = false
-                e.health += 10
+                if GameScene.getDistance(e.sprite.position, to: parent!.sprite.position) <= 125 {
+                    e.health += 10
+                    e.isImmune = true
+                    e.UpdateLabel()
+                }
+                else {
+                    e.isImmune = false
+                }
             }
             else {
                 allHealthy = true

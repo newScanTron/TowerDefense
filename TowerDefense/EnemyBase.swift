@@ -16,7 +16,7 @@ class EnemyBase: Entity{
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
-
+    var isImmune : Bool = false
     var reward : Int
 
     var color = SKColor.greenColor()
@@ -103,6 +103,13 @@ class EnemyBase: Entity{
     }
     func randomVect(min min: CGFloat, max: CGFloat) -> CGVector{
         return CGVector(dx: random() * (max - min) + min, dy: 0)
+    }
+    override func CheckIfDead() -> Bool {
+        if health <= 0 {
+            attack.Die()
+            return true
+        }
+        return false
     }
     func UpdateLabel(){
         

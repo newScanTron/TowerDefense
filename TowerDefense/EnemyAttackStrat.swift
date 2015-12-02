@@ -26,6 +26,9 @@ class EnemyAttackStrat
     func Attack(){
         
     }
+    func Die() {
+        //print("Don't call Die() on the base class!")
+    }
     func rotateTowardTarget(enemy: EnemyBase){
         var angle : CGFloat
         

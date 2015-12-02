@@ -20,8 +20,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let towerTotal = 20
 
     let cero = 0
-    var enemyCount = 0
-    var enemyMax = 14
     var waveDelay : CGFloat = 2
     var lastEnemy : CGFloat = 0
     //Enemy Factory
@@ -40,9 +38,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
-
-    
-   
     
     override func didMoveToView(view: SKView) {
 
@@ -50,11 +45,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         background.position = CGPoint(x: 500, y: 200)
         
         background.zPosition = ZPosition.background;
-
-
-        print(scene?.size.width, scene?.size.height)
-
-        
         
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
@@ -194,6 +184,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             let e = GameScene.enemies[i]
             e.TriggerAttack()
             e.moveMore()
+            //e.UpdateLabel()
             
             if e.CheckIfDead(){
                 e.sprite.removeFromParent()
@@ -204,8 +195,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 
                 GameScene.enemies.removeAtIndex(i)
                 i -= 1
-                enemyMax -= 1
-                enemyCount -= 1
             }
         }
         

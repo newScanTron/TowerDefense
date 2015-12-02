@@ -58,6 +58,7 @@ class EnemyFactory
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
 
+        enemy.health = 300
         return enemy
     }
     func CreateEnemyBoss() -> EnemyBase{
@@ -79,7 +80,7 @@ class EnemyFactory
         let reward = 500
 
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
-        enemy.health = 300
+        enemy.health = 600
 
         return enemy
         
@@ -101,7 +102,7 @@ class EnemyFactory
         let reward = 100
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
- 
+        enemy.health = 300
         return enemy
     }
 
