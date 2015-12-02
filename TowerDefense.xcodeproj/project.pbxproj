@@ -19,7 +19,6 @@
 		9926222F1BED1E9F0080D35A /* BossMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */; };
 		992622351BED1ECB0080D35A /* ConcreteMoveStrat1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622301BED1ECB0080D35A /* ConcreteMoveStrat1.swift */; };
 		992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622311BED1ECB0080D35A /* ConcreteMoveStrat2.swift */; };
-		992622371BED1ECB0080D35A /* EnemyBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622321BED1ECB0080D35A /* EnemyBullet.swift */; };
 		992622381BED1ECB0080D35A /* GruntAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622331BED1ECB0080D35A /* GruntAttack.swift */; };
 		992622391BED1ECB0080D35A /* RangedAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622341BED1ECB0080D35A /* RangedAttack.swift */; };
 		9926223B1BED2B2C0080D35A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926223A1BED2B2C0080D35A /* User.swift */; };
@@ -57,7 +56,6 @@
 		99BA33BB1BF2A24300152764 /* BossMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */; };
 		99BA33BC1BF2A24300152764 /* ConcreteMoveStrat1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622301BED1ECB0080D35A /* ConcreteMoveStrat1.swift */; };
 		99BA33BD1BF2A24300152764 /* ConcreteMoveStrat2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622311BED1ECB0080D35A /* ConcreteMoveStrat2.swift */; };
-		99BA33BE1BF2A24300152764 /* EnemyBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622321BED1ECB0080D35A /* EnemyBullet.swift */; };
 		99BA33BF1BF2A24300152764 /* GruntAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622331BED1ECB0080D35A /* GruntAttack.swift */; };
 		99BA33C01BF2A24300152764 /* RangedAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622341BED1ECB0080D35A /* RangedAttack.swift */; };
 		99BA33C11BF2A24300152764 /* EnemyBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4171BE573D7007E9559 /* EnemyBase.swift */; };
@@ -112,7 +110,6 @@
 		9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BossMoveStrat.swift; sourceTree = "<group>"; };
 		992622301BED1ECB0080D35A /* ConcreteMoveStrat1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteMoveStrat1.swift; sourceTree = "<group>"; };
 		992622311BED1ECB0080D35A /* ConcreteMoveStrat2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteMoveStrat2.swift; sourceTree = "<group>"; };
-		992622321BED1ECB0080D35A /* EnemyBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyBullet.swift; sourceTree = "<group>"; };
 		992622331BED1ECB0080D35A /* GruntAttack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GruntAttack.swift; sourceTree = "<group>"; };
 		992622341BED1ECB0080D35A /* RangedAttack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangedAttack.swift; sourceTree = "<group>"; };
 		9926223A1BED2B2C0080D35A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -202,7 +199,6 @@
 				9926222E1BED1E9E0080D35A /* BossMoveStrat.swift */,
 				992622301BED1ECB0080D35A /* ConcreteMoveStrat1.swift */,
 				992622311BED1ECB0080D35A /* ConcreteMoveStrat2.swift */,
-				992622321BED1ECB0080D35A /* EnemyBullet.swift */,
 				992622331BED1ECB0080D35A /* GruntAttack.swift */,
 				992622341BED1ECB0080D35A /* RangedAttack.swift */,
 				9946E4171BE573D7007E9559 /* EnemyBase.swift */,
@@ -461,7 +457,6 @@
 				998722931BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				992622391BED1ECB0080D35A /* RangedAttack.swift in Sources */,
 				9946E40C1BE56F7D007E9559 /* TowerDefenseStrat.swift in Sources */,
-				992622371BED1ECB0080D35A /* EnemyBullet.swift in Sources */,
 				998722901BED58C60097B677 /* TowerBuilderNodes.swift in Sources */,
 				9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */,
 				9919CF2C1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
@@ -481,7 +476,9 @@
 				99BA33CC1BF2A25F00152764 /* AppDelegate.swift in Sources */,
 				99BA33CD1BF2A25F00152764 /* Entity.swift in Sources */,
 				99BA33CE1BF2A25F00152764 /* Common.swift in Sources */,
+
 				99BA33BE1BF2A24300152764 /* EnemyBullet.swift in Sources */,
+
 				9946E40A1BE56F35007E9559 /* TowerAttackStrat.swift in Sources */,
 				99BA33CF1BF2A25F00152764 /* User.swift in Sources */,
 				9946E4131BE571E5007E9559 /* TowerBuilder.swift in Sources */,

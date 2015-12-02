@@ -36,24 +36,28 @@ class EnemyFactory
     }
     func CreateEnemyBoss(scene: SKScene) -> EnemyBase{
         
-        let attack = RangedAttack()
+        let attack = GruntAttack()
         let moveStrat = BossMoveStrat()
-        let range: CGFloat = 350.00
+        let range: CGFloat = 9999.00
         attack.damage = 3
         attack.fireDelay = 1
         attack.speed = 100
         let moveDelay :CGFloat = 99.0
-        let name : String = "Boss"
+        let bossName : String = "Boss"
         
-        let sprite = SKSpriteNode(imageNamed: "BossSprite")
+
+        let sprite = SKSpriteNode(imageNamed: bossName)
+
 
         sprite.size = CGSizeMake(300, 300)
-        sprite.name = "Boss"
+        sprite.name = bossName
         
+
         let reward = 500
-        
+
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
- 
+        enemy.health = 300
+
         return enemy
         
     }

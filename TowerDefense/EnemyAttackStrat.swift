@@ -14,7 +14,7 @@ class EnemyAttackStrat
     var damage : CGFloat = 0
     var fireDelay : CGFloat = 0
     var speed : CGFloat = 0
-    var bullet : EnemyBullet? = nil
+    var bullet : Bullet? = nil
     var target : TowerBase? = nil
     var parent : EnemyBase? = nil
     var enemyAngle : CGFloat = 0
@@ -41,5 +41,13 @@ class EnemyAttackStrat
             }
         }
     }
+    func rotateBeam(target : Entity, beam : SKSpriteNode){
+        var angle : CGFloat
 
+        angle = atan2(parent!.sprite.position.y - target.sprite.position.y, parent!.sprite.position.x - target.sprite.position.x)
+        angle -= enemyAngle
+        let action = SKAction.rotateByAngle(angle, duration:0.001)
+        enemyAngle += angle
+        beam.runAction(SKAction.repeatAction(action, count: 1))
+    }
 }

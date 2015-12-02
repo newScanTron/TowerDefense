@@ -35,8 +35,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
 
+
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
+
     
    
     
@@ -181,7 +183,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
             if t.CheckIfDead(){
                 t.sprite.removeFromParent()
-                //t.towerLabel.removeFromParent()
+                
                 GameScene.towers.removeAtIndex(i)
                 i -= 1
             }
@@ -192,6 +194,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             e.TriggerAttack()
             e.moveMore()
             
+
             if e.CheckIfDead(){
                 e.sprite.removeFromParent()
                 
@@ -216,6 +219,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             }
             else {
                 e.update()
+
             }
         }
     }
@@ -358,14 +362,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
+
                     //e.UpdateLabel()
                     contactTest.Destroy()
+
+
                     contact.bodyB.node?.removeFromParent()
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
+
                    // e.UpdateLabel()
                     contactTest.Destroy()
+
                     contact.bodyA.node?.removeFromParent()
                 }
             }
