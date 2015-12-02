@@ -134,7 +134,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let location = touch!.locationInNode(self)
         
        //check each tower and see if the touch location was the same as the tower
-        var towerFound = false
         for each in GameScene.towers
         {
             if each.sprite.containsPoint(location)
@@ -144,16 +143,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
                 //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
                 self.view?.addSubview(upgradeView.GetView())
-                
-                towerFound = true
                 return
             }
         }
         
         //if we found a tower open menu else add tower
-        
-        
-        if GameScene.towers.count <= towerHardLimit && !towerFound
+        if GameScene.towers.count <= towerHardLimit
         {
             addTower(location)
         }
