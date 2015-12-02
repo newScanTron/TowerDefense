@@ -58,8 +58,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         
         xpLabel.fontSize = 45;
-        xpLabel.position = CGPoint(x:CGRectGetMaxX(self.frame) - 10, y:CGRectGetMaxY(self.frame) - 60);
-        xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
+        xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
+        xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         
         self.addChild(myLabel)
         myLabel.zPosition = ZPosition.bullet
@@ -130,40 +130,40 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
-
-        
-       // myLabel.removeFromParent()
-
         let touch = touches.first
         let location = touch!.locationInNode(self)
         
-        if GameScene.towers.count <= towerHardLimit
+       //check each tower and see if the touch location was the same as the tower
+        var towerFound = false
+        for each in GameScene.towers
+        {
+            if each.sprite.containsPoint(location)
+            {
+                var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
+                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
+                setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
+                self.view?.addSubview(upgradeView.GetView())
+                
+                towerFound = true
+                return
+            }
+        }
+        
+        //if we found a tower open menu else add tower
+        
+        
+        if GameScene.towers.count <= towerHardLimit && !towerFound
         {
             addTower(location)
         }
+        else
+        {
+            
+        }
         
         //check if any and build one with first touch
-        
-//        if GameScene.towers.count <= cero
-//        {
-//            addTower(location)
-//        }
-//        
-//        for each in GameScene.towers
-//        {
-//            if each.sprite.containsPoint(location)
-//            {
-//                var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
-//                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
-//                setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
-//                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
-//                self.view?.addSubview(upgradeView.GetView())
-//            }
-//            else if GameScene.towers.count <= towerTotal
-//            {
-//                addTower(location)
-//            }
-//        }
+
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -242,8 +242,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             }
         }
     }
-    func getXp(enmey: EnemyBase)
+    //function to add xp to the player currently based on the damage of the strategy of the enemy
+    func giveXp(enmey: EnemyBase)
     {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.user.xp += Int(enmey.attack.damage * 5)
         
     }
     
