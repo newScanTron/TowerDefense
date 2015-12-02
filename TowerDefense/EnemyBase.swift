@@ -18,20 +18,20 @@ class EnemyBase: Entity{
     var moveStrat : EnemyMoveStrat
     var isImmune : Bool = false
     var reward : Int
-
+    var name : String = "George"
     var color = SKColor.greenColor()
 
     var moveDelay : CGFloat
                 let circle = SKShapeNode(circleOfRadius: 125.0)
     //initlizer.
-    init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int)
+    init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int, _name :String)
     {
 
         attack = _attack
         moveStrat = _moveStrat
         moveDelay = _moveDelay
         reward  = _reward
-        
+        name = _name
         super.init()
         sprite = _sprite
         range = _range
@@ -56,7 +56,7 @@ class EnemyBase: Entity{
         sprite.physicsBody?.allowsRotation = false
         sprite.zPosition = ZPosition.enemy
 
-        moveStrat.Move(self)
+        //moveStrat.Move(self)
         
         healthLabel = SKLabelNode(fontNamed:"Verdana")
         healthLabel.position = sprite.position
@@ -68,9 +68,7 @@ class EnemyBase: Entity{
 
     func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {
-        //let string = moveStrat.getMoveStrat()
-        self.moveStrat = sentStrat
-
+       moveStrat = sentStrat
     }
 
     func setAttackStrategy(sentAttack: EnemyAttackStrat){

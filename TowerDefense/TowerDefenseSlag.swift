@@ -24,6 +24,12 @@ class TowerDefenseSlag : TowerDefenseStrat {
     override func Die()  {
         circle?.removeFromParent()
         circle = nil
+        for e in inRange {
+            if (GameScene.getDistance(e.sprite.position,to: parent!.sprite.position) <= range) {
+                e.moveStrat.slagged = false
+                e.sprite.physicsBody?.linearDamping = 0
+            }
+        }
     }
     
     override func Defend() {

@@ -21,6 +21,9 @@ class GruntAttack: EnemyAttackStrat{
     override func Die()  {
         circle?.removeFromParent()
         circle = nil
+        for e in GameScene.enemies{
+            e.isImmune = false
+        }
     }
     
     override func Attack(){
@@ -28,7 +31,7 @@ class GruntAttack: EnemyAttackStrat{
         healingTarget = GameScene.getEnemiesInRange(parent!.sprite.position, range: 125)
         
         for e in GameScene.enemies{
-            if e.health < e.maxHealth && e.sprite.name != "Boss"{
+            if e.health < e.maxHealth && e.sprite.name != "BossSprite"{
                 allHealthy = false
                 if GameScene.getDistance(e.sprite.position, to: parent!.sprite.position) <= 125 {
                     e.health += 10

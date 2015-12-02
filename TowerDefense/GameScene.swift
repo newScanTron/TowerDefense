@@ -155,16 +155,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         myLabel.text = ("GOLD: \(appDelegate.user.gold)")
         xpLabel.text = ("XP: \(appDelegate.user.xp)")
-
-        if GameScene.gameTime > lastEnemy + waveDelay{
-            lastEnemy = GameScene.gameTime
-            let newEnemy = enemyFactory.getNextEnemy()
-            if newEnemy != nil {
-                GameScene.enemies.append(newEnemy!)
-                GameScene.scene?.addChild(newEnemy!.sprite)
-            }
-        }
         
+        // Get enemies and add them to list and scene
+        let newEnemy = enemyFactory.getNextEnemy()
+        if newEnemy != nil {
+            GameScene.enemies.append(newEnemy!)
+            GameScene.scene?.addChild(newEnemy!.sprite)
+        }
+
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
         {

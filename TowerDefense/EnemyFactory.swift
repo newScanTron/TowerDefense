@@ -11,7 +11,8 @@ import SpriteKit
 
 class EnemyFactory
 {
-
+    var waveDelay : CGFloat = 2
+    var lastEnemy : CGFloat = 0
     var enemyCount : CGFloat = 0
     init(){}
     
@@ -19,24 +20,31 @@ class EnemyFactory
         
         var enemy :EnemyBase? = nil
         
+        if GameScene.gameTime > lastEnemy + waveDelay{
+            lastEnemy = GameScene.gameTime
+            
             if(enemyCount <= 9){
                 enemy = CreateEnemy()
                 enemyCount++
                 return enemy!
             }
             if(enemyCount > 9 && enemyCount < 14){
+                waveDelay = 0.2
                 enemy = CreateEnemyGrunt()
+                if enemyCount == 13 {
+                    waveDelay = 5.0
+                }
                 enemyCount++
                 return enemy!
             }
             if(enemyCount == 14){
+                waveDelay = 2.0
                 enemy = CreateEnemyBoss()
                 enemyCount++
                 return enemy!
             }
-            else {
-                return nil
         }
+        return nil
     }
     
     func CreateEnemy() -> EnemyBase{
@@ -49,14 +57,14 @@ class EnemyFactory
         attack.fireDelay = 1
         attack.speed = 100
         let moveDelay : CGFloat = 1.5
-        
+        let name = "Rangedsprite"
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
 
         sprite.size = CGSizeMake(100, 100)
         
         let reward = 100
         
-        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
 
         enemy.health = 300
         return enemy
@@ -70,20 +78,19 @@ class EnemyFactory
         attack.fireDelay = 1
         attack.speed = 100
         let moveDelay :CGFloat = 99.0
-        let bossName : String = "Boss"
+        let name = "BossSprite"
         
-        let sprite = SKSpriteNode(imageNamed: bossName)
+        let sprite = SKSpriteNode(imageNamed: name)
 
         sprite.size = CGSizeMake(300, 300)
-        sprite.name = bossName
+        sprite.name = name
     
         let reward = 500
 
-        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
         enemy.health = 600
 
         return enemy
-        
     }
     func CreateEnemyGrunt() -> EnemyBase{
         
@@ -94,14 +101,14 @@ class EnemyFactory
         attack.fireDelay = 1
         attack.speed = 100
         var moveDelay : CGFloat = 99.0
-        
+        let name = "GruntSprite"
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
 
         sprite.size = CGSizeMake(100, 100)
         
         let reward = 100
         
-        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward)
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
         enemy.health = 300
         return enemy
     }
