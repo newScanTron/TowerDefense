@@ -169,30 +169,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //look to see that we infact have a User object
         let fetchRequest = NSFetchRequest(entityName: "User")
         
-        //3
+        //do catch cus its swift and try catch is so easy to assume what it means.
         do {
             let results = try managedContext.executeFetchRequest(fetchRequest)
-            
+            //even
             if results.count > 0
             {
-                
                 for result: AnyObject in results
                 {
-                    
                     // print(result)
                     if let u = result.valueForKey("userName") as? String
                     {
                         if self.user.userName == u
                         {
-
                             result.setValue(self.user.xp, forKey: "xp" )
                             result.setValue(self.user.gold, forKey: "gold")
                             
                             //4
-                            do {
+                            do
+                            {
                                 try managedContext.save()
-                                
-                            } catch let error as NSError  {
+                            }
+                            catch let error as NSError
+                            {
                                 print("Could not save \(error), \(error.userInfo)")
                             }
                         }

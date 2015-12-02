@@ -221,7 +221,8 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
         if appDelegate.user.gold >= (row+1) * 100
         {
         playerLabel.text = nodeData[row]
-            moneySpent = (row+1) * 100
+            //since this arrary starts with the best option
+            moneySpent = (nodeData.count-row+1) * 100
         //this is very simple way to see that the fireDeley is being ajusted.
             self.tower?.attack.fireDelay = CGFloat((Double(row)+1 * 0.5))
         }

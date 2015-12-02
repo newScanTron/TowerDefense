@@ -11,8 +11,8 @@ import UIKit
 import SpriteKit
 
 class UpgradeView: UIView {
-    var b = UIButton(frame: CGRectMake(0,0, 200,40))
-    var c = UIButton(frame: CGRectMake(0,160, 200,40))
+    var b = UIButton(frame: CGRectMake(25,160, 50,40))
+    var c = UIButton(frame: CGRectMake(125,160, 50,40))
     
     /*/hopoing to have the same set up for each node as far
     as what lables and inputs they will need. right now im thinking 
@@ -46,7 +46,7 @@ class UpgradeView: UIView {
 
         super.init(frame:CGRectMake(x, y, 200, 200))
         b.setTitle("Next", forState: UIControlState.Normal)
-        c.setTitle("Canel", forState: UIControlState.Normal)
+        c.setTitle("Cancel", forState: UIControlState.Normal)
         mainLabel.text = "This is Question about what to upgrade?"
         mainLabel.sizeToFit()
 

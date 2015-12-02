@@ -39,9 +39,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
 
-    
-   
-    
     override func didMoveToView(view: SKView) {
 
         let background = SKSpriteNode(imageNamed: "beach")
@@ -52,8 +49,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         print(scene?.size.width, scene?.size.height)
 
-        
-        
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
@@ -145,22 +140,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
                 //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
                 self.view?.addSubview(upgradeView.GetView())
+                //if we find that we have touched inside one of the towers we want to return from this function because taht is all we are interested in.
                 return
             }
         }
-        
         //if we found a tower open menu else add tower
         if GameScene.towers.count <= towerHardLimit
         {
             addTower(location)
         }
-        else
-        {
-            
-        }
-        
         //check if any and build one with first touch
-
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -200,7 +189,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 
                 //add gold to user when enemys die
                 appDelegate.user.gold += e.reward
-                appDelegate.user.xp += e.reward
+               // appDelegate.user.xp += e.reward
+                giveXp(e)
                 
                 GameScene.enemies.removeAtIndex(i)
                 i -= 1
