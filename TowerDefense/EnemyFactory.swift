@@ -55,33 +55,34 @@ class EnemyFactory
         
         attack.damage = 3
         attack.fireDelay = 1
-        attack.speed = 100
+        attack.speed = 300
         let moveDelay : CGFloat = 1.5
-        let name = "Rangedsprite"
+        let name = "RangedSprite"
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
 
         sprite.size = CGSizeMake(100, 100)
-        
+        sprite.zPosition = ZPosition.enemy
         let reward = 100
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
 
         enemy.health = 300
+        enemy.maxHealth = 300
         return enemy
     }
     func CreateEnemyBoss() -> EnemyBase{
         
         let attack = GruntAttack()
         let moveStrat = BossMoveStrat()
-        let range: CGFloat = 9999.00
+        let range: CGFloat = 999.00
         attack.damage = 3
         attack.fireDelay = 1
-        attack.speed = 100
-        let moveDelay :CGFloat = 99.0
+        attack.speed = 200
+        let moveDelay :CGFloat = 1.0
         let name = "BossSprite"
         
         let sprite = SKSpriteNode(imageNamed: name)
-
+        sprite.zPosition = ZPosition.enemy+1
         sprite.size = CGSizeMake(300, 300)
         sprite.name = name
     
@@ -89,27 +90,28 @@ class EnemyFactory
 
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
         enemy.health = 600
-
+        enemy.maxHealth = 600
         return enemy
     }
     func CreateEnemyGrunt() -> EnemyBase{
         
         let attack = RangedAttack()
-        let moveStrat = ConcreteMoveStrat2()
+        let moveStrat = ConcreteMoveStrat1()
         let range: CGFloat = 200.00
         attack.damage = 3
         attack.fireDelay = 1
-        attack.speed = 100
-        var moveDelay : CGFloat = 99.0
+        attack.speed = 300
+        var moveDelay : CGFloat = 1.0
         let name = "GruntSprite"
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
 
         sprite.size = CGSizeMake(100, 100)
-        
+        sprite.zPosition = ZPosition.enemy
         let reward = 100
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
         enemy.health = 300
+        enemy.maxHealth = 300
         return enemy
     }
 

@@ -30,7 +30,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var explosions : [Explosion] = [Explosion]()
-    static var bullets : [Bullet] = [Bullet]()
+    static var boss : [EnemyBase] = [EnemyBase]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
@@ -162,7 +162,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             GameScene.enemies.append(newEnemy!)
             GameScene.scene?.addChild(newEnemy!.sprite)
         }
-
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
         {
@@ -324,7 +323,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
 
-                    //e.UpdateLabel()
+                    e.UpdateLabel()
                     contactTest.Destroy()
 
 
@@ -333,7 +332,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
 
-                   // e.UpdateLabel()
+                    e.UpdateLabel()
                     contactTest.Destroy()
 
                     contact.bodyA.node?.removeFromParent()

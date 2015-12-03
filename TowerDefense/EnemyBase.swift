@@ -48,13 +48,11 @@ class EnemyBase: Entity{
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy.rawValue
         sprite.physicsBody?.mass = 1
         sprite.physicsBody?.restitution = 0.0
         sprite.physicsBody?.linearDamping = 0.0
         sprite.physicsBody?.angularDamping = 0.0
         sprite.physicsBody?.allowsRotation = false
-        sprite.zPosition = ZPosition.enemy
 
         //moveStrat.Move(self)
         
@@ -62,7 +60,7 @@ class EnemyBase: Entity{
         healthLabel.position = sprite.position
         healthLabel.position.y -= 10
         healthLabel.zPosition = 7
-        //GameScene.scene!.addChild(healthLabel)
+        GameScene.scene!.addChild(healthLabel)
 
     }
 
@@ -85,12 +83,8 @@ class EnemyBase: Entity{
         healthLabel.position = sprite.position
         healthLabel.position.y -= 20
  
-        for t in GameScene.towers{
-            if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){
-                attack.parent = self
-                attack.Attack()
-            }
-        }
+        attack.parent = self
+        attack.Attack()
     }
     func random() -> CGFloat{
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -111,20 +105,23 @@ class EnemyBase: Entity{
     }
     func UpdateLabel(){
         
-        if self.health >= 90{
+        if self.health >= self.maxHealth * 0.99 {
             color = SKColor.cyanColor()
         }
-        else if self.health >= 70 && self.health < 90{
+        else if self.health >= (maxHealth * 0.8) && self.health < (maxHealth * 0.99){
             color = SKColor.yellowColor()
         }
-        else if self.health >= 50 && self.health < 70{
+        else if self.health >= maxHealth * 0.50 && self.health < maxHealth * 0.70{
             color = SKColor.orangeColor()
         }
-        else if self.health >= 30 && self.health < 50{
+        else if self.health >= maxHealth * 0.3 && self.health < maxHealth * 0.50{
             color = SKColor.redColor()
         }
-        else if self.health >= 0 && self.health < 30 {
+        else if self.health >= 0 && self.health < maxHealth * 0.30 {
             color = SKColor.blackColor()
+        }
+        else if self.health == self.maxHealth {
+            color = SKColor.whiteColor()
         }
         let changeColorAction = SKAction.colorizeWithColor(color, colorBlendFactor: 1.0, duration: 0.5)
         self.sprite.runAction(changeColorAction)
