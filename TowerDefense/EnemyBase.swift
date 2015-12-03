@@ -60,7 +60,7 @@ class EnemyBase: Entity{
         healthLabel.position = sprite.position
         healthLabel.position.y -= 10
         healthLabel.zPosition = 7
-        GameScene.scene!.addChild(healthLabel)
+        //GameScene.scene!.addChild(healthLabel)
 
     }
 

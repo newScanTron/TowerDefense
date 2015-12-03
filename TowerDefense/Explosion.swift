@@ -61,7 +61,8 @@ class Explosion {
             for e in GameScene.getEnemiesInRange(location!,range: currentRadius) {
                 // Apply damage to each enemy within pulse
                 if e.isImmune {
-                    
+                    e.health -= currentDamage * 0.8
+                    e.UpdateLabel()
                 }
                 else {
                     e.health -= currentDamage

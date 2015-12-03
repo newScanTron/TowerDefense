@@ -37,7 +37,7 @@ class GruntAttack: EnemyAttackStrat{
             if e.name == "BossSprite" {
 
             }
-            else if GameScene.getDistance(parent!.sprite.position, to: e.sprite.position) <= 125 {
+            else if GameScene.getDistance(parent!.sprite.position, to: e.sprite.position) <= 150 {
                 if e.health < e.maxHealth{
                     allHealthy = false
                     e.health += 10
@@ -49,11 +49,10 @@ class GruntAttack: EnemyAttackStrat{
             else {
                 e.isImmune = false
             }
-            if healthCount == 0{
-                allHealthy = true
-            }
         }
-        
+        if healthCount == 0{
+            allHealthy = true
+        }
         circle?.removeFromParent()
         circle = SKShapeNode(circleOfRadius: 125.0)
         
