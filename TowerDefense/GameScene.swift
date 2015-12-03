@@ -181,7 +181,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             let e = GameScene.enemies[i]
             e.TriggerAttack()
             e.moveMore()
-            //e.UpdateLabel()
+            e.UpdateLabel()
             
             if e.CheckIfDead(){
                 e.sprite.removeFromParent()
