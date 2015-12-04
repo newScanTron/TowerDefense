@@ -57,7 +57,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     }
     //function with each of the this method will do the actuall calling of things that effect the player gold
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if appDelegate.user.gold >= (row+1) * 100
+        if appDelegate.user.gold >= (row) * 100
         {
 
             playerLabel.text = nodeData[row]
@@ -149,7 +149,7 @@ class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerV
         if appDelegate.user.gold >= (row) * 100
         {
         playerLabel.text = nodeData[row]
-        self.tower?.attack.damage = CGFloat(row+2)*1.4
+        self.tower?.attack.damage = CGFloat(row)*1.4
         moneySpent = (row) * 100
         }
         else
@@ -199,7 +199,7 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
     UIApplication.sharedApplication().delegate as! AppDelegate
     var moneySpent = 0
     var tower: TowerBase?
-    var nodeData = ["fast", "medium", "slow"]
+    var nodeData = ["not set", "fast", "medium", "slow"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
@@ -233,11 +233,11 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        if appDelegate.user.gold >= (row+1) * 100
+        if appDelegate.user.gold >= (row) * 100
         {
         playerLabel.text = nodeData[row]
             //since this arrary starts with the best option
-            moneySpent = (nodeData.count-row+1) * 100
+            moneySpent = (nodeData.count-row) * 100
         //this is very simple way to see that the fireDeley is being ajusted.
             self.tower?.attack.fireDelay = CGFloat((Double(row)+1 * 0.5))
         }
@@ -288,7 +288,7 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
     UIApplication.sharedApplication().delegate as! AppDelegate
     var tower: TowerBase?
     var moneySpent = 0
-    var nodeData = ["Slow", "Med", "Fast"]
+    var nodeData = ["not set", "Slow", "Med", "Fast"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
@@ -321,11 +321,11 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
     }
     //intersting fucntion to how the tower gets affected.
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if appDelegate.user.gold >= (row+1) * 100
+        if appDelegate.user.gold >= (row) * 100
         {
         playerLabel.text = nodeData[row]
-        self.tower?.attack.speed = CGFloat(((Double(row)+1) * 5 * 55.15))
-            moneySpent = (row+1) * 100
+        self.tower?.attack.speed = CGFloat((Double(row) * 5 * 55.15))
+            moneySpent = (row) * 100
         }
         else
         {
@@ -369,7 +369,7 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
     UIApplication.sharedApplication().delegate as! AppDelegate
     var tower: TowerBase?
     var moneySpent = 0
-    var nodeData = ["close", "med", "Far"]
+    var nodeData = ["not set", "close", "med", "Far"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
@@ -402,11 +402,11 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if appDelegate.user.gold >= (row+1) * 100
+        if appDelegate.user.gold >= (row) * 100
         {
         playerLabel.text = nodeData[row]
-        self.tower?.defense.range = CGFloat((Double(row)+1 * 2.5))
-            moneySpent = (row+1) * 100
+        self.tower?.defense.range = CGFloat((Double(row) * 2.5))
+            moneySpent = (row) * 100
         }
         else
         {
@@ -453,7 +453,7 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
     UIApplication.sharedApplication().delegate as! AppDelegate
     var tower: TowerBase?
     var moneySpent = 0
-    var nodeData = ["low", "med", "high"]
+    var nodeData = ["nont", "low", "med", "high"]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
@@ -486,11 +486,11 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if appDelegate.user.gold >= (row+1) * 100
+        if appDelegate.user.gold >= (row) * 100
         {
         playerLabel.text = nodeData[row]
-        self.tower?.defense.amount = CGFloat((Double(row)+1 * 3.5))
-        moneySpent = (row+1) * 100
+        self.tower?.defense.amount = CGFloat((Double(row) * 3.5))
+        moneySpent = (row) * 100
         }
         else
         {

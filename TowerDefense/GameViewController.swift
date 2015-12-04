@@ -38,11 +38,11 @@ class GameViewController: UIViewController {
             
             let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedLeft:"))
             swipeLeft.direction = .Left
-            swipeLeft.numberOfTouchesRequired = 3
+            swipeLeft.numberOfTouchesRequired = 2
             view.addGestureRecognizer(swipeLeft)
             
             let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedRight:"))
-            swipeRight.numberOfTouchesRequired = 3
+            swipeRight.numberOfTouchesRequired = 2
             swipeRight.direction = .Right
             view.addGestureRecognizer(swipeRight)
             
@@ -53,7 +53,9 @@ class GameViewController: UIViewController {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        
+        appDelegate.gameScene.scene?.removeAllChildren()
+        GameScene.towers = [TowerBase]()
+        GameScene.enemies = [EnemyBase]()
     }
     //two methods to be the action performed when swipe actions call them
     func swipedLeft(sender:UISwipeGestureRecognizer){
@@ -69,7 +71,7 @@ class GameViewController: UIViewController {
     }
     func swipedRight(sender:UISwipeGestureRecognizer) {
        
-        appDelegate.gameScene.scene?.removeFromParent()
+        //appDelegate.gameScene.scene?.removeFromParent()
         performSegueWithIdentifier("backToLogin", sender: nil)
         
     }
