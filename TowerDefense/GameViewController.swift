@@ -30,7 +30,7 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            appDelegate.gameScene.scaleMode = .AspectFill
+            appDelegate.gameScene!.scaleMode = .AspectFill
             
 
             GameScene.scene = appDelegate.gameScene
@@ -46,7 +46,7 @@ class GameViewController: UIViewController {
             swipeRight.direction = .Right
             view.addGestureRecognizer(swipeRight)
             
-
+            appDelegate.gameScene!.viewController = self
             
             skView.presentScene(appDelegate.gameScene)
         
@@ -54,6 +54,9 @@ class GameViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         
+    }
+    func gameOver(){
+        performSegueWithIdentifier("toEndGame", sender: nil)
     }
     //two methods to be the action performed when swipe actions call them
     func swipedLeft(sender:UISwipeGestureRecognizer){

@@ -13,15 +13,17 @@ import CoreData
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
-    
+    var viewController: GameViewController!
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     //let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
+    let gameOverLabel = SKLabelNode(fontNamed: "Square")
     let towerTotal = 20
-
+    let bossNode: EnemyBase? = nil
     let cero = 0
-    var waveDelay : CGFloat = 2
-    var lastEnemy : CGFloat = 0
+    var gameOver : Bool = false
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -41,6 +43,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     override func didMoveToView(view: SKView) {
 
+        gameOver = false
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
         
@@ -50,6 +53,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
         myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        gameOverLabel.text = "You Won"
+        gameOverLabel.fontSize = 45
+        gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
+
         
         xpLabel.fontSize = 45;
         xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
@@ -146,6 +153,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     
     override func update(currentTime: CFTimeInterval) {
+        gameOver = false
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
@@ -205,6 +213,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 e.update()
 
             }
+        }
+        // Calculate player y offset
+        if bossNode?.sprite.position.y > 200.0 {
+        for t in GameScene.towers{
+        t.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/10))
+        }
+        for e in GameScene.enemies {
+        e.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/4))
+        }
+        
+        //foregroundNode.position = CGPoint(x: 0.0, y: -(player.position.y - 200.0))
+        }
+        
+        if GameScene.enemies.isEmpty && appDelegate.gameState.gold < 100 && GameScene.towers.isEmpty {
+            //endGame()
+        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty {
+            endGame()
+        } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty{
+            //endGame()
         }
     }
 
@@ -362,5 +389,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
             print("other collision: \(contactMask)")
         }
+    }
+    func endGame() {
+
+    gameOver = true
+
+    self.viewController.gameOver()    
+        
+    /*let reveal = SKTransition.fadeWithDuration(0.05)
+    let endGameScene = EndGameScene(size: self.size)
+    self.view!.presentScene(endGameScene, transition: reveal)*/
     }
 }
