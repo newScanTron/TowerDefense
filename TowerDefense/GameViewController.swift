@@ -69,7 +69,9 @@ class GameViewController: UIViewController {
     }
     func swipedRight(sender:UISwipeGestureRecognizer) {
        
+        appDelegate.gameScene.scene?.removeFromParent()
         performSegueWithIdentifier("backToLogin", sender: nil)
+        
     }
     
     override func shouldAutorotate() -> Bool {

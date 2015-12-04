@@ -132,35 +132,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                
-                var placeY: CGFloat
-                var placeX: CGFloat
-                if (touch?.locationInView(nil).y)! >= CGRectGetMaxY(self.frame)/2
-                {
-                    placeY = ((touch?.locationInView(nil).y)! - CGFloat(200.0))
-                
-                }
-                else
-                {
-                    placeY = (touch?.locationInView(nil).y)!
-
-                }
-                if (touch?.locationInView(nil).x)! >= CGRectGetMaxY(self.frame)/2
-                {
-                    placeX = ((touch?.locationInView(nil).x)! - CGFloat(200.0))
-                    
-                }
-                else
-                {
-                    placeX = (touch?.locationInView(nil).x)!
-                    
-                }
-                var upgradeView = AttackSetRange(x: (placeX), y: (placeY), tower: each)
-                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
-                setUpChain(&upgradeView, x: placeX, y: placeY)
-                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
-                self.view?.addSubview(upgradeView.GetView())
-                //if we find that we have touched inside one of the towers we want to return from this function because taht is all we are interested in.
+                addUpgradeView(each, touch: touch!, gameScene: self)
                 return
             }
         }
@@ -170,8 +142,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             addTower(location)
         }
     }
-    //fucntion to add the upgradeView
-    
+
     
     
     //in the SpriteKit game framework the update method is the main game loop
@@ -183,8 +154,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
         
-        myLabel.text = ("GOLD: \(appDelegate.user.gold)")
-        xpLabel.text = ("XP: \(appDelegate.user.xp)")
+        appDelegate.updateMyLabel()
         
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
@@ -212,8 +182,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 
                 //add gold to user when enemys die
                 appDelegate.user.gold += e.reward
-               // appDelegate.user.xp += e.reward
-                giveXp(e)
+              
                 
                 GameScene.enemies.removeAtIndex(i)
                 i -= 1
@@ -263,27 +232,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
-    //func that will set up the chain of reponsibility for updating
-    func setUpChain(inout node: AttackSetRange, x: CGFloat , y: CGFloat)
-    {
-        //initialize the nodes of the chain
-        let setDamageNode = AttackSetDamage(x: x, y: y)
-        let fireDeleyNode = SetFireDelay(x: x, y: y)
-        let setSpeed = SetSpeed(x: x, y: y)
-        let deffenseSetRange = DeffenseSetRange(x: x, y: y)
-        let deffenseSetAmount = DeffenseSetAmount(x: x, y: y)
-        
-        //set all the nodes to the seccuessor
-        node.setNextNode(setDamageNode)
-        setDamageNode.setNextNode(fireDeleyNode)
-        fireDeleyNode.setNextNode(setSpeed)
-        setSpeed.setNextNode(deffenseSetRange)
-
-
-        deffenseSetRange.setNextNode(deffenseSetAmount)
-        //deffenseSetAmount is not set to have a node following it so it
-
-    }
+   
     func addEnemy(){
         
         if(enemyCount <= enemyMax && GameScene.towers.count > 0){
@@ -375,7 +324,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-
+                    giveXp(e)
                     //e.UpdateLabel()
                     contactTest.Destroy()
 
@@ -384,7 +333,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-
+                    giveXp(e)
                    // e.UpdateLabel()
                     contactTest.Destroy()
 

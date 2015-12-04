@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         updateUser()
+        
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -214,6 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func updateMyLabel()
     {
         self.gameScene.myLabel.text = ("Gold: \(self.user.gold)")
+        self.gameScene.xpLabel.text = ("XP: \(self.user.xp)")
     }
 }
 
