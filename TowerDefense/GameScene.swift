@@ -118,9 +118,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             self.addChild(tower!.sprite)
         }
         
-        //need something to make the updrageView disapear if we are not interacting with it.
-//        GameScene.towers.append(tower)
-//        self.addChild(tower.sprite)
     }
     
     
@@ -135,9 +132,32 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
+                
+                var placeY: CGFloat
+                var placeX: CGFloat
+                if (touch?.locationInView(nil).y)! >= CGRectGetMaxY(self.frame)/2
+                {
+                    placeY = ((touch?.locationInView(nil).y)! - CGFloat(200.0))
+                
+                }
+                else
+                {
+                    placeY = (touch?.locationInView(nil).y)!
+
+                }
+                if (touch?.locationInView(nil).x)! >= CGRectGetMaxY(self.frame)/2
+                {
+                    placeX = ((touch?.locationInView(nil).x)! - CGFloat(200.0))
+                    
+                }
+                else
+                {
+                    placeX = (touch?.locationInView(nil).x)!
+                    
+                }
+                var upgradeView = AttackSetRange(x: (placeX), y: (placeY), tower: each)
                 //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
-                setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
+                setUpChain(&upgradeView, x: placeX, y: placeY)
                 //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
                 self.view?.addSubview(upgradeView.GetView())
                 //if we find that we have touched inside one of the towers we want to return from this function because taht is all we are interested in.
@@ -149,8 +169,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             addTower(location)
         }
-        //check if any and build one with first touch
     }
+    //fucntion to add the upgradeView
+    
+    
+    
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */

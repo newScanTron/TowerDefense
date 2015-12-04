@@ -17,8 +17,8 @@ class UpgradeView: UIView {
     /*/hopoing to have the same set up for each node as far
     as what lables and inputs they will need. right now im thinking 
     lables sellector wheel and buttons */
-    var rectOne = CGRectMake(0,0,200, 60)
-    var rectTwo = CGRectMake(0,0,200, 60)
+    var rectOne = CGRectMake(10, 10 ,200, 60)
+    var rectPlayerLbl = CGRectMake(10,20,200, 60)
     var rectThree = CGRectMake(0,75,200, 65)
 
 
@@ -29,8 +29,8 @@ class UpgradeView: UIView {
     //this is the array that each node will use to pose their question
     
     required init?(coder aDecoder: (NSCoder!)) {
-        mainLabel = UILabel(frame: rectTwo)
-        playerLabel = UILabel(frame: rectThree)
+        mainLabel = UILabel(frame: rectOne)
+        playerLabel = UILabel(frame: rectPlayerLbl)
         upgradeSelection = UIPickerView(frame: rectThree)
         upgradeSelection.backgroundColor = SKColor.greenColor()
         super.init(coder: aDecoder)
@@ -40,22 +40,30 @@ class UpgradeView: UIView {
     {
         
         mainLabel = UILabel(frame: rectOne)
-        playerLabel = UILabel(frame: rectTwo)
+        playerLabel = UILabel(frame: rectPlayerLbl)
         upgradeSelection = UIPickerView(frame: rectThree)
-        upgradeSelection.backgroundColor = SKColor.greenColor()
-
+        upgradeSelection.backgroundColor = UIColor(red: 0.0, green: 0.9, blue: 0.5, alpha: 0.8)
+        
+        
+        
+        
+        
         super.init(frame:CGRectMake(x, y, 200, 200))
         b.setTitle("Next", forState: UIControlState.Normal)
-        c.setTitle("Cancel", forState: UIControlState.Normal)
+        b.titleLabel!.font = UIFont(name: "Square", size: 23.0)
+        c.setTitle("Done", forState: UIControlState.Normal)
+        c.titleLabel!.font = UIFont(name: "Square", size: 23.0)
         mainLabel.text = "This is Question about what to upgrade?"
+        mainLabel.font = UIFont(name: "Square", size: 23.0)
         mainLabel.sizeToFit()
 
         
         playerLabel.text = "Choose An Option."
-        self.backgroundColor =  UIColor.yellowColor()
-        b.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
+        playerLabel.font = UIFont(name: "Square", size: 18.0)
+        self.backgroundColor =  UIColor(white: 1, alpha: 0.5)
+        b.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         
-        c.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
+        c.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         c.addTarget(self, action: "CheckLabel", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(b)
         self.addSubview(c)
