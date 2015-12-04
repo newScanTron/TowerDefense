@@ -20,6 +20,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
     let gameOverLabel = SKLabelNode(fontNamed: "Square")
+    //var background : SKSpriteNode? = nil
     let towerTotal = 20
     let bossNode: EnemyBase? = nil
     let cero = 0
@@ -47,7 +48,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
         
-        background.zPosition = ZPosition.background;
+        background.zPosition = ZPosition.background
         
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
@@ -153,7 +154,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     
     override func update(currentTime: CFTimeInterval) {
-        gameOver = false
+      
+        if gameOver{
+            return
+        }
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
@@ -217,13 +221,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         // Calculate player y offset
         if bossNode?.sprite.position.y > 200.0 {
         for t in GameScene.towers{
-        t.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/10))
+            t.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/10))
         }
         for e in GameScene.enemies {
-        e.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/4))
+            e.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/4))
         }
         
-        //foregroundNode.position = CGPoint(x: 0.0, y: -(player.position.y - 200.0))
+            //background!.position = CGPoint(x: 0.0, y: -(bossNode!.sprite.position.y - 200.0))
         }
         
         if GameScene.enemies.isEmpty && appDelegate.gameState.gold < 100 && GameScene.towers.isEmpty {
@@ -393,7 +397,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func endGame() {
 
     gameOver = true
-
+        
     self.viewController.gameOver()    
         
     /*let reveal = SKTransition.fadeWithDuration(0.05)

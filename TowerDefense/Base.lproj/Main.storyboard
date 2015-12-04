@@ -78,7 +78,7 @@
                                 </state>
                                 <connections>
                                     <action selector="tryAgainButtonAct:" destination="5k1-Wf-1Hy" eventType="touchUpInside" id="3ba-Ai-6m4"/>
-                                    <segue destination="BV1-FR-VrT" kind="show" id="WdK-sL-Alf"/>
+                                    <segue destination="BV1-FR-VrT" kind="show" identifier="tryAgain" id="WdK-sL-Alf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -306,6 +306,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WdK-sL-Alf"/>
-        <segue reference="3w1-II-rNd"/>
+        <segue reference="jBp-kB-KP0"/>
     </inferredMetricsTieBreakers>
 </document>
