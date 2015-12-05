@@ -41,27 +41,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> origin/tobyDec1Branch
     override func didMoveToView(view: SKView) {
 
         gameOver = false
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
         
-<<<<<<< HEAD
+
         background.zPosition = ZPosition.background;
 
 
         print(scene?.size.width, scene?.size.height)
 
-=======
-        background.zPosition = ZPosition.background
-        
->>>>>>> origin/tobyDec1Branch
+
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
@@ -217,25 +210,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
             }
         }
-<<<<<<< HEAD
-    }
-    func initializeEnemyArray(){
-        for var i = 0; i < 15 ; i++
-        {
-            if(i <= 9){
-                let enemy = enemyFactory.CreateEnemy()
-                GameScene.enemies.append(enemy)
-            }
-            if(i > 9 && i < 14){
-                let enemy = enemyFactory.CreateEnemyGrunt()
-                GameScene.enemies.append(enemy)
-            }
-            if(i == 14){
-                let enemyboss = enemyFactory.CreateEnemyBoss()
-                
-                GameScene.enemies.append(enemyboss)
-            }
-=======
+
         // Calculate player y offset
         if bossNode?.sprite.position.y > 200.0 {
         for t in GameScene.towers{
@@ -254,7 +229,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             endGame()
         } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty{
             //endGame()
->>>>>>> origin/tobyDec1Branch
+
         }
     }
 
@@ -267,17 +242,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
-<<<<<<< HEAD
-   
-    func addEnemy(){
-        
-        if(enemyCount <= enemyMax && GameScene.towers.count > 0){
-            print(enemyCount)
-            self.addChild(GameScene.enemies[enemyCount].sprite)
-            enemyCount++
-        }
-    }
-=======
+
     //func that will set up the chain of reponsibility for updating
     func setUpChain(inout node: AttackSetRange, x: CGFloat , y: CGFloat)
     {
@@ -300,7 +265,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
     }
 
->>>>>>> origin/tobyDec1Branch
+
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         
         var closestEnemy : EnemyBase?
@@ -384,13 +349,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-<<<<<<< HEAD
-                    giveXp(e)
-                    //e.UpdateLabel()
-=======
 
+                    giveXp(e)
                     e.UpdateLabel()
->>>>>>> origin/tobyDec1Branch
+
+
                     contactTest.Destroy()
 
 
@@ -398,13 +361,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-<<<<<<< HEAD
+
                     giveXp(e)
-                   // e.UpdateLabel()
-=======
 
                     e.UpdateLabel()
->>>>>>> origin/tobyDec1Branch
+
                     contactTest.Destroy()
 
                     contact.bodyA.node?.removeFromParent()
