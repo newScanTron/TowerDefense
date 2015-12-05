@@ -236,25 +236,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         if GameScene.enemies.isEmpty && appDelegate.user.gold < 100 && GameScene.towers.isEmpty {
             
             endGame()
-            resetUser()
+            appDelegate.resetUser()
         } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty && appDelegate.user.gold < 100{
-            resetUser()
+            appDelegate.resetUser()
             endGame()
         } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty && appDelegate.user.gold < 100{
-            resetUser()
+            appDelegate.resetUser()
             endGame()
 
         }
         
     }
 
-    //little funcito to reset the user with 1000 gold when the game over sceen is reached.
-    func resetUser()
-    {
-        
-        appDelegate!.user.gold = 100 * appDelegate!.user.xp
-        appDelegate?.updateUser()
-    }
+    
     //function to add xp to the player currently based on the damage of the strategy of the enemy
     func giveXp(enmey: EnemyBase)
     {

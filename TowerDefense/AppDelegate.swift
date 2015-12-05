@@ -210,7 +210,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
     }
     
-    
+    //little funcito to reset the user with 1000 gold when the game over sceen is reached.
+    func resetUser()
+    {
+        
+        self.user.gold = 100 * self.user.xp
+        self.updateUser()
+    }
     //little helper function to update the HUD as it were
     func updateMyLabel()
     {
