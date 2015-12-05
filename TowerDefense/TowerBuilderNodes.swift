@@ -58,6 +58,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
             playerLabel.text = nodeData[row]
             self.tower?.attack.setRangeLevel(row)
             moneySpent = (row-previousSelection) * 100
+            costLabel.text = "Gold: " + String(moneySpent)
         }
         else
         {
@@ -243,9 +244,10 @@ class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerV
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if appDelegate.user.gold >= (row-previousSelection) * 100
         {
-        playerLabel.text = nodeData[row]
-        self.tower?.attack.setDamageLevel(row)
-        moneySpent = (row-previousSelection) * 100
+            playerLabel.text = nodeData[row]
+            self.tower?.attack.setDamageLevel(row)
+            moneySpent = (row-previousSelection) * 100
+            costLabel.text = "Gold: " + String(moneySpent)
         }
         else
         {
@@ -339,6 +341,7 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
             //since this arrary starts with the best option
             //moneySpent = (nodeData.count-row) * 100
             moneySpent = (row-previousSelection) * 100
+            costLabel.text = "Gold: " + String(moneySpent)
             //this is very simple way to see that the fireDeley is being ajusted.
            self.tower?.attack.setFireDelayLevel(row)
         }
@@ -430,6 +433,7 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
             playerLabel.text = nodeData[row]
             self.tower?.attack.setSpeedLevel(row)
             moneySpent = (row-previousSelection) * 100
+            costLabel.text = "Gold: " + String(moneySpent)
         }
         else
         {
@@ -513,6 +517,7 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
             playerLabel.text = nodeData[row]
             tower?.defense.setRangeLevel(row)
             moneySpent = (row-previousSelection) * 100
+            costLabel.text = "Gold: " + String(moneySpent)
         }
         else
         {
@@ -597,9 +602,10 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if appDelegate.user.gold >= (row-previousSelection) * 100
         {
-        playerLabel.text = nodeData[row]
-        tower?.defense.setAmountLevel(row)
-        moneySpent = (row-previousSelection) * 100
+            playerLabel.text = nodeData[row]
+            tower?.defense.setAmountLevel(row)
+            moneySpent = (row-previousSelection) * 100
+            costLabel.text = "Gold: " + String(moneySpent)
         }
         else
         {
