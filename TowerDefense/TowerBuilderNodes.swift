@@ -30,6 +30,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
         self.nextNode = nil
         self.mainLabel.text = "Set Range Amount"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
@@ -78,7 +79,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
             
             circle!.position = tower!.sprite.position
             circle!.lineWidth = 1.0;
-            circle!.glowWidth = 3.0;
+            circle!.strokeColor = SKColor(red: 0.0, green: 0.9, blue: 0.5, alpha: 0.5)
             circle!.zPosition = ZPosition.tower-1
             GameScene.scene!.addChild(circle!)
             
@@ -104,6 +105,11 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
         pickerLabel.attributedText = myTitle
         return pickerLabel
+    }
+    
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
     }
     func startUpgradeChain()
     {
@@ -254,6 +260,7 @@ class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerV
         self.nextNode = nil
         self.mainLabel.text = "Set Damgae Amount"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
@@ -298,6 +305,10 @@ class AttackSetDamage: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerV
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
         pickerLabel.attributedText = myTitle
         return pickerLabel
+    }
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
     }
     func startUpgradeChain()
     {
@@ -345,6 +356,7 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
         self.nextNode = nil
         self.mainLabel.text = "Set Fire Rate"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
@@ -395,6 +407,10 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
         pickerLabel.attributedText = myTitle
         return pickerLabel
     }
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
+    }
     func startUpgradeChain()
     {
         if self.nextNode != nil
@@ -439,6 +455,7 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
         self.nextNode = nil
         self.mainLabel.text = "Set Bullet Speed"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
@@ -485,6 +502,10 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
         pickerLabel.attributedText = myTitle
         return pickerLabel
     }
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
+    }
     func startUpgradeChain()
     {
         if self.nextNode != nil
@@ -517,6 +538,8 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
     var tower: TowerBase?
     var moneySpent = 0
     var previousSelection : Int = 0
+    var circle : SKShapeNode?
+    var selection : Int = 0
     var nodeData = ["not set", "close", "med", "Far"]
     override init(x: CGFloat, y: CGFloat)
     {
@@ -524,6 +547,7 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
         self.nextNode = nil
         self.mainLabel.text = "Defense Range"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
@@ -552,18 +576,50 @@ class DeffenseSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicker
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if appDelegate.user.gold >= (row-previousSelection) * 100
         {
+            selection  = row
             playerLabel.text = nodeData[row]
-            tower?.defense.setRangeLevel(row)
             moneySpent = (row-previousSelection) * 100
             costLabel.text = "Gold: " + String(moneySpent)
+            
+            circle?.removeFromParent()
+            
+            // This "upgrades" the attribute, but only so we can visualize it, it is set back to the previous value afterward
+            self.tower?.defense.setRangeLevel(row)
+            // The circle has a radius equal to the range
+            circle = SKShapeNode(circleOfRadius: (tower?.defense.range)!)
+            // Now we set it back to the previous range value
+            self.tower?.defense.setRangeLevel(previousSelection)
+            
+            circle!.position = tower!.sprite.position
+            circle!.lineWidth = 1.0;
+            circle!.glowWidth = 2.0;
+            circle!.strokeColor = SKColor(red: 0.0, green: 0.9, blue: 0.5, alpha: 0.5)
+            circle!.zPosition = ZPosition.tower-1
+            GameScene.scene!.addChild(circle!)
         }
         else
         {
             playerLabel.text = "not enough gold"
+            circle?.removeFromParent()
+            circle = SKShapeNode(circleOfRadius: (tower?.attack.range)!)
+            circle!.position = tower!.sprite.position
+            circle!.lineWidth = 1.0;
+            circle!.glowWidth = 2.0;
+            circle!.strokeColor = SKColor(red: 1.0,green: 0, blue: 0, alpha: 0)
+            circle!.zPosition = ZPosition.tower-1
+            GameScene.scene!.addChild(circle!)
         }
+    }
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
     }
     func startUpgradeChain()
     {
+        
+        tower?.defense.setRangeLevel(selection)
+        circle?.removeFromParent()
+        
         if self.nextNode != nil
         {
            
@@ -611,6 +667,7 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
         self.nextNode = nil
         self.mainLabel.text = "Deffense Set Amount"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
@@ -657,7 +714,10 @@ class DeffenseSetAmount: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
         pickerLabel.attributedText = myTitle
         return pickerLabel
     }
-    
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
+    }
     func startUpgradeChain()
     {
         if self.nextNode != nil
@@ -705,6 +765,7 @@ class AttackSetStrategy: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
         self.nextNode = nil
         self.mainLabel.text = "Set Attack Type"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
@@ -788,6 +849,10 @@ class AttackSetStrategy: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
         pickerLabel.attributedText = myTitle
         return pickerLabel
     }
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
+    }
     func startUpgradeChain()
     {
         if self.nextNode != nil
@@ -836,6 +901,7 @@ class DefenseSetStrategy: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPick
         self.nextNode = nil
         self.mainLabel.text = "Set Defense Type"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
@@ -913,6 +979,10 @@ class DefenseSetStrategy: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPick
         pickerLabel.attributedText = myTitle
         return pickerLabel
     }
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
+    }
     func startUpgradeChain()
     {
         if self.nextNode != nil
@@ -963,6 +1033,7 @@ class StartNode: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewDat
         self.tower = tower
         mainLabel.text = "Menu"
         b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
 
@@ -994,6 +1065,10 @@ class StartNode: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewDat
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
         pickerLabel.attributedText = myTitle
         return pickerLabel
+    }
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
     }
     func setNextNode(node: UpgradeNode)
     {
