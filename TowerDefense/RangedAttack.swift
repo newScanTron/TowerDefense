@@ -23,22 +23,25 @@ class RangedAttack: EnemyAttackStrat{
             lastFire = GameScene.gameTime
             if (parent != nil) {
                 if(GameScene.towers.count > 0){
-                    target = GameScene.getClosestTower(parent!.sprite.position)
-                
-                    var bulletParent : Entity = parent!
-    
-                    Bullet(
-                        _start: parent!.sprite.position,
-                        _target: target!.sprite.position,
-                        _speed: speed,
-                        _damage: damage,
-                        _entity: &bulletParent,
-                        _explosion: nil,
-                        _shotByEnemy: true
-                    )
+                    let t = GameScene.getTowersInRange(parent!.sprite.position, range: parent!.range)
+                    if t.isEmpty{}
+                    else{target = t.first
+                    
+                        var bulletParent : Entity = parent!
+                        
+                        Bullet(
+                            _start: parent!.sprite.position,
+                            _target: target!.sprite.position,
+                            _speed: speed,
+                            _damage: damage,
+                            _entity: &bulletParent,
+                            _explosion: nil,
+                            _shotByEnemy: true
+                        )
+
+                    }
                 }
             }
         }
-
     }
 }

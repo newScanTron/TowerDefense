@@ -12,17 +12,13 @@ import SpriteKit
 class TowerAttackBasic : TowerAttackStrat {
     
     var lastFire : CGFloat = 0
-
     
     override init () {}
     
     override func Attack() {
-
-        
         
         if (GameScene.gameTime > lastFire + fireDelay) {
 
-            
             lastFire = GameScene.gameTime
             if (parent != nil) {
                 target = GameScene.getClosestEnemy(parent!.sprite.position)

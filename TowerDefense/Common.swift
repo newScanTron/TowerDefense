@@ -43,11 +43,19 @@ struct ZPosition {
     static let enemy        : CGFloat = 6
     static let bullet       : CGFloat = 7
 }
-enum PhysicsCategory : UInt32 {
-    case None   = 0
-    case All    = 0xFFFFFFFF
-    case Tower  = 0b0001
-    case Enemy  = 0b0010
-    case EnemyBullet = 0b0100
-    case TowerBullet = 0b1000
+extension UIView {
+    func addBackground() {
+        // screen width and height:
+        let width = UIScreen.mainScreen().bounds.size.width
+        let height = UIScreen.mainScreen().bounds.size.height
+        
+        let imageViewBackground = UIImageView(frame: CGRectMake(0, 0, width, height))
+        imageViewBackground.image = UIImage(named: "gridBG")
+        
+        // you can change the content mode:
+        imageViewBackground.contentMode = UIViewContentMode.ScaleAspectFill
+    
+        self.addSubview(imageViewBackground)
+        self.sendSubviewToBack(imageViewBackground)
+    }
 }

@@ -16,22 +16,22 @@ class EnemyBase: Entity{
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
-
+    var isImmune : Bool = false
     var reward : Int
-
+    var name : String = "George"
     var color = SKColor.greenColor()
 
     var moveDelay : CGFloat
                 let circle = SKShapeNode(circleOfRadius: 125.0)
     //initlizer.
-    init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int)
+    init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int, _name :String)
     {
 
         attack = _attack
         moveStrat = _moveStrat
         moveDelay = _moveDelay
         reward  = _reward
-        
+        name = _name
         super.init()
         sprite = _sprite
         range = _range
@@ -48,15 +48,13 @@ class EnemyBase: Entity{
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
         sprite.physicsBody?.collisionBitMask = CollisionMask.Enemy
-        sprite.physicsBody?.collisionBitMask = PhysicsCategory.Enemy.rawValue
         sprite.physicsBody?.mass = 1
         sprite.physicsBody?.restitution = 0.0
         sprite.physicsBody?.linearDamping = 0.0
         sprite.physicsBody?.angularDamping = 0.0
         sprite.physicsBody?.allowsRotation = false
-        sprite.zPosition = ZPosition.enemy
 
-        moveStrat.Move(self)
+        //moveStrat.Move(self)
         
         healthLabel = SKLabelNode(fontNamed:"Verdana")
         healthLabel.position = sprite.position
@@ -68,9 +66,7 @@ class EnemyBase: Entity{
 
     func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {
-        //let string = moveStrat.getMoveStrat()
-        self.moveStrat = sentStrat
-
+       moveStrat = sentStrat
     }
 
     func setAttackStrategy(sentAttack: EnemyAttackStrat){
@@ -87,12 +83,8 @@ class EnemyBase: Entity{
         healthLabel.position = sprite.position
         healthLabel.position.y -= 20
  
-        for t in GameScene.towers{
-            if(GameScene.getDistance(self.sprite.position, to: t.sprite.position) <= self.range){
-                attack.parent = self
-                attack.Attack()
-            }
-        }
+        attack.parent = self
+        attack.Attack()
     }
     func random() -> CGFloat{
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -104,24 +96,31 @@ class EnemyBase: Entity{
     func randomVect(min min: CGFloat, max: CGFloat) -> CGVector{
         return CGVector(dx: random() * (max - min) + min, dy: 0)
     }
+    override func CheckIfDead() -> Bool {
+        if health <= 0 {
+            attack.Die()
+            return true
+        }
+        return false
+    }
     func UpdateLabel(){
         
-        if self.health >= 90{
-            color = SKColor.cyanColor()
-        }
-        else if self.health >= 70 && self.health < 90{
+        if self.health >= (maxHealth * 0.8) && self.health < (maxHealth * 0.99){
             color = SKColor.yellowColor()
         }
-        else if self.health >= 50 && self.health < 70{
+        else if self.health >= (maxHealth * 0.50) && self.health < (maxHealth * 0.80){
             color = SKColor.orangeColor()
         }
-        else if self.health >= 30 && self.health < 50{
+        else if self.health >= (maxHealth * 0.3) && self.health < (maxHealth * 0.50){
             color = SKColor.redColor()
         }
-        else if self.health >= 0 && self.health < 30 {
+        else if self.health >= 0 && self.health < (maxHealth * 0.30) {
             color = SKColor.blackColor()
         }
-        let changeColorAction = SKAction.colorizeWithColor(color, colorBlendFactor: 1.0, duration: 0.5)
+        else if self.health >= self.maxHealth {
+            color = SKColor.whiteColor()
+        }
+        let changeColorAction = SKAction.colorizeWithColor(color, colorBlendFactor: 1.0, duration: 0.05)
         self.sprite.runAction(changeColorAction)
     }
 }

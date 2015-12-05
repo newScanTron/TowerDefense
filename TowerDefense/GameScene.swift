@@ -13,15 +13,18 @@ import CoreData
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
-    
+    var viewController: GameViewController!
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     //let satellite = SKSpriteNode(imageNamed: "Sat2")
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
+    let gameOverLabel = SKLabelNode(fontNamed: "Square")
+    //var background : SKSpriteNode? = nil
     let towerTotal = 20
-
+    let bossNode: EnemyBase? = nil
     let cero = 0
-    var enemyCount = 0
-    var enemyMax = 14
+    var gameOver : Bool = false
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -30,7 +33,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var explosions : [Explosion] = [Explosion]()
-    static var bullets : [Bullet] = [Bullet]()
+    static var boss : [EnemyBase] = [EnemyBase]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
@@ -38,21 +41,35 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/tobyDec1Branch
     override func didMoveToView(view: SKView) {
 
+        gameOver = false
         let background = SKSpriteNode(imageNamed: "beach")
         background.position = CGPoint(x: 500, y: 200)
         
+<<<<<<< HEAD
         background.zPosition = ZPosition.background;
 
 
         print(scene?.size.width, scene?.size.height)
 
+=======
+        background.zPosition = ZPosition.background
+        
+>>>>>>> origin/tobyDec1Branch
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
         myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        gameOverLabel.text = "You Won"
+        gameOverLabel.fontSize = 45
+        gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
+
         
         xpLabel.fontSize = 45;
         xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
@@ -75,16 +92,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
         
-       
-        
-        initializeEnemyArray()
-        
-        runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock(addEnemy),
-                SKAction.waitForDuration(1.5)
-                ])
-            ))
     }
     func buildWall(sprite: SKSpriteNode)
     {
@@ -147,6 +154,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
+      
+        if gameOver{
+            return
+        }
         /* Called before each frame is rendered */
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
@@ -156,6 +167,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         appDelegate.updateMyLabel()
         
+        // Get enemies and add them to list and scene
+        let newEnemy = enemyFactory.getNextEnemy()
+        if newEnemy != nil {
+            GameScene.enemies.append(newEnemy!)
+            GameScene.scene?.addChild(newEnemy!.sprite)
+        }
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
         {
@@ -175,8 +192,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             let e = GameScene.enemies[i]
             e.TriggerAttack()
             e.moveMore()
+            e.UpdateLabel()
             
-
             if e.CheckIfDead(){
                 e.sprite.removeFromParent()
                 
@@ -186,10 +203,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 
                 GameScene.enemies.removeAtIndex(i)
                 i -= 1
-                enemyMax -= 1
-                enemyCount -= 1
-                
-                
             }
         }
         
@@ -204,6 +217,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
             }
         }
+<<<<<<< HEAD
     }
     func initializeEnemyArray(){
         for var i = 0; i < 15 ; i++
@@ -221,8 +235,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 
                 GameScene.enemies.append(enemyboss)
             }
+=======
+        // Calculate player y offset
+        if bossNode?.sprite.position.y > 200.0 {
+        for t in GameScene.towers{
+            t.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/10))
+        }
+        for e in GameScene.enemies {
+            e.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/4))
+        }
+        
+            //background!.position = CGPoint(x: 0.0, y: -(bossNode!.sprite.position.y - 200.0))
+        }
+        
+        if GameScene.enemies.isEmpty && appDelegate.gameState.gold < 100 && GameScene.towers.isEmpty {
+            //endGame()
+        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty {
+            endGame()
+        } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty{
+            //endGame()
+>>>>>>> origin/tobyDec1Branch
         }
     }
+
     //function to add xp to the player currently based on the damage of the strategy of the enemy
     func giveXp(enmey: EnemyBase)
     {
@@ -232,6 +267,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
+<<<<<<< HEAD
    
     func addEnemy(){
         
@@ -241,6 +277,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             enemyCount++
         }
     }
+=======
+    //func that will set up the chain of reponsibility for updating
+    func setUpChain(inout node: AttackSetRange, x: CGFloat , y: CGFloat)
+    {
+        //initialize the nodes of the chain
+        let setDamageNode = AttackSetDamage(x: x, y: y)
+        let fireDeleyNode = SetFireDelay(x: x, y: y)
+        let setSpeed = SetSpeed(x: x, y: y)
+        let deffenseSetRange = DeffenseSetRange(x: x, y: y)
+        let deffenseSetAmount = DeffenseSetAmount(x: x, y: y)
+        
+        //set all the nodes to the seccuessor
+        node.setNextNode(setDamageNode)
+        setDamageNode.setNextNode(fireDeleyNode)
+        fireDeleyNode.setNextNode(setSpeed)
+        setSpeed.setNextNode(deffenseSetRange)
+
+
+        deffenseSetRange.setNextNode(deffenseSetAmount)
+        //deffenseSetAmount is not set to have a node following it so it
+
+    }
+
+>>>>>>> origin/tobyDec1Branch
     class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
         
         var closestEnemy : EnemyBase?
@@ -324,8 +384,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
+<<<<<<< HEAD
                     giveXp(e)
                     //e.UpdateLabel()
+=======
+
+                    e.UpdateLabel()
+>>>>>>> origin/tobyDec1Branch
                     contactTest.Destroy()
 
 
@@ -333,8 +398,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
+<<<<<<< HEAD
                     giveXp(e)
                    // e.UpdateLabel()
+=======
+
+                    e.UpdateLabel()
+>>>>>>> origin/tobyDec1Branch
                     contactTest.Destroy()
 
                     contact.bodyA.node?.removeFromParent()
@@ -364,5 +434,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
             print("other collision: \(contactMask)")
         }
+    }
+    func endGame() {
+
+    gameOver = true
+        
+    self.viewController.gameOver()    
+        
+    /*let reveal = SKTransition.fadeWithDuration(0.05)
+    let endGameScene = EndGameScene(size: self.size)
+    self.view!.presentScene(endGameScene, transition: reveal)*/
     }
 }

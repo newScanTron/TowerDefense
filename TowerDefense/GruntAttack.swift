@@ -13,24 +13,46 @@ class GruntAttack: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
     var circle : SKShapeNode? = nil
-    let healingTarget = [EnemyBase]()
+    var healingTarget = [EnemyBase]()
     let color = SKColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 10)
+    var allHealthy = false
+    var healthCount = 0
     
     override init(){}
     
-    override func Attack(){
-        var allHealthy = false
-
+    override func Die()  {
+        circle?.removeFromParent()
+        circle = nil
         for e in GameScene.enemies{
-            if e.health < e.maxHealth && e.sprite.name != "Boss"{
-                allHealthy = false
-                e.health += 10
+            e.isImmune = false
+        }
+    }
+    
+    override func Attack(){
+        
+        healthCount = 0
+        healingTarget = GameScene.getEnemiesInRange(parent!.sprite.position, range: 125)
+        
+        for e in GameScene.enemies {
+            if e.name == "BossSprite" {
+
+            }
+            else if GameScene.getDistance(parent!.sprite.position, to: e.sprite.position) <= 150 {
+                if e.health < e.maxHealth{
+                    allHealthy = false
+                    e.health += 10
+                    healthCount++
+                    e.UpdateLabel()
+                }
+                e.isImmune = true
             }
             else {
-                allHealthy = true
+                e.isImmune = false
             }
         }
-        
+        if healthCount == 0{
+            allHealthy = true
+        }
         circle?.removeFromParent()
         circle = SKShapeNode(circleOfRadius: 125.0)
         
@@ -40,17 +62,17 @@ class GruntAttack: EnemyAttackStrat{
         
         // Color fades as pulse progresses
         if (allHealthy) {
-            circle?.fillColor = SKColor(red: 0, green: 1, blue: 0, alpha: 0.3)
-            circle?.strokeColor = SKColor(red: 0, green: 1, blue: 0, alpha: 0.3)
-        }
-        else {
             circle?.fillColor = SKColor(red: 1, green: 0, blue: 0, alpha: 0.3)
             circle?.strokeColor = SKColor(red: 1, green: 0, blue: 0, alpha: 0.3)
+        }
+        else {
+            circle?.fillColor = SKColor(red: 0, green: 1, blue: 0, alpha: 0.3)
+            circle?.strokeColor = SKColor(red: 0, green: 1, blue: 0, alpha: 0.3)
         }
         circle?.glowWidth = 0.5;
         circle?.zPosition = ZPosition.enemy
         circle?.blendMode = SKBlendMode.Screen
-        if(parent?.sprite.position.x < 1000){
+        if(parent!.sprite.position.x < 1000){
             GameScene.scene?.addChild(circle!)
         }
 

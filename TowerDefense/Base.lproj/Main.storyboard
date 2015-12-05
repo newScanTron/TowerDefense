@@ -16,6 +16,8 @@
             <string>Square</string>
             <string>Square</string>
             <string>Square</string>
+            <string>Square</string>
+            <string>Square</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -37,11 +39,59 @@
                     <navigationItem key="navigationItem" id="aBQ-vg-FSn"/>
                     <connections>
                         <segue destination="dCC-XD-tRi" kind="show" identifier="backToLogin" id="3w1-II-rNd"/>
+                        <segue destination="5k1-Wf-1Hy" kind="show" identifier="toEndGame" id="Jef-cF-DqJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="161" y="333"/>
+            <point key="canvasLocation" x="195" y="331"/>
+        </scene>
+        <!--End Game Controller-->
+        <scene sceneID="Lti-cQ-hAu">
+            <objects>
+                <viewController id="5k1-Wf-1Hy" customClass="EndGameController" customModule="TowerDefense" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LK3-jY-0Kd"/>
+                        <viewControllerLayoutGuide type="bottom" id="sPb-TW-HdE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="owY-aK-wya">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="gridBG" translatesAutoresizingMaskIntoConstraints="NO" id="kuJ-Z2-2oD">
+                                <rect key="frame" x="-181" y="46" width="889" height="554"/>
+                                <animations/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Over" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvU-Pg-UCB">
+                                <rect key="frame" x="191" y="97" width="219" height="58"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Square" family="Square" pointSize="40"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K2K-GN-8d4">
+                                <rect key="frame" x="242" y="432" width="117" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Square" family="Square" pointSize="22"/>
+                                <state key="normal" title="Try Again">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tryAgainButtonAct:" destination="5k1-Wf-1Hy" eventType="touchUpInside" id="3ba-Ai-6m4"/>
+                                    <segue destination="BV1-FR-VrT" kind="show" identifier="tryAgain" id="WdK-sL-Alf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="tryAgain" destination="K2K-GN-8d4" id="qQX-g5-59b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WTT-Hp-xvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="962" y="566"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="xRY-kW-HnC">
@@ -254,6 +304,7 @@
         <image name="gridBG" width="889" height="554"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3w1-II-rNd"/>
+        <segue reference="WdK-sL-Alf"/>
+        <segue reference="jBp-kB-KP0"/>
     </inferredMetricsTieBreakers>
 </document>

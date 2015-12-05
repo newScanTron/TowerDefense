@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //I had to make init() in both of these classes to to allow be to declare them here before we know what they are going to be.
     var user = User()
     var gameState = GameState()
-    var gameScene = GameScene()
+    var gameScene = GameScene(fileNamed:"GameScene")
     
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -214,8 +214,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //little helper function to update the HUD as it were
     func updateMyLabel()
     {
+
         self.gameScene.myLabel.text = ("Gold: \(self.user.gold)")
         self.gameScene.xpLabel.text = ("XP: \(self.user.xp)")
+
     }
 }
 

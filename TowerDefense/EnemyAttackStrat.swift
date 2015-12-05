@@ -13,7 +13,7 @@ class EnemyAttackStrat
 {
     var damage : CGFloat = 0
     var fireDelay : CGFloat = 0
-    var speed : CGFloat = 0
+    var speed : CGFloat = 20
     var bullet : Bullet? = nil
     var target : TowerBase? = nil
     var parent : EnemyBase? = nil
@@ -25,6 +25,9 @@ class EnemyAttackStrat
 
     func Attack(){
         
+    }
+    func Die() {
+        //print("Don't call Die() on the base class!")
     }
     func rotateTowardTarget(enemy: EnemyBase){
         var angle : CGFloat

@@ -12,6 +12,7 @@ struct GameState {
     var user: User
     var xp: Int = 0
     var gold: Int = 0
+    var highGold: Int = 0
     var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     var enemies : [EnemyBase] = [EnemyBase]()
     //constructor overriden twice

@@ -23,6 +23,7 @@ class Bullet {
         explosion = _explosion
         
         // Set up initial location of projectile
+    
         sprite = SKSpriteNode(imageNamed: "bullet")
         sprite.size = CGSizeMake(15, 15)
         sprite.position = _start
@@ -30,6 +31,9 @@ class Bullet {
         //Set up collisions
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         if (_shotByEnemy) {
+            let changeColorAction = SKAction.colorizeWithColor(SKColor.redColor(), colorBlendFactor: 1.0, duration: 0.05)
+            sprite.runAction(changeColorAction)
+            
             sprite.physicsBody?.categoryBitMask = CategoryMask.EnemyBullet
             sprite.physicsBody?.collisionBitMask = CollisionMask.EnemyBullet
             sprite.physicsBody?.contactTestBitMask = ContactMask.EnemyBullet
