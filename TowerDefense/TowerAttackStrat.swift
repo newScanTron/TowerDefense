@@ -19,17 +19,29 @@ class TowerAttackStrat
     var target : EnemyBase? = nil
     var parent : TowerBase? = nil
     
+    var rangeLevel : Int = 0
+    var damageLevel : Int = 0
+    var fireDelayLevel : Int = 0
+    var speedLevel : Int = 0
+    
     init () {
-        print("Don't instantiate the base class!")
+        //print("Don't instantiate the base class!")
     }
     
     
     func Attack() {
-        print("Don't call Attack() on the base class!")
+        //print("Don't call Attack() on the base class!")
     }
     
     func Die() {
         //print("Don't call Die() on the base class!")
     }
+    func setRangeLevel(level : Int) {}
+    func setDamageLevel(level : Int) {}
+    func setFireDelayLevel(level : Int) {}
+    func setSpeedLevel(level : Int) {}
+//    func setExplosionLevel(level : Int) {}
+//    func setHomingLevel(level : Int) {}
+    
     
 }

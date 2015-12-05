@@ -15,9 +15,17 @@ class TowerDefenseStrat
     var amount : CGFloat = 0
     var parent : TowerBase? = nil
     
+    var rangeLevel : Int = 0
+    var amountLevel : Int = 0
+    
+    
+    
     init () {
         //fatalError("Don't instantiate the base class!")
     }
+    
+    func setRangeLevel(level : Int) {}
+    func setAmountLevel(level : Int) {}
     
     
     func Defend() {

@@ -19,11 +19,13 @@ class UpgradeView: UIView {
     lables sellector wheel and buttons */
     var rectOne = CGRectMake(10, 10 ,200, 60)
     var rectPlayerLbl = CGRectMake(10,20,200, 60)
+    var rectCost = CGRectMake(10,35,200, 60)
     var rectThree = CGRectMake(0,75,200, 65)
 
 
     var mainLabel: UILabel
     var playerLabel: UILabel
+    var costLabel: UILabel
     var upgradeSelection: UIPickerView
     
     //this is the array that each node will use to pose their question
@@ -31,6 +33,7 @@ class UpgradeView: UIView {
     required init?(coder aDecoder: (NSCoder!)) {
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectPlayerLbl)
+        costLabel = UILabel(frame: rectCost)
         upgradeSelection = UIPickerView(frame: rectThree)
         upgradeSelection.backgroundColor = SKColor.greenColor()
         super.init(coder: aDecoder)
@@ -41,6 +44,7 @@ class UpgradeView: UIView {
         
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectPlayerLbl)
+        costLabel = UILabel(frame: rectCost)
         upgradeSelection = UIPickerView(frame: rectThree)
         upgradeSelection.backgroundColor = UIColor(red: 0.0, green: 0.9, blue: 0.5, alpha: 0.8)
         
@@ -60,6 +64,8 @@ class UpgradeView: UIView {
         
         playerLabel.text = "Choose An Option."
         playerLabel.font = UIFont(name: "Square", size: 18.0)
+        costLabel.text = "Gold: "
+        costLabel.font = UIFont(name: "Square", size: 18.0)
         self.backgroundColor =  UIColor(white: 1, alpha: 0.5)
         b.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         
@@ -69,6 +75,7 @@ class UpgradeView: UIView {
         self.addSubview(c)
         self.addSubview(mainLabel)
         self.addSubview(playerLabel)
+        self.addSubview(costLabel)
         self.addSubview(upgradeSelection)
 
     }

@@ -32,7 +32,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //making all of these static allows us to not have to pass them around method calls
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
-    static var explosions : [Explosion] = [Explosion]()
+    static var items : [Item] = [Item]()
     static var boss : [EnemyBase] = [EnemyBase]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
@@ -103,19 +103,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func addTower(location: CGPoint)
     {
         
-        var tower : TowerBase?
+       
         
-        //create and add tower
-        if (odd) {
-            tower = towerBuilder.BuildPulseTower(location)
-        }
-        else {
-            tower = towerBuilder.BuildTower(location)
-        }
-        if (tower != nil) {
-            odd = !odd
-            GameScene.towers.append(tower!)
-            self.addChild(tower!.sprite)
+//        var tower : TowerBase?
+//        
+//        //create and add tower
+//        if (odd) {
+//            tower = towerBuilder.BuildPulseTower(location)
+//        }
+//        else {
+//            tower = towerBuilder.BuildTower(location)
+//        }
+//        if (tower != nil) {
+//            odd = !odd
+//            GameScene.towers.append(tower!)
+//            self.addChild(tower!.sprite)
+//        }
+        
+        let tower : TowerBase = towerBuilder.BuildBaseTower(location)
+        
+        if (GameScene.addGold(-100)) {
+            GameScene.towers.append(tower)
+            self.addChild(tower.sprite)
+            addUpgradeView(tower, location: location, gameScene: self)
         }
         
     }
@@ -132,7 +142,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                addUpgradeView(each, touch: touch!, gameScene: self)
+                addUpgradeView(each, location: touch!.locationInView(nil), gameScene: self)
                 return
             }
         }
@@ -199,15 +209,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             }
         }
         
-        for (var i = 0; i < GameScene.explosions.count; i++) {
-            let e = GameScene.explosions[i]
-            if (e.destroy) {
-                GameScene.explosions.removeAtIndex(i)
+        for (var i = 0; i < GameScene.items.count; i++) {
+            let item = GameScene.items[i]
+            if (item.destroyThis) {
+                item.destroy()
+                GameScene.items.removeAtIndex(i)
                 i -= 1;
             }
             else {
-                e.update()
-
+                item.update()
             }
         }
 
@@ -354,7 +364,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     e.UpdateLabel()
 
 
-                    contactTest.Destroy()
+                    contactTest.destroy()
 
 
                     contact.bodyB.node?.removeFromParent()
@@ -366,7 +376,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
                     e.UpdateLabel()
 
-                    contactTest.Destroy()
+                    contactTest.destroy()
 
                     contact.bodyA.node?.removeFromParent()
                 }
@@ -380,13 +390,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
-                    contactTest.Destroy()
+                    contactTest.destroy()
                     contact.bodyB.node?.removeFromParent()
                 } else if t.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
-                    contactTest.Destroy()
+                    contactTest.destroy()
                     contact.bodyA.node?.removeFromParent()
                 }
             }
