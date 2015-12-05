@@ -97,7 +97,13 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
         print("not loged it")
         }
     }
-    
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        let titleData = people[row].userName
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
+        pickerLabel.attributedText = myTitle
+        return pickerLabel
+    }
     //functions conforming to the UIPickerView DataSource
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
