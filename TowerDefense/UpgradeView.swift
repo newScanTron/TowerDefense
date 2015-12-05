@@ -64,7 +64,7 @@ class UpgradeView: UIView {
         b.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         
         c.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        c.addTarget(self, action: "CheckLabel", forControlEvents: UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "removeSelf", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(b)
         self.addSubview(c)
         self.addSubview(mainLabel)
@@ -86,7 +86,7 @@ class UpgradeView: UIView {
         return self
     }
     //pressing the label will currently remove the UpgradeView
-    func CheckLabel()
+    func removeSelf()
     {
        self.removeFromSuperview()
     }
