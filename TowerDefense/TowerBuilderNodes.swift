@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SpriteKit
 //set attack range node.  Each of these noodes extend UpgradeView which is a custom UIView class i have created to give each of these noedes a uniform interface.  Upgrade node 
 //is the protocol that represents the Processing elements structure that each of these nodes are the concrete implemntation of.  UIPickerViewDelegate and UIPickerViewDataSource are 
 //part of the UIKit framework needed for iOS developments
@@ -18,6 +19,8 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     var moneySpent = 0
     var previousSelection : Int = 0
     var tower: TowerBase?
+    var circle : SKShapeNode?
+    var selection : Int = 0
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
     var nodeData = ["None", "Close", "Proximity", "Ranged"]
@@ -30,6 +33,7 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
+        
     }
     
     required init?(coder aDecoder: (NSCoder!)) {
@@ -55,14 +59,43 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if appDelegate.user.gold >= (row-previousSelection) * 100
         {
+            // Selection stores the currently selected row so we can set the actual upgrade value in startUpgradeChain()
+            selection = row
             playerLabel.text = nodeData[row]
-            self.tower?.attack.setRangeLevel(row)
+            
+            
             moneySpent = (row-previousSelection) * 100
             costLabel.text = "Gold: " + String(moneySpent)
+            
+            circle?.removeFromParent()
+            
+            // This "upgrades" the attribute, but only so we can visualize it, it is set back to the previous value afterward
+            self.tower?.attack.setRangeLevel(selection)
+            // The circle has a radius equal to the range
+            circle = SKShapeNode(circleOfRadius: (tower?.attack.range)!)
+            // Now we set it back to the previous range value
+            self.tower?.attack.setRangeLevel(previousSelection)
+            
+            circle!.position = tower!.sprite.position
+            circle!.lineWidth = 1.0;
+            circle!.glowWidth = 3.0;
+            circle!.zPosition = ZPosition.tower-1
+            GameScene.scene!.addChild(circle!)
+            
+
+ 
         }
         else
         {
             playerLabel.text = "not enough gold"
+            circle?.removeFromParent()
+            circle = SKShapeNode(circleOfRadius: (tower?.attack.range)!)
+            circle!.position = tower!.sprite.position
+            circle!.lineWidth = 1.0;
+            circle!.strokeColor = SKColor(red: 1.0,green: 0, blue: 0, alpha: 0)
+            circle!.glowWidth = 3.0;
+            circle!.zPosition = ZPosition.tower-1
+            GameScene.scene!.addChild(circle!)
         }
     }
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
@@ -74,6 +107,11 @@ class AttackSetRange: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerVi
     }
     func startUpgradeChain()
     {
+        // Here is where the attribute is officially upgraded
+        self.tower?.attack.setRangeLevel(selection)
+        // Removing the visualization circle
+        circle?.removeFromParent()
+        
         if self.nextNode != nil
         {
             
