@@ -199,7 +199,9 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
     UIApplication.sharedApplication().delegate as! AppDelegate
     var moneySpent = 0
     var tower: TowerBase?
-    var nodeData = ["not set", "fast", "medium", "slow"]
+    //var nodeData = ["not set", "fast", "medium", "slow"]
+    var nodeData = ["slow", "medium", "fast","ludacris"]
+    var values : [CGFloat] = [3,2,1,0.5]
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
@@ -237,9 +239,10 @@ class SetFireDelay: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerView
         {
         playerLabel.text = nodeData[row]
             //since this arrary starts with the best option
-            moneySpent = (nodeData.count-row) * 100
-        //this is very simple way to see that the fireDeley is being ajusted.
-            self.tower?.attack.fireDelay = CGFloat((Double(row)+1 * 0.5))
+            //moneySpent = (nodeData.count-row) * 100
+            moneySpent = (row) * 100
+            //this is very simple way to see that the fireDeley is being ajusted.
+            self.tower?.attack.fireDelay = values[row]
         }
         else
         {

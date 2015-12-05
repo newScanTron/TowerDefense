@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class Explosion {
+class Explosion : Item {
     
     var radius : CGFloat
     var currentRadius : CGFloat = 0
@@ -21,7 +21,6 @@ class Explosion {
     
     var circle : SKShapeNode?
     
-    var destroy : Bool  = false
     
     init(_radius : CGFloat, _damage : CGFloat) {
         
@@ -34,17 +33,17 @@ class Explosion {
     }
     
     func trigger(_location : CGPoint) {
-        print("explosion trigger")
+        //print("explosion trigger")
         location = _location
-        GameScene.explosions.append(self)
+        GameScene.items.append(self)
     }
     
-    func update() -> Void {
-        print("explosion update")
+    override func update() -> Void {
+        //print("explosion update")
         // If pulse's current radius has exceeded range
         if (currentRadius > (radius)) {
             // End pulse
-            destroy = true
+            destroyThis = true
             circle?.removeFromParent()
         }
             // If pulse's current radius has not exceeded range
@@ -60,18 +59,12 @@ class Explosion {
             
             for e in GameScene.getEnemiesInRange(location!,range: currentRadius) {
                 // Apply damage to each enemy within pulse
-                if e.isImmune {
-                    e.health -= currentDamage * 0.8
-                    e.UpdateLabel()
-                }
-                else {
-                    e.health -= currentDamage
-                    e.UpdateLabel()
-                }
+                e.health -= currentDamage
+                e.sprite.physicsBody!.applyImpulse(Bullet.getVector(location!, to: e.sprite.position, speed: currentDamage * 2))
             }
             
             
-            // Remove old circle
+            // Remove  circle
             circle?.removeFromParent()
             // Create new circle
             circle = SKShapeNode(circleOfRadius: currentRadius)

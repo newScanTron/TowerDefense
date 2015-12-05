@@ -14,8 +14,9 @@ struct CategoryMask { // Assigns categories for use with CollisionMask and Conta
     static let All          : UInt32 = UInt32.max
     static let Tower        : UInt32 = 0b0001
     static let Enemy        : UInt32 = 0b0010
-    static let EnemyBullet       : UInt32 = 0b0100
-    static let TowerBullet       : UInt32 = 0b1000
+    static let EnemyBullet       : UInt32 = 0b00100
+    static let TowerBullet       : UInt32 = 0b01000
+    static let TowerShield       : UInt32 = 0b10000
 }
 
 struct CollisionMask { // Which categories should this object "collide" with, i.e. interact with physically. Match with categories above.
@@ -23,8 +24,8 @@ struct CollisionMask { // Which categories should this object "collide" with, i.
     static let All          : UInt32 = UInt32.max
     static let Tower        : UInt32 = 0b0000 // Towers only collide with other Towers and Enemies
     static let Enemy        : UInt32 = 0b0000 // Enemies only collide with other Enemies and Towers
-    static let EnemyBullet       : UInt32 = 0b0000 // Bullets don't collide with anything (only trigger contacts against enemies/towers)
-    static let TowerBullet       : UInt32 = 0b0000
+    static let EnemyBullet       : UInt32 = 0b10000 // EnemyBullet only collides with TowerShield
+    static let TowerBullet       : UInt32 = 0b00000 // TowerBullet does not collide with anything
 }
 
 struct ContactMask { // Which categories should this object trigger notifications about, i.e. in didBeginContact(). Match with categories above.

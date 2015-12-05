@@ -13,6 +13,8 @@
 		4615CE411C10FC42005A4290 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE3F1C10FC42005A4290 /* EndGameScene.swift */; };
 		4615CE431C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
 		4615CE441C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
+		977E3CA71C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
+		977E3CA81C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		97B633BD1C0D4D5500CB6B8B /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BC1C0D4C3E00CB6B8B /* Square.ttf */; };
 		97B633BE1C0D4D5600CB6B8B /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BC1C0D4C3E00CB6B8B /* Square.ttf */; };
 		97B633C01C0D517B00CB6B8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BF1C0D517B00CB6B8B /* Assets.xcassets */; };
@@ -110,6 +112,7 @@
 		4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySwarmStrat.swift; sourceTree = "<group>"; };
 		4615CE3F1C10FC42005A4290 /* EndGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameScene.swift; sourceTree = "<group>"; };
 		4615CE421C113103005A4290 /* EndGameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameController.swift; sourceTree = "<group>"; };
+		977E3CA61C13597200BA8F52 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		97B633BC1C0D4C3E00CB6B8B /* Square.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Square.ttf; sourceTree = "<group>"; };
 		97B633BF1C0D517B00CB6B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97B633C11C0D5CCB00CB6B8B /* Explosion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Explosion.swift; sourceTree = "<group>"; };
@@ -243,6 +246,7 @@
 				993BC2B51C003A50009596FA /* LoginController.swift */,
 				993BC2B81C011A6D009596FA /* SignUpController.swift */,
 				99A3BBE41BE94C1900AAB350 /* Bullet.swift */,
+				977E3CA61C13597200BA8F52 /* Item.swift */,
 				97B633C11C0D5CCB00CB6B8B /* Explosion.swift */,
 				4615CE421C113103005A4290 /* EndGameController.swift */,
 			);
@@ -472,6 +476,7 @@
 				9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */,
 				9919CF2C1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
 				99A3BBE91BE94C1900AAB350 /* TowerAttackBasic.swift in Sources */,
+				977E3CA71C13597200BA8F52 /* Item.swift in Sources */,
 				97B633C21C0D5CCB00CB6B8B /* Explosion.swift in Sources */,
 				9926223B1BED2B2C0080D35A /* User.swift in Sources */,
 				4615CE431C113103005A4290 /* EndGameController.swift in Sources */,
@@ -488,6 +493,7 @@
 			files = (
 				99BA33CC1BF2A25F00152764 /* AppDelegate.swift in Sources */,
 				99BA33CD1BF2A25F00152764 /* Entity.swift in Sources */,
+				977E3CA81C13597200BA8F52 /* Item.swift in Sources */,
 				99BA33CE1BF2A25F00152764 /* Common.swift in Sources */,
 				9946E40A1BE56F35007E9559 /* TowerAttackStrat.swift in Sources */,
 				99BA33CF1BF2A25F00152764 /* User.swift in Sources */,

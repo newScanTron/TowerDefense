@@ -30,14 +30,15 @@ class RangedAttack: EnemyAttackStrat{
                         var bulletParent : Entity = parent!
                         
                         Bullet(
-                            _start: parent!.sprite.position,
-                            _target: target!.sprite.position,
-                            _speed: speed,
+                            _shooter: parent!,
+                            _target: target!.sprite,
+                            _speed : speed,
                             _damage: damage,
-                            _entity: &bulletParent,
-                            _explosion: nil,
-                            _shotByEnemy: true
+                            size : 15,
+                            shotByEnemy : true
                         )
+                        
+                        
 
                     }
                 }
