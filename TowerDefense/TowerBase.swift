@@ -13,6 +13,9 @@ class TowerBase: Entity{
     var attack : TowerAttackStrat
     var defense : TowerDefenseStrat
     var healed : Int = 0
+    var attackSelection : Int = 0
+    var defenseSelection : Int = 0
+
     init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
         
@@ -32,6 +35,8 @@ class TowerBase: Entity{
         sprite.physicsBody?.collisionBitMask = CollisionMask.Tower
         sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
         sprite.physicsBody?.dynamic = false
+        sprite.zPosition = ZPosition.tower
+        sprite.name = "tower"
 
         
         

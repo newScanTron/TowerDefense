@@ -14,18 +14,39 @@ class TowerAttackPulse : TowerAttackStrat {
     
     var lastFire : CGFloat = 0
     
-    var pulsing : Bool = false
+//    var pulsing : Bool = false
+//    
+//    var currentRadius : CGFloat = 0
+//    var currentDamage : CGFloat = 0
+//    var circle : SKShapeNode?
     
-    var currentRadius : CGFloat = 0
-    var currentDamage : CGFloat = 0
-    var circle : SKShapeNode?
     
+    override init () {
+        super.init()
+        self.setRangeLevel(0)
+        self.setDamageLevel(0)
+        self.setFireDelayLevel(0)
+    }
     
-    override init () {}
+    override func setRangeLevel(level : Int) {
+        rangeLevel = level
+        range = 75 + CGFloat(level) * 25
+    }
+    
+    override func setDamageLevel(level : Int) {
+        damageLevel = level
+        damage = 20 + CGFloat(level) * 5
+    }
+    
+    override func setFireDelayLevel(level : Int) {
+        fireDelayLevel = level
+        fireDelay = 5/CGFloat(level+1)
+    }
+
     
     override func Die()  {
-        circle?.removeFromParent()
-        circle = nil
+//        circle?.removeFromParent()
+//        circle = nil
     }
     
     override func Attack() {

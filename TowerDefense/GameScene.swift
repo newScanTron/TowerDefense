@@ -103,19 +103,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func addTower(location: CGPoint)
     {
         
-        var tower : TowerBase?
+       
         
-        //create and add tower
-        if (odd) {
-            tower = towerBuilder.BuildPulseTower(location)
-        }
-        else {
-            tower = towerBuilder.BuildTower(location)
-        }
-        if (tower != nil) {
-            odd = !odd
-            GameScene.towers.append(tower!)
-            self.addChild(tower!.sprite)
+//        var tower : TowerBase?
+//        
+//        //create and add tower
+//        if (odd) {
+//            tower = towerBuilder.BuildPulseTower(location)
+//        }
+//        else {
+//            tower = towerBuilder.BuildTower(location)
+//        }
+//        if (tower != nil) {
+//            odd = !odd
+//            GameScene.towers.append(tower!)
+//            self.addChild(tower!.sprite)
+//        }
+        
+        var tower : TowerBase = towerBuilder.BuildBaseTower(location)
+        
+        if (GameScene.addGold(-100)) {
+            GameScene.towers.append(tower)
+            self.addChild(tower.sprite)
+            addUpgradeView(tower, location: location, gameScene: self)
         }
         
     }
@@ -132,7 +142,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                addUpgradeView(each, touch: touch!, gameScene: self)
+                addUpgradeView(each, location: touch!.locationInView(nil), gameScene: self)
                 return
             }
         }

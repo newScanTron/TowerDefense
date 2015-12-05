@@ -21,31 +21,31 @@ protocol UpgradeNode{
 
 
 //fucntion to add the upgradeView
-func addUpgradeView(tower: TowerBase, touch: UITouch, gameScene: GameScene)
+func addUpgradeView(tower: TowerBase, location : CGPoint, gameScene: GameScene)
 {
     var placeY: CGFloat
     var placeX: CGFloat
-    if (touch.locationInView(nil).y) >= CGRectGetMaxY(gameScene.frame)/2
+    if (location.y) >= CGRectGetMaxY(gameScene.frame)/2
     {
-        placeY = ((touch.locationInView(nil).y) - CGFloat(200.0))
+        placeY = ((location.y) - CGFloat(200.0))
         
     }
     else
     {
-        placeY = (touch.locationInView(nil).y)
+        placeY = (location.y)
         
     }
-    if (touch.locationInView(nil).x) >= CGRectGetMaxX(gameScene.frame)/2
+    if (location.x) >= CGRectGetMaxX(gameScene.frame)/2
     {
-        placeX = ((touch.locationInView(nil).x) - CGFloat(200.0))
+        placeX = ((location.x) - CGFloat(200.0))
         
     }
     else
     {
-        placeX = (touch.locationInView(nil).x)
+        placeX = (location.x)
         
     }
-    var upgradeView = AttackSetRange(x: (placeX), y: (placeY), tower: tower)
+    var upgradeView = StartNode(x: (placeX), y: (placeY), tower: tower)
     //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
     setUpChain(&upgradeView, x: placeX, y: placeY)
     //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
@@ -56,23 +56,26 @@ func addUpgradeView(tower: TowerBase, touch: UITouch, gameScene: GameScene)
 
 
 //func that will set up the chain of reponsibility for updating
-func setUpChain(inout node: AttackSetRange, x: CGFloat , y: CGFloat)
+func setUpChain(inout node: StartNode, x: CGFloat , y: CGFloat)
 {
-    //initialize the nodes of the chain
-    let setDamageNode = AttackSetDamage(x: x, y: y)
-    let fireDeleyNode = SetFireDelay(x: x, y: y)
-    let setSpeed = SetSpeed(x: x, y: y)
-    let deffenseSetRange = DeffenseSetRange(x: x, y: y)
-    let deffenseSetAmount = DeffenseSetAmount(x: x, y: y)
+   
     
-    //set all the nodes to the seccuessor
-    node.setNextNode(setDamageNode)
-    setDamageNode.setNextNode(fireDeleyNode)
-    fireDeleyNode.setNextNode(setSpeed)
-    setSpeed.setNextNode(deffenseSetRange)
-    
-    
-    deffenseSetRange.setNextNode(deffenseSetAmount)
-    //deffenseSetAmount is not set to have a node following it so it
+//    //initialize the nodes of the chain
+//    let setRange
+//    let setDamageNode = AttackSetDamage(x: x, y: y)
+//    let fireDeleyNode = SetFireDelay(x: x, y: y)
+//    let setSpeed = SetSpeed(x: x, y: y)
+//    let deffenseSetRange = DeffenseSetRange(x: x, y: y)
+//    let deffenseSetAmount = DeffenseSetAmount(x: x, y: y)
+//    
+//    //set all the nodes to the seccuessor
+//    node.setNextNode(setDamageNode)
+//    setDamageNode.setNextNode(fireDeleyNode)
+//    fireDeleyNode.setNextNode(setSpeed)
+//    setSpeed.setNextNode(deffenseSetRange)
+//    
+//    
+//    deffenseSetRange.setNextNode(deffenseSetAmount)
+//    //deffenseSetAmount is not set to have a node following it so it
     
 }

@@ -7,12 +7,26 @@
 //
 
 import Foundation
+import SpriteKit
 
 class TowerDefenseHeal : TowerDefenseStrat {
     
     var inRange : [TowerBase] = [TowerBase]()
     
-    override init () {}
+    override init () {
+        super.init()
+        self.setRangeLevel(0)
+        self.setAmountLevel(0)
+    }
+    
+    override func setRangeLevel(level : Int) {
+        rangeLevel = level
+        range = 75 + CGFloat(level) * 25
+    }
+    override func setAmountLevel(level : Int) {
+        amountLevel = level
+        amount = 2 + CGFloat(level) * 0.5
+    }
     
     override func Defend() {
         
