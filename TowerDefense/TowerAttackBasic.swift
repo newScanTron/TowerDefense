@@ -82,7 +82,7 @@ class TowerAttackBasic : TowerAttackStrat {
             
             lastFire = GameScene.gameTime
             if (parent != nil) {
-                target = GameScene.getClosestEnemy(parent!.sprite.position)
+                target = GameScene.getClosestEnemy(parent!.sprite.position, range: range)
                 if (target != nil) {
                     let bulletParent : Entity = parent!
                     var b : Bullet = Bullet(_shooter: bulletParent,_target: target!.sprite,_speed: speed,_damage: damage,size: 15,shotByEnemy: false)

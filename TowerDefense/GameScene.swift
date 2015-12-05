@@ -276,7 +276,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
 
 
-    class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
+    class func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
         
         var closestEnemy : EnemyBase?
         var closestDistance : CGFloat = 999999
@@ -289,8 +289,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 closestEnemy = e;
             }
         }
-        
-        return closestEnemy;
+        if (closestDistance < range) {
+            return closestEnemy;
+        }
+        else {
+            return nil
+        }
     }
     
     class func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
