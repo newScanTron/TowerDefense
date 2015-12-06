@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dCC-XD-tRi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dCC-XD-tRi">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
@@ -110,18 +110,18 @@
                                 <animations/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOWER FURY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2g-e6-Lq5">
-                                <rect key="frame" x="115" y="86" width="370" height="59"/>
+                                <rect key="frame" x="115" y="186" width="370" height="59"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="370" id="Pk7-e0-nPi"/>
                                     <constraint firstAttribute="height" constant="59" id="gJf-hS-tAl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Square" family="Square" pointSize="40"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j4N-Uy-uob">
-                                <rect key="frame" x="0.0" y="210" width="600" height="151"/>
+                                <rect key="frame" x="0.0" y="310" width="600" height="151"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -135,7 +135,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YZZ-Or-CSG">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YZZ-Or-CSG">
                                 <rect key="frame" x="211" y="443" width="178" height="30"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.47707544191919193" green="0.47707544191919193" blue="0.47707544191919193" alpha="1" colorSpace="calibratedRGB"/>
@@ -146,7 +146,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyu-dU-RES">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gyu-dU-RES">
                                 <rect key="frame" x="245" y="481" width="110" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Square" family="Square" pointSize="22"/>
@@ -155,14 +155,14 @@
                                     <action selector="playButtonAct:" destination="dCC-XD-tRi" eventType="touchUpInside" id="zJ5-Ls-LtW"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="PASSWORD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRr-kW-Maa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="PASSWORD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRr-kW-Maa">
                                 <rect key="frame" x="211" y="414" width="178" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Square" family="Square" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIv-Wq-kpf">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIv-Wq-kpf">
                                 <rect key="frame" x="229" y="504" width="142" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="Square" family="Square" pointSize="22"/>
@@ -171,6 +171,9 @@
                                     <segue destination="kFa-mh-Vi3" kind="show" id="4pb-ee-IAQ"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="towerFuryTitle" translatesAutoresizingMaskIntoConstraints="NO" id="q1I-N0-4w9">
+                                <rect key="frame" x="180" y="45" width="240" height="128"/>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -180,12 +183,15 @@
                             <constraint firstItem="j4N-Uy-uob" firstAttribute="centerX" secondItem="kss-K5-f40" secondAttribute="centerX" id="3wc-b4-KDU"/>
                             <constraint firstItem="HIv-Wq-kpf" firstAttribute="top" secondItem="YZZ-Or-CSG" secondAttribute="bottom" constant="31" id="4rJ-OT-Ay6"/>
                             <constraint firstItem="YZZ-Or-CSG" firstAttribute="centerX" secondItem="YRr-kW-Maa" secondAttribute="centerX" id="68w-bo-N7W"/>
-                            <constraint firstItem="c2g-e6-Lq5" firstAttribute="top" secondItem="6BP-mz-Mww" secondAttribute="bottom" constant="66" id="DWW-Zz-OGZ"/>
+                            <constraint firstItem="c2g-e6-Lq5" firstAttribute="top" secondItem="6BP-mz-Mww" secondAttribute="bottom" constant="166" id="DWW-Zz-OGZ"/>
                             <constraint firstItem="Gyu-dU-RES" firstAttribute="centerX" secondItem="W0L-F2-h8o" secondAttribute="centerX" id="HaY-Vw-aUC"/>
                             <constraint firstItem="kss-K5-f40" firstAttribute="centerX" secondItem="c2g-e6-Lq5" secondAttribute="centerX" id="IK0-AQ-Pex"/>
                             <constraint firstItem="HIv-Wq-kpf" firstAttribute="centerX" secondItem="YZZ-Or-CSG" secondAttribute="centerX" id="NSB-s8-7bg"/>
                             <constraint firstItem="YZZ-Or-CSG" firstAttribute="centerX" secondItem="YRr-kW-Maa" secondAttribute="centerX" id="RjI-gT-X49"/>
+                            <constraint firstItem="YRr-kW-Maa" firstAttribute="top" secondItem="j4N-Uy-uob" secondAttribute="bottom" constant="10" id="XAM-q6-HGw"/>
+                            <constraint firstItem="q1I-N0-4w9" firstAttribute="centerX" secondItem="c2g-e6-Lq5" secondAttribute="centerX" id="XT8-ee-5Ou"/>
                             <constraint firstItem="k73-v9-GN4" firstAttribute="top" secondItem="6BP-mz-Mww" secondAttribute="bottom" id="a9e-Vf-UwL"/>
+                            <constraint firstItem="q1I-N0-4w9" firstAttribute="bottom" secondItem="6BP-mz-Mww" secondAttribute="bottom" constant="250" id="faB-WH-Fmk"/>
                             <constraint firstItem="Gyu-dU-RES" firstAttribute="centerX" secondItem="YRr-kW-Maa" secondAttribute="centerX" id="hup-U2-Dtt"/>
                             <constraint firstItem="k73-v9-GN4" firstAttribute="width" secondItem="W0L-F2-h8o" secondAttribute="width" id="khK-fJ-1zg"/>
                             <constraint firstItem="YZZ-Or-CSG" firstAttribute="top" secondItem="YRr-kW-Maa" secondAttribute="bottom" constant="8" id="mZg-pC-0kx"/>
@@ -195,6 +201,11 @@
                             <constraint firstItem="j4N-Uy-uob" firstAttribute="top" secondItem="c2g-e6-Lq5" secondAttribute="bottom" constant="65" id="uq7-R7-0CV"/>
                             <constraint firstItem="kss-K5-f40" firstAttribute="top" secondItem="c2g-e6-Lq5" secondAttribute="bottom" constant="36" id="zAP-Vi-m9E"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="a9e-Vf-UwL"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="fUQ-sg-3Sf"/>
                     <connections>
@@ -302,9 +313,10 @@
     </scenes>
     <resources>
         <image name="gridBG" width="889" height="554"/>
+        <image name="towerFuryTitle" width="500" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WdK-sL-Alf"/>
-        <segue reference="jBp-kB-KP0"/>
+        <segue reference="3w1-II-rNd"/>
+        <segue reference="sHx-ez-1y1"/>
     </inferredMetricsTieBreakers>
 </document>

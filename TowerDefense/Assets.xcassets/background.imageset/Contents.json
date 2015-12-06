@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "background.jpg",
       "scale" : "1x"
     },
     {
