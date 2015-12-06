@@ -11,25 +11,31 @@ import SpriteKit
 
 class EnemyFactory
 {
-    var waveDelay : CGFloat = 2
+    var waveDelay : CGFloat = 10
     var lastEnemy : CGFloat = 0
     var enemyCount : CGFloat = 0
+    var theWave : CGFloat = 0
     init(){}
     
 
     func getNextEnemy() -> EnemyBase? {
         
         var enemy :EnemyBase? = nil
-        
+        /*if enemyCount == 0 {
+            lastEnemy = GameScene.gameTime
+            waveDelay = 10.0
+        }*/
         if GameScene.gameTime > lastEnemy + waveDelay{
             lastEnemy = GameScene.gameTime
             
-            if(enemyCount <= 9){
+            if(enemyCount <= (9 + theWave)){
+                waveDelay = 2.0
                 enemy = CreateEnemy()
                 enemyCount++
                 return enemy!
             }
-            if(enemyCount > 9 && enemyCount < 14){
+            if(enemyCount > (9 + theWave) && enemyCount <= (14 + theWave))
+            {
                 waveDelay = 0.2
                 enemy = CreateEnemyGrunt()
                 if enemyCount == 13 {
@@ -38,7 +44,8 @@ class EnemyFactory
                 enemyCount++
                 return enemy!
             }
-            if(enemyCount == 14){
+            if(enemyCount > (14 + theWave) && enemyCount <= (15 + theWave))
+            {
                 waveDelay = 2.0
                 enemy = CreateEnemyBoss()
                 enemyCount++
@@ -48,14 +55,17 @@ class EnemyFactory
         return nil
     }
     
-
+    func nextWave(){
+        enemyCount = 0.0
+        theWave++
+    }
     func CreateEnemy() -> EnemyBase{
         
         let attack = RangedAttack()
         let moveStrat = ConcreteMoveStrat1()
         let range: CGFloat = 250.00
         
-        attack.damage = 3
+        attack.damage = 0
         attack.fireDelay = 1
         attack.speed = 300
         let moveDelay : CGFloat = 1.5
@@ -68,8 +78,8 @@ class EnemyFactory
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
 
-        enemy.health = 300
-        enemy.maxHealth = 300
+        enemy.health = 50
+        enemy.maxHealth = 50
         return enemy
     }
     func CreateEnemyBoss() -> EnemyBase{
@@ -77,7 +87,7 @@ class EnemyFactory
         let attack = GruntAttack()
         let moveStrat = BossMoveStrat()
         let range: CGFloat = 999.00
-        attack.damage = 3
+        attack.damage = 0
         attack.fireDelay = 1
         attack.speed = 200
         let moveDelay :CGFloat = 1.0
@@ -93,8 +103,8 @@ class EnemyFactory
         let reward = 500
 
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
-        enemy.health = 600
-        enemy.maxHealth = 600
+        enemy.health = 75
+        enemy.maxHealth = 75
         return enemy
     }
     func CreateEnemyGrunt() -> EnemyBase{
@@ -102,7 +112,7 @@ class EnemyFactory
         let attack = RangedAttack()
         let moveStrat = ConcreteMoveStrat1()
         let range: CGFloat = 200.00
-        attack.damage = 3
+        attack.damage = 0
         attack.fireDelay = 1
 
         attack.speed = 300
@@ -116,8 +126,8 @@ class EnemyFactory
         let reward = 100
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
-        enemy.health = 300
-        enemy.maxHealth = 300
+        enemy.health = 100
+        enemy.maxHealth = 100
         return enemy
     }
 

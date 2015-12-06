@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         user.setValue(name, forKey: "userName")
         user.setValue(passwd, forKey: "psswd")
         user.setValue(0, forKey: "xp" )
-        user.setValue(1000, forKey: "gold")
+        user.setValue(10000, forKey: "gold")
         
         // Create Address
 //        let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
@@ -223,7 +223,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.gameScene!.myLabel.text = ("Gold: \(self.user.gold)")
         self.gameScene!.xpLabel.text = ("XP: \(self.user.xp)")
-
+        self.gameScene!.enemiesLabel.text = ("Enemies: \(self.gameState.enemies.count)")
     }
 }
 

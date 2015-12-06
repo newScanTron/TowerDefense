@@ -23,8 +23,14 @@ class EnemyMoveStrat
     func Move(node : EnemyBase){
         
     }
-    func stopEnemy(nodeToMove: EnemyBase){
-        nodeToMove.sprite.physicsBody!.linearDamping = 1
+    func outOfBounds(){
+        let centerPoint = CGPointMake(GameScene.scene!.size.width/2, GameScene.scene!.size.height/2)
+        let center = getVector(parent!.sprite.position, to: centerPoint, speed: 3)
+        if (parent != nil) {
+            parent!.sprite.physicsBody?.linearDamping = 0.5
+            parent!.sprite.physicsBody?.applyImpulse(center)
+        }
+        
     }
     
     //Helper functions almost all strategies will need
