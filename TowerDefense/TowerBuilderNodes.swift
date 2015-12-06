@@ -529,6 +529,7 @@ class SetSpeed: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPickerViewData
         else{}
         appDelegate.user.gold -= moneySpent
         appDelegate.updateMyLabel()
+        
         self.removeFromSuperview()
     }
     
@@ -752,6 +753,9 @@ class AttackSetStrategy: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
+        
+        upgradeSelection.selectRow(1, inComponent: 0, animated: true)
+        
 
     }
     
@@ -845,6 +849,9 @@ class AttackSetStrategy: UpgradeView, UpgradeNode, UIPickerViewDelegate, UIPicke
         }
         appDelegate.user.gold -= moneySpent
         appDelegate.updateMyLabel()
+
+        
+        
         self.removeFromSuperview()
     }
     

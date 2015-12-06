@@ -102,6 +102,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
         let titleData = people[row].userName
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
         pickerLabel.attributedText = myTitle
+        pickerLabel.textAlignment = .Center
         return pickerLabel
     }
     //functions conforming to the UIPickerView DataSource

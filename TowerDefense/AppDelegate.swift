@@ -214,7 +214,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func resetUser()
     {
         
-        self.user.gold = 100 * self.user.xp
+        self.user.gold = Int(sqrt(Double(self.user.xp)) * Double(self.user.xp))
         self.updateUser()
     }
     //little helper function to update the HUD as it were
