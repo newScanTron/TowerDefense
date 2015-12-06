@@ -16,16 +16,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var viewController: GameViewController!
     let appDelegate =
     UIApplication.sharedApplication().delegate as? AppDelegate
-    //let satellite = SKSpriteNode(imageNamed: "Sat2")
+
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
     let enemiesLabel = SKLabelNode(fontNamed:"Square")
-    
+    let waveLabel = SKLabelNode(fontNamed: "Square")
     //var background : SKSpriteNode? = nil
     let towerTotal = 20
     let bossNode: EnemyBase? = nil
     let cero = 0
     var gameOver : Bool = false
+    var nextWaveDelay = false
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -55,6 +56,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         print(scene?.size.width, scene?.size.height)
 
+        waveLabel.fontSize = 65
+        waveLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 60)
+        waveLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
+        
         enemiesLabel.fontSize = 45
         enemiesLabel.position = CGPoint(x: CGRectGetMaxX(self.frame) - 20, y: CGRectGetMaxY(self.frame) - 60)
         enemiesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
@@ -67,6 +72,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         xpLabel.fontSize = 45;
         xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
         xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        
+        self.addChild(waveLabel)
+        waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
+        waveLabel.zPosition = ZPosition.bullet
         
         self.addChild(enemiesLabel)
         enemiesLabel.zPosition = ZPosition.bullet
@@ -161,7 +170,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
       
-        if gameOver{
+        if gameOver {
             return
         }
         /* Called before each frame is rendered */
@@ -176,6 +185,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         // Get enemies and add them to list and scene
         let newEnemy = enemyFactory.getNextEnemy()
         if newEnemy != nil {
+            nextWaveDelay = false
             GameScene.enemies.append(newEnemy!)
             appDelegate.gameState.enemies.append(newEnemy!)
             GameScene.scene?.addChild(newEnemy!.sprite)
@@ -241,7 +251,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
             endGame()
             appDelegate.resetUser()
-        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty {
+        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty && !nextWaveDelay{
            nextWave()
         } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty && appDelegate.user.gold < 100{
             appDelegate.resetUser()
@@ -262,7 +272,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     
     func nextWave(){
-        
+
+        nextWaveDelay = true
+        appDelegate?.gameState.wave++
         let gameOverLabel = SKLabelNode(fontNamed: "Square")
 
         gameOverLabel.text = "You Won"
@@ -271,11 +283,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         self.addChild(gameOverLabel)
         let removeNodeAction = SKAction.removeFromParent()
-        let waiTime : NSTimeInterval = 1.0
+        let waiTime : NSTimeInterval = 1.8
         let waitAction = SKAction.waitForDuration(waiTime)
         let RemoveSequence = SKAction.sequence([waitAction, removeNodeAction])
         gameOverLabel.runAction(RemoveSequence)
         enemyFactory.nextWave()
+
 
     }
 

@@ -97,7 +97,7 @@ class EnemyBase: Entity{
         return CGVector(dx: random() * (max - min) + min, dy: 0)
     }
     override func CheckIfDead() -> Bool {
-        if health <= 0 || self.sprite.position.x < -50 || self.sprite.position.x > GameScene.scene!.size.width + 50 || self.sprite.position.y > GameScene.scene!.size.height + 50 || self.sprite.position.y < -50{
+        if health <= 0 || self.sprite.position.x < -80 || self.sprite.position.x > GameScene.scene!.size.width + 80 || self.sprite.position.y > GameScene.scene!.size.height + 80 || self.sprite.position.y < -80{
             attack.Die()
             return true
         }
