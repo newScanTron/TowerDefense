@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         user.setValue(name, forKey: "userName")
         user.setValue(passwd, forKey: "psswd")
         user.setValue(0, forKey: "xp" )
-        user.setValue(1000, forKey: "gold")
+        user.setValue(10000, forKey: "gold")
         
         // Create Address
 //        let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
@@ -210,14 +210,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
     }
     
-    
+    //little funcito to reset the user with 1000 gold when the game over sceen is reached.
+    func resetUser()
+    {
+        
+        self.user.gold = Int(sqrt(Double(self.user.xp)) * Double(self.user.xp))
+        self.updateUser()
+    }
     //little helper function to update the HUD as it were
     func updateMyLabel()
     {
 
         self.gameScene!.myLabel.text = ("Gold: \(self.user.gold)")
         self.gameScene!.xpLabel.text = ("XP: \(self.user.xp)")
-
+        self.gameScene!.enemiesLabel.text = ("Enemies: \(self.gameState.enemies.count)")
+        self.gameScene!.waveLabel.text = ("\(self.gameState.wave)")
     }
 }
 

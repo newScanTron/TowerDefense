@@ -53,6 +53,7 @@ class GameViewController: UIViewController {
     }
     
     override func viewDidDisappear(animated: Bool) {
+        appDelegate.updateUser()
         appDelegate.gameScene!.scene?.removeAllChildren()
         GameScene.towers = [TowerBase]()
         GameScene.enemies = [EnemyBase]()

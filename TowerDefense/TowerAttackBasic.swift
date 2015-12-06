@@ -39,7 +39,7 @@ class TowerAttackBasic : TowerAttackStrat {
     
     override func setDamageLevel(level : Int) {
         damageLevel = level
-        damage = 15 + CGFloat(level) * 5
+        damage = 25 + CGFloat(level) * 5
     }
     
     override func setFireDelayLevel(level : Int) {

@@ -22,13 +22,13 @@ class ConcreteMoveStrat1: EnemyMoveStrat{
             lastMove = GameScene.gameTime
             //Handles what strategy to use depending on the sprite position
             if (nodeToMove.sprite.position.y <= 10){
-                nodeToMove.setMoveStrategy(stateYLow())
+                outOfBounds()
             }
             else if(nodeToMove.sprite.position.y >= 758){
-                nodeToMove.setMoveStrategy(stateYHigh())
+                outOfBounds()
             }
             else if (nodeToMove.sprite.position.x < 200){
-                nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXPos(), getImpulseYRand()))
+              outOfBounds()
             }
             else {
                 nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXNeg(), getImpulseYRand()))

@@ -11,6 +11,7 @@ import UIKit
 import SpriteKit
 //set attack range node.  Each of these noodes extend UpgradeView which is a custom UIView class i have created to give each of these noedes a uniform interface.  Upgrade node 
 //is the protocol that represents the Processing elements structure that each of these nodes are the concrete implemntation of.  UIPickerViewDelegate and UIPickerViewDataSource are 
+
 //part of the UIKit framework needed for iOS developments
 
 class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
@@ -30,36 +31,50 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
+
+
+
+        //changing the picker color to something more in line with what is being choosen all just to make it change so more than the text changes.
+        upgradeSelection.backgroundColor = UIColor(red: 0.0, green: 0.65, blue: 0.75, alpha: 0.8)
+
         self.mainLabel.text = "Set Range Amount"
-        nodeData = ["CLOSE", "MEDIUM", "FAR", "SNIPER"]
+        nodeData = ["Close", "Medium", "Far", "Farther"]
         
+
     }
     
     //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
         if appDelegate.user.gold >= (row-previousSelection) * 100
         {
             selection = row
             playerLabel.text = nodeData[row]
             moneySpent = (row-previousSelection) * 100
             costLabel.text = "Gold: " + String(moneySpent)
+
             tower?.attack.setRangeLevel(selection)
             visualizeCircle(&circle, radius: (tower?.attack.range)!, color: validColor)
             tower?.attack.setRangeLevel(previousSelection)
-            
+
         }
         else
         {
             selection = previousSelection
-            playerLabel.text = "NOT ENOUGH GOLD"
+            playerLabel.text = "not enough gold"
             tower?.attack.setRangeLevel(selection)
             visualizeCircle(&circle, radius: (tower?.attack.range)!, color: invalidColor)
             tower?.attack.setRangeLevel(previousSelection)
         }
+        
+        
+        
     }
+
     
     
     override func startUpgradeChain()
+
     {
         self.tower?.attack.setRangeLevel(selection)
         circle.removeFromParent()
@@ -75,9 +90,11 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
     override func upgrade(tower: TowerBase)
     {
         
+
         
         previousSelection = tower.attack.rangeLevel
         super.upgrade(tower)
+
         
         
     }
@@ -113,35 +130,41 @@ class AttackSetDamage: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        self.mainLabel.text = "Set Damage Amount"
-        nodeData = ["LOW", "MED", "HIGH", "SLAUGHTER"]
+
+        self.mainLabel.text = "Set Damgae Amount"
+        nodeData = ["None", "low", "med", "hight"]
     }
 
     
+
     //UIpicker functions
     //functions conforming to the UIPickerView DataSource
     
     //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
         if appDelegate.user.gold >= (row-previousSelection) * 100
         {
             selection = row
             playerLabel.text = nodeData[row]
             moneySpent = (row-previousSelection) * 100
             costLabel.text = "Gold: " + String(moneySpent)
+
         }
         else
         {
             selection = previousSelection
-            playerLabel.text = "NOT ENOUGH GOLD"
+            playerLabel.text = "not enough gold"
         }
     }
     
     
     override func startUpgradeChain()
     {
+
         self.tower?.attack.setDamageLevel(selection)
         
+
         appDelegate.user.gold -= moneySpent
         appDelegate.updateMyLabel()
         
@@ -153,10 +176,12 @@ class AttackSetDamage: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
     override func upgrade(tower: TowerBase)
     {
 
-      
+
+
         previousSelection = tower.attack.damageLevel
         super.upgrade(tower)
        
+
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -178,16 +203,20 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
     
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
-    
+
+
     override init(x: CGFloat, y: CGFloat)
     {
         super.init(x: x, y: y)
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["SLOW", "MEDIUM", "FAST","LUDACRIS"]
+
+        nodeData = ["slow", "medium", "fast","ludacris"]
         self.mainLabel.text = "Set Fire Rate"
+
         
+
     }
     
     
@@ -196,29 +225,34 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
     
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
         if appDelegate.user.gold >= (row-previousSelection) * 100
+
         {
             selection = row
             playerLabel.text = nodeData[row]
             moneySpent = (row-previousSelection) * 100
             costLabel.text = "Gold: " + String(moneySpent)
+
         }
         else
         {
             selection = previousSelection
-            playerLabel.text = "NOT ENOUGH GOLD"
+            playerLabel.text = "not enough gold"
         }
     }
     
     
     override func startUpgradeChain()
     {
+
         tower?.attack.setFireDelayLevel(selection)
         
         appDelegate.user.gold -= moneySpent
         appDelegate.updateMyLabel()
         
         super.startUpgradeChain()
+
     }
     
     
@@ -226,7 +260,8 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
     override func upgrade(tower: TowerBase)
     {
 
-        
+
+
         previousSelection = tower.attack.fireDelayLevel
         super.upgrade(tower)
         
@@ -258,9 +293,12 @@ class SetSpeed: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["SLOW", "MEDIUM", "FAST", "BLAZING"]
+        nodeData = ["not set", "Slow", "Med", "Fast"]
         self.mainLabel.text = "Set Bullet Speed"
         
+
+        upgradeSelection.backgroundColor = UIColor(red: 0.7, green: 0.3, blue: 0.7, alpha: 0.8)
+
     }
     
     
@@ -273,13 +311,16 @@ class SetSpeed: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         {
             selection = row
             playerLabel.text = nodeData[row]
+
+
             moneySpent = (row-previousSelection) * 100
             costLabel.text = "Gold: " + String(moneySpent)
+
         }
         else
         {
             selection = previousSelection
-            playerLabel.text = "NOT ENOUGH GOLD"
+            playerLabel.text = "not enough gold"
         }
     }
     
@@ -292,7 +333,9 @@ class SetSpeed: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         appDelegate.user.gold -= moneySpent
         appDelegate.updateMyLabel()
         
+
         super.startUpgradeChain()
+
     }
     
     
@@ -334,8 +377,10 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["CLOSE", "MEDIUM", "FAR", "FARTHER"]
+
+        nodeData = ["Close", "Medium", "Far", "Farther"]
         self.mainLabel.text = "Defense Range"
+
     }
     
     
@@ -348,16 +393,18 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         {
             selection  = row
             playerLabel.text = nodeData[row]
+
             moneySpent = (row-previousSelection) * 100
             costLabel.text = "Gold: " + String(moneySpent)
             tower?.defense.setRangeLevel(selection)
             visualizeCircle(&circle, radius: (tower?.defense.range)!, color: validColor)
             tower?.defense.setRangeLevel(previousSelection)
+
         }
         else
         {
             selection = previousSelection
-            playerLabel.text = "NOT ENOUGH GOLD"
+            playerLabel.text = "not enough gold"
             tower?.defense.setRangeLevel(selection)
             visualizeCircle(&circle, radius: (tower?.defense.range)!, color: invalidColor)
             tower?.defense.setRangeLevel(previousSelection)
@@ -366,6 +413,7 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
     
     override func startUpgradeChain()
     {
+
         
         tower?.defense.setRangeLevel(selection)
         circle.removeFromParent()
@@ -374,6 +422,7 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         appDelegate.updateMyLabel()
         
         super.startUpgradeChain()
+
     }
     
     
@@ -397,6 +446,7 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         return pickerLabel
     }
     
+
 }
 //Set amout of deffenset
 class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
@@ -412,9 +462,12 @@ class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSour
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["LOW", "MEDIUM", "HIGH", "ULTRA"]
+
+        nodeData = ["nont", "low", "med", "high"]
         self.mainLabel.text = "Defense Set Amount"
+
         
+
     }
     
     
@@ -427,21 +480,25 @@ class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSour
         {
             selection = row
             playerLabel.text = nodeData[row]
+
             moneySpent = (row-previousSelection) * 100
             costLabel.text = "Gold: " + String(moneySpent)
+
         }
         else
         {
             selection = previousSelection
-            playerLabel.text = "NOT ENOUGH GOLD"
+            playerLabel.text = "not enough gold"
         }
     }
     
     
     override func startUpgradeChain()
     {
+
+
         tower?.defense.setAmountLevel(selection)
-        
+
         appDelegate.user.gold -= moneySpent
         appDelegate.updateMyLabel()
         
@@ -484,10 +541,12 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["NONE", "CANNON", "PULSE"]
+
+        nodeData = ["None", "Cannon", "Pulse"]
         self.mainLabel.text = "Set Attack Type"
         mx = x
         my = y
+
 
     }
     
@@ -550,8 +609,10 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
 
         appDelegate.user.gold -= moneySpent
         appDelegate.updateMyLabel()
+
         
         super.startUpgradeChain()
+
     }
     
     
@@ -595,7 +656,7 @@ class DefenseSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSo
 
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["NONE", "HEAL", "SLAG"]
+        nodeData = ["None", "Heal", "Slag"]
         self.mainLabel.text = "Set Defense Type"
         mx = x
         my = y
@@ -700,7 +761,7 @@ class StartNode: UpgradeView, UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["ATTACK", "DEFENSE"] // TODO: ADD SELL OPTION
+        nodeData = ["Attack", "Defense"] // TODO: ADD SELL OPTION
         mainLabel.text = "Modify:"
         mx = x
         my = y

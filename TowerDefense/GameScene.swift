@@ -16,15 +16,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var viewController: GameViewController!
     let appDelegate =
     UIApplication.sharedApplication().delegate as? AppDelegate
-    //let satellite = SKSpriteNode(imageNamed: "Sat2")
+
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
-    let gameOverLabel = SKLabelNode(fontNamed: "Square")
+    let enemiesLabel = SKLabelNode(fontNamed:"Square")
+    let waveLabel = SKLabelNode(fontNamed: "Square")
     //var background : SKSpriteNode? = nil
     let towerTotal = 20
     let bossNode: EnemyBase? = nil
     let cero = 0
     var gameOver : Bool = false
+    var nextWaveDelay = false
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -54,19 +56,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         print(scene?.size.width, scene?.size.height)
 
+        waveLabel.fontSize = 65
+        waveLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 60)
+        waveLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
+        
+        enemiesLabel.fontSize = 45
+        enemiesLabel.position = CGPoint(x: CGRectGetMaxX(self.frame) - 20, y: CGRectGetMaxY(self.frame) - 60)
+        enemiesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
 
-        myLabel.text = "DEFEND!";
+        myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
         myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        gameOverLabel.text = "WAVE CLEARED"
-        gameOverLabel.fontSize = 45
-        gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
-
         
         xpLabel.fontSize = 45;
         xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
         xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        
+        self.addChild(waveLabel)
+        waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
+        waveLabel.zPosition = ZPosition.bullet
+        
+        self.addChild(enemiesLabel)
+        enemiesLabel.zPosition = ZPosition.bullet
         
         self.addChild(myLabel)
         myLabel.zPosition = ZPosition.bullet
@@ -120,7 +132,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 //            self.addChild(tower!.sprite)
 //        }
         
-        var tower : TowerBase = towerBuilder.BuildBaseTower(location)
+        let tower : TowerBase = towerBuilder.BuildBaseTower(location)
         
         if (GameScene.addGold(-100)) {
             GameScene.towers.append(tower)
@@ -158,7 +170,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
       
-        if gameOver{
+        if gameOver {
             return
         }
         /* Called before each frame is rendered */
@@ -173,7 +185,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         // Get enemies and add them to list and scene
         let newEnemy = enemyFactory.getNextEnemy()
         if newEnemy != nil {
+            nextWaveDelay = false
             GameScene.enemies.append(newEnemy!)
+            appDelegate.gameState.enemies.append(newEnemy!)
             GameScene.scene?.addChild(newEnemy!.sprite)
         }
         // Trigger attack/defend strategies for each tower
@@ -196,13 +210,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             e.TriggerAttack()
             e.moveMore()
             e.UpdateLabel()
-            
+  
             if e.CheckIfDead(){
                 e.sprite.removeFromParent()
                 
                 //add gold to user when enemys die
                 appDelegate.user.gold += e.reward
-              
+                appDelegate.gameState.enemies.removeAtIndex(i)
                 
                 GameScene.enemies.removeAtIndex(i)
                 i -= 1
@@ -233,16 +247,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             //background!.position = CGPoint(x: 0.0, y: -(bossNode!.sprite.position.y - 200.0))
         }
         
-        if GameScene.enemies.isEmpty && appDelegate.gameState.gold < 100 && GameScene.towers.isEmpty {
-            //endGame()
-        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty {
+        if GameScene.enemies.isEmpty && appDelegate.user.gold < 100 && GameScene.towers.isEmpty {
+            
             endGame()
-        } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty{
-            //endGame()
+            appDelegate.resetUser()
+        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty && !nextWaveDelay{
+           nextWave()
+        } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty && appDelegate.user.gold < 100{
+            appDelegate.resetUser()
+            endGame()
 
         }
+        
     }
 
+    
     //function to add xp to the player currently based on the damage of the strategy of the enemy
     func giveXp(enmey: EnemyBase)
     {
@@ -252,7 +271,26 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
+    func nextWave(){
 
+        nextWaveDelay = true
+        appDelegate?.gameState.wave++
+        let gameOverLabel = SKLabelNode(fontNamed: "Square")
+
+        gameOverLabel.text = "You Won"
+        gameOverLabel.fontSize = 45
+        gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
+        
+        self.addChild(gameOverLabel)
+        let removeNodeAction = SKAction.removeFromParent()
+        let waiTime : NSTimeInterval = 1.8
+        let waitAction = SKAction.waitForDuration(waiTime)
+        let RemoveSequence = SKAction.sequence([waitAction, removeNodeAction])
+        gameOverLabel.runAction(RemoveSequence)
+        enemyFactory.nextWave()
+
+
+    }
 
 
     class func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
