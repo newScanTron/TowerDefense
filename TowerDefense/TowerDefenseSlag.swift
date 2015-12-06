@@ -18,6 +18,7 @@ class TowerDefenseSlag : TowerDefenseStrat {
     
     override init () {
         super.init()
+        imageName = "slagBase"
         self.setAmountLevel(0)
         self.setRangeLevel(0)
     }
@@ -31,8 +32,6 @@ class TowerDefenseSlag : TowerDefenseStrat {
     override func setAmountLevel(level : Int) {
         amountLevel = level
         amount = 2 + CGFloat(level) * 0.5
-        circle?.removeFromParent()
-        circle = nil
     }
     
     override func Die()  {
@@ -44,6 +43,13 @@ class TowerDefenseSlag : TowerDefenseStrat {
                 e.sprite.physicsBody?.linearDamping = 0
             }
         }
+    }
+    
+    override func copy() -> TowerDefenseSlag {
+        let strat = TowerDefenseSlag()
+        strat.setRangeLevel(rangeLevel)
+        strat.setAmountLevel(amountLevel)
+        return strat
     }
     
     override func Defend() {

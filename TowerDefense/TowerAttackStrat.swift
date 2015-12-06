@@ -15,14 +15,15 @@ class TowerAttackStrat
     var damage : CGFloat = 0
     var fireDelay : CGFloat = 0.5
     var speed : CGFloat = 100
-    var bullet : Bullet? = nil
     var target : EnemyBase? = nil
     var parent : TowerBase? = nil
-    
     var rangeLevel : Int = 0
     var damageLevel : Int = 0
     var fireDelayLevel : Int = 0
     var speedLevel : Int = 0
+    var imageName : String = "defaultTop"
+//    var expLevel : Int = 0
+//    var homingLevel : Int = 0
     
     init () {
         //print("Don't instantiate the base class!")
@@ -40,6 +41,20 @@ class TowerAttackStrat
     func setDamageLevel(level : Int) {}
     func setFireDelayLevel(level : Int) {}
     func setSpeedLevel(level : Int) {}
+    func copy() -> TowerAttackStrat {
+        let strat = TowerAttackStrat()
+        strat.setRangeLevel(rangeLevel)
+        strat.setDamageLevel(damageLevel)
+        strat.setFireDelayLevel(fireDelayLevel)
+        strat.setSpeedLevel(speedLevel)
+        return strat
+    }
+//    func setParent(parent : TowerBase) {
+//        self.parent = parent
+//    }
+//    func getParent() -> TowerBase {
+//        return self.parent!
+//    }
 //    func setExplosionLevel(level : Int) {}
 //    func setHomingLevel(level : Int) {}
     

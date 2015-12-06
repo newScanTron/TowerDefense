@@ -23,6 +23,7 @@ class TowerAttackPulse : TowerAttackStrat {
     
     override init () {
         super.init()
+        imageName = "pulseTop"
         self.setRangeLevel(0)
         self.setDamageLevel(0)
         self.setFireDelayLevel(0)
@@ -30,7 +31,7 @@ class TowerAttackPulse : TowerAttackStrat {
     
     override func setRangeLevel(level : Int) {
         rangeLevel = level
-        range = 75 + CGFloat(level) * 25
+        range = 75 + CGFloat(level) * 50
     }
     
     override func setDamageLevel(level : Int) {
@@ -41,6 +42,15 @@ class TowerAttackPulse : TowerAttackStrat {
     override func setFireDelayLevel(level : Int) {
         fireDelayLevel = level
         fireDelay = 3/CGFloat(level+1)
+    }
+    
+    override func copy() -> TowerAttackPulse {
+        let strat = TowerAttackPulse()
+        strat.setRangeLevel(rangeLevel)
+        strat.setDamageLevel(damageLevel)
+        strat.setFireDelayLevel(fireDelayLevel)
+        strat.setSpeedLevel(speedLevel)
+        return strat
     }
 
     

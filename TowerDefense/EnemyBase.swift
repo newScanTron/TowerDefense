@@ -126,26 +126,27 @@ class EnemyBase: Entity{
     override func CheckIfDead() -> Bool {
         if health <= 0 || self.sprite.position.x < -80 || self.sprite.position.x > GameScene.scene!.size.width + 80 || self.sprite.position.y > GameScene.scene!.size.height + 80 || self.sprite.position.y < -80{
             attack.Die()
+            indicator.removeFromParent()
             return true
         }
         return false
     }
     func UpdateLabel(){
         
-        if self.health >= (maxHealth * 0.8) && self.health < (maxHealth * 0.99){
+        if self.health >= (maxHealth * 0.99) {
+            color = SKColor.whiteColor()
+        }
+        else if self.health >= (maxHealth * 0.8){
+            color = SKColor.grayColor()
+        }
+        else if self.health >= (maxHealth * 0.50){
             color = SKColor.yellowColor()
         }
-        else if self.health >= (maxHealth * 0.50) && self.health < (maxHealth * 0.80){
+        else if self.health >= (maxHealth * 0.3) {
             color = SKColor.orangeColor()
         }
-        else if self.health >= (maxHealth * 0.3) && self.health < (maxHealth * 0.50){
+        else if self.health >= 0  {
             color = SKColor.redColor()
-        }
-        else if self.health >= 0 && self.health < (maxHealth * 0.30) {
-            color = SKColor.blackColor()
-        }
-        else if self.health >= self.maxHealth {
-            color = SKColor.whiteColor()
         }
         let changeColorAction = SKAction.colorizeWithColor(color, colorBlendFactor: 1.0, duration: 0.05)
         self.sprite.runAction(changeColorAction)

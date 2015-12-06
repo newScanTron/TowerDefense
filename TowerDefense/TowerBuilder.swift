@@ -11,14 +11,17 @@ import SpriteKit
 
 class TowerBuilder
 {
-    var clipboard : TowerBase?
+    var clipboard : TowerBase
     
-    init() {}
+    init() {
+        clipboard = TowerBase(location: CGPoint(x: 0,y:0), _attack: TowerAttackStrat(), _defense: TowerDefenseStrat())
+    }
     
     func BuildBaseTower(point : CGPoint)  -> TowerBase {
         let attack = TowerAttackStrat()
         let defense = TowerDefenseStrat()
         let tower = TowerBase(location: point, _attack: attack, _defense: defense)
+        //attack.setParent(tower)
         attack.parent = tower
         defense.parent = tower
         
@@ -26,66 +29,34 @@ class TowerBuilder
     }
     
     func copyTower(tower : TowerBase) {
-        clipboard = tower
+        pasteTower(&clipboard,source: tower)
     }
     
-    func pasteTower(point : CGPoint) -> TowerBase? {
-        if (clipboard != nil) {
+    func pasteTower(inout target : TowerBase) -> TowerBase? {
+            let attack : TowerAttackStrat = clipboard.attack.copy()
+            let defense : TowerDefenseStrat = clipboard.defense.copy()
+            attack.parent = target
+            defense.parent = target
             
-            let tower : TowerBase = BuildBaseTower(point)
+            target.attackSelection = clipboard.attackSelection
+            target.defenseSelection = clipboard.defenseSelection
+            target.setAttack(attack)
+            target.setDefense(defense)
+            target.value = clipboard.value
+        return nil
+    }
+    
+    func pasteTower(inout target : TowerBase, source : TowerBase) -> TowerBase? {
+            let attack : TowerAttackStrat = source.attack.copy()
+            let defense : TowerDefenseStrat = source.defense.copy()
+            attack.parent = target
+            defense.parent = target
             
-            var attack : TowerAttackStrat = TowerAttackStrat()
-            switch (clipboard!.attackSelection) {
-            case 0:
-                // Attack strat is already base class
-                break
-            case 1:
-                // Clipboard's attack strat is Basic (Cannon)
-                attack = TowerAttackBasic()
-                break
-            case 2:
-                // Clipboard's attack strat is Pulse
-                attack = TowerAttackPulse()
-                break
-            default:
-                print("Invalid Attack Selection")
-                break
-            }
-            
-            attack.setDamageLevel(clipboard!.attack.damageLevel)
-            attack.setRangeLevel(clipboard!.attack.rangeLevel)
-            attack.setFireDelayLevel(clipboard!.attack.fireDelayLevel)
-            attack.setSpeedLevel(clipboard!.attack.speedLevel)
-            
-            
-            var defense : TowerDefenseStrat = TowerDefenseStrat()
-            switch (clipboard!.defenseSelection) {
-            case 0:
-                // Defense strat is already base class
-                break
-            case 1:
-                // Clipboard's defense strat is Heal
-                defense = TowerDefenseHeal()
-                break
-            case 2:
-                // Clipboard's attack strat is Slag
-                defense = TowerDefenseSlag()
-                break
-            default:
-                print("Invalid Defense Selection")
-                break
-            }
-            
-            defense.setAmountLevel(clipboard!.defense.amountLevel)
-            defense.setRangeLevel(clipboard!.defense.rangeLevel)
-            
-            tower.attackSelection = clipboard!.attackSelection
-            tower.defenseSelection = clipboard!.defenseSelection
-            attack.parent = tower
-            defense.parent = tower
-        
-            return tower
-        }
+            target.attackSelection = source.attackSelection
+            target.defenseSelection = source.defenseSelection
+            target.setAttack(attack)
+            target.setDefense(defense)
+            target.value = source.value
         return nil
     }
     

@@ -30,7 +30,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
-    let tower = TowerBuilder()
     //making all of these static allows us to not have to pass them around method calls
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
@@ -136,7 +135,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         if (GameScene.addGold(-100)) {
             GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
             addUpgradeView(tower, location: location, gameScene: self)
         }
         
@@ -277,9 +275,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         appDelegate?.gameState.wave++
         let gameOverLabel = SKLabelNode(fontNamed: "Square")
 
-        gameOverLabel.text = "You Won"
+        gameOverLabel.text = "WAVE COMPLETED"
         gameOverLabel.fontSize = 45
         gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
+        gameOverLabel.zPosition = 1000
         
         self.addChild(gameOverLabel)
         let removeNodeAction = SKAction.removeFromParent()

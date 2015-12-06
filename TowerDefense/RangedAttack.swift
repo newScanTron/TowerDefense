@@ -13,8 +13,13 @@ import SpriteKit
 class RangedAttack: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
+    
+    //var bullet : Bullet?
 
-    override init(){}
+    override init(){
+
+    }
+    
     
     override func Attack() {
         
@@ -26,17 +31,11 @@ class RangedAttack: EnemyAttackStrat{
                     let t = GameScene.getTowersInRange(parent!.sprite.position, range: parent!.range)
                     if t.isEmpty{}
                     else{target = t.first
-                    
-                        var bulletParent : Entity = parent!
-                        
-                        Bullet(
-                            _shooter: parent!,
-                            _target: target!.sprite,
-                            _speed : speed,
-                            _damage: damage,
-                            size : 15,
-                            shotByEnemy : true
-                        )
+//                        bullet!.target = target!.sprite
+//                        var b : Bullet = bullet!.copy()
+//                        b.activate()
+                        Bullet(_shooter: parent!, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: true)
+                
                         
                         
 

@@ -18,14 +18,19 @@ class GruntAttack: EnemyAttackStrat{
     var allHealthy = false
     var healthCount = 0
     
-    override init(){}
+   // override init(){}
     
     override func Die()  {
         circle?.removeFromParent()
         circle = nil
         for e in GameScene.enemies{
             e.isImmune = false
+            e.sprite.physicsBody?.linearDamping = 0.0
+            e.setMoveStrategy(ConcreteMoveStrat1())
         }
+        
+        let exp : Explosion = Explosion(_radius: 500, _damage: 80)
+        exp.trigger(parent!.sprite.position)
     }
     
     override func Attack(){
@@ -40,7 +45,7 @@ class GruntAttack: EnemyAttackStrat{
             else if GameScene.getDistance(parent!.sprite.position, to: e.sprite.position) <= 150 {
                 if e.health < e.maxHealth{
                     allHealthy = false
-                    e.health += 10
+                    e.health += 1
                     healthCount++
                     e.UpdateLabel()
                 }
@@ -90,7 +95,7 @@ class EnemyBossAOEDPS : EnemyAttackStrat {
     let towerTarget = [TowerBase]()
     let color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 15)
     
-    override init() {}
+   // override init() {}
     
     override func Attack() {
         

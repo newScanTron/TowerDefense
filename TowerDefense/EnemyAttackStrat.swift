@@ -14,13 +14,12 @@ class EnemyAttackStrat
     var damage : CGFloat = 0
     var fireDelay : CGFloat = 0
     var speed : CGFloat = 20
-    var bullet : Bullet? = nil
+    //var bullet : Bullet? = nil
     var target : TowerBase? = nil
     var parent : EnemyBase? = nil
     var enemyAngle : CGFloat = 0
     
     init () {
-        //fatalError("Don't instantiate the base class!")
     }
 
     func Attack(){

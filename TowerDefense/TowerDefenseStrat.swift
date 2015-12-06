@@ -18,6 +18,8 @@ class TowerDefenseStrat
     var rangeLevel : Int = 0
     var amountLevel : Int = 0
     
+    var imageName : String = "defaultBase"
+    
     
     
     init () {
@@ -33,7 +35,15 @@ class TowerDefenseStrat
     }
     
     func Die() {
+        
         //print("Don't call Die() on the base class!")
+    }
+    
+    func copy() -> TowerDefenseStrat {
+        let strat = TowerDefenseStrat()
+        strat.setRangeLevel(rangeLevel)
+        strat.setAmountLevel(amountLevel)
+        return strat
     }
     
 }
