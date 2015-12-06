@@ -26,7 +26,7 @@ func addUpgradeView(tower: TowerBase, location : CGPoint, gameScene: GameScene)
 {
     var placeY: CGFloat
     var placeX: CGFloat
-    GameScene.scene?.view?.paused = true
+    
     if (location.y) >= CGRectGetMaxY(gameScene.frame)/2
     {
         placeY = ((location.y) - CGFloat(200.0))

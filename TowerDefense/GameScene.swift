@@ -100,7 +100,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     
     //helper to make towers
-    func addTower(location: CGPoint)
+    func addTower(location: CGPoint, touch: UITouch)
     {
         
        
@@ -119,13 +119,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 //            GameScene.towers.append(tower!)
 //            self.addChild(tower!.sprite)
 //        }
+        let point = CGPoint(x: touch.locationInView(nil).x, y: touch.locationInView(nil).y)
         
         let tower : TowerBase = towerBuilder.BuildBaseTower(location)
         
         if (GameScene.addGold(-100)) {
             GameScene.towers.append(tower)
             self.addChild(tower.sprite)
-            addUpgradeView(tower, location: location, gameScene: self)
+            addUpgradeView(tower, location: point, gameScene: self)
         }
         
     }
@@ -149,7 +150,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //if we found a tower open menu else add tower
         if GameScene.towers.count <= towerHardLimit
         {
-            addTower(location)
+            addTower(location, touch: touch!)
         }
     }
 
