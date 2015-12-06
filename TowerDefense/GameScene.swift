@@ -47,8 +47,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     override func didMoveToView(view: SKView) {
 
         gameOver = false
-        let background = SKSpriteNode(imageNamed: "beach")
-        background.position = CGPoint(x: 500, y: 200)
+        let background = SKSpriteNode(imageNamed: "background")
+        background.position = CGPoint(x: 1024/2, y: 768/2)
         
 
         background.zPosition = ZPosition.background;

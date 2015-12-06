@@ -21,23 +21,34 @@ class EnemyBase: Entity{
     var name : String = "George"
     var color = SKColor.greenColor()
 
+    var indicator : SKSpriteNode
+    
     var moveDelay : CGFloat
                 let circle = SKShapeNode(circleOfRadius: 125.0)
     //initlizer.
     init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int, _name :String)
     {
-
+    
+        
+        
         attack = _attack
         moveStrat = _moveStrat
         moveDelay = _moveDelay
         reward  = _reward
         name = _name
+        
+        indicator = SKSpriteNode(imageNamed: "indicator")
+        indicator.xScale = 0.1
+        indicator.yScale = 0.1
+        indicator.zPosition = ZPosition.enemy + 1
+        
         super.init()
         sprite = _sprite
         range = _range
 
         sprite.xScale = 0.25
         sprite.yScale = 0.25
+        
 
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
 
@@ -73,6 +84,22 @@ class EnemyBase: Entity{
         self.attack = sentAttack
     }
     func moveMore(){
+        
+        let size = GameScene.scene!.size
+
+        if (sprite.position.x < size.width && sprite.position.x > 0 && sprite.position.y < size.height && sprite.position.y > 0) {
+                indicator.removeFromParent()
+        }
+        else {
+            indicator.position.x = Clamp(sprite.position.x,min: 10,max: size.width-10)
+            indicator.position.y = Clamp(sprite.position.y,min: 10,max: size.height-10)
+            if (indicator.parent == nil) {
+                print("indicated")
+                GameScene.scene!.addChild(indicator)
+            }
+        }
+        
+        
         moveStrat.parent = self
         moveStrat.Move(self)
     }

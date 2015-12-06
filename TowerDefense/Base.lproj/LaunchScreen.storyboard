@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="Square.ttf">
-            <string>Square</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -26,25 +21,17 @@
                                 <rect key="frame" x="0.0" y="290" width="600" height="310"/>
                                 <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TOWER FURY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80D-RI-b4v">
-                                <rect key="frame" x="115" y="241" width="370" height="59"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="370" id="2lc-14-BgR"/>
-                                    <constraint firstAttribute="height" constant="59" id="kMm-ZB-jMN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Square" family="Square" pointSize="50"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="towerFuryTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TPf-Lr-ISk">
+                                <rect key="frame" x="180" y="207" width="240" height="128"/>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="3kI-vv-yIF" secondAttribute="bottom" id="64W-Be-xpS"/>
-                            <constraint firstItem="80D-RI-b4v" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="8he-pu-Tai"/>
+                            <constraint firstItem="TPf-Lr-ISk" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="C6F-5P-Pdy"/>
                             <constraint firstItem="3kI-vv-yIF" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="RJt-34-9I1"/>
-                            <constraint firstItem="80D-RI-b4v" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Unk-8b-Bhl"/>
+                            <constraint firstItem="TPf-Lr-ISk" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="qjo-6h-mmf"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -55,5 +42,6 @@
     </scenes>
     <resources>
         <image name="gridBG" width="889" height="554"/>
+        <image name="towerFuryTitle" width="500" height="250"/>
     </resources>
 </document>
