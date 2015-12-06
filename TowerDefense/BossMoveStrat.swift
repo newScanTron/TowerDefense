@@ -54,15 +54,6 @@ class BossMoveStrat: EnemyMoveStrat {
         }
     }
 
-    func outOfBounds(){
-        let centerPoint = CGPointMake(GameScene.scene!.size.width/2, GameScene.scene!.size.height/2)
-        let center = getVector(bossNode.sprite.position, to: centerPoint, speed: 3)
-        if (parent != nil) {
-            parent!.sprite.physicsBody?.linearDamping = 0.5
-            parent!.sprite.physicsBody?.applyImpulse(center)
-        }
-        
-    }
     func upwardSpiral(){
         bossNode.sprite.physicsBody?.linearDamping = 0
         bossNode.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYPos()))

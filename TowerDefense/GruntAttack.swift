@@ -25,6 +25,8 @@ class GruntAttack: EnemyAttackStrat{
         circle = nil
         for e in GameScene.enemies{
             e.isImmune = false
+            e.sprite.physicsBody?.linearDamping = 0.0
+            e.setMoveStrategy(ConcreteMoveStrat1())
         }
     }
     
