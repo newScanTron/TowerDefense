@@ -60,3 +60,15 @@ extension UIView {
         self.sendSubviewToBack(imageViewBackground)
     }
 }
+
+func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
+    if (value < min) {
+        return min
+    }
+    else if (value > max) {
+        return max
+    }
+    else {
+        return value
+    }
+}
