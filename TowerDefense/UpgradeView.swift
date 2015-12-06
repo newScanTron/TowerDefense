@@ -107,6 +107,7 @@ class UpgradeView: UIView, UpgradeNode {
         self.tower = tower
         
         upgradeSelection.selectRow(previousSelection, inComponent: 0, animated: false)
+        selection = previousSelection
         
         
     }

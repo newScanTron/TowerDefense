@@ -253,27 +253,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     
 
-    //func that will set up the chain of reponsibility for updating
-    func setUpChain(inout node: AttackSetRange, x: CGFloat , y: CGFloat)
-    {
-        //initialize the nodes of the chain
-        let setDamageNode = AttackSetDamage(x: x, y: y)
-        let fireDeleyNode = SetFireDelay(x: x, y: y)
-        let setSpeed = SetSpeed(x: x, y: y)
-        let deffenseSetRange = DeffenseSetRange(x: x, y: y)
-        let deffenseSetAmount = DeffenseSetAmount(x: x, y: y)
-        
-        //set all the nodes to the seccuessor
-        node.setNextNode(setDamageNode)
-        setDamageNode.setNextNode(fireDeleyNode)
-        fireDeleyNode.setNextNode(setSpeed)
-        setSpeed.setNextNode(deffenseSetRange)
-
-
-        deffenseSetRange.setNextNode(deffenseSetAmount)
-        //deffenseSetAmount is not set to have a node following it so it
-
-    }
 
 
     class func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {

@@ -561,6 +561,7 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
         
         
         previousSelection = tower.attackSelection
+        
         super.upgrade(tower)
         
     }
