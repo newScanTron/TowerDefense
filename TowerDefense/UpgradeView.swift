@@ -10,7 +10,17 @@ import Foundation
 import UIKit
 import SpriteKit
 
-class UpgradeView: UIView {
+class UpgradeView: UIView, UpgradeNode {
+    
+    var nextNode : UpgradeNode?
+    var tower : TowerBase?
+    var moneySpent = 0
+    var previousSelection : Int = 0
+    var selection : Int = 0
+    var nodeData = ["Option1", "Option2", "Option3", "Option4"]
+    var mx : CGFloat = 0
+    var my : CGFloat = 0
+    
     var b = UIButton(frame: CGRectMake(25,160, 50,40))
     var c = UIButton(frame: CGRectMake(125,160, 50,40))
     
@@ -77,8 +87,65 @@ class UpgradeView: UIView {
         self.addSubview(playerLabel)
         self.addSubview(costLabel)
         self.addSubview(upgradeSelection)
+        
+        self.nextNode = nil
+        b.addTarget(self, action: "startUpgradeChain", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "donePressed", forControlEvents:  UIControlEvents.TouchUpInside)
 
     }
+    
+    func setNextNode(node: UpgradeNode)
+    {
+        nextNode = node
+    }
+    
+    func upgrade(tower: TowerBase)
+    {
+        
+        GameScene.scene?.view?.addSubview(self)
+        
+        self.tower = tower
+        
+        upgradeSelection.selectRow(previousSelection, inComponent: 0, animated: false)
+        selection = previousSelection
+        
+        
+    }
+    func donePressed() {
+        nextNode = nil
+        startUpgradeChain()
+    }
+    
+    func visualizeCircle(inout circle: SKShapeNode, radius: CGFloat, color: SKColor) {
+        
+        circle.removeFromParent()
+        circle = SKShapeNode(circleOfRadius: radius)
+        circle.position = tower!.sprite.position
+        circle.lineWidth = 1.0
+        circle.glowWidth = 0.5
+        circle.fillColor = color
+        circle.zPosition = ZPosition.tower-1
+        circle.blendMode = SKBlendMode.Screen
+        GameScene.scene!.addChild(circle)
+        
+    }
+    
+    func startUpgradeChain()
+    {
+        
+        if self.nextNode != nil
+        {
+            
+            self.nextNode?.upgrade(self.tower!)
+        }
+        else
+        {
+            
+        }
+        self.removeFromSuperview()
+    }
+
+    
     func setLabels() -> (first: CGFloat, second: CGFloat)
     {
         return (self.frame.midX, self.frame.midY)

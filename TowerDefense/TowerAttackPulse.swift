@@ -40,7 +40,7 @@ class TowerAttackPulse : TowerAttackStrat {
     
     override func setFireDelayLevel(level : Int) {
         fireDelayLevel = level
-        fireDelay = 5/CGFloat(level+1)
+        fireDelay = 3/CGFloat(level+1)
     }
 
     

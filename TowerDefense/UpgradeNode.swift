@@ -17,6 +17,7 @@ protocol UpgradeNode{
     func setNextNode(node: UpgradeNode)
     //the method that all nodes will implement in different fashions.
     func upgrade(tower: TowerBase)
+    
 }
 
 
