@@ -31,7 +31,7 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
         self.mainLabel.text = "Set Range Amount"
-        nodeData = ["Close", "Medium", "Far", "Farther"]
+        nodeData = ["CLOSE", "MEDIUM", "FAR", "SNIPER"]
         
     }
     
@@ -51,7 +51,7 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         else
         {
             selection = previousSelection
-            playerLabel.text = "not enough gold"
+            playerLabel.text = "NOT ENOUGH GOLD"
             tower?.attack.setRangeLevel(selection)
             visualizeCircle(&circle, radius: (tower?.attack.range)!, color: invalidColor)
             tower?.attack.setRangeLevel(previousSelection)
@@ -113,8 +113,8 @@ class AttackSetDamage: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        self.mainLabel.text = "Set Damgae Amount"
-        nodeData = ["None", "low", "med", "hight"]
+        self.mainLabel.text = "Set Damage Amount"
+        nodeData = ["LOW", "MED", "HIGH", "SLAUGHTER"]
     }
 
     
@@ -133,7 +133,7 @@ class AttackSetDamage: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         else
         {
             selection = previousSelection
-            playerLabel.text = "not enough gold"
+            playerLabel.text = "NOT ENOUGH GOLD"
         }
     }
     
@@ -185,7 +185,7 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["slow", "medium", "fast","ludacris"]
+        nodeData = ["SLOW", "MEDIUM", "FAST","LUDACRIS"]
         self.mainLabel.text = "Set Fire Rate"
         
     }
@@ -206,7 +206,7 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         else
         {
             selection = previousSelection
-            playerLabel.text = "not enough gold"
+            playerLabel.text = "NOT ENOUGH GOLD"
         }
     }
     
@@ -258,7 +258,7 @@ class SetSpeed: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["not set", "Slow", "Med", "Fast"]
+        nodeData = ["SLOW", "MEDIUM", "FAST", "BLAZING"]
         self.mainLabel.text = "Set Bullet Speed"
         
     }
@@ -279,7 +279,7 @@ class SetSpeed: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         else
         {
             selection = previousSelection
-            playerLabel.text = "not enough gold"
+            playerLabel.text = "NOT ENOUGH GOLD"
         }
     }
     
@@ -334,7 +334,7 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["Close", "Medium", "Far", "Farther"]
+        nodeData = ["CLOSE", "MEDIUM", "FAR", "FARTHER"]
         self.mainLabel.text = "Defense Range"
     }
     
@@ -357,7 +357,7 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         else
         {
             selection = previousSelection
-            playerLabel.text = "not enough gold"
+            playerLabel.text = "NOT ENOUGH GOLD"
             tower?.defense.setRangeLevel(selection)
             visualizeCircle(&circle, radius: (tower?.defense.range)!, color: invalidColor)
             tower?.defense.setRangeLevel(previousSelection)
@@ -412,7 +412,7 @@ class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSour
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["nont", "low", "med", "high"]
+        nodeData = ["LOW", "MEDIUM", "HIGH", "ULTRA"]
         self.mainLabel.text = "Defense Set Amount"
         
     }
@@ -433,7 +433,7 @@ class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSour
         else
         {
             selection = previousSelection
-            playerLabel.text = "not enough gold"
+            playerLabel.text = "NOT ENOUGH GOLD"
         }
     }
     
@@ -484,7 +484,7 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["None", "Cannon", "Pulse"]
+        nodeData = ["NONE", "CANNON", "PULSE"]
         self.mainLabel.text = "Set Attack Type"
         mx = x
         my = y
@@ -595,7 +595,7 @@ class DefenseSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSo
 
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["None", "Heal", "Slag"]
+        nodeData = ["NONE", "HEAL", "SLAG"]
         self.mainLabel.text = "Set Defense Type"
         mx = x
         my = y
@@ -700,7 +700,7 @@ class StartNode: UpgradeView, UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["Attack", "Defense"] // TODO: ADD SELL OPTION
+        nodeData = ["ATTACK", "DEFENSE"] // TODO: ADD SELL OPTION
         mainLabel.text = "Modify:"
         mx = x
         my = y

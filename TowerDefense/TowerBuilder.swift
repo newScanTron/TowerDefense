@@ -11,7 +11,7 @@ import SpriteKit
 
 class TowerBuilder
 {
-    
+    var clipboard : TowerBase?
     
     init() {}
     
@@ -25,83 +25,68 @@ class TowerBuilder
         return tower
     }
     
-    //build method
-//    func BuildTower(point: CGPoint) -> TowerBase?
-//    {
-//        let attack = TowerAttackBasic()
-//        attack.range = 300
-//        attack.damage = 20
-//        attack.fireDelay = 1
-//        attack.speed = 100
-//        attack.expOn = true
-//        attack.expForce = 5
-//        attack.homingOn = true
-//        attack.homingForce = 10
-//        
-//        let defense = TowerDefenseSlag()
-//        defense.range = 100
-//        defense.amount = 2
-//        
-//        
-//        let tower = TowerBase(location: point, _attack: attack, _defense: defense)
-//        attack.parent = tower
-//        defense.parent = tower
-//        
-//        if GameScene.addGold(-100) {
-//            return tower
-//        }
-//        
-//        return nil
-//    }
-//    func BuildPulseTower(point: CGPoint) -> TowerBase?
-//    {
-//        
-//        
-//        let attack = TowerAttackPulse()
-//        attack.range = 100
-//        attack.damage = 30
-//        attack.fireDelay = 3 //1
-//        attack.speed = 10 //100
-//        
-//        let defense = TowerDefenseSlag()
-//        defense.range = 100
-//        defense.amount = 2
-//        
-//        
-//        let tower = TowerBase(location: point, _attack: attack, _defense: defense)
-//        attack.parent = tower
-//        defense.parent = tower
-//        
-//        
-//        if GameScene.addGold(-100) {
-//            return tower
-//        }
-//        
-//        return nil
-//    }
-
-    func attackSetRange(range: Int)
-    {
-        
+    func copyTower(tower : TowerBase) {
+        clipboard = tower
     }
-    func attackSetDamage(damage: Int)
-    {
+    
+    func pasteTower(point : CGPoint) -> TowerBase? {
+        if (clipboard != nil) {
+            
+            let tower : TowerBase = BuildBaseTower(point)
+            
+            var attack : TowerAttackStrat = TowerAttackStrat()
+            switch (clipboard!.attackSelection) {
+            case 0:
+                // Attack strat is already base class
+                break
+            case 1:
+                // Clipboard's attack strat is Basic (Cannon)
+                attack = TowerAttackBasic()
+                break
+            case 2:
+                // Clipboard's attack strat is Pulse
+                attack = TowerAttackPulse()
+                break
+            default:
+                print("Invalid Attack Selection")
+                break
+            }
+            
+            attack.setDamageLevel(clipboard!.attack.damageLevel)
+            attack.setRangeLevel(clipboard!.attack.rangeLevel)
+            attack.setFireDelayLevel(clipboard!.attack.fireDelayLevel)
+            attack.setSpeedLevel(clipboard!.attack.speedLevel)
+            
+            
+            var defense : TowerDefenseStrat = TowerDefenseStrat()
+            switch (clipboard!.defenseSelection) {
+            case 0:
+                // Defense strat is already base class
+                break
+            case 1:
+                // Clipboard's defense strat is Heal
+                defense = TowerDefenseHeal()
+                break
+            case 2:
+                // Clipboard's attack strat is Slag
+                defense = TowerDefenseSlag()
+                break
+            default:
+                print("Invalid Defense Selection")
+                break
+            }
+            
+            defense.setAmountLevel(clipboard!.defense.amountLevel)
+            defense.setRangeLevel(clipboard!.defense.rangeLevel)
+            
+            tower.attackSelection = clipboard!.attackSelection
+            tower.defenseSelection = clipboard!.defenseSelection
+            attack.parent = tower
+            defense.parent = tower
         
+            return tower
+        }
+        return nil
     }
-    func setFireDelay(delay: Int)
-    {
-        
-    }
-    func setSpeed(speed: Int)
-    {
-        
-    }
-    func deffenseSetRange(range: Int)
-    {
-        
-    }
-    func deffenseSetAmount(amount: Int)
-    {
-        
-    }
+    
 }

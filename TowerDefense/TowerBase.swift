@@ -12,7 +12,6 @@ import SpriteKit
 class TowerBase: Entity{
     var attack : TowerAttackStrat
     var defense : TowerDefenseStrat
-    var healed : Int = 0
     var attackSelection : Int = 0
     var defenseSelection : Int = 0
 

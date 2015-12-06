@@ -55,11 +55,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         print(scene?.size.width, scene?.size.height)
 
 
-        myLabel.text = "DEFFEND!";
+        myLabel.text = "DEFEND!";
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
         myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        gameOverLabel.text = "You Won"
+        gameOverLabel.text = "WAVE CLEARED"
         gameOverLabel.fontSize = 45
         gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
 
