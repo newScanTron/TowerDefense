@@ -21,7 +21,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let xpLabel = SKLabelNode(fontNamed:"Square")
     let enemiesLabel = SKLabelNode(fontNamed:"Square")
     let waveLabel = SKLabelNode(fontNamed: "Square")
-    //var background : SKSpriteNode? = nil
+    var background : SKSpriteNode? = nil
     let towerTotal = 20
     let bossNode: EnemyBase? = nil
     let cero = 0
@@ -244,7 +244,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             e.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/4))
         }
         
-            //background!.position = CGPoint(x: 0.0, y: -(bossNode!.sprite.position.y - 200.0))
+            background!.position = CGPoint(x: 0.0, y: -(bossNode!.sprite.position.y - 200.0))
         }
         
         if GameScene.enemies.isEmpty && appDelegate.user.gold < 100 && GameScene.towers.isEmpty {
@@ -277,7 +277,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         appDelegate?.gameState.wave++
         let gameOverLabel = SKLabelNode(fontNamed: "Square")
 
-        gameOverLabel.text = "You Won"
+        gameOverLabel.text = "Wave Cleared"
         gameOverLabel.fontSize = 45
         gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
         
@@ -289,9 +289,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         gameOverLabel.runAction(RemoveSequence)
         enemyFactory.nextWave()
 
-
     }
-
 
     class func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
         
