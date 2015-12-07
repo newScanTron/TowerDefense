@@ -35,9 +35,9 @@ class EnemyMoveBasic: EnemyMoveStrat{
             else if (enemy.sprite.position.x > GameScene.scene!.size.width - 150) {
                 outOfBounds(enemy)
             }
-            else if (nodeToMove.sprite.position.x > GameScene.scene!.size.width - 150) {
-                outOfBounds()
-            }
+//            else if (nodeToMove.sprite.position.x > GameScene.scene!.size.width - 150) {
+//                outOfBounds()
+            //}
             else {
                 enemy.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXNeg(), getImpulseYRand()))
             }

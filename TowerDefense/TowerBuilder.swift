@@ -84,7 +84,7 @@ class TowerBuilder
             placeX = (location.x)
             
         }
-        var upgradeView = StartNode(x: (placeX), y: (placeY), tower: tower)
+        let upgradeView = StartNode(x: (placeX), y: (placeY), tower: tower)
         //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
         //setUpChain(&upgradeView, x: placeX, y: placeY)
         //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
