@@ -12,12 +12,20 @@ import SpriteKit
 class ConcreteMoveStrat2: EnemyMoveStrat{
     
     var lastMove : CGFloat = 0
-    
+    var protect : EnemyBase? = nil
     let moveStrat = "concrete2"
     
     override func Move(nodeToMove: EnemyBase){
         
-        if GameScene.gameTime > lastMove + nodeToMove.moveDelay {
+        let stop = SKAction.moveTo(parent!.sprite.position, duration: 0.0)
+
+        parent!.sprite.runAction(stop)
+        
+        protect = GameScene.getClosestEnemy(parent!.sprite.position, range: 500)
+        
+        
+        
+        /*if GameScene.gameTime > lastMove + nodeToMove.moveDelay {
             
             lastMove = GameScene.gameTime
             
@@ -45,7 +53,7 @@ class ConcreteMoveStrat2: EnemyMoveStrat{
             let actionMoveDone = SKAction.removeFromParent()
             nodeToMove.sprite.runAction(SKAction.sequence([moveLeft, moveLeft, moveUp, moveLeft, moveDown,  moveUpQuick, moveLeftQuick, moveDownQuick, moveDiagonal, moveOff, actionMoveDone]))
 
-        }
+        }*/
     }
 
     func getMoveStrat() -> String
