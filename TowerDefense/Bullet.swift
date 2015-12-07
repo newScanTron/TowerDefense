@@ -21,6 +21,7 @@ class Bullet : Item {
     var lifeTime : CGFloat = 10
     var homingOn : Bool = false
     var homingForce : CGFloat = 0
+    var enemy : Bool
     
     
     init (_shooter : Entity, _target : SKSpriteNode, _speed : CGFloat, _damage : CGFloat, size : CGFloat, shotByEnemy : Bool) {
@@ -31,6 +32,7 @@ class Bullet : Item {
         sprite = SKSpriteNode(imageNamed: "bullet")
         sprite.size = CGSizeMake(size,size)
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
+        enemy = shotByEnemy
         if (shotByEnemy) {
             sprite.physicsBody?.categoryBitMask = CategoryMask.EnemyBullet
             sprite.physicsBody?.collisionBitMask = CollisionMask.EnemyBullet
@@ -68,8 +70,8 @@ class Bullet : Item {
         lifeTime = _lifeTime
     }
     
-    func setExplosion(_explosion : Explosion) {
-        explosion = _explosion
+    func setExplosion(expForce : CGFloat) {
+        explosion = Explosion(_radius: 30 + expForce * 7, _damage: 25 + expForce * 3)
     }
     
     func setHoming(_homingOn : Bool, _homingForce : CGFloat) {
@@ -91,6 +93,10 @@ class Bullet : Item {
         sprite.physicsBody?.velocity = Bullet.getVector(sprite.position, to: target.position, speed: speed)
         
     }
+    
+//    func copy() -> Bullet {
+//        return Bullet(_shooter : shooter, _target : target, _speed : speed, _damage : damage, size : sprite.size.height, shotByEnemy : enemy)
+//    }
     
     
     

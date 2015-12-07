@@ -1,5 +1,5 @@
 //
-//  GruntAttack.swift
+//  EnemyAttackBoss.swift
 //  TowerDefense
 //
 //  Created by Tobias Kundig on 11/3/15.
@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class GruntAttack: EnemyAttackStrat{
+class EnemyAttackBoss: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
     var circle : SKShapeNode? = nil
@@ -18,7 +18,7 @@ class GruntAttack: EnemyAttackStrat{
     var allHealthy = false
     var healthCount = 0
     
-    override init(){}
+   // override init(){}
     
     override func Die()  {
         circle?.removeFromParent()
@@ -26,8 +26,14 @@ class GruntAttack: EnemyAttackStrat{
         for e in GameScene.enemies{
             e.isImmune = false
             e.sprite.physicsBody?.linearDamping = 0.0
-            e.setMoveStrategy(ConcreteMoveStrat1())
+
+            e.setMoveStrategy(EnemyMoveBasic())
+
         }
+        
+        let exp : Explosion = Explosion(_radius: 500, _damage: 80)
+        exp.trigger(parent!.sprite.position)
+        
     }
     
     override func Attack(){
@@ -42,7 +48,7 @@ class GruntAttack: EnemyAttackStrat{
             else if GameScene.getDistance(parent!.sprite.position, to: e.sprite.position) <= 150 {
                 if e.health < e.maxHealth{
                     allHealthy = false
-                    e.health += 10
+                    e.health += 1
                     healthCount++
                     e.UpdateLabel()
                 }
@@ -79,58 +85,58 @@ class GruntAttack: EnemyAttackStrat{
         }
 
         /*if (allHealthy){
-            parent!.setAttackStrategy(GruntAttack())
+            parent!.setAttackStrategy(EnemyAttackBoss())
         }*/
     
     }
 }
 
-class EnemyBossAOEDPS : EnemyAttackStrat {
-    
-    var lastFire : CGFloat = 0
-    var beam : SKSpriteNode? = nil
-    let towerTarget = [TowerBase]()
-    let color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 15)
-    
-    override init() {}
-    
-    override func Attack() {
-        
-        parent!.range = 350
-        
-        if (GameScene.gameTime > lastFire + fireDelay) {
-            
-            lastFire = GameScene.gameTime
-            if beam?.parent != nil {
-                beam!.removeFromParent()
-            }
-            if (parent != nil) {
-
-                let towerTarget = GameScene.getTowersInRange(parent!.sprite.position, range: parent!.range)
-                
-                let beamHeight = GameScene.getDistance(parent!.sprite.position, to: towerTarget.first!.sprite.position)
-
-                beam = SKSpriteNode(color: color, size: CGSizeMake(5, 20))
-                    
-                    //SKShapeNode(rectOfSize: CGSize(width: 1, height: beamHeight))
-                let offSetX = (parent!.sprite.position.x - towerTarget.first!.sprite.position.x)/2
-                let offSetY = (parent!.sprite.position.y - towerTarget.first!.sprite.position.y)/2
-
-                
-                beam!.position = CGPointMake(parent!.sprite.position.x, parent!.sprite.position.y)
-
-                beam!.zPosition = ZPosition.enemy
-                
-                rotateBeam(towerTarget.first!, beam: beam!)
-                GameScene.scene?.addChild(beam!)
-
-            }
-        }
-        for e in GameScene.enemies{
-            if e.health < e.maxHealth{
-                parent!.setAttackStrategy(GruntAttack())
-            }
-        }
-    }
-    
-}
+//class EnemyBossAOEDPS : EnemyAttackStrat {
+//    
+//    var lastFire : CGFloat = 0
+//    var beam : SKSpriteNode? = nil
+//    let towerTarget = [TowerBase]()
+//    let color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 15)
+//    
+//   // override init() {}
+//    
+//    override func Attack() {
+//        
+//        parent!.range = 350
+//        
+//        if (GameScene.gameTime > lastFire + fireDelay) {
+//            
+//            lastFire = GameScene.gameTime
+//            if beam?.parent != nil {
+//                beam!.removeFromParent()
+//            }
+//            if (parent != nil) {
+//
+//                let towerTarget = GameScene.getTowersInRange(parent!.sprite.position, range: parent!.range)
+//                
+//                let beamHeight = GameScene.getDistance(parent!.sprite.position, to: towerTarget.first!.sprite.position)
+//
+//                beam = SKSpriteNode(color: color, size: CGSizeMake(5, 20))
+//                    
+//                    //SKShapeNode(rectOfSize: CGSize(width: 1, height: beamHeight))
+//                let offSetX = (parent!.sprite.position.x - towerTarget.first!.sprite.position.x)/2
+//                let offSetY = (parent!.sprite.position.y - towerTarget.first!.sprite.position.y)/2
+//
+//                
+//                beam!.position = CGPointMake(parent!.sprite.position.x, parent!.sprite.position.y)
+//
+//                beam!.zPosition = ZPosition.enemy
+//                
+//                rotateBeam(towerTarget.first!, beam: beam!)
+//                GameScene.scene?.addChild(beam!)
+//
+//            }
+//        }
+//        for e in GameScene.enemies{
+//            if e.health < e.maxHealth{
+//                parent!.setAttackStrategy(EnemyAttackBoss())
+//            }
+//        }
+//    }
+//    
+//}

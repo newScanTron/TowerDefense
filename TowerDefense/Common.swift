@@ -61,6 +61,8 @@ extension UIView {
     }
 }
 
+
+
 func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
     if (value < min) {
         return min

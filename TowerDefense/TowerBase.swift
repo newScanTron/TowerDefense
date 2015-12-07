@@ -12,23 +12,28 @@ import SpriteKit
 class TowerBase: Entity{
     var attack : TowerAttackStrat
     var defense : TowerDefenseStrat
-    var healed : Int = 0
     var attackSelection : Int = 0
     var defenseSelection : Int = 0
+    var value : Int = 0
+    var attackSprite : SKSpriteNode
 
     init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
         
         attack = _attack;
         defense = _defense;
+        attackSprite = SKSpriteNode(imageNamed: attack.imageName)
         
         super.init()
         
-        sprite = SKSpriteNode(imageNamed: "Sat2")
+        sprite = SKSpriteNode(imageNamed: defense.imageName)
         
         sprite.xScale = 0.5
         sprite.yScale = 0.5
+        attackSprite.xScale = 0.5
+        attackSprite.yScale = 0.5
         sprite.position = location
+        attackSprite.position = location
         
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
         sprite.physicsBody?.categoryBitMask = CategoryMask.Tower
@@ -36,34 +41,42 @@ class TowerBase: Entity{
         sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
         sprite.physicsBody?.dynamic = false
         sprite.zPosition = ZPosition.tower
+        attackSprite.zPosition = ZPosition.tower + 1
         sprite.name = "tower"
-
-        
-        
-//        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:5)
-//        
-//        sprite.runAction(SKAction.repeatActionForever(action))
-        
-        
-        //defense.parent = self;
         
         // Store reference to self in userData
         sprite.userData = NSMutableDictionary()
         sprite.userData!.setValue(self,forKey: "object")
         
+        // For some reason, adding these sprites to the scene at init was causing a crash before the login menu even loads. No idea. This fixed it.
+        if (GameScene.scene != nil) {
+            GameScene.scene!.addChild(sprite)
+            GameScene.scene!.addChild(attackSprite)
+        }
         
+        
+    }
+    
+    func setAttack(strat : TowerAttackStrat) {
+        attack = strat
+        attackSprite.texture  = SKTexture(imageNamed: strat.imageName)
+    }
+    
+    func setDefense(strat : TowerDefenseStrat) {
+        defense = strat
+        sprite.texture  = SKTexture(imageNamed: strat.imageName)
     }
     
     // Triggers attack strategy Attack function
     func TriggerAttack() {
-        attack.parent = self
-        attack.Attack()
+        attack.Attack(self)
     }
     
     override func CheckIfDead() -> Bool {
         if health <= 0 {
-            attack.Die()
-            defense.Die()
+            attack.Die(self)
+            defense.Die(self)
+            attackSprite.removeFromParent()
             return true
         }
         return false
@@ -71,7 +84,7 @@ class TowerBase: Entity{
     
     // Triggers defense strategy Defend function
     func TriggerDefend() {
-        defense.Defend()
+        defense.Defend(self)
     }
     
 }

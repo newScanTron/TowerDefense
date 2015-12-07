@@ -30,12 +30,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
-    let tower = TowerBuilder()
     //making all of these static allows us to not have to pass them around method calls
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var items : [Item] = [Item]()
-    static var boss : [EnemyBase] = [EnemyBase]()
+    //static var boss : [EnemyBase] = [EnemyBase]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
@@ -85,60 +84,26 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         self.addChild(xpLabel)
         xpLabel.zPosition = ZPosition.bullet
-
-        
-        //sprite to be the edge/base
-       // let wall = SKSpriteNode(imageNamed: "Castle_wall")
-        //buildWall(wall)
         
         self.addChild(background)
-        //self.addChild(wall)
-        /* Setup your scene here */
+
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
-        
-    }
-    func buildWall(sprite: SKSpriteNode)
-    {
-        sprite.position = CGPoint(x: -125, y: 325)
-        sprite.yScale = 1.5
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = CategoryMask.All
-        sprite.physicsBody?.collisionBitMask = CollisionMask.All
-        sprite.physicsBody?.contactTestBitMask = ContactMask.All
-        sprite.physicsBody?.dynamic = false
-        sprite.zPosition = ZPosition.wall
         
     }
     
     //helper to make towers
     func addTower(location: CGPoint, touch: UITouch)
     {
-        
-       
-        
-//        var tower : TowerBase?
-//        
-//        //create and add tower
-//        if (odd) {
-//            tower = towerBuilder.BuildPulseTower(location)
-//        }
-//        else {
-//            tower = towerBuilder.BuildTower(location)
-//        }
-//        if (tower != nil) {
-//            odd = !odd
-//            GameScene.towers.append(tower!)
-//            self.addChild(tower!.sprite)
-//        }
-        let point = CGPoint(x: touch.locationInView(nil).x, y: touch.locationInView(nil).y)
-        
+
+
         let tower : TowerBase = towerBuilder.BuildBaseTower(location)
         
         if (GameScene.addGold(-100)) {
             GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
-            addUpgradeView(tower, location: point, gameScene: self)
+
+            towerBuilder.addUpgradeView(tower, location: location, gameScene: self)
+
         }
         
     }
@@ -155,7 +120,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                addUpgradeView(each, location: touch!.locationInView(nil), gameScene: self)
+                towerBuilder.addUpgradeView(each, location: touch!.locationInView(nil), gameScene: self)
                 return
             }
         }
@@ -174,9 +139,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         if gameOver {
             return
         }
-        /* Called before each frame is rendered */
+
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
+        
         //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
@@ -278,9 +244,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         appDelegate?.gameState.wave++
         let gameOverLabel = SKLabelNode(fontNamed: "Square")
 
-        gameOverLabel.text = "Wave Cleared"
+
+        gameOverLabel.text = "WAVE COMPLETED"
+
         gameOverLabel.fontSize = 45
         gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
+        gameOverLabel.zPosition = 1000
         
         self.addChild(gameOverLabel)
         let removeNodeAction = SKAction.removeFromParent()
