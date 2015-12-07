@@ -150,7 +150,7 @@ class TowerAttackBasic : TowerAttackStrat {
                     //bullet!.shooter = parent!
                     var b : Bullet = Bullet(_shooter: parent!, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: false)
                     if (expOn) {
-                        b.setExplosion(Explosion(_radius: 20 + expForce * 5, _damage: 25 + expForce * 3))
+                        b.setExplosion(expForce)
                     }
                     if (homingOn) {
                         b.setHoming(true, _homingForce: 5)

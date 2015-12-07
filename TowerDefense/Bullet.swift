@@ -70,8 +70,8 @@ class Bullet : Item {
         lifeTime = _lifeTime
     }
     
-    func setExplosion(_explosion : Explosion) {
-        explosion = _explosion
+    func setExplosion(expForce : CGFloat) {
+        explosion = Explosion(_radius: 30 + expForce * 7, _damage: 25 + expForce * 3)
     }
     
     func setHoming(_homingOn : Bool, _homingForce : CGFloat) {
