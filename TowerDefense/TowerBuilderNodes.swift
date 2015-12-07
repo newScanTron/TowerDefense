@@ -13,7 +13,7 @@ import SpriteKit
 //is the protocol that represents the Processing elements structure that each of these nodes are the concrete implemntation of.  UIPickerViewDelegate and UIPickerViewDataSource are
 
 //part of the UIKit framework needed for iOS developments
-func setPicker(inout upgradeSelection: UIPickerView)
+func setPicker(inout upgradeSelection: UIPickerView) -> Int
 {
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
@@ -33,6 +33,7 @@ func setPicker(inout upgradeSelection: UIPickerView)
     {
         upgradeSelection.selectRow(3, inComponent: 0, animated: false)
     }
+    return upgradeSelection.selectedRowInComponent(0)
 }
 class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
 {
@@ -216,7 +217,7 @@ class AttackSetExplosion: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSo
         previousSelection = (tower.attack as! TowerAttackBasic).expLevel
         super.upgrade(tower)
         
-        setPicker(&upgradeSelection)
+        selection = setPicker(&upgradeSelection)
         
     }
     
@@ -320,7 +321,7 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.rangeLevel
         super.upgrade(tower)
-        setPicker(&upgradeSelection)
+        selection = setPicker(&upgradeSelection)
         
         
     }
@@ -408,7 +409,7 @@ class AttackSetDamage: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         previousSelection = tower.attack.damageLevel
         super.upgrade(tower)
-        setPicker(&upgradeSelection)
+       selection = setPicker(&upgradeSelection)
         
     }
     
@@ -492,7 +493,7 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.fireDelayLevel
         super.upgrade(tower)
-        setPicker(&upgradeSelection)
+       selection = setPicker(&upgradeSelection)
         
     }
     
@@ -575,7 +576,7 @@ class SetSpeed: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.speedLevel
         super.upgrade(tower)
-        setPicker(&upgradeSelection)
+       selection = setPicker(&upgradeSelection)
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -663,7 +664,7 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         previousSelection = tower.defense.rangeLevel
         super.upgrade(tower)
-       setPicker(&upgradeSelection)
+      selection = setPicker(&upgradeSelection)
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -744,7 +745,7 @@ class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSour
         
         previousSelection = tower.defense.amountLevel
         super.upgrade(tower)
-        setPicker(&upgradeSelection)
+       selection = setPicker(&upgradeSelection)
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -797,6 +798,7 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
         switch(selection) {
         case 0:
             // Cancels the chain
+            print("ha")
             break
         case 1:
             if (previousSelection != 1) {
@@ -861,6 +863,7 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
         
         super.upgrade(tower)
         upgradeSelection.selectRow(1, inComponent: 0, animated: false)
+        selection = 1
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
