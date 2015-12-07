@@ -1,5 +1,5 @@
 //
-//  ConcreteMoveStrat1.swift
+//  EnemyMoveBasic.swift
 //  TowerDefense
 //
 //  Created by Tobias Kundig on 11/3/15.
@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class ConcreteMoveStrat1: EnemyMoveStrat{
+class EnemyMoveBasic: EnemyMoveStrat{
     
     var lastMove : CGFloat = 0
  
@@ -53,7 +53,7 @@ class stateYLow : EnemyMoveStrat{
             //Return to move strategy after enemy is back onto screen
             if(nodeToMove.sprite.position.y > 10){
                 nodeToMove.sprite.physicsBody?.linearDamping = 0.0
-                nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+                nodeToMove.setMoveStrategy(EnemyMoveBasic())
             }
         }
     }
@@ -76,7 +76,7 @@ class stateYHigh : EnemyMoveStrat{
             //Return to move strategy after enemy is back onto screen
             if (nodeToMove.sprite.position.y < 758){
                 nodeToMove.sprite.physicsBody?.linearDamping = 0.0
-                nodeToMove.setMoveStrategy(ConcreteMoveStrat1())
+                nodeToMove.setMoveStrategy(EnemyMoveBasic())
             }
         }
     }

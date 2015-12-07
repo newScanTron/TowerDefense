@@ -45,7 +45,7 @@ class EnemyMoveBoss: EnemyMoveStrat {
             if nodeToMove.sprite.position.x < 1000{
                 for e in GameScene.enemies{
                     if e.name != parent!.name {
-                        e.setMoveStrategy(EnemySwarmStrat())
+                        e.setMoveStrategy(EnemyMoveSwarm())
                         setEnemies = true
                         
                     }

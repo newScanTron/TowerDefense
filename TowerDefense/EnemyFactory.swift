@@ -62,7 +62,7 @@ class EnemyFactory
     func CreateEnemy() -> EnemyBase{
         
         let attack = EnemyAttackRanged()
-        let moveStrat = ConcreteMoveStrat1()
+        let moveStrat = EnemyMoveBasic()
         let range: CGFloat = 250.00
         
         attack.damage = 0.5
@@ -112,7 +112,7 @@ class EnemyFactory
     func CreateEnemyGrunt() -> EnemyBase{
         
         let attack = EnemyAttackRanged()
-        let moveStrat = ConcreteMoveStrat1()
+        let moveStrat = EnemyMoveBasic()
         let range: CGFloat = 200.00
         attack.damage = 0.5
         attack.fireDelay = 1

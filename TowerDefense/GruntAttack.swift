@@ -26,7 +26,7 @@ class EnemyAttackGrunt: EnemyAttackStrat{
         for e in GameScene.enemies{
             e.isImmune = false
             e.sprite.physicsBody?.linearDamping = 0.0
-            e.setMoveStrategy(ConcreteMoveStrat1())
+            e.setMoveStrategy(EnemyMoveBasic())
         }
         
         let exp : Explosion = Explosion(_radius: 500, _damage: 80)

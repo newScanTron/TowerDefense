@@ -1,5 +1,5 @@
 //
-//  EnemySwarmStrat.swift
+//  EnemyMoveSwarm.swift
 //  TowerDefense
 //
 //  Created by My Macbook Pro on 12/2/15.
@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class EnemySwarmStrat : EnemyMoveStrat{
+class EnemyMoveSwarm : EnemyMoveStrat{
     
     var lastMove : CGFloat = 0
     
