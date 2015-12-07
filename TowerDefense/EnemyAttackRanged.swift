@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 
-class RangedAttack: EnemyAttackStrat{
+class EnemyAttackRanged: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
 

@@ -35,7 +35,7 @@ class EnemyFactory
             {
                 waveDelay = 0.2
                 enemy = CreateEnemyGrunt()
-                if enemyCount == 13 {
+                if enemyCount == 14 {
                     waveDelay = 15.0
                 }
                 enemyCount++
@@ -43,7 +43,7 @@ class EnemyFactory
             }
             if(enemyCount > (14 + theWave) && enemyCount <= (15 + theWave))
             {
-                waveDelay = 10.0
+                waveDelay = 15.0
                 enemy = CreateEnemyBoss()
                 enemyCount++
                 return enemy!
@@ -61,8 +61,8 @@ class EnemyFactory
     //Enemy with Ranged attack strategy
     func CreateEnemy() -> EnemyBase{
         
-        let attack = RangedAttack()
-        let moveStrat = ConcreteMoveStrat1()
+        let attack = EnemyAttackRanged()
+        let moveStrat = EnemyMoveBasic()
         let range: CGFloat = 250.00
         
         attack.damage = 0.5
@@ -85,8 +85,8 @@ class EnemyFactory
     //Enemy Boss creation
     func CreateEnemyBoss() -> EnemyBase{
         
-        let attack = GruntAttack()
-        let moveStrat = BossMoveStrat()
+        let attack = EnemyAttackBoss()
+        let moveStrat = EnemyMoveBoss()
         let range: CGFloat = 999.00
         attack.damage = 2
         attack.fireDelay = 1
@@ -111,8 +111,8 @@ class EnemyFactory
     //Grunt enemy with Ranged attack
     func CreateEnemyGrunt() -> EnemyBase{
         
-        let attack = RangedAttack()
-        let moveStrat = ConcreteMoveStrat1()
+        let attack = EnemyAttackRanged()
+        let moveStrat = EnemyMoveBasic()
         let range: CGFloat = 200.00
         attack.damage = 0.5
         attack.fireDelay = 1

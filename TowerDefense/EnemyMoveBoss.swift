@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class BossMoveStrat: EnemyMoveStrat {
+class EnemyMoveBoss: EnemyMoveStrat {
     
     var lastMove : CGFloat = 0
     var bossNode : EnemyBase! = nil
@@ -45,7 +45,7 @@ class BossMoveStrat: EnemyMoveStrat {
             if nodeToMove.sprite.position.x < 1000{
                 for e in GameScene.enemies{
                     if e.name != parent!.name {
-                        e.setMoveStrategy(EnemySwarmStrat())
+                        e.setMoveStrategy(EnemyMoveSwarm())
                         setEnemies = true
                         
                     }

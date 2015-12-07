@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class GruntAttack: EnemyAttackStrat{
+class EnemyAttackBoss: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
     var circle : SKShapeNode? = nil
@@ -26,7 +26,7 @@ class GruntAttack: EnemyAttackStrat{
         for e in GameScene.enemies{
             e.isImmune = false
             e.sprite.physicsBody?.linearDamping = 0.0
-            e.setMoveStrategy(ConcreteMoveStrat1())
+            e.setMoveStrategy(EnemyMoveBasic())
         }
     }
     
@@ -128,7 +128,7 @@ class EnemyBossAOEDPS : EnemyAttackStrat {
         }
         for e in GameScene.enemies{
             if e.health < e.maxHealth{
-                parent!.setAttackStrategy(GruntAttack())
+                parent!.setAttackStrategy(EnemyAttackBoss())
             }
         }
     }
