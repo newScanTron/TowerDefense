@@ -37,7 +37,7 @@ class EnemySwarmStrat : EnemyMoveStrat{
             }
         }
         else {
-            nodeToMove.setMoveStrategy(BossMoveStrat())
+            nodeToMove.setMoveStrategy(EnemyMoveBoss())
         }
     }
 }

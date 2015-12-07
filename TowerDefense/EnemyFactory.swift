@@ -86,7 +86,7 @@ class EnemyFactory
     func CreateEnemyBoss() -> EnemyBase{
         
         let attack = EnemyAttackGrunt()
-        let moveStrat = BossMoveStrat()
+        let moveStrat = EnemyMoveBoss()
         let range: CGFloat = 999.00
         attack.damage = 2
         attack.fireDelay = 1

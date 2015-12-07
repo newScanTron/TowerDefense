@@ -1,5 +1,5 @@
 //
-//  BossMoveStrat.swift
+//  EnemyMoveBoss.swift
 //  TowerDefense
 //
 //  Created by Tobias Kundig on 11/4/15.
@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class BossMoveStrat: EnemyMoveStrat {
+class EnemyMoveBoss: EnemyMoveStrat {
     
     var lastMove : CGFloat = 0
     var bossNode : EnemyBase! = nil
