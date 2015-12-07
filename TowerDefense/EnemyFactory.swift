@@ -36,7 +36,7 @@ class EnemyFactory
                 waveDelay = 0.2
                 enemy = CreateEnemyGrunt()
                 if enemyCount == 13 {
-                    waveDelay = 5.0
+                    waveDelay = 15.0
                 }
                 enemyCount++
                 return enemy!
@@ -68,7 +68,7 @@ class EnemyFactory
         attack.damage = 0.5
         attack.fireDelay = 1
         attack.speed = 300
-        let moveDelay : CGFloat = 1.5
+        let moveDelay : CGFloat = 0.5
         let name = "RangedSprite"
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
 

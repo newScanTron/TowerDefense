@@ -21,13 +21,16 @@ class EnemyMoveBasic: EnemyMoveStrat{
             
             lastMove = GameScene.gameTime
             //Handles what strategy to use depending on the sprite position
-            if (enemy.sprite.position.y <= 10){
+            if (enemy.sprite.position.y <= 150){
                 outOfBounds(enemy)
             }
-            else if(enemy.sprite.position.y >= 758){
+            else if(enemy.sprite.position.y >= GameScene.scene!.size.height - 150){
                 outOfBounds(enemy)
             }
             else if (enemy.sprite.position.x < 200){
+                outOfBounds(enemy)
+            }
+            else if (enemy.sprite.position.x > GameScene.scene!.size.width - 150) {
                 outOfBounds(enemy)
             }
             else {

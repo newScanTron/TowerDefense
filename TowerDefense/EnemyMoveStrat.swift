@@ -24,7 +24,7 @@ class EnemyMoveStrat
     }
     func outOfBounds(enemy : EnemyBase){
         let centerPoint = CGPointMake(GameScene.scene!.size.width/2, GameScene.scene!.size.height/2)
-        let center = getVector(enemy.sprite.position, to: centerPoint, speed: 3)
+        let center = getVector(enemy.sprite.position, to: centerPoint, speed: 4)
         enemy.sprite.physicsBody?.linearDamping = 0.5
         enemy.sprite.physicsBody?.applyImpulse(center)
         
