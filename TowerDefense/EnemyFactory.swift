@@ -61,7 +61,7 @@ class EnemyFactory
     //Enemy with Ranged attack strategy
     func CreateEnemy() -> EnemyBase{
         
-        let attack = RangedAttack()
+        let attack = EnemyAttackRanged()
         let moveStrat = ConcreteMoveStrat1()
         let range: CGFloat = 250.00
         
@@ -85,7 +85,7 @@ class EnemyFactory
     //Enemy Boss creation
     func CreateEnemyBoss() -> EnemyBase{
         
-        let attack = GruntAttack()
+        let attack = EnemyAttackGrunt()
         let moveStrat = BossMoveStrat()
         let range: CGFloat = 999.00
         attack.damage = 2
@@ -111,7 +111,7 @@ class EnemyFactory
     //Grunt enemy with Ranged attack
     func CreateEnemyGrunt() -> EnemyBase{
         
-        let attack = RangedAttack()
+        let attack = EnemyAttackRanged()
         let moveStrat = ConcreteMoveStrat1()
         let range: CGFloat = 200.00
         attack.damage = 0.5

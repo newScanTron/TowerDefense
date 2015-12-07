@@ -1,5 +1,5 @@
 //
-//  RangedAttack.swift
+//  EnemyAttackRanged.swift
 //  TowerDefense
 //
 //  Created by Tobias Kundig on 11/3/15.
@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 
-class RangedAttack: EnemyAttackStrat{
+class EnemyAttackRanged: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
     

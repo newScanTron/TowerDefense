@@ -1,5 +1,5 @@
 //
-//  GruntAttack.swift
+//  EnemyAttackGrunt.swift
 //  TowerDefense
 //
 //  Created by Tobias Kundig on 11/3/15.
@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class GruntAttack: EnemyAttackStrat{
+class EnemyAttackGrunt: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
     var circle : SKShapeNode? = nil
@@ -82,7 +82,7 @@ class GruntAttack: EnemyAttackStrat{
         }
 
         /*if (allHealthy){
-            parent!.setAttackStrategy(GruntAttack())
+            parent!.setAttackStrategy(EnemyAttackGrunt())
         }*/
     
     }
@@ -131,7 +131,7 @@ class EnemyBossAOEDPS : EnemyAttackStrat {
         }
         for e in GameScene.enemies{
             if e.health < e.maxHealth{
-                parent!.setAttackStrategy(GruntAttack())
+                parent!.setAttackStrategy(EnemyAttackGrunt())
             }
         }
     }
