@@ -15,11 +15,11 @@ class Entity
     var health: CGFloat = 100
     var kills: Int = 0
     var sprite: SKSpriteNode
-    var healthLabel :SKLabelNode
+    //var healthLabel :SKLabelNode
     
     init() {
         sprite = SKSpriteNode()
-        healthLabel = SKLabelNode()
+        //healthLabel = SKLabelNode()
     }
     
     func CheckIfDead() -> Bool {

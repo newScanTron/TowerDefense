@@ -67,10 +67,10 @@ class EnemyBase: Entity{
 
         //moveStrat.Move(self)
         
-        healthLabel = SKLabelNode(fontNamed:"Verdana")
-        healthLabel.position = sprite.position
-        healthLabel.position.y -= 10
-        healthLabel.zPosition = 7
+//        healthLabel = SKLabelNode(fontNamed:"Verdana")
+//        healthLabel.position = sprite.position
+//        healthLabel.position.y -= 10
+//        healthLabel.zPosition = 7
         //GameScene.scene!.addChild(healthLabel)
 
     }
@@ -106,9 +106,9 @@ class EnemyBase: Entity{
     // Triggers attack strategy Attack function
     func TriggerAttack() {
         
-        healthLabel.text = String(health)
-        healthLabel.position = sprite.position
-        healthLabel.position.y -= 20
+//        healthLabel.text = String(health)
+//        healthLabel.position = sprite.position
+//        healthLabel.position.y -= 20
  
         attack.parent = self
         attack.Attack()
