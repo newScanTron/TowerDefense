@@ -21,7 +21,7 @@ class User
         self.userName = ""
         self.pswd = ""
         self.xp = 0
-        self.gold = 10000
+        self.gold = 2000
     }
     init(userName: String, pswd: String, xp: Int, gold: Int)
     {

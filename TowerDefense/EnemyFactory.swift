@@ -65,7 +65,7 @@ class EnemyFactory
         let moveStrat = EnemyMoveBasic()
         let range: CGFloat = 250.00
         
-        attack.damage = 0.5
+        attack.damage = 5.5
         attack.fireDelay = 1
         attack.speed = 300
         let moveDelay : CGFloat = 0.5
@@ -88,7 +88,7 @@ class EnemyFactory
         let attack = EnemyAttackBoss()
         let moveStrat = EnemyMoveBoss()
         let range: CGFloat = 999.00
-        attack.damage = 2
+        attack.damage = 3
         attack.fireDelay = 1
         attack.speed = 200
         let moveDelay :CGFloat = 1.0
@@ -114,7 +114,7 @@ class EnemyFactory
         let attack = EnemyAttackRanged()
         let moveStrat = EnemyMoveBasic()
         let range: CGFloat = 200.00
-        attack.damage = 0.5
+        attack.damage = 5.5
         attack.fireDelay = 1
 
         attack.speed = 300
@@ -128,8 +128,8 @@ class EnemyFactory
         let reward = 100
         
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
-        enemy.health = 100
-        enemy.maxHealth = 100
+        enemy.health = 200
+        enemy.maxHealth = 200
         return enemy
     }
 
