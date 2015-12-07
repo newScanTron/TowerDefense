@@ -1,5 +1,5 @@
 //
-//  EnemyAttackGrunt.swift
+//  EnemyAttackBoss.swift
 //  TowerDefense
 //
 //  Created by Tobias Kundig on 11/3/15.
@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class EnemyAttackGrunt: EnemyAttackStrat{
+class EnemyAttackBoss: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
     var circle : SKShapeNode? = nil
@@ -82,58 +82,58 @@ class EnemyAttackGrunt: EnemyAttackStrat{
         }
 
         /*if (allHealthy){
-            parent!.setAttackStrategy(EnemyAttackGrunt())
+            parent!.setAttackStrategy(EnemyAttackBoss())
         }*/
     
     }
 }
 
-class EnemyBossAOEDPS : EnemyAttackStrat {
-    
-    var lastFire : CGFloat = 0
-    var beam : SKSpriteNode? = nil
-    let towerTarget = [TowerBase]()
-    let color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 15)
-    
-   // override init() {}
-    
-    override func Attack() {
-        
-        parent!.range = 350
-        
-        if (GameScene.gameTime > lastFire + fireDelay) {
-            
-            lastFire = GameScene.gameTime
-            if beam?.parent != nil {
-                beam!.removeFromParent()
-            }
-            if (parent != nil) {
-
-                let towerTarget = GameScene.getTowersInRange(parent!.sprite.position, range: parent!.range)
-                
-                let beamHeight = GameScene.getDistance(parent!.sprite.position, to: towerTarget.first!.sprite.position)
-
-                beam = SKSpriteNode(color: color, size: CGSizeMake(5, 20))
-                    
-                    //SKShapeNode(rectOfSize: CGSize(width: 1, height: beamHeight))
-                let offSetX = (parent!.sprite.position.x - towerTarget.first!.sprite.position.x)/2
-                let offSetY = (parent!.sprite.position.y - towerTarget.first!.sprite.position.y)/2
-
-                
-                beam!.position = CGPointMake(parent!.sprite.position.x, parent!.sprite.position.y)
-
-                beam!.zPosition = ZPosition.enemy
-                
-                rotateBeam(towerTarget.first!, beam: beam!)
-                GameScene.scene?.addChild(beam!)
-
-            }
-        }
-        for e in GameScene.enemies{
-            if e.health < e.maxHealth{
-                parent!.setAttackStrategy(EnemyAttackGrunt())
-            }
-        }
-    }
-    
-}
+//class EnemyBossAOEDPS : EnemyAttackStrat {
+//    
+//    var lastFire : CGFloat = 0
+//    var beam : SKSpriteNode? = nil
+//    let towerTarget = [TowerBase]()
+//    let color = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 15)
+//    
+//   // override init() {}
+//    
+//    override func Attack() {
+//        
+//        parent!.range = 350
+//        
+//        if (GameScene.gameTime > lastFire + fireDelay) {
+//            
+//            lastFire = GameScene.gameTime
+//            if beam?.parent != nil {
+//                beam!.removeFromParent()
+//            }
+//            if (parent != nil) {
+//
+//                let towerTarget = GameScene.getTowersInRange(parent!.sprite.position, range: parent!.range)
+//                
+//                let beamHeight = GameScene.getDistance(parent!.sprite.position, to: towerTarget.first!.sprite.position)
+//
+//                beam = SKSpriteNode(color: color, size: CGSizeMake(5, 20))
+//                    
+//                    //SKShapeNode(rectOfSize: CGSize(width: 1, height: beamHeight))
+//                let offSetX = (parent!.sprite.position.x - towerTarget.first!.sprite.position.x)/2
+//                let offSetY = (parent!.sprite.position.y - towerTarget.first!.sprite.position.y)/2
+//
+//                
+//                beam!.position = CGPointMake(parent!.sprite.position.x, parent!.sprite.position.y)
+//
+//                beam!.zPosition = ZPosition.enemy
+//                
+//                rotateBeam(towerTarget.first!, beam: beam!)
+//                GameScene.scene?.addChild(beam!)
+//
+//            }
+//        }
+//        for e in GameScene.enemies{
+//            if e.health < e.maxHealth{
+//                parent!.setAttackStrategy(EnemyAttackBoss())
+//            }
+//        }
+//    }
+//    
+//}

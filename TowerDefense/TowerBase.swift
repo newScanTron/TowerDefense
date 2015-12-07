@@ -43,19 +43,12 @@ class TowerBase: Entity{
         sprite.zPosition = ZPosition.tower
         attackSprite.zPosition = ZPosition.tower + 1
         sprite.name = "tower"
-
-        
-        
-//        let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:5)
-//        
-//        sprite.runAction(SKAction.repeatActionForever(action))
-        
-        
-        //defense.parent = self;
         
         // Store reference to self in userData
         sprite.userData = NSMutableDictionary()
         sprite.userData!.setValue(self,forKey: "object")
+        
+        // For some reason, adding these sprites to the scene at init was causing a crash before the login menu even loads. No idea. This fixed it.
         if (GameScene.scene != nil) {
             GameScene.scene!.addChild(sprite)
             GameScene.scene!.addChild(attackSprite)
@@ -76,13 +69,13 @@ class TowerBase: Entity{
     
     // Triggers attack strategy Attack function
     func TriggerAttack() {
-        attack.Attack()
+        attack.Attack(self)
     }
     
     override func CheckIfDead() -> Bool {
         if health <= 0 {
-            attack.Die()
-            defense.Die()
+            attack.Die(self)
+            defense.Die(self)
             attackSprite.removeFromParent()
             return true
         }
@@ -91,7 +84,7 @@ class TowerBase: Entity{
     
     // Triggers defense strategy Defend function
     func TriggerDefend() {
-        defense.Defend()
+        defense.Defend(self)
     }
     
 }

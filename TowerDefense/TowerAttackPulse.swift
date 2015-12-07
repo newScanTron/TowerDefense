@@ -54,16 +54,16 @@ class TowerAttackPulse : TowerAttackStrat {
     }
 
     
-    override func Die()  {
+    override func Die(tower : TowerBase)  {
 //        circle?.removeFromParent()
 //        circle = nil
     }
     
-    override func Attack() {
+    override func Attack(tower : TowerBase) {
                 if (GameScene.gameTime > lastFire + fireDelay) {
                     // Start new pulse
                     lastFire = GameScene.gameTime
-                    Explosion(_radius: range, _damage: damage).trigger(parent!.sprite.position)
+                    Explosion(_radius: range, _damage: damage).trigger(tower.sprite.position)
                         
                 }
     }

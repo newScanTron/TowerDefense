@@ -772,7 +772,7 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
         case 1:
             if (previousSelection != 1) {
                 tower?.setAttack(TowerAttackBasic())
-                tower?.attack.parent = tower
+                //tower?.attack.parent = tower
                 tower?.attackSelection = 1
             }
             //initialize the nodes of the chain
@@ -795,7 +795,7 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
         case 2:
             if (previousSelection != 2) {
                 tower?.setAttack(TowerAttackPulse())
-                tower?.attack.parent = tower
+                //tower?.attack.parent = tower
                 tower?.attackSelection = 2
             }
             //initialize the nodes of the chain
@@ -886,14 +886,14 @@ class DefenseSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSo
         case 0:
             if (previousSelection != 0) {
                 tower?.setDefense(TowerDefenseStrat())
-                tower?.defense.parent = tower
+                //tower?.defense.parent = tower
                 tower?.defenseSelection = 0
             }
             break
         case 1:
             if (previousSelection != 1) {
                 tower?.setDefense(TowerDefenseHeal())
-                tower?.defense.parent = tower
+                //tower?.defense.parent = tower
                 tower?.defenseSelection = 1
             }
             //initialize the nodes of the chain
@@ -908,7 +908,7 @@ class DefenseSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSo
         case 2:
             if (previousSelection != 2) {
                 tower?.setDefense(TowerDefenseSlag())
-                tower?.defense.parent = tower
+                //tower?.defense.parent = tower
                 tower?.defenseSelection = 2
             }
             //initialize the nodes of the chain

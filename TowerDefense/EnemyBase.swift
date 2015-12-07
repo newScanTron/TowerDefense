@@ -24,7 +24,7 @@ class EnemyBase: Entity{
     var indicator : SKSpriteNode
     
     var moveDelay : CGFloat
-                let circle = SKShapeNode(circleOfRadius: 125.0)
+    //let circle = SKShapeNode(circleOfRadius: 125.0)
     //initlizer.
     init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int, _name :String)
     {
@@ -94,13 +94,11 @@ class EnemyBase: Entity{
             indicator.position.x = Clamp(sprite.position.x,min: 10,max: size.width-10)
             indicator.position.y = Clamp(sprite.position.y,min: 10,max: size.height-10)
             if (indicator.parent == nil) {
-                print("indicated")
                 GameScene.scene!.addChild(indicator)
             }
         }
         
         
-        moveStrat.parent = self
         moveStrat.Move(self)
     }
     // Triggers attack strategy Attack function

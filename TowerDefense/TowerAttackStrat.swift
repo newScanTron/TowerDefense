@@ -16,7 +16,7 @@ class TowerAttackStrat
     var fireDelay : CGFloat = 0.5
     var speed : CGFloat = 100
     var target : EnemyBase? = nil
-    var parent : TowerBase? = nil
+    //var parent : TowerBase? = nil
     var rangeLevel : Int = 0
     var damageLevel : Int = 0
     var fireDelayLevel : Int = 0
@@ -30,11 +30,11 @@ class TowerAttackStrat
     }
     
     
-    func Attack() {
+    func Attack(tower : TowerBase) {
         //print("Don't call Attack() on the base class!")
     }
     
-    func Die() {
+    func Die(tower : TowerBase) {
         //print("Don't call Die() on the base class!")
     }
     func setRangeLevel(level : Int) {}

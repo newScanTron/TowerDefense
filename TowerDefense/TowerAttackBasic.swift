@@ -103,7 +103,7 @@ class TowerAttackBasic : TowerAttackStrat {
         }
     }
     
-    override func Die() {
+    override func Die(tower : TowerBase) {
         circle?.removeFromParent()
         circle = nil
     }
@@ -119,12 +119,12 @@ class TowerAttackBasic : TowerAttackStrat {
         return strat
     }
     
-    override func Attack() {
+    override func Attack(tower : TowerBase) {
         
         if (circle == nil) {
             // Create new circle
             circle = SKShapeNode(circleOfRadius: range)
-            circle?.position = parent!.sprite.position
+            circle?.position = tower.sprite.position
             circle?.lineWidth = 2;
             circle?.strokeColor = outRangeColor
             circle?.glowWidth = 0;
@@ -141,14 +141,11 @@ class TowerAttackBasic : TowerAttackStrat {
             
             
             lastFire = GameScene.gameTime
-            if (parent != nil) {
-                target = GameScene.getClosestEnemy(parent!.sprite.position, range: range)
-                //bullet!.target = target!.sprite
+                target = GameScene.getClosestEnemy(tower.sprite.position, range: range)
                 if (target != nil) {
                     circle?.strokeColor = inRangeColor
                     circle?.glowWidth = 3;
-                    //bullet!.shooter = parent!
-                    var b : Bullet = Bullet(_shooter: parent!, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: false)
+                    var b : Bullet = Bullet(_shooter: tower, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: false)
                     if (expOn) {
                         b.setExplosion(expForce)
                     }
@@ -161,7 +158,7 @@ class TowerAttackBasic : TowerAttackStrat {
                     circle?.glowWidth = 0;
                 }
                 
-            }
+            
         }
         
         

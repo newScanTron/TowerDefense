@@ -36,7 +36,7 @@ class TowerDefenseHeal : TowerDefenseStrat {
         circle = nil
     }
     
-    override func Die()  {
+    override func Die(tower : TowerBase)  {
         circle?.removeFromParent()
         circle = nil
     }
@@ -48,12 +48,12 @@ class TowerDefenseHeal : TowerDefenseStrat {
         return strat
     }
     
-    override func Defend() {
+    override func Defend(tower : TowerBase) {
         
         if (circle == nil) {
             // Create new circle
             circle = SKShapeNode(circleOfRadius: range)
-            circle?.position = parent!.sprite.position
+            circle?.position = tower.sprite.position
             circle?.lineWidth = 0;
             circle?.fillColor = SKColor(red: 1, green: 0, blue: 0, alpha: 0.3)
             circle?.glowWidth = 0.5;
@@ -66,7 +66,7 @@ class TowerDefenseHeal : TowerDefenseStrat {
         
         // Find enemies in radius, heal them
         
-        inRange = GameScene.getTowersInRange(parent!.sprite.position, range: range)
+        inRange = GameScene.getTowersInRange(tower.sprite.position, range: range)
         
         for t in inRange {
             t.health += amount

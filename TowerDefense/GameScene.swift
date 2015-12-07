@@ -34,7 +34,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     static var items : [Item] = [Item]()
-    static var boss : [EnemyBase] = [EnemyBase]()
+    //static var boss : [EnemyBase] = [EnemyBase]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
@@ -84,29 +84,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         self.addChild(xpLabel)
         xpLabel.zPosition = ZPosition.bullet
-
-        
-        //sprite to be the edge/base
-       // let wall = SKSpriteNode(imageNamed: "Castle_wall")
-        //buildWall(wall)
         
         self.addChild(background)
-        //self.addChild(wall)
-        /* Setup your scene here */
+
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
-        
-    }
-    func buildWall(sprite: SKSpriteNode)
-    {
-        sprite.position = CGPoint(x: -125, y: 325)
-        sprite.yScale = 1.5
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = CategoryMask.All
-        sprite.physicsBody?.collisionBitMask = CollisionMask.All
-        sprite.physicsBody?.contactTestBitMask = ContactMask.All
-        sprite.physicsBody?.dynamic = false
-        sprite.zPosition = ZPosition.wall
         
     }
     
@@ -114,28 +96,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func addTower(location: CGPoint)
     {
         
-       
-        
-//        var tower : TowerBase?
-//        
-//        //create and add tower
-//        if (odd) {
-//            tower = towerBuilder.BuildPulseTower(location)
-//        }
-//        else {
-//            tower = towerBuilder.BuildTower(location)
-//        }
-//        if (tower != nil) {
-//            odd = !odd
-//            GameScene.towers.append(tower!)
-//            self.addChild(tower!.sprite)
-//        }
-        
         let tower : TowerBase = towerBuilder.BuildBaseTower(location)
         
         if (GameScene.addGold(-100)) {
             GameScene.towers.append(tower)
-            addUpgradeView(tower, location: location, gameScene: self)
+            towerBuilder.addUpgradeView(tower, location: location, gameScene: self)
         }
         
     }
@@ -171,9 +136,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         if gameOver {
             return
         }
-        /* Called before each frame is rendered */
+
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
+        
         //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate

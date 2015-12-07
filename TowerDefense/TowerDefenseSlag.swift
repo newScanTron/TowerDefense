@@ -34,11 +34,11 @@ class TowerDefenseSlag : TowerDefenseStrat {
         amount = 2 + CGFloat(level) * 0.5
     }
     
-    override func Die()  {
+    override func Die(tower : TowerBase)  {
         circle?.removeFromParent()
         circle = nil
         for e in inRange {
-            if (GameScene.getDistance(e.sprite.position,to: parent!.sprite.position) <= range) {
+            if (GameScene.getDistance(e.sprite.position,to: tower.sprite.position) <= range) {
                 e.moveStrat.slagged = false
                 e.sprite.physicsBody?.linearDamping = 0
             }
@@ -52,12 +52,12 @@ class TowerDefenseSlag : TowerDefenseStrat {
         return strat
     }
     
-    override func Defend() {
+    override func Defend(tower : TowerBase) {
         
         if (circle == nil) {
             // Create new circle
             circle = SKShapeNode(circleOfRadius: range)
-            circle?.position = parent!.sprite.position
+            circle?.position = tower.sprite.position
             circle?.lineWidth = 0;
             circle?.fillColor = SKColor(red: 1, green: 0, blue: 1, alpha: 0.3)
             circle?.glowWidth = 0.5;
@@ -71,12 +71,12 @@ class TowerDefenseSlag : TowerDefenseStrat {
         // Find enemies in radius, heal them
         
         for e in inRange {
-            if (GameScene.getDistance(e.sprite.position,to: parent!.sprite.position) > range) {
+            if (GameScene.getDistance(e.sprite.position,to: tower.sprite.position) > range) {
                 e.moveStrat.slagged = false
                 e.sprite.physicsBody?.linearDamping = 0
             }
         }
-        inRange = GameScene.getEnemiesInRange(parent!.sprite.position, range: range)
+        inRange = GameScene.getEnemiesInRange(tower.sprite.position, range: range)
         
         for e in inRange {
             e.moveStrat.slagged = true

@@ -12,7 +12,6 @@ import SpriteKit
 class EnemyMoveStrat
 {
     let moveConstant : CGFloat = 5
-    var parent : EnemyBase? = nil
     var slagged : Bool = false
     
     init(){
@@ -23,13 +22,11 @@ class EnemyMoveStrat
     func Move(node : EnemyBase){
         
     }
-    func outOfBounds(){
+    func outOfBounds(enemy : EnemyBase){
         let centerPoint = CGPointMake(GameScene.scene!.size.width/2, GameScene.scene!.size.height/2)
-        let center = getVector(parent!.sprite.position, to: centerPoint, speed: 3)
-        if (parent != nil) {
-            parent!.sprite.physicsBody?.linearDamping = 0.5
-            parent!.sprite.physicsBody?.applyImpulse(center)
-        }
+        let center = getVector(enemy.sprite.position, to: centerPoint, speed: 3)
+        enemy.sprite.physicsBody?.linearDamping = 0.5
+        enemy.sprite.physicsBody?.applyImpulse(center)
         
     }
     
