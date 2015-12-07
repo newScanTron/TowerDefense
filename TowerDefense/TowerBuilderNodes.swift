@@ -13,7 +13,27 @@ import SpriteKit
 //is the protocol that represents the Processing elements structure that each of these nodes are the concrete implemntation of.  UIPickerViewDelegate and UIPickerViewDataSource are
 
 //part of the UIKit framework needed for iOS developments
-
+func setPicker(inout upgradeSelection: UIPickerView)
+{
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    if appDelegate.user.gold >= 100
+    {
+        upgradeSelection.selectRow(0, inComponent: 0, animated: false)
+    }
+    if appDelegate.user.gold >= 200
+    {
+        upgradeSelection.selectRow(1, inComponent: 0, animated: false)
+    }
+    if appDelegate.user.gold >= 300
+    {
+        upgradeSelection.selectRow(2, inComponent: 0, animated: false)
+    }
+    if appDelegate.user.gold >= 400
+    {
+        upgradeSelection.selectRow(3, inComponent: 0, animated: false)
+    }
+}
 class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
 {
     
@@ -196,7 +216,7 @@ class AttackSetExplosion: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSo
         previousSelection = (tower.attack as! TowerAttackBasic).expLevel
         super.upgrade(tower)
         
-        
+        setPicker(&upgradeSelection)
         
     }
     
@@ -232,7 +252,11 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        
+        //going to set the most expensive option the player can afford
+        if appDelegate.user.gold < 100
+        {
+            
+        }
         
         
         //changing the picker color to something more in line with what is being choosen all just to make it change so more than the text changes.
@@ -296,7 +320,7 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.rangeLevel
         super.upgrade(tower)
-        
+        setPicker(&upgradeSelection)
         
         
     }
@@ -335,6 +359,7 @@ class AttackSetDamage: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         self.mainLabel.text = "Set Damage Amount"
         nodeData = ["LOW", "MED", "HIGH", "SLAUGHTER"]
         
+      
     }
     
     
@@ -383,7 +408,7 @@ class AttackSetDamage: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         previousSelection = tower.attack.damageLevel
         super.upgrade(tower)
-        
+        setPicker(&upgradeSelection)
         
     }
     
@@ -467,6 +492,7 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.fireDelayLevel
         super.upgrade(tower)
+        setPicker(&upgradeSelection)
         
     }
     
@@ -549,6 +575,7 @@ class SetSpeed: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.speedLevel
         super.upgrade(tower)
+        setPicker(&upgradeSelection)
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -636,6 +663,7 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         previousSelection = tower.defense.rangeLevel
         super.upgrade(tower)
+       setPicker(&upgradeSelection)
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -716,6 +744,7 @@ class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSour
         
         previousSelection = tower.defense.amountLevel
         super.upgrade(tower)
+        setPicker(&upgradeSelection)
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -831,7 +860,7 @@ class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSou
         previousSelection = tower.attackSelection
         
         super.upgrade(tower)
-        
+        upgradeSelection.selectRow(1, inComponent: 0, animated: false)
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
