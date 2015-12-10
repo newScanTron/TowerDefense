@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 import UIKit
 
-class EnemyBase: Entity{
+class EnemyBase: Entity {
     //Some variables for health and speed and whatnot
 
     var range: CGFloat = 0
@@ -28,9 +28,6 @@ class EnemyBase: Entity{
     //initlizer.
     init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int, _name :String)
     {
-    
-        
-        
         attack = _attack
         moveStrat = _moveStrat
         moveDelay = _moveDelay
@@ -49,12 +46,12 @@ class EnemyBase: Entity{
         sprite.xScale = 0.25
         sprite.yScale = 0.25
         
-
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
 
-        let actualY = random(min: 10.0, max: GameScene.scene!.size.height)
+        
+        let actualY = random(min: 10.0, max: 768)
 
-        sprite.position = CGPoint(x: GameScene.scene!.size.width, y:actualY)
+        sprite.position = CGPoint(x: 1024, y:actualY)
         sprite.physicsBody?.dynamic = true
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
@@ -74,7 +71,11 @@ class EnemyBase: Entity{
         //GameScene.scene!.addChild(healthLabel)
 
     }
-
+    func copy() -> EnemyBase {
+        let newSprite = SKSpriteNode(imageNamed: "Spaceship")
+        newSprite.size = CGSizeMake(100, 100)
+        return EnemyBase(_attack: self.attack, _moveStrat: self.moveStrat, _sprite: newSprite, _range: self.range, _moveDelay: self.moveDelay, _reward: self.reward, _name: self.name)
+    }
     func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {
        moveStrat = sentStrat
@@ -100,7 +101,7 @@ class EnemyBase: Entity{
         }
         
         
-        moveStrat.parent = self
+        //moveStrat.parent = self
         moveStrat.Move(self)
     }
     // Triggers attack strategy Attack function

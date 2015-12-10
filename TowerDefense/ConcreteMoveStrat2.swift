@@ -18,8 +18,13 @@ class ConcreteMoveStrat2: EnemyMoveStrat{
     override func Move(nodeToMove: EnemyBase){
         
         let stop = SKAction.moveTo(parent!.sprite.position, duration: 0.0)
+        
+        if parent!.health < parent!.maxHealth * 0.2{
+            parent!.sprite.runAction(stop)
+        }
+       
 
-        parent!.sprite.runAction(stop)
+
         
         protect = GameScene.getClosestEnemy(parent!.sprite.position, range: 500)
         

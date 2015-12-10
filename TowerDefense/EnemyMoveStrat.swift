@@ -23,12 +23,12 @@ class EnemyMoveStrat
     func Move(node : EnemyBase){
         
     }
-    func outOfBounds(){
+    func outOfBounds(nodeToMove: EnemyBase){
         let centerPoint = CGPointMake(GameScene.scene!.size.width/2, GameScene.scene!.size.height/2)
-        let center = getVector(parent!.sprite.position, to: centerPoint, speed: 4)
+        let center = getVector(nodeToMove.sprite.position, to: centerPoint, speed: 4)
         if (parent != nil) {
-            parent!.sprite.physicsBody?.linearDamping = 0.5
-            parent!.sprite.physicsBody?.applyImpulse(center)
+            nodeToMove.sprite.physicsBody?.linearDamping = 0.5
+            nodeToMove.sprite.physicsBody?.applyImpulse(center)
         }
         
     }

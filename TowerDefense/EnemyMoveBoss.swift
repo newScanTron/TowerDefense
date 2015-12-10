@@ -26,7 +26,7 @@ class EnemyMoveBoss: EnemyMoveStrat {
         }
         
         if (bossNode.sprite.position.x >= GameScene.scene!.size.width - offSet || bossNode.sprite.position.x <= 0 + offSet || bossNode.sprite.position.y >= GameScene.scene!.size.height - offSet || bossNode.sprite.position.y <= 0 + offSet){
-            outOfBounds()
+            outOfBounds(nodeToMove)
         }
         else {
             parent!.sprite.physicsBody?.linearDamping = 0.0

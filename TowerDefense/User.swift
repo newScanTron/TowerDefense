@@ -14,7 +14,7 @@ class User
     //which states belong to which user.
     var userName: String
     var pswd: String
-    var xp: Int
+    var xp: Int = 0
     var gold: Int
     init()
     {

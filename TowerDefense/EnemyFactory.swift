@@ -15,7 +15,11 @@ class EnemyFactory
     var lastEnemy : CGFloat = 0
     var enemyCount : CGFloat = 0
     var theWave : CGFloat = 0
-    init(){}
+    var enemyClone : EnemyBase? = nil
+
+    init(){
+        enemyClone = CreateEnemy()
+    }
     
     // Decides what enemy and how many to return to the GameScene
     func getNextEnemy() -> EnemyBase? {
@@ -27,9 +31,8 @@ class EnemyFactory
             
             if(enemyCount <= (9 + theWave)){
                 waveDelay = 2.0
-                enemy = CreateEnemy()
                 enemyCount++
-                return enemy!
+                return enemyClone!.copy()
             }
             if(enemyCount > (9 + theWave) && enemyCount <= (14 + theWave))
             {
@@ -60,6 +63,7 @@ class EnemyFactory
     
     //Enemy with Ranged attack strategy
     func CreateEnemy() -> EnemyBase{
+        
         
         let attack = EnemyAttackRanged()
         let moveStrat = EnemyMoveBasic()

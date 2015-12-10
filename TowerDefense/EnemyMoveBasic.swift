@@ -22,16 +22,16 @@ class EnemyMoveBasic: EnemyMoveStrat{
             lastMove = GameScene.gameTime
             //Handles what strategy to use depending on the sprite position
             if (nodeToMove.sprite.position.y <= 150){
-                outOfBounds()
+                outOfBounds(nodeToMove)
             }
             else if(nodeToMove.sprite.position.y >= GameScene.scene!.size.height - 150){
-                outOfBounds()
+                outOfBounds(nodeToMove)
             }
             else if (nodeToMove.sprite.position.x < 200){
-              outOfBounds()
+                outOfBounds(nodeToMove)
             }
             else if (nodeToMove.sprite.position.x > GameScene.scene!.size.width - 150) {
-                outOfBounds()
+                outOfBounds(nodeToMove)
             }
             else {
                 nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXNeg(), getImpulseYRand()))

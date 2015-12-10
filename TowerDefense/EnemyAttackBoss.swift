@@ -26,7 +26,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
         for e in GameScene.enemies{
             e.isImmune = false
             e.sprite.physicsBody?.linearDamping = 0.0
-            //e.setMoveStrategy(EnemyMoveBasic())
+            e.setMoveStrategy(EnemyMoveBasic())
         }
         Explosion(_radius: 300, _damage: 200).trigger(parent!.sprite.position)
     }
