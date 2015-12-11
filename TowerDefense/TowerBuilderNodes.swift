@@ -12,7 +12,7 @@ import SpriteKit
 //set attack range node.  Each of these noodes extend UpgradeView which is a custom UIView class i have created to give each of these noedes a uniform interface.  Upgrade node
 //is the protocol that represents the Processing elements structure that each of these nodes are the concrete implemntation of.  UIPickerViewDelegate and UIPickerViewDataSource are
 
-//part of the UIKit framework needed for iOS developments
+
 func setPicker(inout upgradeSelection: UIPickerView) -> Int
 {
     let appDelegate =
@@ -253,13 +253,6 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        //going to set the most expensive option the player can afford
-        if appDelegate.user.gold < 100
-        {
-            
-        }
-        
-        
         //changing the picker color to something more in line with what is being choosen all just to make it change so more than the text changes.
         upgradeSelection.backgroundColor = UIColor(red: 0.0, green: 0.65, blue: 0.75, alpha: 0.8)
         

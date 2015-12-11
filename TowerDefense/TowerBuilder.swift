@@ -16,7 +16,7 @@ class TowerBuilder
     init() {
         clipboard = TowerBase(location: CGPoint(x: 0,y:0), _attack: TowerAttackStrat(), _defense: TowerDefenseStrat())
     }
-    
+    //this function returns a base tower with non of its straegy attibutes set.
     func BuildBaseTower(point : CGPoint)  -> TowerBase {
         let attack = TowerAttackStrat()
         let defense = TowerDefenseStrat()
@@ -67,22 +67,18 @@ class TowerBuilder
         if (location.y) >= CGRectGetMaxY(gameScene.frame)/2
         {
             placeY = ((location.y) - CGFloat(200.0))
-            
         }
         else
         {
             placeY = (location.y)
-            
         }
         if (location.x) >= CGRectGetMaxX(gameScene.frame)/2
         {
             placeX = ((location.x) - CGFloat(200.0))
-            
         }
         else
         {
             placeX = (location.x)
-            
         }
         let upgradeView = StartNode(x: (placeX), y: (placeY), tower: tower)
         //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss

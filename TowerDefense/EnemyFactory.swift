@@ -61,11 +61,13 @@ class EnemyFactory
     //Enemy with Ranged attack strategy
     func CreateEnemy() -> EnemyBase{
         
+        let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+      let xp =  appDel.user.xp
         let attack = EnemyAttackRanged()
         let moveStrat = EnemyMoveBasic()
         let range: CGFloat = 250.00
         
-        attack.damage = 0.5
+        attack.damage = CGFloat(0.5 * Double(xp))
         attack.fireDelay = 1
         attack.speed = 300
         let moveDelay : CGFloat = 0.5
@@ -118,7 +120,7 @@ class EnemyFactory
         attack.fireDelay = 1
 
         attack.speed = 300
-        var moveDelay : CGFloat = 1.0
+        let moveDelay : CGFloat = 1.0
         let name = "GruntSprite"
 
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
