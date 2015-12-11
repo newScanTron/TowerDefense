@@ -28,7 +28,7 @@ class EnemyAttackRanged: EnemyAttackStrat{
 //                        bullet!.target = target!.sprite
 //                        var b : Bullet = bullet!.copy()
 //                        b.activate()
-  //                      Bullet(_shooter: parent!, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: true)
+                    Bullet(_shooter: parent!, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: true)
                 
                         
                         
