@@ -13,6 +13,8 @@
 		4615CE411C10FC42005A4290 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE3F1C10FC42005A4290 /* EndGameScene.swift */; };
 		4615CE431C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
 		4615CE441C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
+		46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */; };
+		46237E831C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */; };
 		977E3CA71C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		977E3CA81C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		97B633BD1C0D4D5500CB6B8B /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BC1C0D4C3E00CB6B8B /* Square.ttf */; };
@@ -112,6 +114,7 @@
 		4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySwarmStrat.swift; sourceTree = "<group>"; };
 		4615CE3F1C10FC42005A4290 /* EndGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameScene.swift; sourceTree = "<group>"; };
 		4615CE421C113103005A4290 /* EndGameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameController.swift; sourceTree = "<group>"; };
+		46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveKamikaze.swift; sourceTree = "<group>"; };
 		977E3CA61C13597200BA8F52 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		97B633BC1C0D4C3E00CB6B8B /* Square.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Square.ttf; sourceTree = "<group>"; };
 		97B633BF1C0D517B00CB6B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -217,6 +220,7 @@
 				9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */,
 				9946E4141BE5721D007E9559 /* EnemyFactory.swift */,
 				4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */,
+				46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */,
 			);
 			name = Enemy;
 			sourceTree = "<group>";
@@ -458,6 +462,7 @@
 				993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */,
 				9946E3FF1BE56E33007E9559 /* Common.swift in Sources */,
 				992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */,
+				46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */,
 				992622381BED1ECB0080D35A /* GruntAttack.swift in Sources */,
 				99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */,
 				992622351BED1ECB0080D35A /* ConcreteMoveStrat1.swift in Sources */,
@@ -523,6 +528,7 @@
 				99BA33BD1BF2A24300152764 /* ConcreteMoveStrat2.swift in Sources */,
 				4615CE3B1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */,
 				97B633C31C0D62AA00CB6B8B /* Explosion.swift in Sources */,
+				46237E831C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */,
 				99BA33C71BF2A24800152764 /* GameScene.swift in Sources */,
 				99BA33B21BF2A23400152764 /* TowerAttackBasic.swift in Sources */,
 				99BA33BC1BF2A24300152764 /* ConcreteMoveStrat1.swift in Sources */,

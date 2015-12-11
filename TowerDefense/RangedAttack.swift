@@ -13,14 +13,8 @@ import SpriteKit
 class EnemyAttackRanged: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
-    
-    //var bullet : Bullet?
 
-    override init(){
-
-    }
-    
-    
+    //Enemy ranged attack strategy that uses the bullet class to attack towers
     override func Attack() {
         
         if (GameScene.gameTime > lastFire + fireDelay) {
@@ -44,4 +38,5 @@ class EnemyAttackRanged: EnemyAttackStrat{
             }
         }
     }
+
 }

@@ -11,6 +11,7 @@ import SpriteKit
 
 class EnemyAttackBoss: EnemyAttackStrat{
     
+    //Set instance variable
     var lastFire : CGFloat = 0
     var circle : SKShapeNode? = nil
     var healingTarget = [EnemyBase]()
@@ -18,8 +19,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
     var allHealthy = false
     var healthCount = 0
     
-   // override init(){}
-    
+    //Die function that cleans up boss death
     override func Die()  {
         circle?.removeFromParent()
         circle = nil
@@ -36,11 +36,16 @@ class EnemyAttackBoss: EnemyAttackStrat{
         
     }
     
+    //Boss attack strategy that heals enemies and gives them immunity if 
+    //they're in range. Also changes cricle color depending on whether its
+    //healing or dealing damage
     override func Attack(){
         
         healthCount = 0
         healingTarget = GameScene.getEnemiesInRange(parent!.sprite.position, range: 125)
         
+        //Loop determing if there are injured enemies or not and setting flags 
+        //appropriately
         for e in GameScene.enemies {
             if e.name == "BossSprite" {
 
@@ -61,6 +66,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
         if healthCount == 0{
             allHealthy = true
         }
+        //Circle creation
         circle?.removeFromParent()
         circle = SKShapeNode(circleOfRadius: 125.0)
         
@@ -68,7 +74,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
         
         circle?.lineWidth = 0.0;
         
-        // Color fades as pulse progresses
+        // Color changes based on whether there are enemies to heal or not
         if (allHealthy) {
             circle?.fillColor = SKColor(red: 1, green: 0, blue: 0, alpha: 0.3)
             circle?.strokeColor = SKColor(red: 1, green: 0, blue: 0, alpha: 0.3)

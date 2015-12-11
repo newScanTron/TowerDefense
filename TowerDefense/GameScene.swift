@@ -102,6 +102,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         if (GameScene.addGold(-100)) {
             GameScene.towers.append(tower)
 
+
             towerBuilder.addUpgradeView(tower, location: touchLocation, gameScene: self)
 
         }
@@ -115,6 +116,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let touch = touches.first
         let location = touch!.locationInNode(self)
        let viewLocation = touch!.locationInView(self.view!)
+
        //check each tower and see if the touch location was the same as the tower
         for each in GameScene.towers
         {

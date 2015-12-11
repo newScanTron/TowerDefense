@@ -11,8 +11,8 @@ import SpriteKit
 import UIKit
 
 class EnemyBase: Entity{
-    //Some variables for health and speed and whatnot
-
+    
+    //Instance variable
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
@@ -24,12 +24,10 @@ class EnemyBase: Entity{
     var indicator : SKSpriteNode
     
     var moveDelay : CGFloat
-    //let circle = SKShapeNode(circleOfRadius: 125.0)
-    //initlizer.
+    
+    //Initializer that sets all instance variables from the factory
     init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int, _name :String)
     {
-    
-        
         
         attack = _attack
         moveStrat = _moveStrat
@@ -49,7 +47,6 @@ class EnemyBase: Entity{
         sprite.xScale = 0.25
         sprite.yScale = 0.25
         
-
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
 
         let actualY = random(min: 10.0, max: GameScene.scene!.size.height)
@@ -65,8 +62,10 @@ class EnemyBase: Entity{
         sprite.physicsBody?.angularDamping = 0.0
         sprite.physicsBody?.allowsRotation = false
 
-        //moveStrat.Move(self)
-        
+        // Store reference to self in userData
+        sprite.userData = NSMutableDictionary()
+        sprite.userData!.setValue(self,forKey: "object")
+
 //        healthLabel = SKLabelNode(fontNamed:"Verdana")
 //        healthLabel.position = sprite.position
 //        healthLabel.position.y -= 10
@@ -75,16 +74,21 @@ class EnemyBase: Entity{
 
     }
 
+    //Sets the move strategy
     func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {
        moveStrat = sentStrat
     }
 
+    //Sets attack strategy
     func setAttackStrategy(sentAttack: EnemyAttackStrat){
         self.attack = sentAttack
     }
+    
+    //Moves the sprite depending on the movement strategy set
     func moveMore(){
         
+        //Some code to track the sprites
         let size = GameScene.scene!.size
 
         if (sprite.position.x < size.width && sprite.position.x > 0 && sprite.position.y < size.height && sprite.position.y > 0) {
@@ -98,37 +102,30 @@ class EnemyBase: Entity{
             }
         }
         
-        
         moveStrat.Move(self)
     }
+    
     // Triggers attack strategy Attack function
     func TriggerAttack() {
         
-//        healthLabel.text = String(health)
-//        healthLabel.position = sprite.position
-//        healthLabel.position.y -= 20
- 
         attack.parent = self
         attack.Attack()
     }
-    func random() -> CGFloat{
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-    }
     
-    func random(min min: CGFloat, max: CGFloat) -> CGFloat{
-        return random() * (max - min) + min
-    }
-    func randomVect(min min: CGFloat, max: CGFloat) -> CGVector{
-        return CGVector(dx: random() * (max - min) + min, dy: 0)
-    }
+    //Check sprite position and health. If dead or too far off the screen the sprite is killed
     override func CheckIfDead() -> Bool {
-        if health <= 0 || self.sprite.position.x < -80 || self.sprite.position.x > GameScene.scene!.size.width + 80 || self.sprite.position.y > GameScene.scene!.size.height + 80 || self.sprite.position.y < -80{
+        
+        //offset to set how far off screen to allow sprite
+        let offSet: CGFloat = 110
+        if (health <= 0 || self.sprite.position.x < -offSet || self.sprite.position.x > GameScene.scene!.size.width + offSet || self.sprite.position.y > GameScene.scene!.size.height + offSet || self.sprite.position.y < -offSet ){
             attack.Die()
             indicator.removeFromParent()
             return true
         }
         return false
     }
+    
+    //Updates the sprites color based on health
     func UpdateLabel(){
         
         if self.health >= (maxHealth * 0.99) {
