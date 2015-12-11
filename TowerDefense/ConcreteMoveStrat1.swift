@@ -23,12 +23,9 @@ class EnemyMoveBasic: EnemyMoveStrat{
             lastMove = GameScene.gameTime
             
             //Handles what strategy to use depending on the sprite position
-<<<<<<< HEAD
 
-            if (enemy.sprite.position.y <= 150){
-=======
             if (enemy.sprite.position.y <= offSet){
->>>>>>> origin/tobyDec10Branch
+
                 outOfBounds(enemy)
             }
             else if(enemy.sprite.position.y >= GameScene.scene!.size.height - offSet){
