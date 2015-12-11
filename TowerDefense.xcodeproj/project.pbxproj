@@ -38,6 +38,7 @@
 		993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B81C011A6D009596FA /* SignUpController.swift */; };
 		993BC2BA1C011A6D009596FA /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B81C011A6D009596FA /* SignUpController.swift */; };
 		993BC2BB1C011B2A009596FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08331BE035D80070F4B8 /* Main.storyboard */; };
+		993EC6211C1B7D5A008D80C0 /* libAudioKit iOS Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 993EC6191C1B7C7A008D80C0 /* libAudioKit iOS Static.a */; };
 		9946E3FF1BE56E33007E9559 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E3FE1BE56E33007E9559 /* Common.swift */; };
 		9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4001BE56E54007E9559 /* TowerBase.swift */; };
 		9946E4031BE56EBB007E9559 /* EnemyMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */; };
@@ -83,6 +84,7 @@
 		99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99D680EA1BE7FE2B00C877CE /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D680E91BE7FE2B00C877CE /* UpgradeView.swift */; };
+		99F92CAF1C1B913D007C6863 /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F92CAE1C1B913D007C6863 /* AudioKit.swift */; };
 		99FD082C1BE035D80070F4B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082B1BE035D80070F4B8 /* AppDelegate.swift */; };
 		99FD082E1BE035D80070F4B8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 99FD082D1BE035D80070F4B8 /* GameScene.sks */; };
 		99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082F1BE035D80070F4B8 /* GameScene.swift */; };
@@ -94,6 +96,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		993EC6181C1B7C7A008D80C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EA8E93D81AD3C5240057E979;
+			remoteInfo = "AudioKit iOS Static";
+		};
+		993EC61A1C1B7C7A008D80C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA0F5941AE71C8F007CD7C9;
+			remoteInfo = "AudioKit iOS Dynamic";
+		};
+		993EC61C1C1B7C7A008D80C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EA8E96591AD3C6FC0057E979;
+			remoteInfo = "AudioKit OS X";
+		};
+		993EC61E1C1B7C7A008D80C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EA93645D1BD865230005B849;
+			remoteInfo = "AudioKit tvOS";
+		};
+		993EC6221C1B7DBD008D80C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EA8E93D71AD3C5240057E979;
+			remoteInfo = "AudioKit iOS Static";
+		};
 		99FD08411BE035D80070F4B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 99FD08201BE035D80070F4B8 /* Project object */;
@@ -130,6 +167,8 @@
 		9926223D1BED2B910080D35A /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		993BC2B51C003A50009596FA /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		993BC2B81C011A6D009596FA /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../AudioKit/AudioKit.xcodeproj; sourceTree = "<group>"; };
+		993EC6271C1B7EC2008D80C0 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		9946E3FE1BE56E33007E9559 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		9946E4001BE56E54007E9559 /* TowerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerBase.swift; sourceTree = "<group>"; };
 		9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveStrat.swift; sourceTree = "<group>"; };
@@ -148,6 +187,7 @@
 		99A3BBE71BE94C1900AAB350 /* TowerDefenseStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseStrat.swift; sourceTree = "<group>"; };
 		99BA33D31BF5171700152764 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		99D680E91BE7FE2B00C877CE /* UpgradeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
+		99F92CAE1C1B913D007C6863 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		99FD08281BE035D80070F4B8 /* TowerDefense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FD082B1BE035D80070F4B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99FD082D1BE035D80070F4B8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -169,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				993EC6211C1B7D5A008D80C0 /* libAudioKit iOS Static.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +230,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		993EC6121C1B7C79008D80C0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				993EC6191C1B7C7A008D80C0 /* libAudioKit iOS Static.a */,
+				993EC61B1C1B7C7A008D80C0 /* libAudioKit iOS Dynamic.a */,
+				993EC61D1C1B7C7A008D80C0 /* libAudioKit OS X.a */,
+				993EC61F1C1B7C7A008D80C0 /* libAudioKit tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9946E40F1BE5701D007E9559 /* Tower */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,11 +280,11 @@
 		9946E41D1BE5771E007E9559 /* Visual */ = {
 			isa = PBXGroup;
 			children = (
-				99FD082D1BE035D80070F4B8 /* GameScene.sks */,
 				97B633BC1C0D4C3E00CB6B8B /* Square.ttf */,
 				99FD083B1BE035D80070F4B8 /* Info.plist */,
 				99FD08331BE035D80070F4B8 /* Main.storyboard */,
 				99FD08381BE035D80070F4B8 /* LaunchScreen.storyboard */,
+				99FD082D1BE035D80070F4B8 /* GameScene.sks */,
 			);
 			name = Visual;
 			sourceTree = "<group>";
@@ -260,6 +312,8 @@
 		99FD081F1BE035D80070F4B8 = {
 			isa = PBXGroup;
 			children = (
+				99F92CAE1C1B913D007C6863 /* AudioKit.swift */,
+				993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */,
 				99FD082A1BE035D80070F4B8 /* TowerDefense */,
 				99FD08431BE035D80070F4B8 /* TowerDefenseTests */,
 				99FD084E1BE035D80070F4B8 /* TowerDefenseUITests */,
@@ -288,6 +342,7 @@
 				99FD08311BE035D80070F4B8 /* GameViewController.swift */,
 				99D680E91BE7FE2B00C877CE /* UpgradeView.swift */,
 				4615CE3F1C10FC42005A4290 /* EndGameScene.swift */,
+				993EC6271C1B7EC2008D80C0 /* Bridging-Header.h */,
 			);
 			path = TowerDefense;
 			sourceTree = "<group>";
@@ -324,6 +379,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				993EC6231C1B7DBD008D80C0 /* PBXTargetDependency */,
 			);
 			name = TowerDefense;
 			productName = TowerDefense;
@@ -407,6 +463,12 @@
 			mainGroup = 99FD081F1BE035D80070F4B8;
 			productRefGroup = 99FD08291BE035D80070F4B8 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 993EC6121C1B7C79008D80C0 /* Products */;
+					ProjectRef = 993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				99FD08271BE035D80070F4B8 /* TowerDefense */,
@@ -415,6 +477,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		993EC6191C1B7C7A008D80C0 /* libAudioKit iOS Static.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Static.a";
+			remoteRef = 993EC6181C1B7C7A008D80C0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		993EC61B1C1B7C7A008D80C0 /* libAudioKit iOS Dynamic.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Dynamic.a";
+			remoteRef = 993EC61A1C1B7C7A008D80C0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		993EC61D1C1B7C7A008D80C0 /* libAudioKit OS X.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit OS X.a";
+			remoteRef = 993EC61C1C1B7C7A008D80C0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		993EC61F1C1B7C7A008D80C0 /* libAudioKit tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit tvOS.a";
+			remoteRef = 993EC61E1C1B7C7A008D80C0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		99FD08261BE035D80070F4B8 /* Resources */ = {
@@ -477,6 +570,7 @@
 				998722931BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				992622391BED1ECB0080D35A /* RangedAttack.swift in Sources */,
 				9946E40C1BE56F7D007E9559 /* TowerDefenseStrat.swift in Sources */,
+				99F92CAF1C1B913D007C6863 /* AudioKit.swift in Sources */,
 				998722901BED58C60097B677 /* TowerBuilderNodes.swift in Sources */,
 				9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */,
 				9919CF2C1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
@@ -549,6 +643,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		993EC6231C1B7DBD008D80C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "AudioKit iOS Static";
+			targetProxy = 993EC6221C1B7DBD008D80C0 /* PBXContainerItemProxy */;
+		};
 		99FD08421BE035D80070F4B8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 99FD08271BE035D80070F4B8 /* TowerDefense */;
@@ -673,9 +772,12 @@
 				INFOPLIST_FILE = TowerDefense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thesonicneighborhood.TowerDefense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/TowerDefense/Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "../AudioKit/Audiokit/**";
 			};
 			name = Debug;
 		};
@@ -688,9 +790,12 @@
 				INFOPLIST_FILE = TowerDefense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.thesonicneighborhood.TowerDefense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/TowerDefense/Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "../AudioKit/Audiokit/**";
 			};
 			name = Release;
 		};

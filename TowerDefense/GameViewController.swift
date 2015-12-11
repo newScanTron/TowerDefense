@@ -21,7 +21,13 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       appDelegate.gameScene = GameScene(fileNamed:"GameScene")!
-            // Configure the view.
+        
+        let inst = AKInstrument()
+                inst.setAudioOutput(AKOscillator())
+                AKOrchestra.addInstrument(inst)
+                inst.play()
+        
+        // Configure the view.
             let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
