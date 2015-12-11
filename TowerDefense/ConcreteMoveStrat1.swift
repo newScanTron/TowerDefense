@@ -11,8 +11,9 @@ import SpriteKit
 
 class EnemyMoveBasic: EnemyMoveStrat{
     
+    //Instance variable
     var lastMove : CGFloat = 0
- 
+    let offSet : CGFloat = 150
     //Continuously call the execute method passing the strategy
     // and sprite to be moved
     override func Move(enemy : EnemyBase){
@@ -20,17 +21,18 @@ class EnemyMoveBasic: EnemyMoveStrat{
         if (GameScene.gameTime > lastMove + enemy.moveDelay) {
             
             lastMove = GameScene.gameTime
+            
             //Handles what strategy to use depending on the sprite position
-            if (enemy.sprite.position.y <= 150){
+            if (enemy.sprite.position.y <= offSet){
                 outOfBounds(enemy)
             }
-            else if(enemy.sprite.position.y >= GameScene.scene!.size.height - 150){
+            else if(enemy.sprite.position.y >= GameScene.scene!.size.height - offSet){
                 outOfBounds(enemy)
             }
-            else if (enemy.sprite.position.x < 200){
+            else if (enemy.sprite.position.x < offSet){
                 outOfBounds(enemy)
             }
-            else if (enemy.sprite.position.x > GameScene.scene!.size.width - 150) {
+            else if (enemy.sprite.position.x > GameScene.scene!.size.width - offSet) {
                 outOfBounds(enemy)
             }
             else {

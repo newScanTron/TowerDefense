@@ -11,6 +11,7 @@ import SpriteKit
 
 class EnemyMoveStrat
 {
+    //Instance variable
     let moveConstant : CGFloat = 5
     var slagged : Bool = false
     
@@ -22,6 +23,8 @@ class EnemyMoveStrat
     func Move(node : EnemyBase){
         
     }
+    
+    //This is called when the sprite is going off the screen
     func outOfBounds(enemy : EnemyBase){
         let centerPoint = CGPointMake(GameScene.scene!.size.width/2, GameScene.scene!.size.height/2)
         let center = getVector(enemy.sprite.position, to: centerPoint, speed: 4)
@@ -31,12 +34,7 @@ class EnemyMoveStrat
     }
     
     //Helper functions almost all strategies will need
-    func random() -> CGFloat{
-        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-    }
-    func random(min min: CGFloat, max: CGFloat) -> CGFloat{
-        return random() * (max - min) + min
-    }
+    //Returns impulse vestors to move sprites along x or y axis
     func getImpulseXRand() -> CGFloat{
         return random(min: -moveConstant, max: moveConstant)
     }

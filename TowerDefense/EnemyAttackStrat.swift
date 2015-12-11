@@ -11,6 +11,7 @@ import SpriteKit
 
 class EnemyAttackStrat
 {
+    //Instance variables
     var damage : CGFloat = 0
     var fireDelay : CGFloat = 0
     var speed : CGFloat = 20
@@ -25,6 +26,7 @@ class EnemyAttackStrat
     func Attack(){
         
     }
+    
     func Die() {
         //print("Don't call Die() on the base class!")
     }

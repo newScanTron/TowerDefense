@@ -74,3 +74,15 @@ func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
         return value
     }
 }
+
+//Functions to handle random CGFloats
+func random() -> CGFloat{
+    return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+}
+
+func random(min min: CGFloat, max: CGFloat) -> CGFloat{
+    return random() * (max - min) + min
+}
+func randomVect(min min: CGFloat, max: CGFloat) -> CGVector{
+    return CGVector(dx: random() * (max - min) + min, dy: 0)
+}
