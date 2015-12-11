@@ -126,7 +126,7 @@ class EnemyFactory
         
         //Set enemy strategies and variables
         let attack = EnemyAttackRanged()
-        let moveStrat = EnemyMoveBasic()
+        let moveStrat = EnemyMoveKamikaze()
         let range: CGFloat = 200.00
         var moveDelay : CGFloat = 1.0
         let name = "GruntSprite"

@@ -18,7 +18,7 @@ class EnemyMoveBasic: EnemyMoveStrat{
     // and sprite to be moved
     override func Move(enemy : EnemyBase){
 
-        if (GameScene.gameTime > lastMove + enemy.moveDelay) {
+        //if (GameScene.gameTime > lastMove + enemy.moveDelay) {
             
             lastMove = GameScene.gameTime
             
@@ -36,9 +36,9 @@ class EnemyMoveBasic: EnemyMoveStrat{
                 outOfBounds(enemy)
             }
             else {
-                enemy.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXNeg(), getImpulseYRand()))
+                enemy.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYRand()))
             }
-        }
+       // }
     }
 }
 

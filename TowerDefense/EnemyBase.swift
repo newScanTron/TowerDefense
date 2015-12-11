@@ -62,6 +62,10 @@ class EnemyBase: Entity{
         sprite.physicsBody?.angularDamping = 0.0
         sprite.physicsBody?.allowsRotation = false
 
+        // Store reference to self in userData
+        sprite.userData = NSMutableDictionary()
+        sprite.userData!.setValue(self,forKey: "object")
+
 //        healthLabel = SKLabelNode(fontNamed:"Verdana")
 //        healthLabel.position = sprite.position
 //        healthLabel.position.y -= 10

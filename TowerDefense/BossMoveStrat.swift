@@ -47,10 +47,11 @@ class EnemyMoveBoss: EnemyMoveStrat {
         if !setEnemies {
             if enemy.sprite.position.x < 1000{
                 for e in GameScene.enemies{
-                    if e.name != enemy.name {
-                        e.setMoveStrategy(EnemyMoveSwarm())
-                        setEnemies = true
-                        
+                    if e.name != "BossSprite"{
+                        if e.name != "kamikaze"{
+                            e.setMoveStrategy(EnemyMoveSwarm())
+                            setEnemies = true
+                        }
                     }
                 }
             }
