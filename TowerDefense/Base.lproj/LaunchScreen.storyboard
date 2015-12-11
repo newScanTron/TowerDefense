@@ -22,14 +22,17 @@
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="towerFuryTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TPf-Lr-ISk">
                                 <rect key="frame" x="180" y="207" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Fpi-r0-j0z"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="3kI-vv-yIF" secondAttribute="bottom" id="64W-Be-xpS"/>
-                            <constraint firstItem="TPf-Lr-ISk" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="C6F-5P-Pdy"/>
+                            <constraint firstItem="TPf-Lr-ISk" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="G2a-xS-qHO"/>
                             <constraint firstItem="3kI-vv-yIF" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="RJt-34-9I1"/>
-                            <constraint firstItem="TPf-Lr-ISk" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="qjo-6h-mmf"/>
+                            <constraint firstItem="TPf-Lr-ISk" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="iE9-H1-ulr"/>
                         </constraints>
                     </view>
                 </viewController>

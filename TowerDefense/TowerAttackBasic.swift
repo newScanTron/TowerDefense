@@ -145,7 +145,7 @@ class TowerAttackBasic : TowerAttackStrat {
                 if (target != nil) {
                     circle?.strokeColor = inRangeColor
                     circle?.glowWidth = 3;
-                    var b : Bullet = Bullet(_shooter: tower, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: false)
+                    let b : Bullet = Bullet(_shooter: tower, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: false)
                     if (expOn) {
                         b.setExplosion(expForce)
                     }
