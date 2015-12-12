@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "CE682DC85C0FBE7C9DCF651C6B6DA77993B2E1BC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "5D7AE6F26A6D7E393D8CA002FDE5D0D8ABCDAE62" : 0,
+    "CE682DC85C0FBE7C9DCF651C6B6DA77993B2E1BC" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "309270A9-67A8-4084-A3F0-332A89847503",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "5D7AE6F26A6D7E393D8CA002FDE5D0D8ABCDAE62" : "AudioKit\/",
+    "CE682DC85C0FBE7C9DCF651C6B6DA77993B2E1BC" : "TowerDefenseNow\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TowerDefense",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TowerDefense.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/audiokit\/AudioKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5D7AE6F26A6D7E393D8CA002FDE5D0D8ABCDAE62"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/csci426\/towerdefense.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CE682DC85C0FBE7C9DCF651C6B6DA77993B2E1BC"
+    }
+  ]
+}

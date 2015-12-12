@@ -139,7 +139,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
-      
+      conductor.release(3)
+        conductor.release(6)
         if gameOver {
             return
         }
