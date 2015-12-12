@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4615CE3A1C0FC145005A4290 /* EnemyMoveSwarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE391C0FC145005A4290 /* EnemyMoveSwarm.swift */; };
-		4615CE3B1C0FC145005A4290 /* EnemyMoveSwarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE391C0FC145005A4290 /* EnemyMoveSwarm.swift */; };
-		4615CE401C10FC42005A4290 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE3F1C10FC42005A4290 /* EndGameScene.swift */; };
-		4615CE411C10FC42005A4290 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE3F1C10FC42005A4290 /* EndGameScene.swift */; };
+
+		4615CE3A1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */; };
+		4615CE3B1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */; };
+
 		4615CE431C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
 		4615CE441C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
 		46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */; };
@@ -111,8 +111,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4615CE391C0FC145005A4290 /* EnemyMoveSwarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveSwarm.swift; sourceTree = "<group>"; };
-		4615CE3F1C10FC42005A4290 /* EndGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameScene.swift; sourceTree = "<group>"; };
+
+		4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySwarmStrat.swift; sourceTree = "<group>"; };
+
 		4615CE421C113103005A4290 /* EndGameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameController.swift; sourceTree = "<group>"; };
 		46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveKamikaze.swift; sourceTree = "<group>"; };
 		977E3CA61C13597200BA8F52 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -289,7 +290,6 @@
 				99FD082F1BE035D80070F4B8 /* GameScene.swift */,
 				99FD08311BE035D80070F4B8 /* GameViewController.swift */,
 				99D680E91BE7FE2B00C877CE /* UpgradeView.swift */,
-				4615CE3F1C10FC42005A4290 /* EndGameScene.swift */,
 			);
 			path = TowerDefense;
 			sourceTree = "<group>";
@@ -460,7 +460,6 @@
 				9919CF291C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */,
 				99A3BBE81BE94C1900AAB350 /* Bullet.swift in Sources */,
 				9946E4151BE5721D007E9559 /* EnemyFactory.swift in Sources */,
-				4615CE401C10FC42005A4290 /* EndGameScene.swift in Sources */,
 				993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */,
 				9946E3FF1BE56E33007E9559 /* Common.swift in Sources */,
 				992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */,
@@ -510,7 +509,6 @@
 				9919CF2A1C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */,
 				998722941BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				99BA33C91BF2A24800152764 /* UpgradeView.swift in Sources */,
-				4615CE411C10FC42005A4290 /* EndGameScene.swift in Sources */,
 				99BA33C81BF2A24800152764 /* GameViewController.swift in Sources */,
 				9919CF2D1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
 				99BA33C11BF2A24300152764 /* EnemyBase.swift in Sources */,

@@ -22,7 +22,7 @@ class EnemyAttackRanged: EnemyAttackStrat{
             lastFire = GameScene.gameTime
             if (parent != nil) {
                 if(GameScene.towers.count > 0){
-                    let t = GameScene.getTowersInRange(parent!.sprite.position, range: parent!.range)
+                    let t = getTowersInRange(parent!.sprite.position, range: parent!.range)
                     if t.isEmpty{}
                     else{target = t.first
 //                        bullet!.target = target!.sprite

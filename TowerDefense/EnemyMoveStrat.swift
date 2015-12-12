@@ -57,7 +57,7 @@ class EnemyMoveStrat
         return random(min: -moveConstant, max: 0)
     }
     func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {
-        let dis : CGFloat = GameScene.getDistance(from,to: to)
+        let dis : CGFloat = getDistance(from,to: to)
         return CGVectorMake((to.x - from.x)/dis * speed, (to.y - from.y)/dis * speed)
     }
 }
