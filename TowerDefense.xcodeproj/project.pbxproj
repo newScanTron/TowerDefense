@@ -187,7 +187,7 @@
 		99A3BBE71BE94C1900AAB350 /* TowerDefenseStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseStrat.swift; sourceTree = "<group>"; };
 		99BA33D31BF5171700152764 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		99D680E91BE7FE2B00C877CE /* UpgradeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
-		99F92CAE1C1B913D007C6863 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
+		99F92CAE1C1B913D007C6863 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../AudioKit.swift; sourceTree = "<group>"; };
 		99FD08281BE035D80070F4B8 /* TowerDefense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FD082B1BE035D80070F4B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99FD082D1BE035D80070F4B8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -271,10 +271,8 @@
 				9946E4051BE56EFB007E9559 /* EnemyAttackStrat.swift */,
 				9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */,
 				9946E4141BE5721D007E9559 /* EnemyFactory.swift */,
-
-				4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */,
+				4615CE391C0FC145005A4290 /* EnemyMoveSwarm.swift */,
 				46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */,
-
 			);
 			name = Enemy;
 			sourceTree = "<group>";
@@ -314,7 +312,6 @@
 		99FD081F1BE035D80070F4B8 = {
 			isa = PBXGroup;
 			children = (
-				99F92CAE1C1B913D007C6863 /* AudioKit.swift */,
 				993EC6111C1B7C79008D80C0 /* AudioKit.xcodeproj */,
 				99FD082A1BE035D80070F4B8 /* TowerDefense */,
 				99FD08431BE035D80070F4B8 /* TowerDefenseTests */,
@@ -336,6 +333,7 @@
 		99FD082A1BE035D80070F4B8 /* TowerDefense */ = {
 			isa = PBXGroup;
 			children = (
+				99F92CAE1C1B913D007C6863 /* AudioKit.swift */,
 				9946E40F1BE5701D007E9559 /* Tower */,
 				9946E4101BE57043007E9559 /* Enemy */,
 				9946E41E1BE5775F007E9559 /* Common */,
@@ -557,10 +555,8 @@
 				993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */,
 				9946E3FF1BE56E33007E9559 /* Common.swift in Sources */,
 				992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */,
-
 				46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */,
-				992622381BED1ECB0080D35A /* GruntAttack.swift in Sources */,
-
+				992622381BED1ECB0080D35A /* EnemyAttackBoss.swift in Sources */,
 				99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */,
 				992622351BED1ECB0080D35A /* EnemyMoveBasic.swift in Sources */,
 				99A3BBEA1BE94C1900AAB350 /* TowerDefenseHeal.swift in Sources */,
