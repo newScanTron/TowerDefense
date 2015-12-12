@@ -10,8 +10,8 @@ import Foundation
 import SpriteKit
 
 class EnemyMoveBoss: EnemyMoveStrat {
-
     //Instance variables
+
     var lastMove : CGFloat = 0
     //var bossNode : EnemyBase! = nil
     var target : [TowerBase] = [TowerBase]()
@@ -28,6 +28,7 @@ class EnemyMoveBoss: EnemyMoveStrat {
         //Determines sprite position and sets out of bounds or if there is near by target
         if (enemy.sprite.position.x >= GameScene.scene!.size.width - offSet || enemy.sprite.position.x <= 0 + offSet || enemy.sprite.position.y >= GameScene.scene!.size.height - offSet || enemy.sprite.position.y <= 0 + offSet){
             outOfBounds(enemy)
+
         }
         else {
             enemy.sprite.physicsBody?.linearDamping = 0.0
@@ -47,11 +48,13 @@ class EnemyMoveBoss: EnemyMoveStrat {
         if !setEnemies {
             if enemy.sprite.position.x < 1000{
                 for e in GameScene.enemies{
+
                     if e.name != "BossSprite"{
                         if e.name != "kamikaze"{
                             e.setMoveStrategy(EnemyMoveSwarm())
                             setEnemies = true
                         }
+
                     }
                 }
             }

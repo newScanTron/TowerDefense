@@ -13,6 +13,7 @@ import UIKit
 class EnemyBase: Entity{
     
     //Instance variable
+
     var range: CGFloat = 0
     var attack: EnemyAttackStrat
     var moveStrat : EnemyMoveStrat
@@ -28,7 +29,7 @@ class EnemyBase: Entity{
     //Initializer that sets all instance variables from the factory
     init(_attack : EnemyAttackStrat, _moveStrat :EnemyMoveStrat, _sprite : SKSpriteNode, _range: CGFloat, _moveDelay:CGFloat, _reward : Int, _name :String)
     {
-        
+
         attack = _attack
         moveStrat = _moveStrat
         moveDelay = _moveDelay
@@ -49,9 +50,10 @@ class EnemyBase: Entity{
         
         sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
 
-        let actualY = random(min: 10.0, max: GameScene.scene!.size.height)
+        
+        let actualY = random(min: 10.0, max: 768)
 
-        sprite.position = CGPoint(x: GameScene.scene!.size.width, y:actualY)
+        sprite.position = CGPoint(x: 1024, y:actualY)
         sprite.physicsBody?.dynamic = true
         sprite.physicsBody?.categoryBitMask = CategoryMask.Enemy
         sprite.physicsBody?.contactTestBitMask = ContactMask.Enemy
@@ -74,7 +76,6 @@ class EnemyBase: Entity{
 
     }
 
-    //Sets the move strategy
     func setMoveStrategy(sentStrat: EnemyMoveStrat)
     {
        moveStrat = sentStrat
@@ -102,6 +103,7 @@ class EnemyBase: Entity{
             }
         }
         
+
         moveStrat.Move(self)
     }
     
@@ -114,10 +116,12 @@ class EnemyBase: Entity{
     
     //Check sprite position and health. If dead or too far off the screen the sprite is killed
     override func CheckIfDead() -> Bool {
+
         
         //offset to set how far off screen to allow sprite
         let offSet: CGFloat = 110
         if (health <= 0 || self.sprite.position.x < -offSet || self.sprite.position.x > GameScene.scene!.size.width + offSet || self.sprite.position.y > GameScene.scene!.size.height + offSet || self.sprite.position.y < -offSet ){
+
             attack.Die()
             indicator.removeFromParent()
             return true

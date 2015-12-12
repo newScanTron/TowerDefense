@@ -16,7 +16,11 @@ class EnemyFactory
     var lastEnemy : CGFloat = 0
     var enemyCount : CGFloat = 0
     var theWave : CGFloat = 0
-    init(){}
+    var enemyClone : EnemyBase? = nil
+
+    init(){
+        enemyClone = CreateEnemy()
+    }
     
     // Decides what enemy and how many to return to the GameScene
     func getNextEnemy() -> EnemyBase? {
@@ -28,15 +32,14 @@ class EnemyFactory
             
             if(enemyCount <= (9 + theWave)){
                 waveDelay = 2.0
-                enemy = CreateEnemy()
                 enemyCount++
-                return enemy!
+            
             }
             if(enemyCount > (9 + theWave) && enemyCount <= (14 + theWave))
             {
                 waveDelay = 0.2
                 enemy = CreateEnemyGrunt()
-                if enemyCount == 13 {
+                if enemyCount == 14 {
                     waveDelay = 15.0
                 }
                 enemyCount++
@@ -44,7 +47,7 @@ class EnemyFactory
             }
             if(enemyCount > (14 + theWave) && enemyCount <= (15 + theWave))
             {
-                waveDelay = 10.0
+                waveDelay = 15.0
                 enemy = CreateEnemyBoss()
                 enemyCount++
                 return enemy!
@@ -63,10 +66,15 @@ class EnemyFactory
     func CreateEnemy() -> EnemyBase{
         
 
-
+        
         let attack = EnemyAttackRanged()
         let moveStrat = EnemyMoveBasic()
         let range: CGFloat = 250.00
+        
+        attack.damage = 5.5
+        attack.fireDelay = 1
+        attack.speed = 300
+
         let moveDelay : CGFloat = 0.5
         let name = "RangedSprite"
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
@@ -95,6 +103,7 @@ class EnemyFactory
     //Enemy Boss creation
     func CreateEnemyBoss() -> EnemyBase{
         
+
         //Set enemy strategies and variables
         let attack = EnemyAttackBoss()
         let moveStrat = EnemyMoveBoss()
@@ -105,6 +114,7 @@ class EnemyFactory
     
         //Set attack variables
         attack.damage = 2
+
         attack.fireDelay = 1
         attack.speed = 200
 
@@ -127,11 +137,12 @@ class EnemyFactory
     //Grunt enemy with Ranged attack
     func CreateEnemyGrunt() -> EnemyBase{
         
+
         //Set enemy strategies and variables
         let attack = EnemyAttackRanged()
         let moveStrat = EnemyMoveKamikaze()
         let range: CGFloat = 200.00
-        var moveDelay : CGFloat = 1.0
+        let moveDelay : CGFloat = 1.0
         let name = "GruntSprite"
         let reward = 100
         
@@ -148,12 +159,14 @@ class EnemyFactory
 
         //Instantiate enemy object
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
+
         
         //Set object specific variables
         enemy.health = 100
         enemy.maxHealth = 100
         
         //Return object to the GameScene
+
         return enemy
     }
 
