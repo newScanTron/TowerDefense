@@ -59,7 +59,7 @@ class TowerBuilder
             target.value = source.value
         return nil
     }
-    
+    //this method starts the chain be creating the upgradeView at the appropriate x and y location
     func addUpgradeView(tower: TowerBase, location : CGPoint, gameScene: GameScene)
     {
         var placeY: CGFloat
@@ -80,10 +80,11 @@ class TowerBuilder
         {
             placeX = (location.x)
         }
+        //as mentioned elsewhere the start node has to be called first as it begins the setup process.
         let upgradeView = StartNode(x: (placeX), y: (placeY), tower: tower)
         //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
         //setUpChain(&upgradeView, x: placeX, y: placeY)
-        //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
+        //The tower builder dosen't know about the nodes it just need to call this function.  Each node knows how to display their information based on the inheratence of upgradeView which inherets the upgradeNode.  this allows the way the view is displayed independantly of where it is being implemented.
         gameScene.view?.addSubview(upgradeView.GetView())
         //if we find that we have touched inside one of the towers we want to return from this function because taht is all we are interested in.
         
