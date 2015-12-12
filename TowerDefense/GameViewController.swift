@@ -11,53 +11,41 @@ import SpriteKit
 import CoreData
 
 class GameViewController: UIViewController {
-    //1
+    //appDelegate is the where the user data is delt with and this class will need to know about it.
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
-    
-    //a object to represent the usrrent player
-    
-    
+    //UIViewController function to do any setup that is requried for the game.
     override func viewDidLoad() {
         super.viewDidLoad()
-      appDelegate.gameScene = GameScene(fileNamed:"GameScene")!
-            // Configure the view.
-            let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            appDelegate.gameScene!.scaleMode = .AspectFill
-            
-
-            GameScene.scene = appDelegate.gameScene
-
-            
-            let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedLeft:"))
-            swipeLeft.direction = .Left
-            swipeLeft.numberOfTouchesRequired = 2
-            view.addGestureRecognizer(swipeLeft)
-            
-            let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedRight:"))
-            swipeRight.numberOfTouchesRequired = 2
-            swipeRight.direction = .Right
-            view.addGestureRecognizer(swipeRight)
-            
-            appDelegate.gameScene!.viewController = self
-            
-            skView.presentScene(appDelegate.gameScene)
-        
+        appDelegate.gameScene = GameScene(fileNamed:"GameScene")!
+        // Configure the view.
+        let skView = self.view as! SKView
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        /* Set the scale mode to scale to fit the window */
+        appDelegate.gameScene!.scaleMode = .AspectFill
+        GameScene.scene = appDelegate.gameScene
+        //this block adds a call to the function swiped left when the user swipes left with 2 fingers
+        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedLeft:"))
+        swipeLeft.direction = .Left
+        swipeLeft.numberOfTouchesRequired = 2
+        view.addGestureRecognizer(swipeLeft)
+        //this block adds a call to the function swiped right when the user swipes right with 2 fingers
+        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedRight:"))
+        swipeRight.numberOfTouchesRequired = 2
+        swipeRight.direction = .Right
+        view.addGestureRecognizer(swipeRight)
+        appDelegate.gameScene!.viewController = self
+        skView.presentScene(appDelegate.gameScene)
     }
-    
+    //this method is called when this view is no longer in view e.g. when swiped right and a new user logs in
     override func viewDidDisappear(animated: Bool) {
         appDelegate.updateUser()
         appDelegate.gameScene!.scene?.removeAllChildren()
         GameScene.towers = [TowerBase]()
         GameScene.enemies = [EnemyBase]()
     }
+    //calls the segue that takes the use to the game over scene
     func gameOver(){
         performSegueWithIdentifier("toEndGame", sender: nil)
     }
@@ -71,19 +59,14 @@ class GameViewController: UIViewController {
         {
             GameScene.scene!.view!.paused = false
         }
-        
     }
     func swipedRight(sender:UISwipeGestureRecognizer) {
-       
-        //appDelegate.gameScene.scene?.removeFromParent()
         performSegueWithIdentifier("backToLogin", sender: nil)
-        
     }
-    
+    //iOS framework functions that allow the rotation of the iOS device and other things that are automaticly added when the project was created.
     override func shouldAutorotate() -> Bool {
         return true
     }
-
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
             return .AllButUpsideDown
@@ -91,14 +74,11 @@ class GameViewController: UIViewController {
             return .All
         }
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-   //saves a user to CoreData
 }

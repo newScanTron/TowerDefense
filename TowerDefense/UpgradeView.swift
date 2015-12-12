@@ -90,11 +90,11 @@ class UpgradeView: UIView, UpgradeNode {
         upgradeSelection.selectRow(previousSelection, inComponent: 0, animated: false)
         selection = previousSelection
     }
+    //
     func donePressed() {
-        nextNode = nil
-        startUpgradeChain()
+        self.removeSelf()
     }
-    
+    //this method is used by the various nodes to display a circle that shows how large the area of effect will be whhile the various options are contemplated by the UpgradeView.
     func visualizeCircle(inout circle: SKShapeNode, radius: CGFloat, color: SKColor) {
         
         circle.removeFromParent()
@@ -106,7 +106,6 @@ class UpgradeView: UIView, UpgradeNode {
         circle.zPosition = ZPosition.tower-1
         circle.blendMode = SKBlendMode.Screen
         GameScene.scene!.addChild(circle)
-        
     }
     //this funciton was originaly only in the start node and because Xcode will not yet automaticly refactor swift code its is still named start node. really it is the function that calles the next node and removes the current node from the scene.
     func startUpgradeChain()
