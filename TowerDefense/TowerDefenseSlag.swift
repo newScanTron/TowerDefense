@@ -14,7 +14,7 @@ class TowerDefenseSlag : TowerDefenseStrat {
     
     var inRange : [EnemyBase] = [EnemyBase]()
     
-     var circle : SKShapeNode?
+    var circle : SKShapeNode?
     
     override init () {
         super.init()
@@ -38,7 +38,7 @@ class TowerDefenseSlag : TowerDefenseStrat {
         circle?.removeFromParent()
         circle = nil
         for e in inRange {
-            if (GameScene.getDistance(e.sprite.position,to: tower.sprite.position) <= range) {
+            if (getDistance(e.sprite.position,to: tower.sprite.position) <= range) {
                 e.moveStrat.slagged = false
                 e.sprite.physicsBody?.linearDamping = 0
             }
@@ -68,19 +68,22 @@ class TowerDefenseSlag : TowerDefenseStrat {
             GameScene.scene?.addChild(circle!)
         }
         
-        // Find enemies in radius, heal them
+        // Find enemies in radius, slow them down
         
+        
+        // First resets all of the previously slagged enemies to unslagged
         for e in inRange {
-            if (GameScene.getDistance(e.sprite.position,to: tower.sprite.position) > range) {
+            if (getDistance(e.sprite.position,to: tower.sprite.position) > range) {
                 e.moveStrat.slagged = false
                 e.sprite.physicsBody?.linearDamping = 0
             }
         }
-        inRange = GameScene.getEnemiesInRange(tower.sprite.position, range: range)
+        inRange = getEnemiesInRange(tower.sprite.position, range: range)
         
+        // Then sets new set of enemies to slagged
         for e in inRange {
             e.moveStrat.slagged = true
-             e.sprite.physicsBody?.linearDamping = 1
+            e.sprite.physicsBody?.linearDamping = 1
             
         }
         

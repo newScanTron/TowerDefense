@@ -12,34 +12,325 @@ import SpriteKit
 //set attack range node.  Each of these noodes extend UpgradeView which is a custom UIView class i have created to give each of these noedes a uniform interface.  Upgrade node
 //is the protocol that represents the Processing elements structure that each of these nodes are the concrete implemntation of.  UIPickerViewDelegate and UIPickerViewDataSource are
 
-
-func setPicker(inout upgradeSelection: UIPickerView) -> Int
+//this startNode is special because it does not get a tower passed to it by the previous node. logic that starts the chain is responsible for passing in a tower object to this node.
+class StartNode: UpgradeView, UIPickerViewDelegate, UIPickerViewDataSource
 {
+    //each node needs a towerBase variable because we need access to it outside of the upgrade function
+    var costs = [0,0,0,GameScene.scene!.towerBuilder.clipboard.value]
+    //this array represents the datasource for the UIPickerView
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
-    if appDelegate.user.gold >= 100
+    init(x: CGFloat, y: CGFloat, tower: TowerBase)
     {
-        upgradeSelection.selectRow(0, inComponent: 0, animated: false)
+        super.init(x: x, y: y)
+        
+        upgradeSelection.dataSource = self
+        upgradeSelection.delegate = self
+        nodeData = ["ATTACK", "DEFENSE","COPY","PASTE"] // TODO: ADD SELL OPTION
+        mainLabel.text = "BUILD"
+        mx = x
+        my = y
+        self.tower = tower
+        
     }
-    if appDelegate.user.gold >= 200
+    //UIpicker functions
+    //functions conforming to the UIPickerView DataSource
+    //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if appDelegate.user.gold >= costs[row]
+        {
+            selection = row
+            moneySpent = costs[row]
+            playerLabel.text = " "
+            if (costs[row]) > 0 {
+                playerLabel.text = "Cost: " + String(costs[row])
+            }
+            else {
+                playerLabel.text = " "
+            }
+            
+        }
+        else
+        {
+            playerLabel.text = "NOT ENOUGH GOLD"
+            upgradeSelection.selectRow(selection, inComponent: 0, animated: true)
+        }
+    }
+    
+    override func donePressed() {
+        selection = -1
+        super.donePressed()
+    }
+    
+    //fucntion to begin the upgrade request down the chain
+    override func startUpgradeChain()
     {
+        switch(selection) {
+        case -1:
+            break
+        case 0:
+            let attackNode = AttackSetStrategy(x: mx, y: my)
+            self.setNextNode(attackNode)
+            break
+        case 1:
+            let defenseNode = DefenseSetStrategy(x: mx, y: my)
+            self.setNextNode(defenseNode)
+            break
+        case 2:
+            GameScene.scene!.towerBuilder.copyTower(tower!)
+            break
+        case 3:
+            if (GameScene.scene!.towerBuilder.clipboard.value <= appDelegate.user.gold) {
+                GameScene.scene!.towerBuilder.pasteTower(&tower!)
+                moneySpent = tower!.value
+            }
+        default:
+            print("Invalid Row")
+            break
+        }
+        
+        appDelegate.user.gold -= moneySpent
+        appDelegate.updateMyLabel()
+        super.startUpgradeChain()
+    }
+    
+    //the method that all nodes will implement in different fashions. Taking values from the UIPickerView to select the correct array elements.
+    override func upgrade(tower: TowerBase)
+    {
+        self.nextNode?.upgrade(tower)
+    }
+    
+    required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {return 1}
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return nodeData.count}
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return nodeData[row]}
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        let titleData = nodeData[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
+        pickerLabel.attributedText = myTitle
+        return pickerLabel
+    }
+    
+}
+//This AttackSetStategy is responsible for building the chain of attackStategyNodes if that is the option selected in the start chain node.
+class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
+{
+    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    override init(x: CGFloat, y: CGFloat)
+    {
+        super.init(x: x, y: y)
+        
+        upgradeSelection.dataSource = self
+        upgradeSelection.delegate = self
+        nodeData = ["NONE", "CANNON", "PULSE"]
+        self.mainLabel.text = "Set Attack Type"
+        mx = x
+        my = y
+        
+        
+    }
+    
+    //UIpicker functions
+    //functions conforming to the UIPickerView DataSource
+    //once again this is part of how iOS does stuff and i am using it to effect the player gold and the tower(processing node).
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selection = row
+    }
+    
+    
+    override func startUpgradeChain()
+    {
+        switch(selection) {
+        case 0:
+            // Cancels the chain
+            print("ha")
+            break
+        case 1:
+            if (previousSelection != 1) {
+                tower?.setAttack(TowerAttackBasic())
+                //tower?.attack.parent = tower
+                tower?.attackSelection = 1
+            }
+            //initialize the nodes of the chain
+            let setRangeNode = AttackSetRange(x: mx, y: my)
+            let setDamageNode = AttackSetDamage(x: mx, y: my)
+            let fireDelayNode = SetFireDelay(x: mx, y: my)
+            let speedNode = SetSpeed(x: mx, y: my)
+            let expNode = AttackSetExplosion(x: mx, y: my)
+            let homingNode = AttackSetHoming(x: mx, y: my)
+            
+            //set all the nodes to the seccuessor
+            self.setNextNode(setRangeNode)
+            setRangeNode.setNextNode(setDamageNode)
+            setDamageNode.setNextNode(fireDelayNode)
+            fireDelayNode.setNextNode(speedNode)
+            speedNode.setNextNode(expNode)
+            expNode.setNextNode(homingNode)
+            
+            break
+        case 2:
+            if (previousSelection != 2) {
+                tower?.setAttack(TowerAttackPulse())
+                //tower?.attack.parent = tower
+                tower?.attackSelection = 2
+            }
+            //initialize the nodes of the chain
+            let setRangeNode = AttackSetRange(x: mx, y: my)
+            let setDamageNode = AttackSetDamage(x: mx, y: my)
+            let fireDelayNode = SetFireDelay(x: mx, y: my)
+            
+            //set all the nodes to the seccuessor
+            self.setNextNode(setRangeNode)
+            setRangeNode.setNextNode(setDamageNode)
+            setDamageNode.setNextNode(fireDelayNode)
+            
+            break
+        default:
+            print("Invalid Row")
+            break
+        }
+        tower!.value += moneySpent
+        appDelegate.user.gold -= moneySpent
+        appDelegate.updateMyLabel()
+        
+        
+        super.startUpgradeChain()
+        
+    }
+    
+    
+    //the method that all nodes will implement in different fashions.
+    override func upgrade(tower: TowerBase)
+    {
+        previousSelection = tower.attackSelection
+        super.upgrade(tower)
         upgradeSelection.selectRow(1, inComponent: 0, animated: false)
+        selection = 1
     }
-    if appDelegate.user.gold >= 300
-    {
-        upgradeSelection.selectRow(2, inComponent: 0, animated: false)
+    
+    required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {return 1}
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return nodeData.count}
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return nodeData[row]}
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        let titleData = nodeData[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
+        pickerLabel.attributedText = myTitle
+        return pickerLabel
     }
-    if appDelegate.user.gold >= 400
-    {
-        upgradeSelection.selectRow(3, inComponent: 0, animated: false)
-    }
-    return upgradeSelection.selectedRowInComponent(0)
+    
 }
 
+//This node is responsible for building a chain of nodes that affect the Defense stratagies if that was the selection made in the startNode node.
+class DefenseSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
+{
+    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    override init(x: CGFloat, y: CGFloat)
+    {
+        
+        super.init(x: x, y: y)
+        
+        upgradeSelection.dataSource = self
+        upgradeSelection.delegate = self
+        nodeData = ["NONE", "HEAL", "SLAG"]
+        self.mainLabel.text = "Set Defense Type"
+        mx = x
+        my = y
+        
+    }
+    
+    //UIpicker functions
+    //functions conforming to the UIPickerView DataSource
+    
+    //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selection = row
+    }
+    
+    
+    override func startUpgradeChain()
+    {
+        switch(selection) {
+        case 0:
+            if (previousSelection != 0) {
+                tower?.setDefense(TowerDefenseStrat())
+                //tower?.defense.parent = tower
+                tower?.defenseSelection = 0
+            }
+            break
+        case 1:
+            if (previousSelection != 1) {
+                tower?.setDefense(TowerDefenseHeal())
+                //tower?.defense.parent = tower
+                tower?.defenseSelection = 1
+            }
+            //initialize the nodes of the chain
+            let setRangeNode = DefenseSetRange(x: mx, y: my)
+            let setAmountNode = DefenseSetAmount(x: mx, y: my)
+            
+            //set all the nodes to the seccuessor
+            self.setNextNode(setRangeNode)
+            setRangeNode.setNextNode(setAmountNode)
+            
+            break
+        case 2:
+            if (previousSelection != 2) {
+                tower?.setDefense(TowerDefenseSlag())
+                //tower?.defense.parent = tower
+                tower?.defenseSelection = 2
+            }
+            //initialize the nodes of the chain
+            let setRangeNode = DefenseSetRange(x: mx, y: my)
+            let setAmountNode = DefenseSetAmount(x: mx, y: my)
+            
+            //set all the nodes to the seccuessor
+            self.setNextNode(setRangeNode)
+            setRangeNode.setNextNode(setAmountNode)
+            
+            break
+        default:
+            print("Invalid Row")
+            break
+        }
+        
+        tower!.value += moneySpent
+        appDelegate.user.gold -= moneySpent
+        appDelegate.updateMyLabel()
+        
+        super.startUpgradeChain()
+    }
+    
+    //the method that all nodes will implement in different fashions.
+    override func upgrade(tower: TowerBase)
+    {
+        
+        previousSelection = tower.defenseSelection
+        super.upgrade(tower)
+    }
+    
+    required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {return 1}
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return nodeData.count}
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return nodeData[row]}
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        let titleData = nodeData[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
+        pickerLabel.attributedText = myTitle
+        return pickerLabel
+    }
+    
+}
 
 class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
 {
-    
     
     var circle : SKShapeNode = SKShapeNode()
     var validColor : SKColor = SKColor(red: 0.0, green: 0.9, blue: 0.5, alpha: 0.2)
@@ -64,16 +355,10 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         self.mainLabel.text = "Set Homing Level"
         nodeData = ["OFF", "ON"]
-        
-        
-        
     }
     
     //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        
-        
         
         if appDelegate.user.gold >= (costs[row]-costs[previousSelection])
         {
@@ -81,7 +366,6 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
             playerLabel.text = nodeData[row]
             moneySpent = (costs[row]-costs[previousSelection])
             costLabel.text = "Gold: " + String(moneySpent)
-            
         }
         else
         {
@@ -92,9 +376,7 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         
     }
-    
-    
-    
+
     override func startUpgradeChain()
         
     {
@@ -112,14 +394,11 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
     //the method that all nodes will implement in different fashions.
     override func upgrade(tower: TowerBase)
     {
-        
-        
+
         
         previousSelection = (tower.attack as! TowerAttackBasic).homingLevel
         super.upgrade(tower)
-        
-        
-        
+
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -217,8 +496,7 @@ class AttackSetExplosion: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSo
         
         previousSelection = (tower.attack as! TowerAttackBasic).expLevel
         super.upgrade(tower)
-        
-        selection = setPicker(&upgradeSelection)
+
         
     }
     
@@ -315,7 +593,7 @@ class AttackSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.rangeLevel
         super.upgrade(tower)
-        selection = setPicker(&upgradeSelection)
+       
         
         
     }
@@ -403,7 +681,7 @@ class AttackSetDamage: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         previousSelection = tower.attack.damageLevel
         super.upgrade(tower)
-       selection = setPicker(&upgradeSelection)
+     
         
     }
     
@@ -487,7 +765,6 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.fireDelayLevel
         super.upgrade(tower)
-       selection = setPicker(&upgradeSelection)
         
     }
     
@@ -570,7 +847,7 @@ class SetSpeed: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         previousSelection = tower.attack.speedLevel
         super.upgrade(tower)
-       selection = setPicker(&upgradeSelection)
+
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -658,7 +935,7 @@ class DefenseSetRange: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         previousSelection = tower.defense.rangeLevel
         super.upgrade(tower)
-      selection = setPicker(&upgradeSelection)
+    
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -739,7 +1016,7 @@ class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSour
         
         previousSelection = tower.defense.amountLevel
         super.upgrade(tower)
-       selection = setPicker(&upgradeSelection)
+
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
@@ -756,338 +1033,4 @@ class DefenseSetAmount: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSour
     
 }
 
-class AttackSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
-{
-    
-    
-    
-    let appDelegate =
-    UIApplication.sharedApplication().delegate as! AppDelegate
-    override init(x: CGFloat, y: CGFloat)
-    {
-        super.init(x: x, y: y)
-        
-        upgradeSelection.dataSource = self
-        upgradeSelection.delegate = self
-        nodeData = ["NONE", "CANNON", "PULSE"]
-        self.mainLabel.text = "Set Attack Type"
-        mx = x
-        my = y
-        
-        
-    }
-    
-    
-    //UIpicker functions
-    //functions conforming to the UIPickerView DataSource
-    
-    //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selection = row
-    }
-    
-    
-    override func startUpgradeChain()
-    {
-        switch(selection) {
-        case 0:
-            // Cancels the chain
-            print("ha")
-            break
-        case 1:
-            if (previousSelection != 1) {
-                tower?.setAttack(TowerAttackBasic())
-                //tower?.attack.parent = tower
-                tower?.attackSelection = 1
-            }
-            //initialize the nodes of the chain
-            let setRangeNode = AttackSetRange(x: mx, y: my)
-            let setDamageNode = AttackSetDamage(x: mx, y: my)
-            let fireDelayNode = SetFireDelay(x: mx, y: my)
-            let speedNode = SetSpeed(x: mx, y: my)
-            let expNode = AttackSetExplosion(x: mx, y: my)
-            let homingNode = AttackSetHoming(x: mx, y: my)
-            
-            //set all the nodes to the seccuessor
-            self.setNextNode(setRangeNode)
-            setRangeNode.setNextNode(setDamageNode)
-            setDamageNode.setNextNode(fireDelayNode)
-            fireDelayNode.setNextNode(speedNode)
-            speedNode.setNextNode(expNode)
-            expNode.setNextNode(homingNode)
-            
-            break
-        case 2:
-            if (previousSelection != 2) {
-                tower?.setAttack(TowerAttackPulse())
-                //tower?.attack.parent = tower
-                tower?.attackSelection = 2
-            }
-            //initialize the nodes of the chain
-            let setRangeNode = AttackSetRange(x: mx, y: my)
-            let setDamageNode = AttackSetDamage(x: mx, y: my)
-            let fireDelayNode = SetFireDelay(x: mx, y: my)
-            
-            //set all the nodes to the seccuessor
-            self.setNextNode(setRangeNode)
-            setRangeNode.setNextNode(setDamageNode)
-            setDamageNode.setNextNode(fireDelayNode)
-            
-            break
-        default:
-            print("Invalid Row")
-            break
-        }
-        tower!.value += moneySpent
-        appDelegate.user.gold -= moneySpent
-        appDelegate.updateMyLabel()
-        
-        
-        super.startUpgradeChain()
-        
-    }
-    
-    
-    //the method that all nodes will implement in different fashions.
-    override func upgrade(tower: TowerBase)
-    {
-        
-        
-        previousSelection = tower.attackSelection
-        
-        super.upgrade(tower)
-        upgradeSelection.selectRow(1, inComponent: 0, animated: false)
-        selection = 1
-    }
-    
-    required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {return 1}
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return nodeData.count}
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return nodeData[row]}
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
-        let pickerLabel = UILabel()
-        let titleData = nodeData[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
-        pickerLabel.attributedText = myTitle
-        return pickerLabel
-    }
-    
-}
 
-class DefenseSetStrategy: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
-{
-    
-    
-    
-    let appDelegate =
-    UIApplication.sharedApplication().delegate as! AppDelegate
-    
-    override init(x: CGFloat, y: CGFloat)
-    {
-        
-        super.init(x: x, y: y)
-        
-        upgradeSelection.dataSource = self
-        upgradeSelection.delegate = self
-        nodeData = ["NONE", "HEAL", "SLAG"]
-        self.mainLabel.text = "Set Defense Type"
-        mx = x
-        my = y
-        
-    }
-    
-    
-    //UIpicker functions
-    //functions conforming to the UIPickerView DataSource
-    
-    //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selection = row
-    }
-    
-    
-    override func startUpgradeChain()
-    {
-        switch(selection) {
-        case 0:
-            if (previousSelection != 0) {
-                tower?.setDefense(TowerDefenseStrat())
-                //tower?.defense.parent = tower
-                tower?.defenseSelection = 0
-            }
-            break
-        case 1:
-            if (previousSelection != 1) {
-                tower?.setDefense(TowerDefenseHeal())
-                //tower?.defense.parent = tower
-                tower?.defenseSelection = 1
-            }
-            //initialize the nodes of the chain
-            let setRangeNode = DefenseSetRange(x: mx, y: my)
-            let setAmountNode = DefenseSetAmount(x: mx, y: my)
-            
-            //set all the nodes to the seccuessor
-            self.setNextNode(setRangeNode)
-            setRangeNode.setNextNode(setAmountNode)
-            
-            break
-        case 2:
-            if (previousSelection != 2) {
-                tower?.setDefense(TowerDefenseSlag())
-                //tower?.defense.parent = tower
-                tower?.defenseSelection = 2
-            }
-            //initialize the nodes of the chain
-            let setRangeNode = DefenseSetRange(x: mx, y: my)
-            let setAmountNode = DefenseSetAmount(x: mx, y: my)
-            
-            //set all the nodes to the seccuessor
-            self.setNextNode(setRangeNode)
-            setRangeNode.setNextNode(setAmountNode)
-            
-            break
-        default:
-            print("Invalid Row")
-            break
-        }
-        
-        tower!.value += moneySpent
-        appDelegate.user.gold -= moneySpent
-        appDelegate.updateMyLabel()
-        
-        super.startUpgradeChain()
-    }
-    
-    
-    //the method that all nodes will implement in different fashions.
-    override func upgrade(tower: TowerBase)
-    {
-        
-        previousSelection = tower.defenseSelection
-        super.upgrade(tower)
-    }
-    
-    required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {return 1}
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return nodeData.count}
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return nodeData[row]}
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
-        let pickerLabel = UILabel()
-        let titleData = nodeData[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
-        pickerLabel.attributedText = myTitle
-        return pickerLabel
-    }
-    
-}
-
-class StartNode: UpgradeView, UIPickerViewDelegate, UIPickerViewDataSource
-{
-    //each node needs a towerBase variable because we need access to it outside of the upgrade function
-    var costs = [0,0,0,GameScene.scene!.towerBuilder.clipboard.value]
-    //this array represents the datasource for the UIPickerView
-    let appDelegate =
-    UIApplication.sharedApplication().delegate as! AppDelegate
-    init(x: CGFloat, y: CGFloat, tower: TowerBase)
-    {
-        super.init(x: x, y: y)
-        
-        upgradeSelection.dataSource = self
-        upgradeSelection.delegate = self
-        nodeData = ["ATTACK", "DEFENSE","COPY","PASTE"] // TODO: ADD SELL OPTION
-        mainLabel.text = "BUILD"
-        mx = x
-        my = y
-        self.tower = tower
-        
-        
-    }
-    
-    
-    //UIpicker functions
-    //functions conforming to the UIPickerView DataSource
-    
-    //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if appDelegate.user.gold >= costs[row]
-        {
-            selection = row
-            moneySpent = costs[row]
-            playerLabel.text = " "
-            if (costs[row]) > 0 {
-                playerLabel.text = "Cost: " + String(costs[row])
-            }
-            else {
-                playerLabel.text = " "
-            }
-            
-        }
-        else
-        {
-            playerLabel.text = "NOT ENOUGH GOLD"
-            upgradeSelection.selectRow(selection, inComponent: 0, animated: true)
-        }
-    }
-    
-    override func donePressed() {
-        selection = -1
-        super.donePressed()
-    }
-    
-    //fucntion to begin the upgrade request down the chain
-    override func startUpgradeChain()
-    {
-        switch(selection) {
-        case -1:
-            break
-        case 0:
-            let attackNode = AttackSetStrategy(x: mx, y: my)
-            self.setNextNode(attackNode)
-            break
-        case 1:
-            let defenseNode = DefenseSetStrategy(x: mx, y: my)
-            self.setNextNode(defenseNode)
-            break
-        case 2:
-            GameScene.scene!.towerBuilder.copyTower(tower!)
-            break
-        case 3:
-            if (GameScene.scene!.towerBuilder.clipboard.value <= appDelegate.user.gold) {
-                GameScene.scene!.towerBuilder.pasteTower(&tower!)
-                moneySpent = tower!.value
-            }
-        default:
-            print("Invalid Row")
-            break
-        }
-
-        appDelegate.user.gold -= moneySpent
-        appDelegate.updateMyLabel()
-        
-        super.startUpgradeChain()
-        
-    }
-    
-    //the method that all nodes will implement in different fashions. Taking values from the UIPickerView to select the correct array elements.
-    override func upgrade(tower: TowerBase)
-    {
-        
-        super.upgrade(tower)
-        
-        self.nextNode?.upgrade(tower)
-        
-    }
-    
-    required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {return 1}
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return nodeData.count}
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return nodeData[row]}
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
-        let pickerLabel = UILabel()
-        let titleData = nodeData[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
-        pickerLabel.attributedText = myTitle
-        return pickerLabel
-    }
-    
-}

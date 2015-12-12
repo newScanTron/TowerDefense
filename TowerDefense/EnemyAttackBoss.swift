@@ -32,7 +32,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
 
         }
         
-        let exp : Explosion = Explosion(_radius: 500, _damage: 80)
+        let exp : Explosion = Explosion(_radius: 1000, _damage: 80)
         exp.trigger(parent!.sprite.position)
         
 
@@ -44,7 +44,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
     override func Attack(){
         
         healthCount = 0
-        healingTarget = GameScene.getEnemiesInRange(parent!.sprite.position, range: 125)
+        healingTarget = getEnemiesInRange(parent!.sprite.position, range: 125)
         
         //Loop determing if there are injured enemies or not and setting flags 
         //appropriately
@@ -52,7 +52,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
             if e.name == "BossSprite" {
 
             }
-            else if GameScene.getDistance(parent!.sprite.position, to: e.sprite.position) <= 150 {
+            else if getDistance(parent!.sprite.position, to: e.sprite.position) <= 150 {
                 if e.health < e.maxHealth{
                     allHealthy = false
                     e.health += 1

@@ -24,11 +24,11 @@ class EnemyMoveSwarm : EnemyMoveStrat{
                 
                 //Three states that keep the sprite close to the boss
                 //Distance are > 250, 75 - 250 and < 75 is the else
-                if GameScene.getDistance(enemy.sprite.position, to: e.sprite.position) > CGFloat(250){
+                if getDistance(enemy.sprite.position, to: e.sprite.position) > CGFloat(250){
                     enemy.sprite.physicsBody?.linearDamping = 0.75
                     enemy.sprite.physicsBody?.applyImpulse(getVector(enemy.sprite.position, to: e.sprite.position, speed: 9.0))
                 }
-                else if GameScene.getDistance(enemy.sprite.position, to: e.sprite.position) > CGFloat(75) && GameScene.getDistance(enemy.sprite.position, to: e.sprite.position) < 250 {
+                else if getDistance(enemy.sprite.position, to: e.sprite.position) > CGFloat(75) && getDistance(enemy.sprite.position, to: e.sprite.position) < 250 {
                     enemy.sprite.physicsBody?.linearDamping = 0.5
                     enemy.sprite.physicsBody?.applyImpulse(getVector(enemy.sprite.position, to: e.sprite.position, speed: 8.0))
                 }

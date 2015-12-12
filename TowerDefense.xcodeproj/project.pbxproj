@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4615CE3A1C0FC145005A4290 /* EnemyMoveSwarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE391C0FC145005A4290 /* EnemyMoveSwarm.swift */; };
-		4615CE3B1C0FC145005A4290 /* EnemyMoveSwarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE391C0FC145005A4290 /* EnemyMoveSwarm.swift */; };
-		4615CE401C10FC42005A4290 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE3F1C10FC42005A4290 /* EndGameScene.swift */; };
-		4615CE411C10FC42005A4290 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE3F1C10FC42005A4290 /* EndGameScene.swift */; };
+		4615CE3A1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */; };
+		4615CE3B1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */; };
 		4615CE431C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
 		4615CE441C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
 		46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */; };
@@ -83,6 +81,8 @@
 		99BA33D41BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
+		99CE60C51C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */; };
+		99CE60C61C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */; };
 		99D680EA1BE7FE2B00C877CE /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D680E91BE7FE2B00C877CE /* UpgradeView.swift */; };
 		99F92CAF1C1B913D007C6863 /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F92CAE1C1B913D007C6863 /* AudioKit.swift */; };
 		99FD082C1BE035D80070F4B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082B1BE035D80070F4B8 /* AppDelegate.swift */; };
@@ -148,8 +148,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4615CE391C0FC145005A4290 /* EnemyMoveSwarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveSwarm.swift; sourceTree = "<group>"; };
-		4615CE3F1C10FC42005A4290 /* EndGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameScene.swift; sourceTree = "<group>"; };
+		4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySwarmStrat.swift; sourceTree = "<group>"; };
 		4615CE421C113103005A4290 /* EndGameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameController.swift; sourceTree = "<group>"; };
 		46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveKamikaze.swift; sourceTree = "<group>"; };
 		977E3CA61C13597200BA8F52 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -186,6 +185,7 @@
 		99A3BBE61BE94C1900AAB350 /* TowerDefenseHeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseHeal.swift; sourceTree = "<group>"; };
 		99A3BBE71BE94C1900AAB350 /* TowerDefenseStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseStrat.swift; sourceTree = "<group>"; };
 		99BA33D31BF5171700152764 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
+		99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGenerator.swift; sourceTree = "<group>"; };
 		99D680E91BE7FE2B00C877CE /* UpgradeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		99F92CAE1C1B913D007C6863 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../AudioKit.swift; sourceTree = "<group>"; };
 		99FD08281BE035D80070F4B8 /* TowerDefense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefense.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,7 +271,7 @@
 				9946E4051BE56EFB007E9559 /* EnemyAttackStrat.swift */,
 				9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */,
 				9946E4141BE5721D007E9559 /* EnemyFactory.swift */,
-				4615CE391C0FC145005A4290 /* EnemyMoveSwarm.swift */,
+				4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */,
 				46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */,
 			);
 			name = Enemy;
@@ -309,6 +309,14 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		99CE60CA1C1BD45B00CB8F22 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		99FD081F1BE035D80070F4B8 = {
 			isa = PBXGroup;
 			children = (
@@ -339,9 +347,9 @@
 				9946E41E1BE5775F007E9559 /* Common */,
 				9946E41D1BE5771E007E9559 /* Visual */,
 				99FD082F1BE035D80070F4B8 /* GameScene.swift */,
+				99CE60CA1C1BD45B00CB8F22 /* Audio */,
 				99FD08311BE035D80070F4B8 /* GameViewController.swift */,
 				99D680E91BE7FE2B00C877CE /* UpgradeView.swift */,
-				4615CE3F1C10FC42005A4290 /* EndGameScene.swift */,
 				993EC6271C1B7EC2008D80C0 /* Bridging-Header.h */,
 			);
 			path = TowerDefense;
@@ -551,7 +559,6 @@
 				9919CF291C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */,
 				99A3BBE81BE94C1900AAB350 /* Bullet.swift in Sources */,
 				9946E4151BE5721D007E9559 /* EnemyFactory.swift in Sources */,
-				4615CE401C10FC42005A4290 /* EndGameScene.swift in Sources */,
 				993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */,
 				9946E3FF1BE56E33007E9559 /* Common.swift in Sources */,
 				992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */,
@@ -579,7 +586,8 @@
 				97B633C21C0D5CCB00CB6B8B /* Explosion.swift in Sources */,
 				9926223B1BED2B2C0080D35A /* User.swift in Sources */,
 				4615CE431C113103005A4290 /* EndGameController.swift in Sources */,
-				4615CE3A1C0FC145005A4290 /* EnemyMoveSwarm.swift in Sources */,
+				4615CE3A1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */,
+				99CE60C51C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */,
 				9946E41B1BE5766C007E9559 /* Entity.swift in Sources */,
 				9946E4061BE56EFB007E9559 /* EnemyAttackStrat.swift in Sources */,
 				9946E4181BE573D7007E9559 /* EnemyBase.swift in Sources */,
@@ -600,7 +608,6 @@
 				9919CF2A1C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */,
 				998722941BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				99BA33C91BF2A24800152764 /* UpgradeView.swift in Sources */,
-				4615CE411C10FC42005A4290 /* EndGameScene.swift in Sources */,
 				99BA33C81BF2A24800152764 /* GameViewController.swift in Sources */,
 				9919CF2D1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
 				99BA33C11BF2A24300152764 /* EnemyBase.swift in Sources */,
@@ -620,11 +627,12 @@
 				99BA33D01BF2A25F00152764 /* GameState.swift in Sources */,
 				9946E40D1BE56F7D007E9559 /* TowerDefenseStrat.swift in Sources */,
 				99BA33BD1BF2A24300152764 /* ConcreteMoveStrat2.swift in Sources */,
-				4615CE3B1C0FC145005A4290 /* EnemyMoveSwarm.swift in Sources */,
+				4615CE3B1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */,
 				97B633C31C0D62AA00CB6B8B /* Explosion.swift in Sources */,
 				46237E831C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */,
 				99BA33C71BF2A24800152764 /* GameScene.swift in Sources */,
 				99BA33B21BF2A23400152764 /* TowerAttackBasic.swift in Sources */,
+				99CE60C61C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */,
 				99BA33BC1BF2A24300152764 /* EnemyMoveBasic.swift in Sources */,
 				99BA33B41BF2A23C00152764 /* Bullet.swift in Sources */,
 				4615CE441C113103005A4290 /* EndGameController.swift in Sources */,

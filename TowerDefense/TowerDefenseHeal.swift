@@ -66,7 +66,7 @@ class TowerDefenseHeal : TowerDefenseStrat {
         
         // Find enemies in radius, heal them
         
-        inRange = GameScene.getTowersInRange(tower.sprite.position, range: range)
+        inRange = getTowersInRange(tower.sprite.position, range: range)
         
         for t in inRange {
             t.health += amount
