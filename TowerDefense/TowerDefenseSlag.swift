@@ -38,7 +38,7 @@ class TowerDefenseSlag : TowerDefenseStrat {
         circle?.removeFromParent()
         circle = nil
         for e in inRange {
-            if (GameScene.getDistance(e.sprite.position,to: tower.sprite.position) <= range) {
+            if (getDistance(e.sprite.position,to: tower.sprite.position) <= range) {
                 e.moveStrat.slagged = false
                 e.sprite.physicsBody?.linearDamping = 0
             }
@@ -71,12 +71,12 @@ class TowerDefenseSlag : TowerDefenseStrat {
         // Find enemies in radius, heal them
         
         for e in inRange {
-            if (GameScene.getDistance(e.sprite.position,to: tower.sprite.position) > range) {
+            if (getDistance(e.sprite.position,to: tower.sprite.position) > range) {
                 e.moveStrat.slagged = false
                 e.sprite.physicsBody?.linearDamping = 0
             }
         }
-        inRange = GameScene.getEnemiesInRange(tower.sprite.position, range: range)
+        inRange = getEnemiesInRange(tower.sprite.position, range: range)
         
         for e in inRange {
             e.moveStrat.slagged = true

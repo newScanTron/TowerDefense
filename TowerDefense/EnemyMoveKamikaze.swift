@@ -56,8 +56,8 @@ class EnemyMoveKamikaze: EnemyMoveStrat{
     }
     func kamikaze(enemy: EnemyBase){
 
-        let towers = GameScene.getClosestTower(enemy.sprite.position)
-        if GameScene.getDistance(enemy.sprite.position, to: towers!.sprite.position) <= 20 {
+        let towers = getClosestTower(enemy.sprite.position)
+        if getDistance(enemy.sprite.position, to: towers!.sprite.position) <= 20 {
             Explosion(_radius: 100, _damage: 10).trigger(enemy.sprite.position)
             enemy.health = 0
         }

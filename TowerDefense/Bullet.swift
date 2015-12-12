@@ -120,7 +120,7 @@ class Bullet : Item {
     
     
     class func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {
-        let dis : CGFloat = GameScene.getDistance(from,to: to) // We divide the vector by this (the length of the vector) to ensure it is normalized
+        let dis : CGFloat = getDistance(from,to: to) // We divide the vector by this (the length of the vector) to ensure it is normalized
         return CGVectorMake((to.x - from.x)/dis * speed, (to.y - from.y)/dis * speed)
     }
     

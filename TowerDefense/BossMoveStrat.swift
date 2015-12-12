@@ -23,7 +23,7 @@ class EnemyMoveBoss: EnemyMoveStrat {
         let offSet : CGFloat = 150
         //bossNode = nodeToMove
         
-        target = GameScene.getTowersInRange(enemy.sprite.position, range: 150)
+        target = getTowersInRange(enemy.sprite.position, range: 150)
         
         //Determines sprite position and sets out of bounds or if there is near by target
         if (enemy.sprite.position.x >= GameScene.scene!.size.width - offSet || enemy.sprite.position.x <= 0 + offSet || enemy.sprite.position.y >= GameScene.scene!.size.height - offSet || enemy.sprite.position.y <= 0 + offSet){
@@ -47,8 +47,8 @@ class EnemyMoveBoss: EnemyMoveStrat {
         if !setEnemies {
             if enemy.sprite.position.x < 1000{
                 for e in GameScene.enemies{
-                    if e.name != "BossSprite"{
-                        if e.name != "kamikaze"{
+                    if e.name != "BossSprite"{ // Skip boss
+                        if e.name != "kamikaze"{ // Skip kamikaze
                             e.setMoveStrategy(EnemyMoveSwarm())
                             setEnemies = true
                         }

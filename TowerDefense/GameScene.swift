@@ -99,7 +99,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let touchLocation = touch.locationInView(self.view!)
         let tower : TowerBase = towerBuilder.BuildBaseTower(location)
         
-        if (GameScene.addGold(-100)) {
+        if (addGold(-100)) {
             GameScene.towers.append(tower)
 
 
@@ -240,15 +240,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
+    // Handles the wave progression
     func nextWave(){
 
         nextWaveDelay = true
         appDelegate?.gameState.wave++
+        
+        //Set up the label
         let gameOverLabel = SKLabelNode(fontNamed: "Square")
-
-
         gameOverLabel.text = "WAVE COMPLETED"
-
         gameOverLabel.fontSize = 45
         gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
         gameOverLabel.zPosition = 1000
@@ -263,81 +263,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
     }
 
-    class func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
-        
-        var closestEnemy : EnemyBase?
-        var closestDistance : CGFloat = 999999
-        var tempDistance : CGFloat
-        
-        for e in enemies {
-            tempDistance = getDistance(point,to: e.sprite.position)
-            if (tempDistance < closestDistance) {
-                closestDistance = tempDistance
-                closestEnemy = e;
-            }
-        }
-        if (closestDistance < range) {
-            return closestEnemy;
-        }
-        else {
-            return nil
-        }
-    }
-    
-    class func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
-        var inRange : [TowerBase] = [TowerBase]()
-        for t in towers {
-            if (getDistance(point,to:t.sprite.position) < range) {
-                inRange.append(t);
-            }
-        }
-        return inRange
-    }
-    
-    class func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
-        var inRange : [EnemyBase] = [EnemyBase]()
-        for e in enemies {
-            if (getDistance(point,to:e.sprite.position) < range) {
-                inRange.append(e);
-            }
-        }
-        return inRange
-    }
-    
-    class func getClosestTower(point : CGPoint) -> TowerBase? {
-        
-        var closestTower : TowerBase?
-        var closestDistance : CGFloat = 999999
-        var tempDistance : CGFloat
-        
-        for t in towers {
-            tempDistance = getDistance(point,to: t.sprite.position)
-            if (tempDistance < closestDistance) {
-                closestDistance = tempDistance
-                closestTower = t;
-            }
-        }
-        
-        return closestTower;
-    }
-    
-    class func addGold(amount : Int) -> Bool{
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
-        if (appDelegate.user.gold + amount >= 0) {
-            // User has enough gold, return true
-            appDelegate.user.gold += amount
-            return true
-        }
-        // User does not have enough gold, return false
-        return false
-    }
-    
-    
-    class func getDistance(from : CGPoint, to : CGPoint) -> CGFloat {
-        
-        return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
-    }
     
     func didBeginContact(contact: SKPhysicsContact) {
         // Bitiwse OR the bodies' categories to find out what kind of contact we have

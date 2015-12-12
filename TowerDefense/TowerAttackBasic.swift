@@ -141,7 +141,7 @@ class TowerAttackBasic : TowerAttackStrat {
             
             
             lastFire = GameScene.gameTime
-                target = GameScene.getClosestEnemy(tower.sprite.position, range: range)
+                target = getClosestEnemy(tower.sprite.position, range: range)
                 if (target != nil) {
                     circle?.strokeColor = inRangeColor
                     circle?.glowWidth = 3;

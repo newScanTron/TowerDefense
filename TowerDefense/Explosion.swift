@@ -57,7 +57,7 @@ class Explosion : Item {
             // Linearly decreasing damage
             currentDamage = ratio * damage
             
-            for e in GameScene.getEnemiesInRange(location!,range: currentRadius) {
+            for e in getEnemiesInRange(location!,range: currentRadius) {
                 // Apply damage to each enemy within pulse
                 e.health -= currentDamage
                 e.sprite.physicsBody!.applyImpulse(Bullet.getVector(location!, to: e.sprite.position, speed: currentDamage * 2))

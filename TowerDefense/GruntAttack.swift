@@ -42,7 +42,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
     override func Attack(){
         
         healthCount = 0
-        healingTarget = GameScene.getEnemiesInRange(parent!.sprite.position, range: 125)
+        healingTarget = getEnemiesInRange(parent!.sprite.position, range: 125)
         
         //Loop determing if there are injured enemies or not and setting flags 
         //appropriately
@@ -50,7 +50,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
             if e.name == "BossSprite" {
 
             }
-            else if GameScene.getDistance(parent!.sprite.position, to: e.sprite.position) <= 150 {
+            else if getDistance(parent!.sprite.position, to: e.sprite.position) <= 150 {
                 if e.health < e.maxHealth{
                     allHealthy = false
                     e.health += 1

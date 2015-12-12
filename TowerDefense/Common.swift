@@ -37,6 +37,7 @@ struct ContactMask { // Which categories should this object trigger notification
     static let TowerBullet  : UInt32 = 0b0010 // TowerBullet should only trigger contacts with Enemies, so they can deal damage then be destroyed
 }
 
+// Sets the Z position of an x,y,z cartesian plane
 struct ZPosition {
     static let background  : CGFloat = -10
     static let wall         : CGFloat = 0
@@ -44,6 +45,7 @@ struct ZPosition {
     static let enemy        : CGFloat = 6
     static let bullet       : CGFloat = 7
 }
+
 extension UIView {
     func addBackground() {
         // screen width and height:
@@ -61,6 +63,86 @@ extension UIView {
     }
 }
 
+// Returns closest enemy to given point
+func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
+    
+    var closestEnemy : EnemyBase?
+    var closestDistance : CGFloat = 999999
+    var tempDistance : CGFloat
+    
+    for e in GameScene.enemies {
+        tempDistance = getDistance(point,to: e.sprite.position)
+        if (tempDistance < closestDistance) {
+            closestDistance = tempDistance
+            closestEnemy = e;
+        }
+    }
+    if (closestDistance < range) {
+        return closestEnemy;
+    }
+    else {
+        return nil
+    }
+}
+
+// Returns a list of towers in range to given points range
+func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
+    var inRange : [TowerBase] = [TowerBase]()
+    for t in GameScene.towers {
+        if (getDistance(point,to:t.sprite.position) < range) {
+            inRange.append(t);
+        }
+    }
+    return inRange
+}
+
+// Returns a list of enemies in range to given points range
+func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
+    var inRange : [EnemyBase] = [EnemyBase]()
+    for e in GameScene.enemies {
+        if (getDistance(point,to:e.sprite.position) < range) {
+            inRange.append(e);
+        }
+    }
+    return inRange
+}
+
+// Returns closest tower to given point
+func getClosestTower(point : CGPoint) -> TowerBase? {
+    
+    var closestTower : TowerBase?
+    var closestDistance : CGFloat = 999999
+    var tempDistance : CGFloat
+    
+    for t in GameScene.towers {
+        tempDistance = getDistance(point,to: t.sprite.position)
+        if (tempDistance < closestDistance) {
+            closestDistance = tempDistance
+            closestTower = t;
+        }
+    }
+    
+    return closestTower;
+}
+
+// adds gold when an enemy is detsroyed
+func addGold(amount : Int) -> Bool{
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    if (appDelegate.user.gold + amount >= 0) {
+        // User has enough gold, return true
+        appDelegate.user.gold += amount
+        return true
+    }
+    // User does not have enough gold, return false
+    return false
+}
+
+// Resturns distance from two points
+func getDistance(from : CGPoint, to : CGPoint) -> CGFloat {
+    
+    return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
+}
 
 
 func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
