@@ -33,7 +33,7 @@ class Conductor {
 
     
     
-    func playPhraseOfNotesOfDuration(duration: Float) {
+    func hitEnemyPlaySoundForDuration(duration: Float) {
         
         let phrase = AKPhrase()
         

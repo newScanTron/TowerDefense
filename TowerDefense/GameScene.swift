@@ -285,7 +285,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
                     contactTest.destroy()
                      //conductor.play(3)
-                    conductor.playPhraseOfNotesOfDuration(0.2)
+                    conductor.hitEnemyPlaySoundForDuration(0.02)
                     contact.bodyB.node?.removeFromParent()
                     
                   //  _ = AudioGenerator()
@@ -298,7 +298,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     e.UpdateLabel()
 
                     contactTest.destroy()
-
+conductor.hitEnemyPlaySoundForDuration(0.02)
                     contact.bodyA.node?.removeFromParent()
                 }
             }
