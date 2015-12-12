@@ -117,7 +117,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                addUpgradeView(each, location: touch!.locationInView(nil), gameScene: self)
+                towerBuilder.addUpgradeView(each, location: touch!.locationInView(nil), gameScene: self)
                 return
             }
         }

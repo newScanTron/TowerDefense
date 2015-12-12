@@ -414,7 +414,7 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["SLOW", "MEDIUM", "FAST","LUDACRIS"]
+        nodeData = ["SLOW", "MEDIUM", "FAST","LUDICROUS"]
         self.mainLabel.text = "Set Fire Rate"
         
         
