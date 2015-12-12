@@ -21,10 +21,6 @@ class TowerBuilder
         let attack = TowerAttackStrat()
         let defense = TowerDefenseStrat()
         let tower = TowerBase(location: point, _attack: attack, _defense: defense)
-        //attack.setParent(tower)
-        //attack.parent = tower
-        //defense.parent = tower
-        
         return tower
     }
     
@@ -35,9 +31,6 @@ class TowerBuilder
     func pasteTower(inout target : TowerBase) -> TowerBase? {
             let attack : TowerAttackStrat = clipboard.attack.copy()
             let defense : TowerDefenseStrat = clipboard.defense.copy()
-            //attack.parent = target
-            //defense.parent = target
-            
             target.attackSelection = clipboard.attackSelection
             target.defenseSelection = clipboard.defenseSelection
             target.setAttack(attack)
@@ -49,9 +42,6 @@ class TowerBuilder
     func pasteTower(inout target : TowerBase, source : TowerBase) -> TowerBase? {
             let attack : TowerAttackStrat = source.attack.copy()
             let defense : TowerDefenseStrat = source.defense.copy()
-            //attack.parent = target
-            //defense.parent = target
-            
             target.attackSelection = source.attackSelection
             target.defenseSelection = source.defenseSelection
             target.setAttack(attack)
@@ -64,6 +54,7 @@ class TowerBuilder
     {
         var placeY: CGFloat
         var placeX: CGFloat
+        //this set of if elses check what quatant the touch was in and moves the base location of the UIView so it will not display outside of the screen.
         if (location.y) >= CGRectGetMaxY(gameScene.frame)/2
         {
             placeY = ((location.y) - CGFloat(200.0))
@@ -80,13 +71,11 @@ class TowerBuilder
         {
             placeX = (location.x)
         }
-        //as mentioned elsewhere the start node has to be called first as it begins the setup process.
+        //as mentioned elsewhere the start node has to be called first as it begins the setup process. getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
         let upgradeView = StartNode(x: (placeX), y: (placeY), tower: tower)
-        //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
-        //setUpChain(&upgradeView, x: placeX, y: placeY)
         //The tower builder dosen't know about the nodes it just need to call this function.  Each node knows how to display their information based on the inheratence of upgradeView which inherets the upgradeNode.  this allows the way the view is displayed independantly of where it is being implemented.
         gameScene.view?.addSubview(upgradeView.GetView())
-        //if we find that we have touched inside one of the towers we want to return from this function because taht is all we are interested in.
+
         
     }
     
