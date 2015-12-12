@@ -32,7 +32,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
 
         }
         
-        let exp : Explosion = Explosion(_radius: 500, _damage: 80)
+        let exp : Explosion = Explosion(_radius: 1000, _damage: 80)
         exp.trigger(parent!.sprite.position)
         
 

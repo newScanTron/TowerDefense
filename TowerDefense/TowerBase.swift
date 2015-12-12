@@ -12,21 +12,21 @@ import SpriteKit
 class TowerBase: Entity{
     var attack : TowerAttackStrat
     var defense : TowerDefenseStrat
-    var attackSelection : Int = 0
+    var attackSelection : Int = 0 // For the Tower Upgrade process, indicates what the currently selected attack and defense strategies are.
     var defenseSelection : Int = 0
-    var value : Int = 0
-    var attackSprite : SKSpriteNode
-
+    var value : Int = 0 // Value in gold of all attack strategies
+    var attackSprite : SKSpriteNode // Sprite that changes based on attack strategy
+    
     init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
         
         attack = _attack;
         defense = _defense;
-        attackSprite = SKSpriteNode(imageNamed: attack.imageName)
+        attackSprite = SKSpriteNode(imageNamed: attack.imageName) // Sets attackSprite to sprite stored in new attack strategy
         
         super.init()
         
-        sprite = SKSpriteNode(imageNamed: defense.imageName)
+        sprite = SKSpriteNode(imageNamed: defense.imageName) // This is effectively the "defense" sprite
         
         sprite.xScale = 0.5
         sprite.yScale = 0.5
@@ -44,7 +44,7 @@ class TowerBase: Entity{
         attackSprite.zPosition = ZPosition.tower + 1
         sprite.name = "tower"
         
-        // Store reference to self in userData
+        // Store reference to self in userData. This is the only way to get a reference to this TowerBase when all we have is the SKSpriteNode
         sprite.userData = NSMutableDictionary()
         sprite.userData!.setValue(self,forKey: "object")
         
@@ -74,7 +74,7 @@ class TowerBase: Entity{
     
     override func CheckIfDead() -> Bool {
         if health <= 0 {
-            attack.Die(self)
+            attack.Die(self) // If I am dead, tell my strategies to do their death things
             defense.Die(self)
             attackSprite.removeFromParent()
             return true

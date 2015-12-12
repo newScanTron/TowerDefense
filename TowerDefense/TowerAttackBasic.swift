@@ -13,7 +13,7 @@ class TowerAttackBasic : TowerAttackStrat {
     
     var lastFire : CGFloat = 0
     
-    var expLevel : Int = 0
+    var expLevel : Int = 0 //
     var expOn : Bool = false
     var expForce : CGFloat = 0
     
@@ -23,14 +23,11 @@ class TowerAttackBasic : TowerAttackStrat {
     var outRangeColor : SKColor = SKColor(red: 1, green: 1, blue: 1, alpha : 0.3)
     var inRangeColor : SKColor = SKColor(red: 1, green: 1, blue: 1, alpha : 0.6)
     
-    //var bullet : Bullet?
-    
     
     var circle : SKShapeNode?
     
     
     override init () {
-        
         
         
         super.init()
@@ -46,18 +43,10 @@ class TowerAttackBasic : TowerAttackStrat {
         
     }
     
-    
-//    override func setParent(parent: TowerBase) {
-//        if (bullet == nil) {
-//            bullet = Bullet(_shooter: parent, _target: parent.sprite, _speed: speed, _damage: damage, size: parent.sprite.size.height, shotByEnemy: false)
-//        }
-//        bullet?.shooter = parent
-//        self.parent = parent
-//    }
-    
     override func setRangeLevel(level : Int) {
         rangeLevel = level
         range = 100 + CGFloat(level) * 75
+        // removes old visualization circle
         circle?.removeFromParent()
         circle = nil
     }
@@ -65,7 +54,6 @@ class TowerAttackBasic : TowerAttackStrat {
     override func setDamageLevel(level : Int) {
         damageLevel = level
         damage = 25 + CGFloat(level) * 5
-        //bullet!.damage = 25 + CGFloat(level) * 5
     }
     
     override func setFireDelayLevel(level : Int) {
@@ -76,7 +64,6 @@ class TowerAttackBasic : TowerAttackStrat {
     override func setSpeedLevel(level : Int) {
         speedLevel = level
         speed = 75 + 50 * CGFloat(level)
-        //bullet!.speed = 75 + 50 * CGFloat(level)
     }
     
     func setExplosionLevel(level : Int) {
@@ -84,7 +71,6 @@ class TowerAttackBasic : TowerAttackStrat {
         if (expLevel > 0) {
             expOn = true
             expForce = 1 + CGFloat(expLevel)
-            //bullet!.setExplosion(Explosion(_radius: 20 + expForce * 5, _damage: 25 + expForce * 3))
         }
         else {
             expOn = false
@@ -95,11 +81,9 @@ class TowerAttackBasic : TowerAttackStrat {
         homingLevel = level
         if (homingLevel > 0) {
             homingOn = true
-            //bullet!.setHoming(true, _homingForce: 5)
         }
         else {
             homingOn = false
-            //bullet!.setHoming(false, _homingForce: 5)
         }
     }
     
@@ -109,6 +93,7 @@ class TowerAttackBasic : TowerAttackStrat {
     }
     
     override func copy() -> TowerAttackBasic {
+        // returns a copy of htis strategy
         let strat = TowerAttackBasic()
         strat.setRangeLevel(rangeLevel)
         strat.setDamageLevel(damageLevel)
@@ -121,6 +106,7 @@ class TowerAttackBasic : TowerAttackStrat {
     
     override func Attack(tower : TowerBase) {
         
+        // If our visualization circle is missing...
         if (circle == nil) {
             // Create new circle
             circle = SKShapeNode(circleOfRadius: range)
@@ -136,28 +122,32 @@ class TowerAttackBasic : TowerAttackStrat {
         }
         
         
-        
+        // If enough time has passed since our last fire
         if (GameScene.gameTime > lastFire + fireDelay) {
-            
-            
             lastFire = GameScene.gameTime
-                target = getClosestEnemy(tower.sprite.position, range: range)
-                if (target != nil) {
-                    circle?.strokeColor = inRangeColor
-                    circle?.glowWidth = 3;
-                    let b : Bullet = Bullet(_shooter: tower, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: false)
-                    if (expOn) {
-                        b.setExplosion(expForce)
-                    }
-                    if (homingOn) {
-                        b.setHoming(true, _homingForce: 5)
-                    }
-                }
-                else {
-                    circle?.strokeColor = outRangeColor
-                    circle?.glowWidth = 0;
-                }
+            target = getClosestEnemy(tower.sprite.position, range: range)
+            
+            // If a target was found...
+            if (target != nil) {
                 
+                // Change visualization circle to indicate an enemy was found
+                circle?.strokeColor = inRangeColor
+                circle?.glowWidth = 3;
+                
+                // Instantiate bullet
+                let b : Bullet = Bullet(_shooter: tower, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: false)
+                if (expOn) {
+                    b.setExplosion(expForce)
+                }
+                if (homingOn) {
+                    b.setHoming(true, _homingForce: 5)
+                }
+            }
+            else {
+                circle?.strokeColor = outRangeColor
+                circle?.glowWidth = 0;
+            }
+            
             
         }
         
