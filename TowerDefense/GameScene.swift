@@ -288,17 +288,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     conductor.hitEnemyPlaySoundForDuration(0.02)
                     contact.bodyB.node?.removeFromParent()
                     
-                  //  _ = AudioGenerator()
+                
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
 
                     giveXp(e)
-                  conductor.play(1)
                     e.UpdateLabel()
 
                     contactTest.destroy()
-conductor.hitEnemyPlaySoundForDuration(0.02)
+                    conductor.hitEnemyPlaySoundForDuration(0.02)
                     contact.bodyA.node?.removeFromParent()
                 }
             }
@@ -312,11 +311,13 @@ conductor.hitEnemyPlaySoundForDuration(0.02)
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
                     contactTest.destroy()
+                    conductor.hitTowerPlaySoundForDuration(0.02)
                     contact.bodyB.node?.removeFromParent()
                 } else if t.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
+                       conductor.hitTowerPlaySoundForDuration(0.02)
                     contactTest.destroy()
                     contact.bodyA.node?.removeFromParent()
                 }

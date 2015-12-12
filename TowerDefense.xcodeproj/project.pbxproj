@@ -81,8 +81,6 @@
 		99BA33D41BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
-		99CE60C51C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */; };
-		99CE60C61C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */; };
 		99CE60D21C1BD6B900CB8F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */; };
 		99CE60D31C1BD6B900CB8F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */; };
 		99CE60D41C1BD6B900CB8F22 /* EffectsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60D01C1BD6B900CB8F22 /* EffectsProcessor.swift */; };
@@ -191,7 +189,6 @@
 		99A3BBE61BE94C1900AAB350 /* TowerDefenseHeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseHeal.swift; sourceTree = "<group>"; };
 		99A3BBE71BE94C1900AAB350 /* TowerDefenseStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseStrat.swift; sourceTree = "<group>"; };
 		99BA33D31BF5171700152764 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
-		99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGenerator.swift; sourceTree = "<group>"; };
 		99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		99CE60D01C1BD6B900CB8F22 /* EffectsProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsProcessor.swift; sourceTree = "<group>"; };
 		99CE60D11C1BD6B900CB8F22 /* ToneGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToneGenerator.swift; sourceTree = "<group>"; };
@@ -324,7 +321,6 @@
 				99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */,
 				99CE60D01C1BD6B900CB8F22 /* EffectsProcessor.swift */,
 				99CE60D11C1BD6B900CB8F22 /* ToneGenerator.swift */,
-				99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */,
 			);
 			name = Audio;
 			sourceTree = "<group>";
@@ -602,7 +598,6 @@
 				9926223B1BED2B2C0080D35A /* User.swift in Sources */,
 				4615CE431C113103005A4290 /* EndGameController.swift in Sources */,
 				4615CE3A1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */,
-				99CE60C51C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */,
 				9946E41B1BE5766C007E9559 /* Entity.swift in Sources */,
 				9946E4061BE56EFB007E9559 /* EnemyAttackStrat.swift in Sources */,
 				9946E4181BE573D7007E9559 /* EnemyBase.swift in Sources */,
@@ -650,7 +645,6 @@
 				46237E831C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */,
 				99BA33C71BF2A24800152764 /* GameScene.swift in Sources */,
 				99BA33B21BF2A23400152764 /* TowerAttackBasic.swift in Sources */,
-				99CE60C61C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */,
 				99BA33BC1BF2A24300152764 /* EnemyMoveBasic.swift in Sources */,
 				99BA33B41BF2A23C00152764 /* Bullet.swift in Sources */,
 				4615CE441C113103005A4290 /* EndGameController.swift in Sources */,
