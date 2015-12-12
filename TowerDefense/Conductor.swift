@@ -47,13 +47,15 @@ class Conductor {
         toneGenerator.playPhrase(phrase)
     }
     
-    func hitEnemyPlaySoundForDuration(duration: Float) {
-        
+
+    
+    func hitEnemyPlaySound(duration: Float) {
+
         let phrase = AKPhrase()
         
         for i in 0...12 {
             let note = ToneGeneratorNote()
-            note.frequency.floatValue = 440*(pow(2.0,Float(i)/12))
+            note.frequency.floatValue = 220*(pow(2.0,Float(i)/12))
             note.duration.value = duration
             
             let time = duration * Float(i)
