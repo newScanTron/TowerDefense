@@ -83,6 +83,12 @@
 		99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99CE60C51C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */; };
 		99CE60C61C1BD3B800CB8F22 /* AudioGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */; };
+		99CE60D21C1BD6B900CB8F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */; };
+		99CE60D31C1BD6B900CB8F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */; };
+		99CE60D41C1BD6B900CB8F22 /* EffectsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60D01C1BD6B900CB8F22 /* EffectsProcessor.swift */; };
+		99CE60D51C1BD6B900CB8F22 /* EffectsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60D01C1BD6B900CB8F22 /* EffectsProcessor.swift */; };
+		99CE60D61C1BD6B900CB8F22 /* ToneGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60D11C1BD6B900CB8F22 /* ToneGenerator.swift */; };
+		99CE60D71C1BD6B900CB8F22 /* ToneGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60D11C1BD6B900CB8F22 /* ToneGenerator.swift */; };
 		99D680EA1BE7FE2B00C877CE /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D680E91BE7FE2B00C877CE /* UpgradeView.swift */; };
 		99F92CAF1C1B913D007C6863 /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F92CAE1C1B913D007C6863 /* AudioKit.swift */; };
 		99FD082C1BE035D80070F4B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082B1BE035D80070F4B8 /* AppDelegate.swift */; };
@@ -186,6 +192,9 @@
 		99A3BBE71BE94C1900AAB350 /* TowerDefenseStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseStrat.swift; sourceTree = "<group>"; };
 		99BA33D31BF5171700152764 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGenerator.swift; sourceTree = "<group>"; };
+		99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
+		99CE60D01C1BD6B900CB8F22 /* EffectsProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsProcessor.swift; sourceTree = "<group>"; };
+		99CE60D11C1BD6B900CB8F22 /* ToneGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToneGenerator.swift; sourceTree = "<group>"; };
 		99D680E91BE7FE2B00C877CE /* UpgradeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		99F92CAE1C1B913D007C6863 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../AudioKit.swift; sourceTree = "<group>"; };
 		99FD08281BE035D80070F4B8 /* TowerDefense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefense.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -312,6 +321,9 @@
 		99CE60CA1C1BD45B00CB8F22 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */,
+				99CE60D01C1BD6B900CB8F22 /* EffectsProcessor.swift */,
+				99CE60D11C1BD6B900CB8F22 /* ToneGenerator.swift */,
 				99CE60C41C1BD3B800CB8F22 /* AudioGenerator.swift */,
 			);
 			name = Audio;
@@ -346,8 +358,8 @@
 				9946E4101BE57043007E9559 /* Enemy */,
 				9946E41E1BE5775F007E9559 /* Common */,
 				9946E41D1BE5771E007E9559 /* Visual */,
-				99FD082F1BE035D80070F4B8 /* GameScene.swift */,
 				99CE60CA1C1BD45B00CB8F22 /* Audio */,
+				99FD082F1BE035D80070F4B8 /* GameScene.swift */,
 				99FD08311BE035D80070F4B8 /* GameViewController.swift */,
 				99D680E91BE7FE2B00C877CE /* UpgradeView.swift */,
 				993EC6271C1B7EC2008D80C0 /* Bridging-Header.h */,
@@ -560,9 +572,11 @@
 				99A3BBE81BE94C1900AAB350 /* Bullet.swift in Sources */,
 				9946E4151BE5721D007E9559 /* EnemyFactory.swift in Sources */,
 				993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */,
+				99CE60D61C1BD6B900CB8F22 /* ToneGenerator.swift in Sources */,
 				9946E3FF1BE56E33007E9559 /* Common.swift in Sources */,
 				992622361BED1ECB0080D35A /* ConcreteMoveStrat2.swift in Sources */,
 				46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */,
+				99CE60D21C1BD6B900CB8F22 /* Conductor.swift in Sources */,
 				992622381BED1ECB0080D35A /* EnemyAttackBoss.swift in Sources */,
 				99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */,
 				992622351BED1ECB0080D35A /* EnemyMoveBasic.swift in Sources */,
@@ -577,6 +591,7 @@
 				998722931BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				992622391BED1ECB0080D35A /* EnemyAttackRanged.swift in Sources */,
 				9946E40C1BE56F7D007E9559 /* TowerDefenseStrat.swift in Sources */,
+				99CE60D41C1BD6B900CB8F22 /* EffectsProcessor.swift in Sources */,
 				99F92CAF1C1B913D007C6863 /* AudioKit.swift in Sources */,
 				998722901BED58C60097B677 /* TowerBuilderNodes.swift in Sources */,
 				9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */,
@@ -605,9 +620,11 @@
 				9946E40A1BE56F35007E9559 /* TowerAttackStrat.swift in Sources */,
 				99BA33CF1BF2A25F00152764 /* User.swift in Sources */,
 				9946E4131BE571E5007E9559 /* TowerBuilder.swift in Sources */,
+				99CE60D71C1BD6B900CB8F22 /* ToneGenerator.swift in Sources */,
 				9919CF2A1C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */,
 				998722941BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				99BA33C91BF2A24800152764 /* UpgradeView.swift in Sources */,
+				99CE60D31C1BD6B900CB8F22 /* Conductor.swift in Sources */,
 				99BA33C81BF2A24800152764 /* GameViewController.swift in Sources */,
 				9919CF2D1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
 				99BA33C11BF2A24300152764 /* EnemyBase.swift in Sources */,
@@ -622,6 +639,7 @@
 				99BA33BF1BF2A24300152764 /* EnemyAttackBoss.swift in Sources */,
 				993BC2B71C003A50009596FA /* LoginController.swift in Sources */,
 				99BA33BB1BF2A24300152764 /* EnemyMoveBoss.swift in Sources */,
+				99CE60D51C1BD6B900CB8F22 /* EffectsProcessor.swift in Sources */,
 				99BA33C21BF2A24300152764 /* EnemyAttackStrat.swift in Sources */,
 				99BA33B11BF2A23000152764 /* TowerDefenseHeal.swift in Sources */,
 				99BA33D01BF2A25F00152764 /* GameState.swift in Sources */,

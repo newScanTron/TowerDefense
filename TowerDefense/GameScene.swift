@@ -16,7 +16,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var viewController: GameViewController!
     let appDelegate =
     UIApplication.sharedApplication().delegate as? AppDelegate
-
+    let conductor = Conductor()
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
     let enemiesLabel = SKLabelNode(fontNamed:"Square")
@@ -283,7 +283,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
 
                     contactTest.destroy()
-                        
+                     conductor.play(3)
 
                     contact.bodyB.node?.removeFromParent()
                     
@@ -293,7 +293,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     e.health -= contactTest.damage
 
                     giveXp(e)
-
+                    conductor.play(6)
                     e.UpdateLabel()
 
                     contactTest.destroy()
