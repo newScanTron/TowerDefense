@@ -130,4 +130,12 @@ class UpgradeView: UIView, UpgradeNode {
     {
        self.removeFromSuperview()
     }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        /* Called when a touch begins */
+      
+    }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        /* Called when a touch begins */
+        
+    }
 }
