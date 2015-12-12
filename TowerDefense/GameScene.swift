@@ -139,8 +139,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
-      conductor.release(3)
-        conductor.release(6)
+//      conductor.release(3)
+//        conductor.release(6)
         if gameOver {
             return
         }
@@ -284,17 +284,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
 
                     contactTest.destroy()
-                     conductor.play(3)
-
+                     //conductor.play(3)
+                    conductor.playPhraseOfNotesOfDuration(0.2)
                     contact.bodyB.node?.removeFromParent()
                     
-                    _ = AudioGenerator()
+                  //  _ = AudioGenerator()
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
 
                     giveXp(e)
-                    conductor.play(6)
+                  conductor.play(1)
                     e.UpdateLabel()
 
                     contactTest.destroy()
