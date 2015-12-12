@@ -31,9 +31,10 @@ class EnemyFactory
             lastEnemy = GameScene.gameTime
             
             if(enemyCount <= (9 + theWave)){
+                enemy = CreateEnemy()
                 waveDelay = 2.0
                 enemyCount++
-            
+                return enemy!
             }
             if(enemyCount > (9 + theWave) && enemyCount <= (14 + theWave))
             {
