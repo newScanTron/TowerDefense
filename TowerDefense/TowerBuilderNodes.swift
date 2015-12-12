@@ -35,6 +35,8 @@ func setPicker(inout upgradeSelection: UIPickerView) -> Int
     }
     return upgradeSelection.selectedRowInComponent(0)
 }
+
+
 class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
 {
     
@@ -87,7 +89,6 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
             playerLabel.text = "NOT ENOUGH GOLD"
             upgradeSelection.selectRow(selection, inComponent: 0, animated: true)
         }
-        
         
         
     }
