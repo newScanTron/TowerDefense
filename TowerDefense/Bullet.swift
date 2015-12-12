@@ -13,7 +13,7 @@ class Bullet : Item {
     
     var sprite : SKSpriteNode
     var target : SKSpriteNode
-    var shooter : Entity  // Entity that fired this bullet
+    //var shooter : Entity  // Entity that fired this bullet
     var speed : CGFloat = 0
     var damage : CGFloat = 0
     var explosion : Explosion?
@@ -25,7 +25,7 @@ class Bullet : Item {
     
     
     init (_shooter : Entity, _target : SKSpriteNode, _speed : CGFloat, _damage : CGFloat, size : CGFloat, shotByEnemy : Bool) {
-        shooter = _shooter
+        //shooter = _shooter
         target = _target
         speed = _speed
         damage = _damage
@@ -60,7 +60,7 @@ class Bullet : Item {
         sprite.userData!.setValue(self,forKey: "object")
         
         // Set up initial location and size of projectile
-        sprite.position = shooter.sprite.position
+        sprite.position = _shooter.sprite.position
         
         activate()
         
