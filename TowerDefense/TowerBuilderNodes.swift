@@ -35,6 +35,8 @@ func setPicker(inout upgradeSelection: UIPickerView) -> Int
     }
     return upgradeSelection.selectedRowInComponent(0)
 }
+
+
 class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
 {
     
@@ -87,7 +89,6 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
             playerLabel.text = "NOT ENOUGH GOLD"
             upgradeSelection.selectRow(selection, inComponent: 0, animated: true)
         }
-        
         
         
     }
@@ -433,7 +434,7 @@ class SetFireDelay: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSource
         
         upgradeSelection.dataSource = self
         upgradeSelection.delegate = self
-        nodeData = ["SLOW", "MEDIUM", "FAST","LUDACRIS"]
+        nodeData = ["SLOW", "MEDIUM", "FAST","LUDICROUS"]
         self.mainLabel.text = "Set Fire Rate"
         
         

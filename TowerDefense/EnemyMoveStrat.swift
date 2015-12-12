@@ -23,6 +23,7 @@ class EnemyMoveStrat
     func Move(node : EnemyBase){
         
     }
+
     
     //This is called when the sprite is going off the screen
     func outOfBounds(enemy : EnemyBase){
@@ -30,6 +31,7 @@ class EnemyMoveStrat
         let center = getVector(enemy.sprite.position, to: centerPoint, speed: 4)
         enemy.sprite.physicsBody?.linearDamping = 0.5
         enemy.sprite.physicsBody?.applyImpulse(center)
+
 
         
     }

@@ -13,7 +13,7 @@ class Entity
     //variables that both towers and enemys have
     var maxHealth: CGFloat = 100
     var health: CGFloat = 100
-    var kills: Int = 0
+    //var kills: Int = 0
     var sprite: SKSpriteNode
     //var healthLabel :SKLabelNode
     
