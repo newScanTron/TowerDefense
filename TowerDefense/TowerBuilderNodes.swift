@@ -355,16 +355,10 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         self.mainLabel.text = "Set Homing Level"
         nodeData = ["OFF", "ON"]
-        
-        
-        
     }
     
     //once again this is part of how iOS does stuff and i am using it to effect the jplayer gold and the tower(processing node).
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        
-        
         
         if appDelegate.user.gold >= (costs[row]-costs[previousSelection])
         {
@@ -372,7 +366,6 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
             playerLabel.text = nodeData[row]
             moneySpent = (costs[row]-costs[previousSelection])
             costLabel.text = "Gold: " + String(moneySpent)
-            
         }
         else
         {
@@ -383,9 +376,7 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
         
         
     }
-    
-    
-    
+
     override func startUpgradeChain()
         
     {
@@ -403,14 +394,11 @@ class AttackSetHoming: UpgradeView,  UIPickerViewDelegate, UIPickerViewDataSourc
     //the method that all nodes will implement in different fashions.
     override func upgrade(tower: TowerBase)
     {
-        
-        
+
         
         previousSelection = (tower.attack as! TowerAttackBasic).homingLevel
         super.upgrade(tower)
-        
-        
-        
+
     }
     
     required init?(coder aDecoder: (NSCoder!)) {super.init(coder: aDecoder)}
