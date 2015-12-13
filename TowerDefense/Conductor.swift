@@ -20,6 +20,7 @@ class Conductor {
         AKOrchestra.addInstrument(fx)
         AKOrchestra.start()
         setAmplidute(0.2)
+        //setReverbFeedbackLevel(0.6)
         fx.play()
     }
 
@@ -47,17 +48,17 @@ class Conductor {
         toneGenerator.playPhrase(phrase)
     }
     
-
+//function that is called when the enemy is hit.
     
-    func hitEnemyPlaySound(duration: Float) {
+    func hitEnemyPlaySound(duration: Float,  e: Entity) {
 
         let phrase = AKPhrase()
-        
+        let reverbAmount = abs(Float(e.health / 1000))
         for i in 0...12 {
             let note = ToneGeneratorNote()
             note.frequency.floatValue = 220*(pow(2.0,Float(i)/12))
             note.duration.value = duration
-            
+            setReverbFeedbackLevel(reverbAmount)
             let time = duration * Float(i)
             phrase.addNote(note, atTime: time)
         }

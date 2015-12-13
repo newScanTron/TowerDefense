@@ -54,22 +54,24 @@ class TowerBuilder
     {
         var placeY: CGFloat
         var placeX: CGFloat
+        let offset: CGFloat = 30.0
+        let sizeOfView: CGFloat = 200
         //this set of if elses check what quatant the touch was in and moves the base location of the UIView so it will not display outside of the screen.
         if (location.y) >= CGRectGetMaxY(gameScene.frame)/2
         {
-            placeY = ((location.y) - CGFloat(200.0))
+            placeY = ((location.y) - CGFloat(sizeOfView - offset))
         }
         else
         {
-            placeY = (location.y)
+            placeY = (location.y - offset)
         }
         if (location.x) >= CGRectGetMaxX(gameScene.frame)/2
         {
-            placeX = ((location.x) - CGFloat(200.0))
+            placeX = ((location.x) - CGFloat(sizeOfView - offset))
         }
         else
         {
-            placeX = (location.x)
+            placeX = (location.x - offset)
         }
         //as mentioned elsewhere the start node has to be called first as it begins the setup process. getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
         let upgradeView = StartNode(x: (placeX), y: (placeY), tower: tower)
