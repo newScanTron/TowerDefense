@@ -22,16 +22,38 @@ class Conductor {
         setAmplidute(0.2)
         //setReverbFeedbackLevel(0.6)
         fx.play()
+
     }
 
-    func play(key: Int) {
+    func playKey(key: Int) {
         let note = ToneGeneratorNote()
         let frequency = Float(frequencies[currentOctave][key])
         note.frequency.value = frequency
         toneGenerator.playNote(note)
         currentNotes[key]=note;
     }
+    //this method is going to create a melody based on the current state of the game and all the entities inside.
+   
+    func playWaveMelody()
+    {
+        let enemies = GameScene.enemies
+        let phrase = AKPhrase()
+        let duration:Float = 0.60
+        for each in enemies
+        {
+            for i in 0...12 {
+                let num = floor(random(min:1, max: 12))
+                let note = ToneGeneratorNote()
+                note.frequency.floatValue = 220/(pow(2.0,Float(num)/12))
+                note.duration.value = duration
+                
+                let time = duration * Float(i)
+                phrase.addNote(note, atTime: time)
+            }
 
+        }
+        toneGenerator.playPhrase(phrase)
+    }
     func hitTowerPlaySoundForDuration(duration: Float) {
         
         let phrase = AKPhrase()

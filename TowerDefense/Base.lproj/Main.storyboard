@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dCC-XD-tRi">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -62,12 +61,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="gridBG" translatesAutoresizingMaskIntoConstraints="NO" id="kuJ-Z2-2oD">
-
                                 <rect key="frame" x="-181" y="46" width="889" height="554"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Over" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvU-Pg-UCB">
                                 <rect key="frame" x="191" y="97" width="219" height="58"/>
-
                                 <fontDescription key="fontDescription" name="Square" family="Square" pointSize="40"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -85,21 +82,18 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0C-X0-Vb8">
                                 <rect key="frame" x="235" y="205" width="131" height="21"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="Square" family="Square" pointSize="23"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0TD-nU-LWE">
                                 <rect key="frame" x="235" y="308" width="131" height="21"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="Square" family="Square" pointSize="23"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FaT-YX-lYZ">
                                 <rect key="frame" x="235" y="252" width="131" height="21"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="Square" family="Square" pointSize="23"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -190,7 +184,6 @@
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="towerFuryTitle" translatesAutoresizingMaskIntoConstraints="NO" id="q1I-N0-4w9">
                                 <rect key="frame" x="180" y="45" width="240" height="128"/>
-                                <animations/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -324,8 +317,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jBp-kB-KP0"/>
-
         <segue reference="WdK-sL-Alf"/>
-
     </inferredMetricsTieBreakers>
 </document>

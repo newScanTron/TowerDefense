@@ -514,29 +514,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefense/Conductor.swift"
-            timestampString = "471655719.770574"
+            timestampString = "472116907.364775"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "hitEnemyPlaySound(_:e:)"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "hitTowerPlaySoundForDuration(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefense/Conductor.swift"
-            timestampString = "471655773.630962"
+            timestampString = "472116907.364775"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "hitEnemyPlaySound(_:e:)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "hitTowerPlaySoundForDuration(_:)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TowerDefense.Conductor.hitTowerPlaySoundForDuration (TowerDefense.Conductor)(Swift.Float) -&gt; ()"
+                  moduleName = "TowerDefense"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chrismurphy/Documents/TowerDefenseNow/TowerDefense/Conductor.swift"
+                  timestampString = "472114561.827097"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TowerDefense.Conductor.hitTowerPlaySoundForDuration (TowerDefense.Conductor)(Swift.Float) -&gt; ()"
+                  moduleName = "TowerDefense"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chrismurphy/Documents/TowerDefenseNow/TowerDefense/Conductor.swift"
+                  timestampString = "472114561.830119"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "444">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -552,6 +584,22 @@
             startingLineNumber = "74"
             endingLineNumber = "74"
             landmarkName = "addUpgradeView(_:location:gameScene:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TowerDefense/Conductor.swift"
+            timestampString = "472116907.364775"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "playWaveMelody()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

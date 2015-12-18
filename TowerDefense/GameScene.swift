@@ -122,7 +122,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-
+conductor.playWaveMelody()
                 towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
 
                 return
@@ -131,6 +131,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //if we found a tower open menu else add tower
         if GameScene.towers.count <= towerHardLimit
         {
+            
             addTower(location, touch: touch!)
         }
     }
@@ -240,7 +241,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.user.xp += Int(enmey.attack.damage * 5)
-        
+
     }
     
     // Handles the wave progression
@@ -286,7 +287,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     contactTest.destroy()
                      //conductor.play(3)
 
-                    conductor.hitEnemyPlaySound(0.02, e: e)
+                   // conductor.hitEnemyPlaySound(0.02, e: e)
 
                     contact.bodyB.node?.removeFromParent()
                     
@@ -300,7 +301,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     e.UpdateLabel()
 
                     contactTest.destroy()
-                    conductor.hitEnemyPlaySound(0.02, e: e)
+                   // conductor.hitEnemyPlaySound(0.02, e: e)
                     contact.bodyA.node?.removeFromParent()
                 }
             }
@@ -314,13 +315,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
                     contactTest.destroy()
-                    conductor.hitTowerPlaySoundForDuration(0.02)
+                  //  conductor.hitTowerPlaySoundForDuration(0.02)
                     contact.bodyB.node?.removeFromParent()
                 } else if t.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
-                       conductor.hitTowerPlaySoundForDuration(0.02)
+                     //  conductor.hitTowerPlaySoundForDuration(0.02)
                     contactTest.destroy()
                     contact.bodyA.node?.removeFromParent()
                 }
