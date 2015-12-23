@@ -15,8 +15,7 @@ class Conductor {
     let frequencies = [[130.813, 138.591, 146.832, 155.563, 164.814,174.614, 184.997, 195.998, 207.652, 220.000, 233.082, 246.942, 261.625], [523.25, 554.37, 587.33, 622.25, 659.26, 698.46, 739.99, 783.99, 830.61, 880, 932.33, 987.77, 1046.5]]
     var currentOctave = 0
     
-    var whatKey = [130.813, 138.591, 146.832, 155.563, 164.814,174.614, 184.997, 195.998, 207.652, 220.000, 233.082, 246.942, 261.625]
-    var thisKey = [130.813,146.832,164.814, 174.614, 195.998, 220.000, 261.625, 523.25]
+    var thisKey = [65.41, 73.42, 82.41, 87.31, 98.00,  110.00, 123.47, 130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94, 261.63]
     init() {
         AKOrchestra.addInstrument(toneGenerator)
         fx = EffectsProcessor(audioSource: toneGenerator.auxilliaryOutput)
@@ -48,8 +47,9 @@ class Conductor {
             for i in 0...16 {
                 let duration:Float = 0.125 * Float(floor(random(min:0, max:4.9)))
                 let octave = Int(floor(random(min:0, max:1.9)))
-                let num = Int(floor(random(min:0, max: 7.9)))
-                print(Float(thisKey[num]))
+                let num = Int(floor(random(min:0, max: CGFloat(Double(thisKey.count) - 0.01))))
+            
+                print(Float(thisKey[num])," : ",num)
                 let note = ToneGeneratorNote()
                // note.frequency.floatValue = Float(frequencies[octave][num])
                 note.frequency.floatValue = Float(thisKey[num])
