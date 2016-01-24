@@ -122,7 +122,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-conductor.playWaveMelody()
+                conductor.playWaveMelody()
                 towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
 
                 return
