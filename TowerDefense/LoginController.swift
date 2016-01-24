@@ -89,12 +89,11 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
         
         if appDelegate.user.pswd == passText.text!
         {
-            
-        performSegueWithIdentifier("playGame", sender: nil)
+            performSegueWithIdentifier("playGame", sender: nil)
         }
         else
         {
-        print("not loged it")
+            print("not loged it")
         }
     }
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {

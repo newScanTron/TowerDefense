@@ -10,13 +10,14 @@ import SpriteKit
 import UIKit
 import Foundation
 import CoreData
+import AudioKit
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
     var viewController: GameViewController!
     let appDelegate =
     UIApplication.sharedApplication().delegate as? AppDelegate
-    let conductor = Conductor()
+    //let conductor = Conductor()
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
     let enemiesLabel = SKLabelNode(fontNamed:"Square")
@@ -122,7 +123,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             if each.sprite.containsPoint(location)
             {
-                conductor.playWaveMelody()
+                //conductor.playWaveMelody()
                 towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
 
                 return
@@ -140,8 +141,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
-//      conductor.release(3)
-//        conductor.release(6)
+
         if gameOver {
             return
         }
@@ -287,7 +287,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     contactTest.destroy()
                      //conductor.play(3)
 
-                   // conductor.hitEnemyPlaySound(0.02, e: e)
+                   appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
 
                     contact.bodyB.node?.removeFromParent()
                     
@@ -301,7 +301,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     e.UpdateLabel()
 
                     contactTest.destroy()
-                   // conductor.hitEnemyPlaySound(0.02, e: e)
+                   appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
                     contact.bodyA.node?.removeFromParent()
                 }
             }
@@ -315,13 +315,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
                     contactTest.destroy()
-                  //  conductor.hitTowerPlaySoundForDuration(0.02)
+                   //conductor.hitTowerPlaySoundForDuration(0.02)
                     contact.bodyB.node?.removeFromParent()
                 } else if t.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
-                     //  conductor.hitTowerPlaySoundForDuration(0.02)
+                    //conductor.hitTowerPlaySoundForDuration(0.02)
                     contactTest.destroy()
                     contact.bodyA.node?.removeFromParent()
                 }

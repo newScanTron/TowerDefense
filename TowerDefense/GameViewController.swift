@@ -14,6 +14,7 @@ class GameViewController: UIViewController {
     //appDelegate is the where the user data is delt with and this class will need to know about it.
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
+    
     //UIViewController function to do any setup that is requried for the game.
     override func viewDidLoad() {
         super.viewDidLoad()
