@@ -287,7 +287,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     contactTest.destroy()
                      //conductor.play(3)
 
-                   appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
+                  appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
 
                     contact.bodyB.node?.removeFromParent()
                     
@@ -301,7 +301,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     e.UpdateLabel()
 
                     contactTest.destroy()
-                   appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
+                  appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
                     contact.bodyA.node?.removeFromParent()
                 }
             }

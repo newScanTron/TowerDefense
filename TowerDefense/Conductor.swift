@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 AudioKit. All rights reserved.
 //
 import AudioKit
-
+import Foundation
 class Conductor {
     let audioKit = AKManager.sharedInstance
     var toneGenerator = AKTriangleOscillator()
@@ -21,7 +21,7 @@ class Conductor {
         audioKit.audioOutput = toneGenerator
         
         audioKit.start()
-       toneGenerator.start()
+       //toneGenerator.start()
   
 
     }
@@ -69,16 +69,35 @@ class Conductor {
     }
     
 //function that is called when the enemy is hit.
-    
+    func stopEnemySound()
+    {
+        toneGenerator.stop()
+    }
     func hitEnemyPlaySound(duration: Float,  e: Entity) {
 
-        for i in 0...12 {
+        
             
             let note = scale.randomElement()
-            let octave = i  * 12
+        let octave = randomInt(3...6)  * 12
+        print("\(note): is the note. \((note + octave).midiNoteToFrequency())")
+        //let midiNote = midiNoteFromTag(key.tag)
             toneGenerator.frequency = (note + octave).midiNoteToFrequency()
-            toneGenerator.amplitude = random(0, 0.3)
+            toneGenerator.amplitude = random(0.3, 0.6)
+            
+         toneGenerator.start()
+        delay(3.4)
+            {
+                self.stopEnemySound()
         }
     }
 
+}
+
+func delay(delay:Double, closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
 }
