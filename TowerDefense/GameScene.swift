@@ -90,6 +90,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
+        self.view!.multipleTouchEnabled = true
         
     }
     
@@ -117,7 +118,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let touch = touches.first
         let location = touch!.locationInNode(self)
        let viewLocation = touch!.locationInView(self.view!)
+        
+        if touches.count > 1
+        {
+            
+            appDelegate!.conductor.recursiveNotesRandom(5, maxLength: 2.0)
 
+        }
+        
+        
        //check each tower and see if the touch location was the same as the tower
         for each in GameScene.towers
         {
@@ -287,7 +296,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     contactTest.destroy()
                      //conductor.play(3)
 
-                  appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
+                  appDelegate!.conductor.hitEnemyPlaySound(0.0125, e: e)
 
                     contact.bodyB.node?.removeFromParent()
                     
@@ -301,7 +310,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     e.UpdateLabel()
 
                     contactTest.destroy()
-                  appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
+                 appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
                     contact.bodyA.node?.removeFromParent()
                 }
             }

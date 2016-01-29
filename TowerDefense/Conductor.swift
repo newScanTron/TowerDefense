@@ -52,7 +52,7 @@ class Conductor {
         }
      
     }
-    func hitTowerPlaySoundForDuration(duration: Float) {
+    func hitTowerPlaySoundForDuration(duration: Double) {
         
 
         
@@ -75,22 +75,49 @@ class Conductor {
     }
     func hitEnemyPlaySound(duration: Float,  e: Entity) {
 
-        
+        recursiveNotesUp(4, length: 0.2)
             
-            let note = scale.randomElement()
-        let octave = randomInt(3...6)  * 12
-        print("\(note): is the note. \((note + octave).midiNoteToFrequency())")
-        //let midiNote = midiNoteFromTag(key.tag)
-            toneGenerator.frequency = (note + octave).midiNoteToFrequency()
-            toneGenerator.amplitude = random(0.3, 0.6)
-            
-         toneGenerator.start()
-        delay(3.4)
-            {
-                self.stopEnemySound()
-        }
-    }
+ 
 
+        
+    }
+    //functions to play notes
+    func recursiveNotesRandom(repeats: Int, maxLength: Double)
+    {
+        //base case of repeats being larger than 0
+        if repeats > 0
+        {
+            let note = self.scale.randomElement()
+            let octave = randomInt(3...6)  * 12
+            self.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
+            self.toneGenerator.amplitude = random(0.3, 0.6)
+            self.toneGenerator.start()
+            let rand = random(0.01, maxLength)
+            delay(rand){self.stopEnemySound()
+            let rep = repeats - 1
+            self.recursiveNotesRandom(rep, maxLength: maxLength)}
+        }
+        return
+    }
+    //function to play notes up a scale
+    func recursiveNotesUp(repeats: Int, length: Double)
+    {
+        //same base case of 0 as prior function
+        if repeats > 0
+        {
+            let note = self.scale.randomElement()
+            let octave = (repeats - repeats + 4)  * 12
+            self.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
+            self.toneGenerator.amplitude = random(0.3, 0.6)
+            self.toneGenerator.start()
+            
+            delay(length){self.stopEnemySound()
+                let rep = repeats - 1
+                let leng = length - (length/2)
+                self.recursiveNotesUp(rep, length: leng)}
+        }
+        return
+    }
 }
 
 func delay(delay:Double, closure:()->()) {
