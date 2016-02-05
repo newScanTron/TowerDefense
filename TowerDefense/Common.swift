@@ -156,7 +156,15 @@ func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
         return value
     }
 }
-
+//delay function that can be called as a clouser 
+func delay(delay:Double, closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
+}
 //Functions to handle random CGFloats
 func random() -> CGFloat{
     return CGFloat(Float(arc4random()) / 0xFFFFFFFF)

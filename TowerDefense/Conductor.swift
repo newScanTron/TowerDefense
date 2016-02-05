@@ -75,10 +75,7 @@ class Conductor {
     }
     func hitEnemyPlaySound(duration: Float,  e: Entity) {
 
-        recursiveNotesUp(4, length: 0.2)
-            
- 
-
+        recursiveNotesUp(4, length: 0.32)
         
     }
     //functions to play notes
@@ -106,12 +103,15 @@ class Conductor {
         if repeats > 0
         {
             let note = self.scale.randomElement()
-            let octave = (repeats - repeats + 4)  * 12
+            let octave = (repeats + 4)  * 12
             self.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
-            self.toneGenerator.amplitude = random(0.3, 0.6)
+            //self.toneGenerator.amplitude = random(0.3, 0.6)
+            self.toneGenerator.ramp(amplitude: 0.6)
             self.toneGenerator.start()
             
-            delay(length){self.stopEnemySound()
+            delay(length){
+                self.toneGenerator.ramp(amplitude: 0.0)
+                self.stopEnemySound()
                 let rep = repeats - 1
                 let leng = length - (length/2)
                 self.recursiveNotesUp(rep, length: leng)}
@@ -120,11 +120,3 @@ class Conductor {
     }
 }
 
-func delay(delay:Double, closure:()->()) {
-    dispatch_after(
-        dispatch_time(
-            DISPATCH_TIME_NOW,
-            Int64(delay * Double(NSEC_PER_SEC))
-        ),
-        dispatch_get_main_queue(), closure)
-}
