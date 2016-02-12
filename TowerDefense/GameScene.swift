@@ -10,144 +10,182 @@ import SpriteKit
 import UIKit
 import Foundation
 import CoreData
+import AudioKit
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
-    
-    //let satellite = SKSpriteNode(imageNamed: "Sat2")
-    let myLabel = SKLabelNode(fontNamed:"Verdana")
+
+    var viewController: GameViewController!
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
+    //let conductor = Conductor()
+    let myLabel = SKLabelNode(fontNamed:"Square")
+    let xpLabel = SKLabelNode(fontNamed:"Square")
+    let enemiesLabel = SKLabelNode(fontNamed:"Square")
+    let waveLabel = SKLabelNode(fontNamed: "Square")
+    var background : SKSpriteNode? = nil
     let towerTotal = 20
+    let bossNode: EnemyBase? = nil
     let cero = 0
-    var enemyCount = 0
-    var enemyMax = 14
+    var gameOver : Bool = false
+    var nextWaveDelay = false
+    //camera stuff
+    
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
-    let tower = TowerBuilder()
     //making all of these static allows us to not have to pass them around method calls
     static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
-    static var bullets : [Bullet] = [Bullet]()
+    static var items : [Item] = [Item]()
+    //static var boss : [EnemyBase] = [EnemyBase]()
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
-    var odd : Bool = false
     
-    
+
+    var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
+    var towerHardLimit : Int = 20
+
     override func didMoveToView(view: SKView) {
-        let background = SKSpriteNode(imageNamed: "beach")
-        background.position = CGPoint(x: 500, y: 200)
+
+        gameOver = false
+        let background = SKSpriteNode(imageNamed: "background")
+        background.position = CGPoint(x: 1024/2, y: 768/2)
         
+
         background.zPosition = ZPosition.background;
+
+
+        print(scene?.size.width, scene?.size.height)
+
+        waveLabel.fontSize = 65
+        waveLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 60)
+        waveLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         
-        //sprite to be the edge/base
-        let wall = SKSpriteNode(imageNamed: "Castle_wall")
-        //buildWall(wall)
-        
-        self.addChild(background)
-        //self.addChild(wall)
-        /* Setup your scene here */
-        physicsWorld.gravity = CGVectorMake(0,0)
-        physicsWorld.contactDelegate = self
-        
+        enemiesLabel.fontSize = 45
+        enemiesLabel.position = CGPoint(x: CGRectGetMaxX(self.frame) - 20, y: CGRectGetMaxY(self.frame) - 60)
+        enemiesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
+
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
+        myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        
+        xpLabel.fontSize = 45;
+        xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
+        xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        
+        self.addChild(waveLabel)
+        waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
+        waveLabel.zPosition = ZPosition.bullet
+        
+        self.addChild(enemiesLabel)
+        enemiesLabel.zPosition = ZPosition.bullet
         
         self.addChild(myLabel)
+        myLabel.zPosition = ZPosition.bullet
         
-        initializeEnemyArray()
+        self.addChild(xpLabel)
+        xpLabel.zPosition = ZPosition.bullet
         
-        runAction(SKAction.repeatActionForever(
-            SKAction.sequence([
-                SKAction.runBlock(addEnemy),
-                SKAction.waitForDuration(1.5)
-                ])
-            ))
-    }
-    func buildWall(sprite: SKSpriteNode)
-    {
-        sprite.position = CGPoint(x: -125, y: 325)
-        sprite.yScale = 1.5
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
-        sprite.physicsBody?.categoryBitMask = CategoryMask.All
-        sprite.physicsBody?.collisionBitMask = CollisionMask.All
-        sprite.physicsBody?.contactTestBitMask = ContactMask.All
-        sprite.physicsBody?.dynamic = false
-        sprite.zPosition = ZPosition.wall
+        self.addChild(background)
+
+        physicsWorld.gravity = CGVectorMake(0,0)
+        physicsWorld.contactDelegate = self
+        self.view!.multipleTouchEnabled = true
         
     }
     
     //helper to make towers
-    func addTower(location: CGPoint)
+    func addTower(location: CGPoint, touch: UITouch)
     {
+
+        let touchLocation = touch.locationInView(self.view!)
+        let tower : TowerBase = towerBuilder.BuildBaseTower(location)
         
-        //create and add tower
-        if (odd) {
-            let tower = towerBuilder.BuildPulseTower(location)
+        if (addGold(-100)) {
             GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
-            odd = false
+
+
+            towerBuilder.addUpgradeView(tower, location: touchLocation, gameScene: self)
+
         }
-        else {
-            let tower = towerBuilder.BuildTower(location)
-            GameScene.towers.append(tower)
-            self.addChild(tower.sprite)
-            odd = true
-        }
-        //need something to make the updrageView disapear if we are not interacting with it.
-//        GameScene.towers.append(tower)
-//        self.addChild(tower.sprite)
+        
     }
+    
     
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
-        
-        myLabel.removeFromParent()
         let touch = touches.first
         let location = touch!.locationInNode(self)
+       let viewLocation = touch!.locationInView(self.view!)
         
-        //check if any and build one with first touch
-        
-        if GameScene.towers.count <= cero
+        if touches.count > 1
         {
-            addTower(location)
+            
+            appDelegate!.conductor.recursiveNotesRandom(5, maxLength: 2.0)
+
         }
         
+        
+       //check each tower and see if the touch location was the same as the tower
         for each in GameScene.towers
         {
             if each.sprite.containsPoint(location)
             {
-                var upgradeView = AttackSetRange(x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!, tower: each)
-                //getting the chain set up and giving it a location passing a reff in the form of an inout paramaterss
-                setUpChain(&upgradeView, x: (touch?.locationInView(nil).x)!, y: (touch?.locationInView(nil).y)!)
-                //The Game scene is only responsible for adding the first node to itself.  Each node knows how to display their information an
-                self.view?.addSubview(upgradeView.GetView())
-            }
-            else if GameScene.towers.count <= towerTotal
-            {
-                addTower(location)
+                //conductor.playWaveMelody()
+                towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
+
+                return
             }
         }
+        //if we found a tower open menu else add tower
+        if GameScene.towers.count <= towerHardLimit
+        {
+            
+            addTower(location, touch: touch!)
+        }
     }
+
     
+    
+    //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
-        
-        /* Called before each frame is rendered */
+
+        if gameOver {
+            return
+        }
+
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
         GameScene.gameTime = CGFloat(currentTime)
         
+        //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        appDelegate.updateMyLabel()
+        
+        // Get enemies and add them to list and scene
+        let newEnemy = enemyFactory.getNextEnemy()
+        if newEnemy != nil {
+            nextWaveDelay = false
+            GameScene.enemies.append(newEnemy!)
+            appDelegate.gameState.enemies.append(newEnemy!)
+            GameScene.scene?.addChild(newEnemy!.sprite)
+        }
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < GameScene.towers.count; i++)
         {
             let t = GameScene.towers[i]
             t.TriggerAttack()
-            //t.TriggerDefend()
+            t.TriggerDefend()
             
-            if t.health <= 0{
+            if t.CheckIfDead(){
                 t.sprite.removeFromParent()
-                //t.towerLabel.removeFromParent()
+                
                 GameScene.towers.removeAtIndex(i)
+                i -= 1
             }
         }
         for (var i = 0; i < GameScene.enemies.count; i++)
@@ -155,136 +193,126 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             let e = GameScene.enemies[i]
             e.TriggerAttack()
             e.moveMore()
-            
-            if e.health <= 0{
-            e.sprite.removeFromParent()
-            GameScene.enemies.removeAtIndex(i)
-            enemyMax -= 1
-            enemyCount -= 1
-            }
-        }
-    }
-    func initializeEnemyArray(){
-        for var i = 0; i < 15 ; i++
-        {
-            if(i <= 9){
-                let enemy = enemyFactory.CreateEnemy(self)
-                GameScene.enemies.append(enemy)
-            }
-            if(i > 9 && i < 14){
-                let enemy = enemyFactory.CreateEnemyGrunt(self)
-                GameScene.enemies.append(enemy)
-            }
-            if(i == 14){
-                let enemyboss = enemyFactory.CreateEnemyBoss(self)
+            e.UpdateLabel()
+  
+            if e.CheckIfDead(){
+                e.sprite.removeFromParent()
                 
-                GameScene.enemies.append(enemyboss)
+                //add gold to user when enemys die
+                appDelegate.user.gold += e.reward
+                appDelegate.gameState.enemies.removeAtIndex(i)
+                
+                GameScene.enemies.removeAtIndex(i)
+                i -= 1
             }
         }
+        
+        for (var i = 0; i < GameScene.items.count; i++) {
+            let item = GameScene.items[i]
+            if (item.destroyThis) {
+                item.destroy()
+                GameScene.items.removeAtIndex(i)
+                i -= 1;
+            }
+            else {
+                item.update()
+            }
+        }
+
+        // Calculate player y offset
+        if bossNode?.sprite.position.y > 200.0 {
+        for t in GameScene.towers{
+            t.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/10))
+        }
+        for e in GameScene.enemies {
+            e.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/4))
+        }
+        
+            background!.position = CGPoint(x: 0.0, y: -(bossNode!.sprite.position.y - 200.0))
+        }
+        
+        if GameScene.enemies.isEmpty && appDelegate.user.gold < 100 && GameScene.towers.isEmpty {
+            
+            endGame()
+            appDelegate.resetUser()
+        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty && !nextWaveDelay{
+           nextWave()
+        } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty && appDelegate.user.gold < 100{
+            appDelegate.resetUser()
+            endGame()
+
+        }
+        
     }
+
     
-    //func that will set up the chain of reponsibility for updating
-    func setUpChain(inout node: AttackSetRange, x: CGFloat , y: CGFloat)
+    //function to add xp to the player currently based on the damage of the strategy of the enemy
+    func giveXp(enmey: EnemyBase)
     {
-        //initialize the nodes of the chain
-        let setDamageNode = AttackSetDamage(x: x, y: y)
-        let fireDeleyNode = SetFireDelay(x: x, y: y)
-        let setSpeed = SetSpeed(x: x, y: y)
-        let deffenseSetRange = DeffenseSetRange(x: x, y: y)
-        let deffenseSetAmount = DeffenseSetAmount(x: x, y: y)
-        
-        //set all the nodes to the seccuessor
-        node.setNextNode(setDamageNode)
-        setDamageNode.setNextNode(fireDeleyNode)
-        fireDeleyNode.setNextNode(setSpeed)
-        setSpeed.setNextNode(deffenseSetRange)
-        deffenseSetRange.setNextNode(deffenseSetAmount)
-    }
-    func addEnemy(){
-        
-        if(enemyCount <= enemyMax && GameScene.towers.count > 0){
-            print(enemyCount)
-            self.addChild(GameScene.enemies[enemyCount].sprite)
-            enemyCount++
-        }
-    }
-    class func getClosestEnemy(point : CGPoint) -> EnemyBase? {
-        
-        var closestEnemy : EnemyBase?
-        var closestDistance : CGFloat = 999999
-        var tempDistance : CGFloat
-        
-        for e in enemies {
-            tempDistance = getDistance(point,to: e.sprite.position)
-            if (tempDistance < closestDistance) {
-                closestDistance = tempDistance
-                closestEnemy = e;
-            }
-        }
-        
-        return closestEnemy;
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.user.xp += Int(enmey.attack.damage * 5)
+
     }
     
-    class func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
-        var inRange : [TowerBase] = [TowerBase]()
-        for t in towers {
-            if (getDistance(point,to:t.sprite.position) < range) {
-                inRange.append(t);
-            }
-        }
-        return inRange
-    }
-    
-    class func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
-        var inRange : [EnemyBase] = [EnemyBase]()
-        for e in enemies {
-            if (getDistance(point,to:e.sprite.position) < range) {
-                inRange.append(e);
-            }
-        }
-        return inRange
-    }
-    
-    class func getClosestTower(point : CGPoint) -> TowerBase? {
+    // Handles the wave progression
+    func nextWave(){
+
+        nextWaveDelay = true
+        appDelegate?.gameState.wave++
         
-        var closestTower : TowerBase?
-        var closestDistance : CGFloat = 999999
-        var tempDistance : CGFloat
+        //Set up the label
+        let gameOverLabel = SKLabelNode(fontNamed: "Square")
+        gameOverLabel.text = "WAVE COMPLETED"
+        gameOverLabel.fontSize = 45
+        gameOverLabel.position = CGPoint(x: self.scene!.size.width/2, y: self.scene!.size.height/2)
+        gameOverLabel.zPosition = 1000
         
-        for t in towers {
-            tempDistance = getDistance(point,to: t.sprite.position)
-            if (tempDistance < closestDistance) {
-                closestDistance = tempDistance
-                closestTower = t;
-            }
-        }
-        
-        return closestTower;
+        self.addChild(gameOverLabel)
+        let removeNodeAction = SKAction.removeFromParent()
+        let waiTime : NSTimeInterval = 1.8
+        let waitAction = SKAction.waitForDuration(waiTime)
+        let RemoveSequence = SKAction.sequence([waitAction, removeNodeAction])
+        gameOverLabel.runAction(RemoveSequence)
+        enemyFactory.nextWave()
+
     }
-    
-    
-    class func getDistance(from : CGPoint, to : CGPoint) -> CGFloat {
-        
-        return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
-    }
-    
+
+    //this method is called whenever two physicsBodies contact.  The appropriate logic is called depending which objects did hte contacting.
     func didBeginContact(contact: SKPhysicsContact) {
         // Bitiwse OR the bodies' categories to find out what kind of contact we have
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         switch contactMask {
-            
+        
         case CategoryMask.Enemy | CategoryMask.TowerBullet:
             
             for e in GameScene.enemies{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-                    //e.UpdateLabel()
+
+                    giveXp(e)
+                    e.UpdateLabel()
+
+
+                    contactTest.destroy()
+                     //conductor.play(3)
+
+                  appDelegate!.conductor.hitEnemyPlaySound(0.0125, e: e)
+
                     contact.bodyB.node?.removeFromParent()
+                    
+                
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-                   // e.UpdateLabel()
+
+                    giveXp(e)
+
+                    e.UpdateLabel()
+
+                    contactTest.destroy()
+                 appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
                     contact.bodyA.node?.removeFromParent()
                 }
             }
@@ -297,11 +325,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
+                    contactTest.destroy()
+                   //conductor.hitTowerPlaySoundForDuration(0.02)
                     contact.bodyB.node?.removeFromParent()
                 } else if t.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
+                    //conductor.hitTowerPlaySoundForDuration(0.02)
+                    contactTest.destroy()
                     contact.bodyA.node?.removeFromParent()
                 }
             }
@@ -310,5 +342,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
             print("other collision: \(contactMask)")
         }
+    }
+    func endGame() {
+
+    gameOver = true
+        
+    self.viewController.gameOver()    
+        
+    /*let reveal = SKTransition.fadeWithDuration(0.05)
+    let endGameScene = EndGameScene(size: self.size)
+    self.view!.presentScene(endGameScene, transition: reveal)*/
     }
 }

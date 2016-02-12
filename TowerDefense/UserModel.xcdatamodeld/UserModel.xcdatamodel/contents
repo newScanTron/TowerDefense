@@ -14,13 +14,15 @@
         <relationship name="gameState" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameState" inverseName="tower" inverseEntity="GameState" syncable="YES"/>
     </entity>
     <entity name="User" syncable="YES">
+        <attribute name="gold" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="psswd" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="xp" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="hasGameState" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GameState" inverseName="hasUser" inverseEntity="GameState" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GameState" positionX="-9" positionY="-5076" width="128" height="103"/>
-        <element name="Tower" positionX="-164" positionY="-4996" width="128" height="118"/>
-        <element name="User" positionX="225" positionY="-5049" width="128" height="88"/>
+        <element name="GameState" positionX="25" positionY="-5076" width="128" height="103"/>
+        <element name="Tower" positionX="-162" positionY="-4996" width="128" height="118"/>
+        <element name="User" positionX="225" positionY="-5049" width="128" height="118"/>
     </elements>
 </model>

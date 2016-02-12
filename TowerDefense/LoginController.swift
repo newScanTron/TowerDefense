@@ -24,6 +24,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
     @IBOutlet weak var userNameLbl: UILabel!
     var user = User()
     var people = [User]()
+    var gameSt = [GameState]()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,20 +46,37 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
                 {
                     
                    // print(result)
-                    if let u = result.valueForKey("userName") as? String
-                    {
-                        if let p = result.valueForKey("psswd") as? String
+                    if let u = result.valueForKey("userName") as? String,
+                      let  p = result.valueForKey("psswd") as? String,
+                        let xp = result.valueForKey("xp") as? Int,
+                        let gold = result.valueForKey("gold") as? Int
                         {
-                             user = User(userName: u, pswd: p)
+                            user = User(userName: u, pswd: p, xp: xp, gold: gold)
+                            
                             people.append(user)
                             
-                            if let addresses = result.valueForKey("hasGameState")
-                            {
-                                print("yeah", addresses)
-                                print(addresses.valueForKey("gold"))
-                            }//some weak debug loopoing
+//                            if let addresses = result.valueForKey("hasGameState")
+//                            {
+//                                
+//                                if addresses.count > 0
+//                                {
+//                               
+//                                
+//                                
+////                                let gold = addresses.valueForKey("gold") as? String
+////                                let  xp = result.valueForKey("hasGameState.xp") as? String
+////                                print("thtp", xp)
+////                                gameSt.append(GameState(user: user, xp: xp!, gold: gold!))
+//                                }
+//                                
+//                            }//some weak debug loopoing
                         }
-                    }
+                        else
+                        {
+                            print("could not add user and create")
+                            
+                        }
+                    
                 }
             }
             
@@ -71,15 +89,21 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
         
         if appDelegate.user.pswd == passText.text!
         {
-            
-        performSegueWithIdentifier("playGame", sender: nil)
+            performSegueWithIdentifier("playGame", sender: nil)
         }
         else
         {
-        print("not loged it")
+            print("not loged it")
         }
     }
-    
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        let titleData = people[row].userName
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Square", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
+        pickerLabel.attributedText = myTitle
+        pickerLabel.textAlignment = .Center
+        return pickerLabel
+    }
     //functions conforming to the UIPickerView DataSource
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -95,6 +119,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         userNameLbl.text = people[row].userName
         appDelegate.user = people[row]
+        //appDelegate.gameState = gameSt[row]
         
         
     }

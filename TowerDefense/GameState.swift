@@ -12,9 +12,11 @@ struct GameState {
     var user: User
     var xp: Int = 0
     var gold: Int = 0
+    var highGold: Int = 0
+    var wave: Int = 0
     var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     var enemies : [EnemyBase] = [EnemyBase]()
-    //constructor
+    //constructor overriden twice
     init(user: User, xp: Int, gold: Int, towers: [TowerBase], enemies: [EnemyBase])
     {
         self.user = user
@@ -23,6 +25,15 @@ struct GameState {
         self.towers = towers
         self.enemies = enemies
     }
+    init(user: User, xp: Int, gold: Int)
+    {
+        self.user = user
+        self.xp = xp
+        self.gold = gold
+        towers = []
+        enemies = []
+    }
+    
     init()
     {
         user = User()

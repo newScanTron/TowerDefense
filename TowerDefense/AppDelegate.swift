@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //I had to make init() in both of these classes to to allow be to declare them here before we know what they are going to be.
     var user = User()
     var gameState = GameState()
-    var gameScene = GameScene()
-    
+    var gameScene = GameScene(fileNamed:"GameScene")
+    var conductor = Conductor()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -28,11 +28,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        
+        
+        
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        updateUser()
+        
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -77,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             
-            dict[NSUnderlyingErrorKey] = error as? NSError
+            dict[NSUnderlyingErrorKey] = error as NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -118,36 +123,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let managedContext = self.managedObjectContext
         
-        //2
+        //look to see that we infact have a User object
         let entity =  NSEntityDescription.entityForName("User",
             inManagedObjectContext:managedContext)
-        
         let user = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext: managedContext)
         
-        //3
+        //set the different attributes for the user.
         user.setValue(name, forKey: "userName")
         user.setValue(passwd, forKey: "psswd")
+        user.setValue(0, forKey: "xp" )
+        user.setValue(10000, forKey: "gold")
         
         // Create Address
-        let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
-        let newAddress = NSManagedObject(entity: gameState!, insertIntoManagedObjectContext: self.managedObjectContext)
+//        let gameState = NSEntityDescription.entityForName("GameState", inManagedObjectContext: self.managedObjectContext)
+//        let newAddress = NSManagedObject(entity: gameState!, insertIntoManagedObjectContext: self.managedObjectContext)
         
-        // Populate Address
-        newAddress.setValue(1000, forKey: "gold")
-        newAddress.setValue(1, forKey: "xp")
-    
-        let addresses = user.mutableSetValueForKey("hasGameState")
-        addresses.addObject(newAddress)
-        
-        do {
-            try user.managedObjectContext?.save()
-        } catch {
-            let saveError = error as NSError
-            print(saveError)
-        }
-        
-        
+//        // this stuff could be removed it is not working the way i would like it too.
+//        newAddress.setValue(1000, forKey: "gold")
+//        newAddress.setValue(1, forKey: "xp")
+//    
+//        let addresses = user.mutableSetValueForKey("hasGameState")
+//        addresses.addObject(newAddress)
+//        
+//        do {
+//            try user.managedObjectContext?.save()
+//        } catch {
+//            let saveError = error as NSError
+//            print(saveError)
+//        }
         
         //4
         do {
@@ -158,6 +162,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
+    //function to update the user when the user wants to save or leave the app abruptly
+    func updateUser()
+    {
+        let managedContext = self.managedObjectContext
+        
+        //look to see that we infact have a User object
+        let fetchRequest = NSFetchRequest(entityName: "User")
+        
+        //do catch cus its swift and try catch is so easy to assume what it means.
+        do {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            //even
+            if results.count > 0
+            {
+                for result: AnyObject in results
+                {
+                    // print(result)
+                    if let u = result.valueForKey("userName") as? String
+                    {
+                        if self.user.userName == u
+                        {
+                            result.setValue(self.user.xp, forKey: "xp" )
+                            result.setValue(self.user.gold, forKey: "gold")
+                            
+                            //4
+                            do
+                            {
+                                try managedContext.save()
+                            }
+                            catch let error as NSError
+                            {
+                                print("Could not save \(error), \(error.userInfo)")
+                            }
+                        }
+                    }
+                    else
+                    {
+                        print("no user found and could not save")
+                    }
+                }
+            }
+        }
+        catch let error as NSError {
+             print("Could not fetch \(error), \(error.userInfo)")
+        }
+                
+    }
+    
+    //little funcito to reset the user with 1000 gold when the game over sceen is reached.
+    func resetUser()
+    {
+        
+        self.user.gold = Int(sqrt(Double(self.user.xp)) * Double(self.user.xp))
+        self.updateUser()
+    }
+    //little helper function to update the HUD as it were
+    func updateMyLabel()
+    {
 
+        self.gameScene!.myLabel.text = ("Gold: \(self.user.gold)")
+        self.gameScene!.xpLabel.text = ("XP: \(self.user.xp)")
+        self.gameScene!.enemiesLabel.text = ("Enemies: \(self.gameState.enemies.count)")
+        self.gameScene!.waveLabel.text = ("\(self.gameState.wave)")
+    }
 }
 

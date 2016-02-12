@@ -35,6 +35,13 @@ class TowerDefenseTests: XCTestCase {
         
     }
     
+    func testLogin()
+    {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        XCTAssertEqual(appDelegate.user.userName, appDelegate.user.userName)
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {

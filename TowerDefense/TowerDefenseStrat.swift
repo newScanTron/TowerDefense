@@ -13,15 +13,25 @@ class TowerDefenseStrat
 {
     var range : CGFloat = 0
     var amount : CGFloat = 0
-    var parent : TowerBase? = nil
     
-    init () {
-        //fatalError("Don't instantiate the base class!")
-    }
+    var rangeLevel : Int = 0
+    var amountLevel : Int = 0
+    
+    var imageName : String = "defaultBase"
     
     
-    func Defend() {
-       //fatalError("Don't call Defend() on the base class!")
+    
+    init () {}
+    func setRangeLevel(level : Int) {}
+    func setAmountLevel(level : Int) {}
+    func Defend(tower : TowerBase) {}
+    func Die(tower : TowerBase) {}
+    
+    func copy() -> TowerDefenseStrat {
+        let strat = TowerDefenseStrat()
+        strat.setRangeLevel(rangeLevel)
+        strat.setAmountLevel(amountLevel)
+        return strat
     }
     
 }

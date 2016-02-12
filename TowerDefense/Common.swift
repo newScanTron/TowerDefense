@@ -14,8 +14,9 @@ struct CategoryMask { // Assigns categories for use with CollisionMask and Conta
     static let All          : UInt32 = UInt32.max
     static let Tower        : UInt32 = 0b0001
     static let Enemy        : UInt32 = 0b0010
-    static let EnemyBullet       : UInt32 = 0b0100
-    static let TowerBullet       : UInt32 = 0b1000
+    static let EnemyBullet       : UInt32 = 0b00100
+    static let TowerBullet       : UInt32 = 0b01000
+    static let TowerShield       : UInt32 = 0b10000
 }
 
 struct CollisionMask { // Which categories should this object "collide" with, i.e. interact with physically. Match with categories above.
@@ -23,8 +24,8 @@ struct CollisionMask { // Which categories should this object "collide" with, i.
     static let All          : UInt32 = UInt32.max
     static let Tower        : UInt32 = 0b0000 // Towers only collide with other Towers and Enemies
     static let Enemy        : UInt32 = 0b0000 // Enemies only collide with other Enemies and Towers
-    static let EnemyBullet       : UInt32 = 0b0000 // Bullets don't collide with anything (only trigger contacts against enemies/towers)
-    static let TowerBullet       : UInt32 = 0b0000
+    static let EnemyBullet       : UInt32 = 0b10000 // EnemyBullet only collides with TowerShield
+    static let TowerBullet       : UInt32 = 0b00000 // TowerBullet does not collide with anything
 }
 
 struct ContactMask { // Which categories should this object trigger notifications about, i.e. in didBeginContact(). Match with categories above.
@@ -36,6 +37,7 @@ struct ContactMask { // Which categories should this object trigger notification
     static let TowerBullet  : UInt32 = 0b0010 // TowerBullet should only trigger contacts with Enemies, so they can deal damage then be destroyed
 }
 
+// Sets the Z position of an x,y,z cartesian plane
 struct ZPosition {
     static let background  : CGFloat = -10
     static let wall         : CGFloat = 0
@@ -43,11 +45,134 @@ struct ZPosition {
     static let enemy        : CGFloat = 6
     static let bullet       : CGFloat = 7
 }
-enum PhysicsCategory : UInt32 {
-    case None   = 0
-    case All    = 0xFFFFFFFF
-    case Tower  = 0b0001
-    case Enemy  = 0b0010
-    case EnemyBullet = 0b0100
-    case TowerBullet = 0b1000
+
+extension UIView {
+    func addBackground() {
+        // screen width and height:
+        let width = UIScreen.mainScreen().bounds.size.width
+        let height = UIScreen.mainScreen().bounds.size.height
+        
+        let imageViewBackground = UIImageView(frame: CGRectMake(0, 0, width, height))
+        imageViewBackground.image = UIImage(named: "gridBG")
+        
+        // you can change the content mode:
+        imageViewBackground.contentMode = UIViewContentMode.ScaleAspectFill
+    
+        self.addSubview(imageViewBackground)
+        self.sendSubviewToBack(imageViewBackground)
+    }
+}
+
+// Returns closest enemy to given point
+func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
+    
+    var closestEnemy : EnemyBase?
+    var closestDistance : CGFloat = 999999
+    var tempDistance : CGFloat
+    
+    for e in GameScene.enemies {
+        tempDistance = getDistance(point,to: e.sprite.position)
+        if (tempDistance < closestDistance) {
+            closestDistance = tempDistance
+            closestEnemy = e;
+        }
+    }
+    if (closestDistance < range) {
+        return closestEnemy;
+    }
+    else {
+        return nil
+    }
+}
+
+// Returns a list of towers in range to given points range
+func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
+    var inRange : [TowerBase] = [TowerBase]()
+    for t in GameScene.towers {
+        if (getDistance(point,to:t.sprite.position) < range) {
+            inRange.append(t);
+        }
+    }
+    return inRange
+}
+
+// Returns a list of enemies in range to given points range
+func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
+    var inRange : [EnemyBase] = [EnemyBase]()
+    for e in GameScene.enemies {
+        if (getDistance(point,to:e.sprite.position) < range) {
+            inRange.append(e);
+        }
+    }
+    return inRange
+}
+
+// Returns closest tower to given point
+func getClosestTower(point : CGPoint) -> TowerBase? {
+    
+    var closestTower : TowerBase?
+    var closestDistance : CGFloat = 999999
+    var tempDistance : CGFloat
+    
+    for t in GameScene.towers {
+        tempDistance = getDistance(point,to: t.sprite.position)
+        if (tempDistance < closestDistance) {
+            closestDistance = tempDistance
+            closestTower = t;
+        }
+    }
+    
+    return closestTower;
+}
+
+// adds gold when an enemy is detsroyed
+func addGold(amount : Int) -> Bool{
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    if (appDelegate.user.gold + amount >= 0) {
+        // User has enough gold, return true
+        appDelegate.user.gold += amount
+        return true
+    }
+    // User does not have enough gold, return false
+    return false
+}
+
+// Resturns distance from two points
+func getDistance(from : CGPoint, to : CGPoint) -> CGFloat {
+    
+    return CGFloat(sqrt(pow(from.x-to.x,2) + pow(from.y-to.y,2)))
+}
+
+
+func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
+    if (value < min) {
+        return min
+    }
+    else if (value > max) {
+        return max
+    }
+    else {
+        return value
+    }
+}
+//delay function that can be called as a clouser 
+func delay(delay:Double, closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
+}
+//Functions to handle random CGFloats
+func random() -> CGFloat{
+    return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+}
+
+func random(min min: CGFloat, max: CGFloat) -> CGFloat{
+    return random() * (max - min) + min
+}
+func randomVect(min min: CGFloat, max: CGFloat) -> CGVector{
+    return CGVector(dx: random() * (max - min) + min, dy: 0)
 }
