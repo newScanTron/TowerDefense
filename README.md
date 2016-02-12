@@ -5,7 +5,7 @@ This README describes the steps required to run this application
 ### What is this repository for? ###
 
 * 
-* Version 1.0
+* Version 2.0
 * [Repo](https://bitbucket.org/csci426/towerdefense)
 
 ### How do I get set up? ###
@@ -15,4 +15,3 @@ This README describes the steps required to run this application
 * There are no special librarys used fro the project, only the librarys included in xcode.
 * CoreData is being used to manage a very simple user object with user name, password, gold, xp attributes.
 * Xcode has a rather slick testing framework that can be run automaticly with xcode
-
