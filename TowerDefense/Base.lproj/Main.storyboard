@@ -37,6 +37,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="XdY-Sw-Wtn" appends="YES" id="VfE-kz-bFK"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="aBQ-vg-FSn"/>
                     <connections>
@@ -45,6 +48,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="XdY-Sw-Wtn">
+                    <connections>
+                        <action selector="PinchAction:" destination="BV1-FR-VrT" id="qun-x9-465"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="195" y="331"/>
         </scene>

@@ -28,6 +28,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let cero = 0
     var gameOver : Bool = false
     var nextWaveDelay = false
+    //camera stuff
+    
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -39,7 +41,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
-
+    
 
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20

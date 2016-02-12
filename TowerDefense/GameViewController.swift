@@ -15,6 +15,8 @@ class GameViewController: UIViewController {
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
     
+    @IBAction func PinchAction(sender: AnyObject) {
+    }
     //UIViewController function to do any setup that is requried for the game.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +66,7 @@ class GameViewController: UIViewController {
     func swipedRight(sender:UISwipeGestureRecognizer) {
         performSegueWithIdentifier("backToLogin", sender: nil)
     }
+    
     //iOS framework functions that allow the rotation of the iOS device and other things that are automaticly added when the project was created.
     override func shouldAutorotate() -> Bool {
         return true

@@ -33,7 +33,6 @@ class Conductor {
         let enemies = GameScene.enemies
    
         
-        
         for _ in enemies
         {
             for _ in 0...16 {
