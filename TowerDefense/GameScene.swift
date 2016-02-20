@@ -283,40 +283,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         // Bitiwse OR the bodies' categories to find out what kind of contact we have
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         switch contactMask {
-        
+        //this first case is executed when a tower bullet hits a enemy.
         case CategoryMask.Enemy | CategoryMask.TowerBullet:
             
             for e in GameScene.enemies{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-
                     giveXp(e)
                     e.UpdateLabel()
-
-
                     contactTest.destroy()
-                     //conductor.play(3)
-
                   appDelegate!.conductor.hitEnemyPlaySound(0.0125, e: e)
-
                     contact.bodyB.node?.removeFromParent()
-                    
-                
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-
                     giveXp(e)
-
                     e.UpdateLabel()
-
                     contactTest.destroy()
                  appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
                     contact.bodyA.node?.removeFromParent()
                 }
             }
-            
+         //this case is if an enemy bullet has hit a tower.
         case CategoryMask.Tower | CategoryMask.EnemyBullet:
             
             for t in GameScene.towers{

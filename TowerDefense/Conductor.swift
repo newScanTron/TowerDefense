@@ -9,7 +9,7 @@ import AudioKit
 import Foundation
 class Conductor {
     let audioKit = AKManager.sharedInstance
-    var toneGenerator = AKTriangleOscillator()
+    var toneGenerator = ToneGenerator()
     let scale = [0,2,4,5,7,9,11,12]
 
     let frequencies = [[130.813, 138.591, 146.832, 155.563, 164.814,174.614, 184.997, 195.998, 207.652, 220.000, 233.082, 246.942, 261.625], [523.25, 554.37, 587.33, 622.25, 659.26, 698.46, 739.99, 783.99, 830.61, 880, 932.33, 987.77, 1046.5]]
@@ -18,7 +18,7 @@ class Conductor {
     var thisKey = [65.41, 73.42, 82.41, 87.31, 98.00,  110.00, 123.47, 130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94, 261.63]
     init() {
         
-        audioKit.audioOutput = toneGenerator
+        audioKit.audioOutput = toneGenerator.toneGenerator
         
         audioKit.start()
        //toneGenerator.start()
@@ -43,8 +43,8 @@ class Conductor {
              
                 let note = scale.randomElement()
                 let octave = randomInt(3...6)  * 12
-                toneGenerator.frequency = (note + octave).midiNoteToFrequency()
-                toneGenerator.amplitude = random(0, 0.3)
+                toneGenerator.setFreq((note + octave).midiNoteToFrequency())
+                toneGenerator.setAmp(random(0, 0.3))
                
             }
 
@@ -60,8 +60,8 @@ class Conductor {
             
             let note = scale.randomElement()
             let octave = i  * 12
-            toneGenerator.frequency = (note + octave).midiNoteToFrequency()
-            toneGenerator.amplitude = random(0, 0.3)
+            toneGenerator.setFreq((note + octave).midiNoteToFrequency())
+            toneGenerator.setAmp(random(0, 0.3))
         }
         
    
@@ -70,11 +70,12 @@ class Conductor {
 //function that is called when the enemy is hit.
     func stopEnemySound()
     {
+         self.toneGenerator.setRamp( 0.0)
         toneGenerator.stop()
     }
     func hitEnemyPlaySound(duration: Float,  e: Entity) {
-
-        recursiveNotesUp(4, length: 0.32)
+        let times = 4
+        recursiveNotesUp(times,lastRepeat:  times, length: 0.64)
         
     }
     //functions to play notes
@@ -85,8 +86,8 @@ class Conductor {
         {
             let note = self.scale.randomElement()
             let octave = randomInt(3...6)  * 12
-            self.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
-            self.toneGenerator.amplitude = random(0.3, 0.6)
+            self.toneGenerator.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
+            self.toneGenerator.setAmp( random(0.3, 0.6))
             self.toneGenerator.start()
             let rand = random(0.01, maxLength)
             delay(rand){self.stopEnemySound()
@@ -96,24 +97,25 @@ class Conductor {
         return
     }
     //function to play notes up a scale
-    func recursiveNotesUp(repeats: Int, length: Double)
+    func recursiveNotesUp(repeats: Int, lastRepeat: Int, length: Double)
     {
         //same base case of 0 as prior function
         if repeats > 0
         {
             let note = self.scale.randomElement()
-            let octave = (repeats + 4)  * 12
-            self.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
+            let octave = (lastRepeat - repeats + 6)  * 12
+            //            self.toneGenerator.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
+            self.toneGenerator.setFreq((note + octave).midiNoteToFrequency())
             //self.toneGenerator.amplitude = random(0.3, 0.6)
-            self.toneGenerator.ramp(amplitude: 0.6)
+            self.toneGenerator.setRamp(0.6)
             self.toneGenerator.start()
             
             delay(length){
-                self.toneGenerator.ramp(amplitude: 0.0)
+               
                 self.stopEnemySound()
                 let rep = repeats - 1
                 let leng = length - (length/2)
-                self.recursiveNotesUp(rep, length: leng)}
+                self.recursiveNotesUp(rep, lastRepeat: repeats, length: leng)}
         }
         return
     }
