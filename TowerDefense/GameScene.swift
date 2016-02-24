@@ -121,13 +121,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let location = touch!.locationInNode(self)
        let viewLocation = touch!.locationInView(self.view!)
         
-        if touches.count > 1
+        if touches.count > 2
         {
             
             appDelegate!.conductor.recursiveNotesRandom(5, maxLength: 2.0)
 
         }
-        
+        if touches.count > 1
+        {
+            towerBuilder.BuildMainTower(location)
+        }
         
        //check each tower and see if the touch location was the same as the tower
         for each in GameScene.towers

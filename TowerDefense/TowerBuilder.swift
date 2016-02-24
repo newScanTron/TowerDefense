@@ -23,7 +23,15 @@ class TowerBuilder
         let tower = TowerBase(location: point, _attack: attack, _defense: defense)
         return tower
     }
-    
+    //function to build the main tower that will be deffended.
+    func BuildMainTower(point : CGPoint) -> TowerMain
+    {
+        let attack = TowerMainAttackStrat()
+        let defense = TowerMainDefenseStrat()
+        
+        let tower = TowerMain(locaton: point, _attack: attack, _defense: defense)
+        return tower
+    }
     func copyTower(tower : TowerBase) {
         pasteTower(&clipboard,source: tower)
     }
