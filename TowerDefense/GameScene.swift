@@ -127,10 +127,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             appDelegate!.conductor.recursiveNotesRandom(5, maxLength: 2.0)
 
         }
-        if touches.count > 1
+        if touches.count > 1 && !mainBuild
         {
             let mainTower = towerBuilder.BuildMainTower(location)
             GameScene.towers.append(mainTower)
+            mainBuild = true
         }
         
        //check each tower and see if the touch location was the same as the tower
@@ -139,8 +140,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             if each.sprite.containsPoint(location)
             {
                 //conductor.playWaveMelody()
-                towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
-
+                if (each.sprite.name == "mainTower")
+                {
+                    towerBuilder.addMainUpgradView(each, location: viewLocation, gameScene: self)
+                }
+                else
+                {
+                    towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
+                }
                 return
             }
         }

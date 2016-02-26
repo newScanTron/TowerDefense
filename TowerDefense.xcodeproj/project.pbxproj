@@ -94,6 +94,7 @@
 		99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99C22E0D1C54992300487B9A /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C22E0C1C54992300487B9A /* AudioKit.framework */; };
+		99CDB2E91C80236A000A912F /* MainTowerHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CDB2E81C80236A000A912F /* MainTowerHUD.swift */; };
 		99CE60D21C1BD6B900CB8F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */; };
 		99CE60D31C1BD6B900CB8F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */; };
 		99D680EA1BE7FE2B00C877CE /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D680E91BE7FE2B00C877CE /* UpgradeView.swift */; };
@@ -182,6 +183,7 @@
 		99A868D51C65331E00A97EF1 /* SideScrolScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideScrolScene.swift; sourceTree = "<group>"; };
 		99BA33D31BF5171700152764 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		99C22E0C1C54992300487B9A /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		99CDB2E81C80236A000A912F /* MainTowerHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTowerHUD.swift; sourceTree = "<group>"; };
 		99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		99D680E91BE7FE2B00C877CE /* UpgradeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
 		99EDA20A1C78FB2800AFF94E /* ToneGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToneGenerator.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				9943460D1C7924F1000012F0 /* PlanetPickView.swift */,
 				99FD08311BE035D80070F4B8 /* GameViewController.swift */,
 				99D680E91BE7FE2B00C877CE /* UpgradeView.swift */,
+				99CDB2E81C80236A000A912F /* MainTowerHUD.swift */,
 			);
 			path = TowerDefense;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				99FD082C1BE035D80070F4B8 /* AppDelegate.swift in Sources */,
 				99BA33D41BF5171700152764 /* UserModel.xcdatamodeld in Sources */,
 				99D680EA1BE7FE2B00C877CE /* UpgradeView.swift in Sources */,
+				99CDB2E91C80236A000A912F /* MainTowerHUD.swift in Sources */,
 				9946E4031BE56EBB007E9559 /* EnemyMoveStrat.swift in Sources */,
 				998722931BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				992622391BED1ECB0080D35A /* EnemyAttackRanged.swift in Sources */,

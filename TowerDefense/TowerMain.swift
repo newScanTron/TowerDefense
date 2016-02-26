@@ -16,7 +16,7 @@ class TowerMain : TowerBase
     {
         super.init(location: locaton, _attack: _attack, _defense: _defense)
        
-        
+        sprite.name = "mainTower"
     }
     
 }
