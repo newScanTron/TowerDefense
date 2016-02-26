@@ -42,7 +42,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
     
-
+    var mainBuild = false
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
 
@@ -129,7 +129,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         if touches.count > 1
         {
-            towerBuilder.BuildMainTower(location)
+            let mainTower = towerBuilder.BuildMainTower(location)
+            GameScene.towers.append(mainTower)
         }
         
        //check each tower and see if the touch location was the same as the tower

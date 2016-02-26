@@ -15,7 +15,7 @@ class TowerMainAttackStrat : TowerAttackStrat
     
     override init() {
         super.init()
-        imageName = "healBase"
+        imageName = "tempMainTower"
         self.setRangeLevel(0)
         self.setDamageLevel(0)
         self.setFireDelayLevel(0)
@@ -24,5 +24,8 @@ class TowerMainAttackStrat : TowerAttackStrat
 //Main Tower Defense Start
 class TowerMainDefenseStrat : TowerDefenseStrat
 {
-    
+    override init() {
+        super.init()
+        imageName = "tempMainTower"
+    }
 }

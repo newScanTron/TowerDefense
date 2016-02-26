@@ -28,7 +28,6 @@ class TowerBuilder
     {
         let attack = TowerMainAttackStrat()
         let defense = TowerMainDefenseStrat()
-        
         let tower = TowerMain(locaton: point, _attack: attack, _defense: defense)
         return tower
     }

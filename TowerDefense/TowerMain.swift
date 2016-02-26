@@ -15,6 +15,7 @@ class TowerMain : TowerBase
     init(locaton: CGPoint, _attack: TowerAttackStrat, _defense : TowerDefenseStrat)
     {
         super.init(location: locaton, _attack: _attack, _defense: _defense)
+       
         
     }
     
