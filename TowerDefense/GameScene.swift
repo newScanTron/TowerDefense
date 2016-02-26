@@ -41,7 +41,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
-    
+    //bool actions
+    var mainHudIsUP = false
     var mainBuild = false
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
@@ -140,11 +141,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             if each.sprite.containsPoint(location)
             {
                 //conductor.playWaveMelody()
-                if (each.sprite.name == "mainTower")
+                if (each.sprite.name == "mainTower" && !mainHudIsUP)
                 {
                     towerBuilder.addMainUpgradView(each, location: viewLocation, gameScene: self)
+                    mainHudIsUP = true
                 }
-                else
+                else if each.sprite.name == "tower"
                 {
                     towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
                 }
