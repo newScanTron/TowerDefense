@@ -46,7 +46,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var mainBuild = false
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
-
+    static var totalTime : CGFloat = 0.0
+    
     override func didMoveToView(view: SKView) {
 
         gameOver = false
@@ -171,6 +172,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
 
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
+        GameScene.totalTime += GameScene.deltaTime
         GameScene.gameTime = CGFloat(currentTime)
         
         //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
