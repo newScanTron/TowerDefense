@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var user = User()
     var gameState = GameState()
     var gameScene = GameScene(fileNamed:"GameScene")
+    var sideScrollScene = SideScrolScene(fileNamed:"SideScrolScene")
     var conductor = Conductor()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

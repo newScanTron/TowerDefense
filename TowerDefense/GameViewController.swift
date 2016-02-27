@@ -20,7 +20,7 @@ class GameViewController: UIViewController {
     //UIViewController function to do any setup that is requried for the game.
     override func viewDidLoad() {
         super.viewDidLoad()
-        appDelegate.gameScene = GameScene(fileNamed:"GameScene")!
+        appDelegate.gameScene = GameScene(fileNamed:"GameScene")
         // Configure the view.
         let skView = self.view as! SKView
         /* Sprite Kit applies additional optimizations to improve rendering performance */
@@ -52,6 +52,10 @@ class GameViewController: UIViewController {
     func gameOver(){
         performSegueWithIdentifier("toEndGame", sender: nil)
     }
+    //calls the segue to side scroll game scene
+    //func sideScroll(){
+    //    performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
+    //}
     //two methods to be the action performed when swipe actions call them
     func swipedLeft(sender:UISwipeGestureRecognizer){
         if GameScene.scene!.view!.paused == false

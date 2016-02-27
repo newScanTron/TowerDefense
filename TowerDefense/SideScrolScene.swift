@@ -14,35 +14,41 @@ import AudioKit
 
 class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
-    var backgroundNode: SKNode!
-    var midgroundNode: SKNode!
-    var foregroundNode: SKNode!
-    var hudNode: SKNode!
     
-    var scaleFactor: CGFloat!
-    var ship: SKNode!
+    var viewController: SideScroll!
+
+    var backgroundNode: SKNode = SKNode()
+    var midgroundNode: SKNode = SKNode()
+    var foregroundNode: SKNode = SKNode()
+    var hudNode: SKNode = SKNode()
+    
+    var scaleFactor: CGFloat = 0.0
+    var ship: SKNode = SKNode()
     var actionMoveUp = SKAction()
     var actionMoveDown = SKAction()
     let backgroupVelocity: CGFloat = 3.0
     
     static var ships : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
+    static var scene : SideScrolScene? = nil
     
     override func didMoveToView(view: SKView) {
         
-        backgroundNode = createBackgroundNode()
+        //backgroundNode = createBackgroundNode()
         foregroundNode = SKNode()
         ship = createShip()
         foregroundNode.addChild(ship)
+        scaleFactor = 3.0
         
-        addChild(foregroundNode)
-        addChild(backgroundNode)
+
+        //self.addChild(backgroundNode)
         
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
         self.view!.multipleTouchEnabled = true
-        self.backgroundColor = SKColor.whiteColor()
+        self.backgroundColor = SKColor.blackColor()
         self.initializingScrollingBackground()
+        self.addChild(foregroundNode)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -50,26 +56,26 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             if location.y > ship.position.y {
-                if ship.position.y < 300 {
-                    ship.runAction(actionMoveUp)
-                }
+                ship.runAction(actionMoveUp)
             }
             else{
-                if ship.position.y > 50 {
-                    ship.runAction(actionMoveDown)
-                }
+                ship.runAction(actionMoveDown)
             }
         }
     }
     
+    // Update function that moves background
     override func update(currentTime: NSTimeInterval) {
         self.moveBackground()
     }
+    
     func createShip() -> SKNode {
         let shipNode = SKNode()
-        shipNode.position = CGPoint(x: 100, y: self.size.height)
+        shipNode.position = CGPoint(x: 100, y: 0)
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
+        sprite.xScale = 0.5
+        sprite.yScale = 0.5
         
         shipNode.addChild(sprite)
         actionMoveUp = SKAction.moveByX(0, y: 30, duration: 0.1)
@@ -79,10 +85,10 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     }
     
     func createBackgroundNode() -> SKNode {
-        let backgroundNode = SKNode()
+        
         let ySpacing = 64.0 * scaleFactor
         
-        for index in 0...19 {
+        for index in 0...3 {
             let node = SKSpriteNode(imageNamed:String("BackgroundSide", index + 1))
             
             node.setScale(scaleFactor)
@@ -107,7 +113,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         })
     }
     func initializingScrollingBackground() {
-        for var index = 0; index < 2; ++index{
+        for var index = 0; index < 15; ++index{
             let bg = SKSpriteNode(imageNamed: "gridBG")
             bg.position = CGPoint(x: index * Int(bg.size.width), y: 0)
             bg.anchorPoint = CGPointZero
