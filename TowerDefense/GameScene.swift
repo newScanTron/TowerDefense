@@ -15,11 +15,14 @@ import AudioKit
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
     var viewController: GameViewController!
-    let appDelegate =
+    let appDelegate = 
     UIApplication.sharedApplication().delegate as? AppDelegate
     //let conductor = Conductor()
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
+    let o2Label = SKLabelNode(fontNamed: "Square")
+    let metalLabel = SKLabelNode(fontNamed: "Square")
+    let fuelLabel = SKLabelNode(fontNamed: "Square")
     let enemiesLabel = SKLabelNode(fontNamed:"Square")
     let waveLabel = SKLabelNode(fontNamed: "Square")
     var background : SKSpriteNode? = nil
@@ -76,8 +79,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         xpLabel.fontSize = 45;
         xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
         xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        
+        o2Label.fontSize = 45;
+        o2Label.position = CGPoint(x:CGRectGetMinX(self.frame) + 60, y:CGRectGetMaxY(self.frame) - 60);
+        o2Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        o2Label.text = "o2 lael"
+        metalLabel.fontSize = 45;
+        metalLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 120, y:CGRectGetMaxY(self.frame) - 120);
+        metalLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        metalLabel.text = "metal label"
         self.addChild(waveLabel)
+        self.addChild(o2Label )
+        self.addChild(metalLabel)
         waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
         waveLabel.zPosition = ZPosition.bullet
         
@@ -259,7 +271,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         
     }
-
+    //function to give resources to the play based on how long they defend the tower
+    func giveResources(time: CGFloat)
+    {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.user.o2 += Int(time)
+        appDelegate.user.metal += Int(time)
+        appDelegate.user.fuel += Int(time)
+    }
     
     //function to add xp to the player currently based on the damage of the strategy of the enemy
     func giveXp(enmey: EnemyBase)

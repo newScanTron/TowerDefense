@@ -39,6 +39,16 @@ class User
         self.metal = 500
         self.fuel = 500
     }
+    init(userName: String, pswd: String, xp: Int, gold: Int, o2: Int, metal: Int, fuel: Int)
+    {
+        self.userName = userName
+        self.pswd = pswd
+        self.xp = xp
+        self.gold = gold
+        self.o2 = o2
+        self.metal = metal
+        self.fuel = fuel
+    }
     //getters and setters
     func getUser() -> (userName: String, passwd: String)
     {

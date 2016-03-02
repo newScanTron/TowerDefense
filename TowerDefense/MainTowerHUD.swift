@@ -60,7 +60,6 @@ class MainTowerHUD: UIView {
     {
         costLabel.text = "Time: \(GameScene.totalTime)"
     }
- 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
         self.removeFromSuperview()
