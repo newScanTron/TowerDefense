@@ -53,7 +53,7 @@
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="195" y="331"/>
+            <point key="canvasLocation" x="169" y="355"/>
         </scene>
         <!--End Game Controller-->
         <scene sceneID="Lti-cQ-hAu">
@@ -119,15 +119,15 @@
             </objects>
             <point key="canvasLocation" x="962" y="566"/>
         </scene>
-        <!--View Controller-->
+        <!--SideScroll-->
         <scene sceneID="Os3-5E-Idd">
             <objects>
-                <viewController id="hnP-IO-phG" sceneMemberID="viewController">
+                <viewController title="SideScroll" id="hnP-IO-phG" customClass="SideScroll" customModule="TowerDefense" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xhn-6A-FqL"/>
                         <viewControllerLayoutGuide type="bottom" id="mSd-42-fZM"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="NWH-fV-uCn">
+                    <view key="view" contentMode="scaleToFill" id="NWH-fV-uCn" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -273,6 +273,7 @@
                         <outlet property="userNameLbl" destination="kss-K5-f40" id="rgu-Es-9F5"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="playGame" id="sHx-ez-1y1"/>
                         <segue destination="OU6-ug-I46" kind="show" identifier="playGame" id="CTC-YW-bYQ"/>
+                        <segue destination="hnP-IO-phG" kind="show" identifier="gotoSideScroll" id="rID-dR-f5g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4A-yY-IUl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -368,5 +369,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="sHx-ez-1y1"/>
         <segue reference="jBp-kB-KP0"/>
+
+        <segue reference="ugQ-Xr-Umw"/>
+        <segue reference="XIn-3t-bSC"/>
+
     </inferredMetricsTieBreakers>
 </document>

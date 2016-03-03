@@ -170,5 +170,15 @@ class EnemyFactory
 
         return enemy
     }
+    
+    /*func GetNextObstacle() -> EnemyBase? {
+        
+        let attack = EnemyAttackObstacle()
+        let moveStrat = EnemyMoveObstacle
+        
+        let obstacle = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: <#T##SKSpriteNode#>, _range: <#T##CGFloat#>, _moveDelay: <#T##CGFloat#>, _reward: <#T##Int#>, _name: <#T##String#>))
+        
+        return obstacle
+    }*/
 
 }

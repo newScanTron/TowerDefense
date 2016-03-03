@@ -13,6 +13,12 @@
 		4615CE441C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
 		46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */; };
 		46237E831C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */; };
+		75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
+		75D991501C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
+		75D991521C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */; };
+		75D991531C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */; };
+		75D991551C8249DC008F2A70 /* EnemyMoveObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */; };
+		75D991561C8249DC008F2A70 /* EnemyMoveObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */; };
 		977E3CA71C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		977E3CA81C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		97B633BD1C0D4D5500CB6B8B /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BC1C0D4C3E00CB6B8B /* Square.ttf */; };
@@ -144,6 +150,9 @@
 		4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySwarmStrat.swift; sourceTree = "<group>"; };
 		4615CE421C113103005A4290 /* EndGameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameController.swift; sourceTree = "<group>"; };
 		46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveKamikaze.swift; sourceTree = "<group>"; };
+		75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SideScrollScene.sks; sourceTree = "<group>"; };
+		75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAttackObstacle.swift; sourceTree = "<group>"; };
+		75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveObstacle.swift; sourceTree = "<group>"; };
 		977E3CA61C13597200BA8F52 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		97B633BC1C0D4C3E00CB6B8B /* Square.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Square.ttf; sourceTree = "<group>"; };
 		97B633BF1C0D517B00CB6B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -263,6 +272,8 @@
 				9946E4141BE5721D007E9559 /* EnemyFactory.swift */,
 				4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */,
 				46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */,
+				75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */,
+				75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */,
 			);
 			name = Enemy;
 			sourceTree = "<group>";
@@ -275,6 +286,7 @@
 				994346131C792776000012F0 /* Main.storyboard */,
 				99FD08381BE035D80070F4B8 /* LaunchScreen.storyboard */,
 				99FD082D1BE035D80070F4B8 /* GameScene.sks */,
+				75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */,
 			);
 			name = Visual;
 			sourceTree = "<group>";
@@ -482,6 +494,7 @@
 				994346141C792776000012F0 /* Main.storyboard in Resources */,
 				99FD082E1BE035D80070F4B8 /* GameScene.sks in Resources */,
 				99FD083A1BE035D80070F4B8 /* LaunchScreen.storyboard in Resources */,
+				75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */,
 				97B633C01C0D517B00CB6B8B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97B633BE1C0D4D5600CB6B8B /* Square.ttf in Resources */,
+				75D991501C80EAED008F2A70 /* SideScrollScene.sks in Resources */,
 				994346151C792776000012F0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,6 +537,7 @@
 				99CE60D21C1BD6B900CB8F22 /* Conductor.swift in Sources */,
 				992622381BED1ECB0080D35A /* EnemyAttackBoss.swift in Sources */,
 				99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */,
+				75D991521C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */,
 				994346111C792662000012F0 /* SideScroll.swift in Sources */,
 				992622351BED1ECB0080D35A /* EnemyMoveBasic.swift in Sources */,
 				99A28B281C7E505B007B39DF /* TowerMainStat.swift in Sources */,
@@ -548,6 +563,7 @@
 				99EDA20B1C78FB2900AFF94E /* ToneGenerator.swift in Sources */,
 				9926223B1BED2B2C0080D35A /* User.swift in Sources */,
 				4615CE431C113103005A4290 /* EndGameController.swift in Sources */,
+				75D991551C8249DC008F2A70 /* EnemyMoveObstacle.swift in Sources */,
 				99A868D61C65331F00A97EF1 /* SideScrolScene.swift in Sources */,
 				4615CE3A1C0FC145005A4290 /* EnemySwarmStrat.swift in Sources */,
 				9946E41B1BE5766C007E9559 /* Entity.swift in Sources */,
@@ -564,6 +580,7 @@
 				99BA33CD1BF2A25F00152764 /* Entity.swift in Sources */,
 				977E3CA81C13597200BA8F52 /* Item.swift in Sources */,
 				99BA33CE1BF2A25F00152764 /* Common.swift in Sources */,
+				75D991561C8249DC008F2A70 /* EnemyMoveObstacle.swift in Sources */,
 				9946E40A1BE56F35007E9559 /* TowerAttackStrat.swift in Sources */,
 				99BA33CF1BF2A25F00152764 /* User.swift in Sources */,
 				9946E4131BE571E5007E9559 /* TowerBuilder.swift in Sources */,
@@ -601,6 +618,7 @@
 				46237E831C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */,
 				99BA33C71BF2A24800152764 /* GameScene.swift in Sources */,
 				99BA33B21BF2A23400152764 /* TowerAttackBasic.swift in Sources */,
+				75D991531C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */,
 				99BA33BC1BF2A24300152764 /* EnemyMoveBasic.swift in Sources */,
 				99BA33B41BF2A23C00152764 /* Bullet.swift in Sources */,
 				4615CE441C113103005A4290 /* EndGameController.swift in Sources */,
