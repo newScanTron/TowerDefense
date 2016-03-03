@@ -19,6 +19,11 @@
 		75D991531C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */; };
 		75D991551C8249DC008F2A70 /* EnemyMoveObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */; };
 		75D991561C8249DC008F2A70 /* EnemyMoveObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */; };
+		97176D261C87D8CB006D38D1 /* PlanetPickScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */; };
+		97176D271C87D95E006D38D1 /* PlanetPickScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */; };
+		97176D291C87DC62006D38D1 /* PlanetPickScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 97176D281C87DC62006D38D1 /* PlanetPickScene.sks */; };
+		97176D2A1C87DC80006D38D1 /* PlanetPickScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 97176D281C87DC62006D38D1 /* PlanetPickScene.sks */; };
+		97176D2C1C87E53F006D38D1 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D2B1C87E53F006D38D1 /* Planet.swift */; };
 		977E3CA71C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		977E3CA81C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		97B633BD1C0D4D5500CB6B8B /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BC1C0D4C3E00CB6B8B /* Square.ttf */; };
@@ -153,6 +158,9 @@
 		75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SideScrollScene.sks; sourceTree = "<group>"; };
 		75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAttackObstacle.swift; sourceTree = "<group>"; };
 		75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveObstacle.swift; sourceTree = "<group>"; };
+		97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetPickScene.swift; sourceTree = "<group>"; };
+		97176D281C87DC62006D38D1 /* PlanetPickScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlanetPickScene.sks; sourceTree = "<group>"; };
+		97176D2B1C87E53F006D38D1 /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		977E3CA61C13597200BA8F52 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		97B633BC1C0D4C3E00CB6B8B /* Square.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Square.ttf; sourceTree = "<group>"; };
 		97B633BF1C0D517B00CB6B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -287,6 +295,7 @@
 				99FD08381BE035D80070F4B8 /* LaunchScreen.storyboard */,
 				99FD082D1BE035D80070F4B8 /* GameScene.sks */,
 				75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */,
+				97176D281C87DC62006D38D1 /* PlanetPickScene.sks */,
 			);
 			name = Visual;
 			sourceTree = "<group>";
@@ -353,6 +362,8 @@
 				99A868D51C65331E00A97EF1 /* SideScrolScene.swift */,
 				994346101C792662000012F0 /* SideScroll.swift */,
 				9943460D1C7924F1000012F0 /* PlanetPickView.swift */,
+				97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */,
+				97176D2B1C87E53F006D38D1 /* Planet.swift */,
 				99FD08311BE035D80070F4B8 /* GameViewController.swift */,
 				99D680E91BE7FE2B00C877CE /* UpgradeView.swift */,
 				99CDB2E81C80236A000A912F /* MainTowerHUD.swift */,
@@ -495,6 +506,7 @@
 				99FD082E1BE035D80070F4B8 /* GameScene.sks in Resources */,
 				99FD083A1BE035D80070F4B8 /* LaunchScreen.storyboard in Resources */,
 				75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */,
+				97176D291C87DC62006D38D1 /* PlanetPickScene.sks in Resources */,
 				97B633C01C0D517B00CB6B8B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,6 +518,7 @@
 				97B633BE1C0D4D5600CB6B8B /* Square.ttf in Resources */,
 				75D991501C80EAED008F2A70 /* SideScrollScene.sks in Resources */,
 				994346151C792776000012F0 /* Main.storyboard in Resources */,
+				97176D2A1C87DC80006D38D1 /* PlanetPickScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,12 +563,14 @@
 				99D680EA1BE7FE2B00C877CE /* UpgradeView.swift in Sources */,
 				99CDB2E91C80236A000A912F /* MainTowerHUD.swift in Sources */,
 				9946E4031BE56EBB007E9559 /* EnemyMoveStrat.swift in Sources */,
+				97176D2C1C87E53F006D38D1 /* Planet.swift in Sources */,
 				998722931BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				992622391BED1ECB0080D35A /* EnemyAttackRanged.swift in Sources */,
 				9946E40C1BE56F7D007E9559 /* TowerDefenseStrat.swift in Sources */,
 				998722901BED58C60097B677 /* TowerBuilderNodes.swift in Sources */,
 				9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */,
 				9919CF2C1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
+				97176D261C87D8CB006D38D1 /* PlanetPickScene.swift in Sources */,
 				99A3BBE91BE94C1900AAB350 /* TowerAttackBasic.swift in Sources */,
 				9943460E1C7924F2000012F0 /* PlanetPickView.swift in Sources */,
 				977E3CA71C13597200BA8F52 /* Item.swift in Sources */,
@@ -609,6 +624,7 @@
 				99BA33C21BF2A24300152764 /* EnemyAttackStrat.swift in Sources */,
 				99EDA20C1C78FB2900AFF94E /* ToneGenerator.swift in Sources */,
 				99BA33B11BF2A23000152764 /* TowerDefenseHeal.swift in Sources */,
+				97176D271C87D95E006D38D1 /* PlanetPickScene.swift in Sources */,
 				99BA33D01BF2A25F00152764 /* GameState.swift in Sources */,
 				9946E40D1BE56F7D007E9559 /* TowerDefenseStrat.swift in Sources */,
 				99BA33BD1BF2A24300152764 /* ConcreteMoveStrat2.swift in Sources */,
