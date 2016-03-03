@@ -25,7 +25,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var scaleFactor: CGFloat = 0.0
     var ship: SKNode = SKNode()
     
-    let shipSprite = SKSpriteNode(imageNamed: "Spaceship")
+    var shipSprite = SKSpriteNode(imageNamed: "Spaceship")
     let backgroundVelocity: CGFloat = 2.0
     
     //Enemy Factory
@@ -53,7 +53,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-
+        
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             if location.y > shipSprite.position.y {
@@ -64,10 +64,24 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             }
         }
     }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+
+        for _: AnyObject in touches {
+            let zero : CGFloat = 0.0
+            //let location = touch.locationInNode(self)
+            if shipSprite.physicsBody?.velocity.dy  < zero {
+                moveUp()
+            }
+            else if shipSprite.physicsBody?.velocity.dy > zero {
+                moveDown()
+            }
+        }
+    }
     
     // Update function that moves background
     override func update(currentTime: NSTimeInterval) {
         self.moveBackground()
+        
     }
     
     func createShip() -> SKNode {
@@ -77,14 +91,14 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         shipSprite.xScale = 0.1
         shipSprite.yScale = 0.1
         shipSprite.physicsBody?.dynamic = true
-        shipSprite.physicsBody?.mass = 1
+     //   shipSprite.physicsBody?.mass = 200
         shipSprite.physicsBody?.restitution = 1.0
         shipSprite.physicsBody?.linearDamping = 1.0
         shipSprite.physicsBody?.angularDamping = 1.0
         shipSprite.physicsBody?.allowsRotation = false
         shipSprite.zPosition = ZPosition.bullet
         shipSprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
-
+    //    shipSprite.physicsBody?.friction = 103.4
         shipSprite.zRotation = CGFloat(-M_PI/2)
         
         //shipNode.addChild(shipSprite)
@@ -92,10 +106,10 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         return shipSprite
     }
     func moveUp() {
-        shipSprite.physicsBody?.applyImpulse(CGVectorMake(0.0, 0.01))
+        shipSprite.physicsBody?.applyImpulse(CGVectorMake(0.0, 0.0001))
     }
     func moveDown() {
-        shipSprite.physicsBody?.applyImpulse(CGVectorMake(0.0, -0.01))
+        shipSprite.physicsBody?.applyImpulse(CGVectorMake(0.0, -0.0001))
     }
     func createMidgroundNode() -> SKNode {
         
