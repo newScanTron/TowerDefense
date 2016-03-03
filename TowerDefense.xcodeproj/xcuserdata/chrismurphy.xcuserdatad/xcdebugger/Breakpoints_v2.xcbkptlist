@@ -407,7 +407,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
             endingLineNumber = "57"
-            landmarkName = "CreateEnemyGrunt(_:)"
+            landmarkName = "getNextEnemy()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

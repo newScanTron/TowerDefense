@@ -32,4 +32,6 @@ class SideScroll: UIViewController
         appDelegate.sideScrollScene!.viewController = self
         skView.presentScene(appDelegate.sideScrollScene)
     }
+    
+    
 }

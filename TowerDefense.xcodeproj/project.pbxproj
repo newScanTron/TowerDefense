@@ -344,13 +344,13 @@
 		99FD082A1BE035D80070F4B8 /* TowerDefense */ = {
 			isa = PBXGroup;
 			children = (
-				99A868D51C65331E00A97EF1 /* SideScrolScene.swift */,
 				9946E40F1BE5701D007E9559 /* Tower */,
 				9946E4101BE57043007E9559 /* Enemy */,
 				9946E41E1BE5775F007E9559 /* Common */,
 				9946E41D1BE5771E007E9559 /* Visual */,
 				99CE60CA1C1BD45B00CB8F22 /* Audio */,
 				99FD082F1BE035D80070F4B8 /* GameScene.swift */,
+				99A868D51C65331E00A97EF1 /* SideScrolScene.swift */,
 				994346101C792662000012F0 /* SideScroll.swift */,
 				9943460D1C7924F1000012F0 /* PlanetPickView.swift */,
 				99FD08311BE035D80070F4B8 /* GameViewController.swift */,

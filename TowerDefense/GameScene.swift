@@ -367,6 +367,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             print("other collision: \(contactMask)")
         }
     }
+    func toPlanetPicker()
+    {
+        self.viewController.toPlanetPicker()
+    }
     func endGame() {
 
     gameOver = true

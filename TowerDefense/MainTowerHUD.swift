@@ -30,6 +30,10 @@ class MainTowerHUD: UIView {
     
     init(x: CGFloat, y: CGFloat)
     {
+        
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        
+        
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectPlayerLbl)
         costLabel = UILabel(frame: rectCost)
@@ -40,7 +44,7 @@ class MainTowerHUD: UIView {
         c.titleLabel!.font = UIFont(name: "Square", size: 23.0)
         b.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         c.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        mainLabel.text = "This is Question about what to upgrade?"
+        
         mainLabel.font = UIFont(name: "Square", size: 23.0)
         mainLabel.sizeToFit()
         playerLabel.text = "Choose An Option."
@@ -53,6 +57,7 @@ class MainTowerHUD: UIView {
         self.addSubview(playerLabel)
         self.addSubview(costLabel)
         b.addTarget(self, action: "dummieAction", forControlEvents:  UIControlEvents.TouchUpInside)
+        c.addTarget(self, action: "endTowerGame", forControlEvents: UIControlEvents.TouchUpInside)
         self.backgroundColor = UIColor(red: 200, green: 155, blue: 34, alpha: 0.6)
     }
     //function for button b
@@ -60,9 +65,14 @@ class MainTowerHUD: UIView {
     {
         costLabel.text = "Time: \(GameScene.totalTime)"
     }
+    func endTowerGame()
+    {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        appDelegate?.gameScene?.toPlanetPicker()
+    }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
-        self.removeFromSuperview()
         let appDelegate =
         UIApplication.sharedApplication().delegate as? AppDelegate
         appDelegate?.gameScene?.mainHudIsUP = false
