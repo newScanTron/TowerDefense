@@ -170,7 +170,10 @@ class EnemyFactory
 
         return enemy
     }
-    
+    func getNextSSEnemy() -> EnemyBase {
+        var enemy :EnemyBase? = CreateEnemy()
+        return enemy! 
+    }
     /*func GetNextObstacle() -> EnemyBase? {
         
         let attack = EnemyAttackObstacle()
