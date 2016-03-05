@@ -77,6 +77,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             }
         }
     }
+
     
     // Update function that moves background
     override func update(currentTime: NSTimeInterval) {

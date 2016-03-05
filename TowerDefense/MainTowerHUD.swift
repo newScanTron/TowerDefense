@@ -30,21 +30,21 @@ class MainTowerHUD: UIView {
     
     init(x: CGFloat, y: CGFloat)
     {
-        
+        let appDelegate =
         UIApplication.sharedApplication().delegate as? AppDelegate
         
         
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectPlayerLbl)
         costLabel = UILabel(frame: rectCost)
-        super.init(frame:CGRectMake(20, 20, 666, 200))
+        super.init(frame:CGRectMake(20, 200, 666, 200))
         b.setTitle("Next", forState: UIControlState.Normal)
         b.titleLabel!.font = UIFont(name: "Square", size: 23.0)
         c.setTitle("Done", forState: UIControlState.Normal)
         c.titleLabel!.font = UIFont(name: "Square", size: 23.0)
         b.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         c.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        
+        mainLabel.text = appDelegate?.gameScene?.xpLabel.text
         mainLabel.font = UIFont(name: "Square", size: 23.0)
         mainLabel.sizeToFit()
         playerLabel.text = "Choose An Option."

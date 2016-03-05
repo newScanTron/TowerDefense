@@ -16,6 +16,7 @@ class GameViewController: UIViewController {
     UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBAction func PinchAction(sender: AnyObject) {
+        
     }
     //UIViewController function to do any setup that is requried for the game.
     override func viewDidLoad() {

@@ -32,7 +32,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var gameOver : Bool = false
     var nextWaveDelay = false
     //camera stuff
-    
+    var cameraNode: SKCameraNode!
+   
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -56,7 +57,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         gameOver = false
         let background = SKSpriteNode(imageNamed: "background")
         background.position = CGPoint(x: 1024/2, y: 768/2)
-        
+        cameraNode = SKCameraNode()
+        cameraNode.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        self.addChild(cameraNode)
+        self.camera = cameraNode
 
         background.zPosition = ZPosition.background;
 
@@ -80,16 +84,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
         xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         o2Label.fontSize = 45;
-        o2Label.position = CGPoint(x:CGRectGetMinX(self.frame) + 60, y:CGRectGetMaxY(self.frame) - 60);
+        o2Label.position = CGPoint(x:CGRectGetMinX(self.frame) + 220, y:CGRectGetMaxY(self.frame) - 60);
         o2Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         o2Label.text = "o2 lael"
         metalLabel.fontSize = 45;
-        metalLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 120, y:CGRectGetMaxY(self.frame) - 120);
+        metalLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 220, y:CGRectGetMaxY(self.frame) - 120);
         metalLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         metalLabel.text = "metal label"
         self.addChild(waveLabel)
         self.addChild(o2Label )
-        self.addChild(metalLabel)
+       self.addChild(metalLabel)
         waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
         waveLabel.zPosition = ZPosition.bullet
         
