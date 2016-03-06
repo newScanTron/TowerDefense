@@ -31,6 +31,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let cero = 0
     var gameOver : Bool = false
     var nextWaveDelay = false
+    var selectedNodes = [UITouch:SKSpriteNode]()
+     var desTouches = [UITouch]()
     //camera stuff
     var cameraNode: SKCameraNode!
    
@@ -131,28 +133,81 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        var counter = 0
+        
+        for touch in touches {
+            desTouches.append(touch)
+            counter++
+        }
+    }
+    var scaleScale : CGFloat = 0.0
+    var scaleSet = false
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if (touches.count > 1)
+        {
+        let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
+        let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
+        var scale: CGFloat  = sqrt(oneT * oneT + twoT * twoT)
+        
+        if !scaleSet{
+            scaleScale = scale
+            scaleSet = true
+        }
+        
+            scale = (scale / scaleScale)/32
+            
+            print("scale \(scale)")
+            if (scale < 4 && scale > 0)
+            {
+            self.cameraNode.setScale(scale)
+            }
+            else
+            {
+                self.cameraNode.setScale(scaleScale)
+            }
+            scaleScale = scale
+        }
+        
     
+    }
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+
+        desTouches.removeAll()
         /* Called when a touch begins */
         let touch = touches.first
+        
         let location = touch!.locationInNode(self)
        let viewLocation = touch!.locationInView(self.view!)
         
+        
+        //this is just a thing to tringer conduvtor stuff.
         if touches.count > 2
         {
             
             appDelegate!.conductor.recursiveNotesRandom(5, maxLength: 2.0)
 
         }
-        if touches.count > 1 && !mainBuild
+        if touch?.tapCount > 1 && !mainBuild
+        //if touches.count > 1 && !mainBuild
         {
             let mainTower = towerBuilder.BuildMainTower(location)
             GameScene.towers.append(mainTower)
             mainBuild = true
+            return
         }
-        
-       //check each tower and see if the touch location was the same as the tower
+        else if touch?.tapCount > 1
+        {
+        //if we found a tower open menu else add tower
+        if GameScene.towers.count <= towerHardLimit
+        {
+            
+            addTower(location, touch: touch!)
+            return
+        }
+        }
         for each in GameScene.towers
         {
             if each.sprite.containsPoint(location)
@@ -170,12 +225,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 return
             }
         }
-        //if we found a tower open menu else add tower
-        if GameScene.towers.count <= towerHardLimit
-        {
-            
-            addTower(location, touch: touch!)
-        }
+        
+        
     }
 
     
