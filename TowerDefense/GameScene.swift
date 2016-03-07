@@ -134,54 +134,105 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if (touches.count > 1)
+            {
+        let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
+        let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
+        touchScale  = sqrt(oneT * oneT + twoT * twoT)
+                
+        if !scaleSet{
+            scaleScale = touchScale
+            scaleSet = true
+        }
+    }
+        if !lastTouchSet
+        {
+            lastTouch = touches.first!
+            lastTouchSet = true
+        }
         var counter = 0
-        
         for touch in touches {
             desTouches.append(touch)
             counter++
         }
     }
+    //some class level variables to keep track of the last touch locations
+    var touchScale : CGFloat = 0.0
     var scaleScale : CGFloat = 0.0
     var scaleSet = false
+    var lastTouch : UITouch = UITouch()
+    var lastTouchSet = false
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        
+        
         if (touches.count > 1)
         {
-        let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
-        let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
-        var scale: CGFloat  = sqrt(oneT * oneT + twoT * twoT)
-        
-        if !scaleSet{
-            scaleScale = scale
-            scaleSet = true
+       
+//            let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
+//            let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
+//            touchScale  = sqrt(oneT * oneT + twoT * twoT)
+//        
+//            touchScale = (touchScale / scaleScale)
+//            
+//            
+//            if (touchScale < 4 && touchScale > 0)
+//            {
+//                print("scale \(touchScale)")
+//                let xScale = self.cameraNode.xScale
+//                print("current scale \(xScale)")
+//                self.cameraNode.setScale(touchScale)
+//            }
+//            else
+//            {
+//                self.cameraNode.setScale(scaleScale)
+//            }
+//            scaleScale = touchScale
         }
-        
-            scale = (scale / scaleScale)/32
+        else
+        {
             
-            print("scale \(scale)")
-            if (scale < 4 && scale > 0)
+            let x = lastTouch.locationInView(self.view).x
+            let lastX = touches.first!.locationInView(self.view).x
+            let y = lastTouch.locationInView(self.view).y
+            let lastY = touches.first!.locationInView(self.view).y
+            var newX : CGFloat = 0.0
+            var newY : CGFloat = 0.0
+            if (lastX - x != 0)
+            { newX = (x - lastX )/20.0}
+            else
             {
-            self.cameraNode.setScale(scale)
+                newX = 0
+            }
+            if (lastY - y != 0)
+            {
+                
+               newY = (y - lastY )/20
             }
             else
             {
-                self.cameraNode.setScale(scaleScale)
+                newY = 0
             }
-            scaleScale = scale
+            self.cameraNode.position.x -= newX
+            self.cameraNode.position.y += newY
+            print("should be moving: \(newX), \(newX)")
+            
         }
         
     
     }
+    
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-
+        
         desTouches.removeAll()
         /* Called when a touch begins */
         let touch = touches.first
         
         let location = touch!.locationInNode(self)
        let viewLocation = touch!.locationInView(self.view!)
-        
+        lastTouch = touches.first!
         
         //this is just a thing to tringer conduvtor stuff.
         if touches.count > 2
