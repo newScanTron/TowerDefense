@@ -176,3 +176,7 @@ func random(min min: CGFloat, max: CGFloat) -> CGFloat{
 func randomVect(min min: CGFloat, max: CGFloat) -> CGVector{
     return CGVector(dx: random() * (max - min) + min, dy: 0)
 }
+func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {
+    let dis : CGFloat = getDistance(from,to: to)
+    return CGVectorMake((to.x - from.x)/dis * speed, (to.y - from.y)/dis * speed)
+}

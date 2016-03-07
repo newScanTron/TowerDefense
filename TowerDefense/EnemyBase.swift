@@ -90,7 +90,7 @@ class EnemyBase: Entity{
     func moveMore(){
         
         //Some code to track the sprites
-        let size = GameScene.scene!.size
+        /*let size = GameScene.scene!.size
 
         if (sprite.position.x < size.width && sprite.position.x > 0 && sprite.position.y < size.height && sprite.position.y > 0) {
                 indicator.removeFromParent()
@@ -101,7 +101,7 @@ class EnemyBase: Entity{
             if (indicator.parent == nil) {
                 GameScene.scene!.addChild(indicator)
             }
-        }
+        }*/
         
 
         moveStrat.Move(self)

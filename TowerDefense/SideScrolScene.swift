@@ -21,13 +21,12 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var midgroundNode: SKNode = SKNode()
     var foregroundNode: SKNode = SKNode()
     var hudNode: SKNode = SKNode()
-    let shipNode = SKNode()
+    var intro : Bool = false
     var lastTouch : CGPoint? = nil
     var firstTouch : CGPoint? = nil
     var previousTouch :CGPoint? = nil
     var touchDelta : CGPoint? = nil
     var touchTime : CGFloat = 0
-    var ship: SKNode = SKNode()
     
     let shipSprite = SKSpriteNode(imageNamed: "Spaceship")
     let backgroundVelocity: CGFloat = 2.0
@@ -47,7 +46,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         physicsWorld.contactDelegate = self
         self.view!.multipleTouchEnabled = true
         self.backgroundColor = SKColor.blackColor()
-        self.initializingScrollingBackground()
+        //self.initializingScrollingBackground()
         
         createShip()
         //foregroundNode.addChild(ship)
@@ -101,18 +100,32 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         deltaTime += 1.0
         gameTime = CGFloat(currentTime)
         
-        
-        
         let newEnemy = enemyFactory.getNextSSEnemy()
-        if deltaTime > 3 {
+        let newObstacle = enemyFactory.getObstacle()
+        if deltaTime > 240 {
+            intro = true
+            deltaTime = 0
+        }
+        if intro == false {
+            SideScrolScene.enemies.append(newObstacle!)
+            SideScrolScene.scene?.addChild(newObstacle!.sprite)
+        }
+        if deltaTime > 20 && intro == true{
             deltaTime = 0
             SideScrolScene.enemies.append(newEnemy)
             SideScrolScene.scene?.addChild(newEnemy.sprite)
+            SideScrolScene.enemies.append(newObstacle!)
+            SideScrolScene.scene?.addChild(newObstacle!.sprite)
         }
-        self.moveBackground()
-        let test : CGFloat = 0.00001
-
         
+        //self.moveBackground()
+        
+        for (var i = 0; i < SideScrolScene.enemies.count; i++)
+        {
+            let e = SideScrolScene.enemies[i]
+            e.TriggerAttack()
+            e.moveMore()
+        }
     }
     
     func createShip() -> SKNode {
@@ -136,22 +149,11 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         
         return shipSprite
     }
-    func moveUp() {
-        shipSprite.physicsBody?.applyImpulse(CGVectorMake(0.0, 0.0001))
-    }
-    func moveDown() {
-        shipSprite.physicsBody?.applyImpulse(CGVectorMake(0.0, -0.0001))
-    }
-    func moveForward() {
-        shipSprite.physicsBody?.applyImpulse(CGVectorMake(0.001, 0.0))
-    }
-    func moveBack() {
-        shipSprite.physicsBody?.applyImpulse(CGVectorMake(-0.001, 0.0))
-    }
+
     func createMidgroundNode() -> SKNode {
 
-        let node = SKSpriteNode(imageNamed:String("Rock2"))
-
+        let node = SKSpriteNode(imageNamed:String("smallstar"))
+        //node.position.x
         backgroundNode.addChild(node)
         
         return backgroundNode
