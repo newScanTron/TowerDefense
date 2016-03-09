@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var gameScene = GameScene(fileNamed:"GameScene")
     var sideScrollScene = SideScrolScene(fileNamed:"SideScrolScene")
     var conductor = Conductor()
-
+   
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true

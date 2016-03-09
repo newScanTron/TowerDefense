@@ -49,7 +49,10 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         
         createShip()
         //foregroundNode.addChild(ship)
-        SideScrolScene.scene?.addChild(shipSprite)
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        appDelegate?.sideScrollScene?.addChild(shipSprite)
+        //SideScrolScene.scene?.addChild(shipSprite)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

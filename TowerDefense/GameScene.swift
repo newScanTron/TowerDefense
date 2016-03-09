@@ -134,33 +134,35 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if (touches.count > 1)
-            {
-        let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
-        let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
-        touchScale  = sqrt(oneT * oneT + twoT * twoT)
-                
-        if !scaleSet{
-            scaleScale = touchScale
-            scaleSet = true
-        }
-    }
-        if !lastTouchSet
-        {
-            lastTouch = touches.first!
-            lastTouchSet = true
-        }
+        
         var counter = 0
         for touch in touches {
             desTouches.append(touch)
             counter++
         }
+        
+        if (touches.count > 1)
+            {
+                    let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
+                    let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
+                touchScale  = sqrt(oneT * oneT + twoT * twoT)
+                
+            if !scaleSet{
+                scaleScale = touchScale
+                scaleSet = true
+            }
+    }
+        
+            firstTouch = touches.first!
+        
+        
     }
     //some class level variables to keep track of the last touch locations
     var touchScale : CGFloat = 0.0
     var scaleScale : CGFloat = 0.0
     var scaleSet = false
     var lastTouch : UITouch = UITouch()
+    var firstTouch : UITouch = UITouch()
     var lastTouchSet = false
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
@@ -169,51 +171,64 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         if (touches.count > 1)
         {
        
-//            let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
-//            let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
-//            touchScale  = sqrt(oneT * oneT + twoT * twoT)
-//        
-//            touchScale = (touchScale / scaleScale)
-//            
-//            
-//            if (touchScale < 4 && touchScale > 0)
-//            {
-//                print("scale \(touchScale)")
-//                let xScale = self.cameraNode.xScale
-//                print("current scale \(xScale)")
-//                self.cameraNode.setScale(touchScale)
-//            }
-//            else
-//            {
-//                self.cameraNode.setScale(scaleScale)
-//            }
-//            scaleScale = touchScale
+            let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
+            let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
+            touchScale  = sqrt(oneT * oneT + twoT * twoT)
+        
+            touchScale = (touchScale / scaleScale)
+            
+            
+            if (touchScale < 4 && touchScale > 0)
+            {
+                print("scale \(touchScale)")
+                let xScale = self.cameraNode.xScale
+                print("current scale \(xScale)")
+                self.cameraNode.setScale(touchScale)
+            }
+            else
+            {
+                self.cameraNode.setScale(scaleScale)
+            }
+            scaleScale = touchScale
         }
         else
         {
-            
+          if !lastTouchSet
+          {
             let x = lastTouch.locationInView(self.view).x
             let lastX = touches.first!.locationInView(self.view).x
             let y = lastTouch.locationInView(self.view).y
             let lastY = touches.first!.locationInView(self.view).y
+            lastTouchSet = true
+            
+            }
+            let x = lastTouch.locationInView(self.view).x
+            let lastX = touches.first!.locationInView(self.view).x
+            let y = lastTouch.locationInView(self.view).y
+            let lastY = touches.first!.locationInView(self.view).y
+//            let x = lastTouch.locationInNode(self).x
+//            let lastX = touches.first!.locationInNode(self).x
+//            let y = lastTouch.locationInNode(self).y
+//            let lastY = touches.first!.locationInNode(self).y
             var newX : CGFloat = 0.0
             var newY : CGFloat = 0.0
-            if (lastX - x != 0)
-            { newX = (x - lastX )/20.0}
+            if (x - lastX != 0)
+            { newX = (x - lastX )}
             else
             {
                 newX = 0
             }
-            if (lastY - y != 0)
+            if (y - lastY != 0)
             {
                 
-               newY = (y - lastY )/20
+               newY = (y - lastY )
             }
             else
             {
                 newY = 0
             }
-            self.cameraNode.position.x -= newX
+            
+            self.cameraNode.position.x += newX
             self.cameraNode.position.y += newY
             print("should be moving: \(newX), \(newX)")
             
