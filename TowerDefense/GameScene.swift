@@ -160,7 +160,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 
                 // Lerp the camera to 100, 50 over the next half-second.
                 self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: 0.5))
-                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(1.8), duration: 0.5))
+                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(2), duration: 0.5))
                // self.cameraNode.setScale(1.5)
                 isZoomed = true
                 
@@ -168,7 +168,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             else
             {
                 self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: 0.5))
-                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(0.55), duration: 0.5))
+                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(0.5), duration: 0.5))
                 isZoomed = false
                 
             }
