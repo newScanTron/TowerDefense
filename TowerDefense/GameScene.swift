@@ -35,7 +35,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
      var desTouches = [UITouch]()
     //camera stuff
     var cameraNode: SKCameraNode!
-   
+    var lastTouch : CGPoint? = nil
+    var firstTouch : CGPoint? = nil
+    var previousTouch :CGPoint? = nil
+    var touchDelta : CGPoint? = nil
+    var touchTime : CGFloat = 0
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -153,7 +157,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             }
     }
         
-            firstTouch = touches.first!
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.locationInNode(self)
+        firstTouch = touchLocation
         
         
     }
@@ -161,12 +167,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var touchScale : CGFloat = 0.0
     var scaleScale : CGFloat = 0.0
     var scaleSet = false
-    var lastTouch : UITouch = UITouch()
-    var firstTouch : UITouch = UITouch()
     var lastTouchSet = false
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        
+
         
         if (touches.count > 1)
         {
@@ -191,46 +194,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             }
             scaleScale = touchScale
         }
-        else
+        else if touches.count == 1
         {
-          if !lastTouchSet
-          {
-            let x = lastTouch.locationInView(self.view).x
-            let lastX = touches.first!.locationInView(self.view).x
-            let y = lastTouch.locationInView(self.view).y
-            let lastY = touches.first!.locationInView(self.view).y
-            lastTouchSet = true
+         
+            let touch = touches.first! as UITouch
+            let touchLocation = touch.locationInNode(self)
+            if lastTouch == nil {
+                lastTouch = firstTouch
+            }
+            touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
+            lastTouch = touchLocation
             
-            }
-            let x = lastTouch.locationInView(self.view).x
-            let lastX = touches.first!.locationInView(self.view).x
-            let y = lastTouch.locationInView(self.view).y
-            let lastY = touches.first!.locationInView(self.view).y
-//            let x = lastTouch.locationInNode(self).x
-//            let lastX = touches.first!.locationInNode(self).x
-//            let y = lastTouch.locationInNode(self).y
-//            let lastY = touches.first!.locationInNode(self).y
-            var newX : CGFloat = 0.0
-            var newY : CGFloat = 0.0
-            if (x - lastX != 0)
-            { newX = (x - lastX )}
-            else
-            {
-                newX = 0
-            }
-            if (y - lastY != 0)
-            {
-                
-               newY = (y - lastY )
-            }
-            else
-            {
-                newY = 0
-            }
-            
-            self.cameraNode.position.x += newX
-            self.cameraNode.position.y += newY
-            print("should be moving: \(newX), \(newX)")
+            self.cameraNode.position.x -= touchDelta!.x/2.8
+            self.cameraNode.position.y -= touchDelta!.y/1.5
+            print("should be moving: \(touchDelta!.x), \(touchDelta!.y)")
             
         }
         
@@ -239,7 +216,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
+        lastTouch = nil
         
         desTouches.removeAll()
         /* Called when a touch begins */
@@ -247,7 +224,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         let location = touch!.locationInNode(self)
        let viewLocation = touch!.locationInView(self.view!)
-        lastTouch = touches.first!
+
         
         //this is just a thing to tringer conduvtor stuff.
         if touches.count > 2
