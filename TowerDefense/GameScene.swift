@@ -37,6 +37,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var cameraNode: SKCameraNode!
     var lastTouch : CGPoint? = nil
     var firstTouch : CGPoint? = nil
+    var lastTouch2 : CGPoint? = nil
+    var firstTouch2 : CGPoint? = nil
     var previousTouch :CGPoint? = nil
     var touchDelta : CGPoint? = nil
     var touchTime : CGFloat = 0
@@ -69,7 +71,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         self.camera = cameraNode
 
         background.zPosition = ZPosition.background;
-
+        
 
         print(scene?.size.width, scene?.size.height)
 
@@ -134,11 +136,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             towerBuilder.addUpgradeView(tower, location: touchLocation, gameScene: self)
 
         }
+     
         
-    }
     
+    }
+    //this function we are mostly just grabbing the differnet locations of the touch events
+    //we are only currently interested in the first two and disregarding any other touches.
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.locationInNode(self)
         var counter = 0
         for touch in touches {
             desTouches.append(touch)
@@ -146,20 +152,31 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         
         if (touches.count > 1)
+        {
+            firstTouch2 = desTouches[1].locationInNode(self)
+            if !isZoomed
             {
-                    let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
-                    let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
-                touchScale  = sqrt(oneT * oneT + twoT * twoT)
                 
-            if !scaleSet{
-                scaleScale = touchScale
-                scaleSet = true
+                
+                // Lerp the camera to 100, 50 over the next half-second.
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: 0.5))
+                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(1.8), duration: 0.5))
+               // self.cameraNode.setScale(1.5)
+                isZoomed = true
+                
             }
-    }
+            else
+            {
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: 0.5))
+                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(0.55), duration: 0.5))
+                isZoomed = false
+                
+            }
+        }
         
-        let touch = touches.first! as UITouch
-        let touchLocation = touch.locationInNode(self)
+       
         firstTouch = touchLocation
+        scaleScale = 0
         
         
     }
@@ -168,55 +185,39 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var scaleScale : CGFloat = 0.0
     var scaleSet = false
     var lastTouchSet = false
+    var isZoomed = false
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-
-        
-        if (touches.count > 1)
-        {
-       
-            let oneT = desTouches[0].locationInNode(self).x - desTouches[1].locationInNode(self).x
-            let twoT = desTouches[0].locationInNode(self).y - desTouches[1].locationInNode(self).y
-            touchScale  = sqrt(oneT * oneT + twoT * twoT)
-        
-            touchScale = (touchScale / scaleScale)
-            
-            
-            if (touchScale < 4 && touchScale > 0)
-            {
-                print("scale \(touchScale)")
-                let xScale = self.cameraNode.xScale
-                print("current scale \(xScale)")
-                self.cameraNode.setScale(touchScale)
-            }
-            else
-            {
-                self.cameraNode.setScale(scaleScale)
-            }
-            scaleScale = touchScale
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.locationInNode(self)
+        var counter = 0
+        for touch in touches {
+            desTouches.append(touch)
+            counter++
         }
-        else if touches.count == 1
-        {
+       
+        
+
          
-            let touch = touches.first! as UITouch
-            let touchLocation = touch.locationInNode(self)
+        
             if lastTouch == nil {
                 lastTouch = firstTouch
             }
             touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
             lastTouch = touchLocation
-            
+            //these devisors are just floats that feel nice to make the differnece in width to height
             self.cameraNode.position.x -= touchDelta!.x/2.8
             self.cameraNode.position.y -= touchDelta!.y/1.5
-            print("should be moving: \(touchDelta!.x), \(touchDelta!.y)")
             
-        }
+        
         
     
     }
     
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        //this gets set to nil for a check in the touchesMoved function
         lastTouch = nil
+        lastTouch2 = nil
         
         desTouches.removeAll()
         /* Called when a touch begins */
