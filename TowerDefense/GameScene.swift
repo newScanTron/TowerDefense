@@ -15,11 +15,14 @@ import AudioKit
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
     var viewController: GameViewController!
-    let appDelegate =
+    let appDelegate = 
     UIApplication.sharedApplication().delegate as? AppDelegate
     //let conductor = Conductor()
     let myLabel = SKLabelNode(fontNamed:"Square")
     let xpLabel = SKLabelNode(fontNamed:"Square")
+    let o2Label = SKLabelNode(fontNamed: "Square")
+    let metalLabel = SKLabelNode(fontNamed: "Square")
+    let fuelLabel = SKLabelNode(fontNamed: "Square")
     let enemiesLabel = SKLabelNode(fontNamed:"Square")
     let waveLabel = SKLabelNode(fontNamed: "Square")
     var background : SKSpriteNode? = nil
@@ -28,8 +31,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let cero = 0
     var gameOver : Bool = false
     var nextWaveDelay = false
+    var selectedNodes = [UITouch:SKSpriteNode]()
+     var desTouches = [UITouch]()
     //camera stuff
-    
+    var cameraNode: SKCameraNode!
+    var lastTouch : CGPoint? = nil
+    var firstTouch : CGPoint? = nil
+    var lastTouch2 : CGPoint? = nil
+    var firstTouch2 : CGPoint? = nil
+    var previousTouch :CGPoint? = nil
+    var touchDelta : CGPoint? = nil
+    var touchTime : CGFloat = 0
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -41,20 +53,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     static var gameTime : CGFloat = 0
     static var deltaTime : CGFloat = 0
     static var scene : GameScene? = nil
-    
-
+    //bool actions
+    var mainHudIsUP = false
+    var mainBuild = false
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
-
+    static var totalTime : CGFloat = 0.0
+    
     override func didMoveToView(view: SKView) {
 
         gameOver = false
         let background = SKSpriteNode(imageNamed: "background")
         background.position = CGPoint(x: 1024/2, y: 768/2)
-        
+        cameraNode = SKCameraNode()
+        cameraNode.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        self.addChild(cameraNode)
+        self.camera = cameraNode
 
         background.zPosition = ZPosition.background;
-
+        
 
         print(scene?.size.width, scene?.size.height)
 
@@ -74,8 +91,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         xpLabel.fontSize = 45;
         xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
         xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        
+        o2Label.fontSize = 45;
+        o2Label.position = CGPoint(x:CGRectGetMinX(self.frame) + 220, y:CGRectGetMaxY(self.frame) - 60);
+        o2Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        o2Label.text = "o2 lael"
+        metalLabel.fontSize = 45;
+        metalLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 220, y:CGRectGetMaxY(self.frame) - 120);
+        metalLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        metalLabel.text = "metal label"
         self.addChild(waveLabel)
+        self.addChild(o2Label )
+       self.addChild(metalLabel)
         waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
         waveLabel.zPosition = ZPosition.bullet
         
@@ -110,42 +136,141 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             towerBuilder.addUpgradeView(tower, location: touchLocation, gameScene: self)
 
         }
+     
+        
+    
+    }
+    //this function we are mostly just grabbing the differnet locations of the touch events
+    //we are only currently interested in the first two and disregarding any other touches.
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.locationInNode(self)
+        var counter = 0
+        for touch in touches {
+            desTouches.append(touch)
+            counter++
+        }
+        
+        if (touches.count > 1)
+        {
+            firstTouch2 = desTouches[1].locationInNode(self)
+            if !isZoomed
+            {
+                
+                
+                // Lerp the camera to 100, 50 over the next half-second.
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: 0.5))
+                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(1.8), duration: 0.5))
+               // self.cameraNode.setScale(1.5)
+                isZoomed = true
+                
+            }
+            else
+            {
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: 0.5))
+                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(0.55), duration: 0.5))
+                isZoomed = false
+                
+            }
+        }
+        
+       
+        firstTouch = touchLocation
+        scaleScale = 0
+        
         
     }
+    //some class level variables to keep track of the last touch locations
+    var touchScale : CGFloat = 0.0
+    var scaleScale : CGFloat = 0.0
+    var scaleSet = false
+    var lastTouchSet = false
+    var isZoomed = false
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.locationInNode(self)
+        var counter = 0
+        for touch in touches {
+            desTouches.append(touch)
+            counter++
+        }
+       
+        
+
+         
+        
+            if lastTouch == nil {
+                lastTouch = firstTouch
+            }
+            touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
+            lastTouch = touchLocation
+            //these devisors are just floats that feel nice to make the differnece in width to height
+            self.cameraNode.position.x -= touchDelta!.x/2.8
+            self.cameraNode.position.y -= touchDelta!.y/1.5
+            
+        
+        
     
+    }
     
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        //this gets set to nil for a check in the touchesMoved function
+        lastTouch = nil
+        lastTouch2 = nil
+        
+        desTouches.removeAll()
         /* Called when a touch begins */
         let touch = touches.first
+        
         let location = touch!.locationInNode(self)
        let viewLocation = touch!.locationInView(self.view!)
+
         
-        if touches.count > 1
+        //this is just a thing to tringer conduvtor stuff.
+        if touches.count > 2
         {
             
             appDelegate!.conductor.recursiveNotesRandom(5, maxLength: 2.0)
 
         }
-        
-        
-       //check each tower and see if the touch location was the same as the tower
-        for each in GameScene.towers
+        if touch?.tapCount > 1 && !mainBuild
+        //if touches.count > 1 && !mainBuild
         {
-            if each.sprite.containsPoint(location)
-            {
-                //conductor.playWaveMelody()
-                towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
-
-                return
-            }
+            let mainTower = towerBuilder.BuildMainTower(location)
+            GameScene.towers.append(mainTower)
+            mainBuild = true
+            return
         }
+        else if touch?.tapCount > 1
+        {
         //if we found a tower open menu else add tower
         if GameScene.towers.count <= towerHardLimit
         {
             
             addTower(location, touch: touch!)
+            return
         }
+        }
+        for each in GameScene.towers
+        {
+            if each.sprite.containsPoint(location)
+            {
+                //conductor.playWaveMelody()
+                if (each.sprite.name == "mainTower" && !mainHudIsUP)
+                {
+                    towerBuilder.addMainUpgradView(each, location: viewLocation, gameScene: self)
+                    mainHudIsUP = true
+                }
+                else if each.sprite.name == "tower"
+                {
+                    towerBuilder.addUpgradeView(each, location: viewLocation, gameScene: self)
+                }
+                return
+            }
+        }
+        
+        
     }
 
     
@@ -158,6 +283,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
 
         GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
+        GameScene.totalTime += GameScene.deltaTime
         GameScene.gameTime = CGFloat(currentTime)
         
         //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
@@ -244,7 +370,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         }
         
     }
-
+    //function to give resources to the play based on how long they defend the tower
+    func giveResources(time: CGFloat)
+    {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.user.o2 += Int(time)
+        appDelegate.user.metal += Int(time)
+        appDelegate.user.fuel += Int(time)
+    }
     
     //function to add xp to the player currently based on the damage of the strategy of the enemy
     func giveXp(enmey: EnemyBase)
@@ -283,40 +417,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         // Bitiwse OR the bodies' categories to find out what kind of contact we have
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         switch contactMask {
-        
+        //this first case is executed when a tower bullet hits a enemy.
         case CategoryMask.Enemy | CategoryMask.TowerBullet:
             
             for e in GameScene.enemies{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-
                     giveXp(e)
                     e.UpdateLabel()
-
-
                     contactTest.destroy()
-                     //conductor.play(3)
-
                   appDelegate!.conductor.hitEnemyPlaySound(0.0125, e: e)
-
                     contact.bodyB.node?.removeFromParent()
-                    
-                
                 } else if e.sprite == contact.bodyB.node{
                     let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
-
                     giveXp(e)
-
                     e.UpdateLabel()
-
                     contactTest.destroy()
                  appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
                     contact.bodyA.node?.removeFromParent()
                 }
             }
-            
+         //this case is if an enemy bullet has hit a tower.
         case CategoryMask.Tower | CategoryMask.EnemyBullet:
             
             for t in GameScene.towers{
@@ -342,6 +465,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             
             print("other collision: \(contactMask)")
         }
+    }
+    func toPlanetPicker()
+    {
+        self.viewController.toPlanetPicker()
     }
     func endGame() {
 

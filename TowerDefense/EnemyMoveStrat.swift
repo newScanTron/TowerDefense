@@ -14,6 +14,7 @@ class EnemyMoveStrat
     //Instance variable
     let moveConstant : CGFloat = 5
     var slagged : Bool = false
+    var imageName : String = "Rock2"
     
     init(){
         //Not to be initialized

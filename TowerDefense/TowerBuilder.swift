@@ -23,7 +23,14 @@ class TowerBuilder
         let tower = TowerBase(location: point, _attack: attack, _defense: defense)
         return tower
     }
-    
+    //function to build the main tower that will be deffended.
+    func BuildMainTower(point : CGPoint) -> TowerMain
+    {
+        let attack = TowerMainAttackStrat()
+        let defense = TowerMainDefenseStrat()
+        let tower = TowerMain(locaton: point, _attack: attack, _defense: defense)
+        return tower
+    }
     func copyTower(tower : TowerBase) {
         pasteTower(&clipboard,source: tower)
     }
@@ -80,5 +87,31 @@ class TowerBuilder
 
         
     }
-    
+    //upgrade view for the main ship/drilling rig
+    func addMainUpgradView(tower: TowerBase, location : CGPoint, gameScene: GameScene)
+    {
+        var placeY: CGFloat
+        var placeX: CGFloat
+        let offset: CGFloat = 30.0
+        let sizeOfView: CGFloat = 200
+        //this set of if elses check what quatant the touch was in and moves the base location of the UIView so it will not display outside of the screen.
+        if (location.y) >= CGRectGetMaxY(gameScene.frame)/2
+        {
+            placeY = ((location.y) - CGFloat(sizeOfView - offset))
+        }
+        else
+        {
+            placeY = (location.y - offset)
+        }
+        if (location.x) >= CGRectGetMaxX(gameScene.frame)/2
+        {
+            placeX = ((location.x) - CGFloat(sizeOfView - offset))
+        }
+        else
+        {
+            placeX = (location.x - offset)
+        }
+        let mainHUD = MainTowerHUD(x: placeX, y: placeY)
+        gameScene.view?.addSubview(mainHUD)
+    }
 }

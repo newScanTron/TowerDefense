@@ -37,24 +37,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="XdY-Sw-Wtn" appends="YES" id="VfE-kz-bFK"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="aBQ-vg-FSn"/>
                     <connections>
-                        <segue destination="dCC-XD-tRi" kind="show" identifier="backToLogin" id="3w1-II-rNd"/>
                         <segue destination="5k1-Wf-1Hy" kind="show" identifier="toEndGame" id="Jef-cF-DqJ"/>
+                        <segue destination="OU6-ug-I46" kind="show" identifier="toPlanetPicker" id="pV1-pH-AOp"/>
+                        <segue destination="dCC-XD-tRi" kind="show" identifier="backToLogin" id="XsS-oS-jkI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="XdY-Sw-Wtn">
+                <pinchGestureRecognizer id="ZcX-FR-HaH">
                     <connections>
-                        <action selector="PinchAction:" destination="BV1-FR-VrT" id="qun-x9-465"/>
+                        <action selector="pinchAction:" destination="BV1-FR-VrT" id="YA1-eJ-PRT"/>
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="195" y="331"/>
+            <point key="canvasLocation" x="213" y="389"/>
         </scene>
         <!--End Game Controller-->
         <scene sceneID="Lti-cQ-hAu">
@@ -119,6 +117,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WTT-Hp-xvU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="962" y="566"/>
+        </scene>
+        <!--SideScroll-->
+        <scene sceneID="Os3-5E-Idd">
+            <objects>
+                <viewController title="SideScroll" id="hnP-IO-phG" customClass="SideScroll" customModule="TowerDefense" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xhn-6A-FqL"/>
+                        <viewControllerLayoutGuide type="bottom" id="mSd-42-fZM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NWH-fV-uCn" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="show" identifier="GoToTowerDefense" id="XIn-3t-bSC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dKF-Wz-ZRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-542" y="1520"/>
+        </scene>
+        <!--Planet Pick View-->
+        <scene sceneID="6dH-8O-4ZS">
+            <objects>
+                <viewController id="OU6-ug-I46" customClass="PlanetPickView" customModule="TowerDefense" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Tx8-aD-5Qm"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ydm-sh-xuk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cUs-Wi-Iro">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="hnP-IO-phG" kind="show" identifier="GoToSideScroll" id="ugQ-Xr-Umw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WkI-fD-vtL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="184" y="1394"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="xRY-kW-HnC">
@@ -231,11 +271,12 @@
                         <outlet property="passText" destination="YZZ-Or-CSG" id="9FL-PV-DPR"/>
                         <outlet property="userNameLbl" destination="kss-K5-f40" id="rgu-Es-9F5"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="playGame" id="sHx-ez-1y1"/>
+                        <segue destination="OU6-ug-I46" kind="show" identifier="playGame" id="CTC-YW-bYQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4A-yY-IUl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-620" y="662"/>
+            <point key="canvasLocation" x="-598" y="642"/>
         </scene>
         <!--Sign Up Controller-->
         <scene sceneID="r5w-E0-hPq">
@@ -324,7 +365,8 @@
         <image name="towerFuryTitle" width="500" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sHx-ez-1y1"/>
-        <segue reference="3w1-II-rNd"/>
+        <segue reference="XIn-3t-bSC"/>
+        <segue reference="pV1-pH-AOp"/>
+        <segue reference="XsS-oS-jkI"/>
     </inferredMetricsTieBreakers>
 </document>

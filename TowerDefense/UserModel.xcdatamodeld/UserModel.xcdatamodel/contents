@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
     <entity name="GameState" syncable="YES">
+        <attribute name="fuel" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="gold" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="metal" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="o2" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="xp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="hasUser" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="hasGameState" inverseEntity="User" syncable="YES"/>
         <relationship name="tower" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tower" inverseName="gameState" inverseEntity="Tower" syncable="YES"/>
@@ -21,7 +24,7 @@
         <relationship name="hasGameState" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GameState" inverseName="hasUser" inverseEntity="GameState" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GameState" positionX="25" positionY="-5076" width="128" height="103"/>
+        <element name="GameState" positionX="25" positionY="-5076" width="128" height="30"/>
         <element name="Tower" positionX="-162" positionY="-4996" width="128" height="118"/>
         <element name="User" positionX="225" positionY="-5049" width="128" height="118"/>
     </elements>
