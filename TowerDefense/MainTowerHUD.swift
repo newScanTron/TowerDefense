@@ -11,8 +11,8 @@ import UIKit
 import SpriteKit
 
 class MainTowerHUD: UIView {
-    var b = UIButton(frame: CGRectMake(25,160, 50,40))
-    var c = UIButton(frame: CGRectMake(125,160, 50,40))
+    var b = UIButton(frame: CGRectMake(25,120, 50,40))
+    var c = UIButton(frame: CGRectMake(125,120, 50,40))
     var rectOne = CGRectMake(10, 10 ,200, 60)
     var rectPlayerLbl = CGRectMake(10,20,200, 60)
     var rectCost = CGRectMake(10,35,200, 60)
@@ -30,21 +30,21 @@ class MainTowerHUD: UIView {
     
     init(x: CGFloat, y: CGFloat)
     {
-        
+        let appDelegate =
         UIApplication.sharedApplication().delegate as? AppDelegate
         
         
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectPlayerLbl)
         costLabel = UILabel(frame: rectCost)
-        super.init(frame:CGRectMake(20, 20, 666, 200))
+        super.init(frame:CGRectMake(160, 20, 666, 160))
         b.setTitle("Next", forState: UIControlState.Normal)
         b.titleLabel!.font = UIFont(name: "Square", size: 23.0)
         c.setTitle("Done", forState: UIControlState.Normal)
         c.titleLabel!.font = UIFont(name: "Square", size: 23.0)
         b.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         c.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        
+        mainLabel.text = appDelegate?.gameScene?.xpLabel.text
         mainLabel.font = UIFont(name: "Square", size: 23.0)
         mainLabel.sizeToFit()
         playerLabel.text = "Choose An Option."

@@ -105,7 +105,6 @@
 		99BA33D41BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
 		99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99BA33D21BF5171700152764 /* UserModel.xcdatamodeld */; };
-		99C22E0D1C54992300487B9A /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C22E0C1C54992300487B9A /* AudioKit.framework */; };
 		99CDB2E91C80236A000A912F /* MainTowerHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CDB2E81C80236A000A912F /* MainTowerHUD.swift */; };
 		99CE60D21C1BD6B900CB8F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */; };
 		99CE60D31C1BD6B900CB8F22 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */; };
@@ -226,7 +225,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				990133A51C549BAB00447736 /* AudioKit.framework in Frameworks */,
-				99C22E0D1C54992300487B9A /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +451,7 @@
 		99FD08201BE035D80070F4B8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Chris Murphy";
 				TargetAttributes = {
 					99FD08271BE035D80070F4B8 = {
@@ -778,7 +776,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thesonicneighborhood.TowerDefense;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gameDesign.TowerDefense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -802,7 +800,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.thesonicneighborhood.TowerDefense;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gameDesign.TowerDefense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

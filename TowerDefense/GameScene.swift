@@ -31,8 +31,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let cero = 0
     var gameOver : Bool = false
     var nextWaveDelay = false
+    var selectedNodes = [UITouch:SKSpriteNode]()
+     var desTouches = [UITouch]()
     //camera stuff
-    
+    var cameraNode: SKCameraNode!
+    var lastTouch : CGPoint? = nil
+    var firstTouch : CGPoint? = nil
+    var lastTouch2 : CGPoint? = nil
+    var firstTouch2 : CGPoint? = nil
+    var previousTouch :CGPoint? = nil
+    var touchDelta : CGPoint? = nil
+    var touchTime : CGFloat = 0
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -54,55 +63,60 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     override func didMoveToView(view: SKView) {
 
         gameOver = false
-        let background = SKSpriteNode(imageNamed: "background")
-        background.position = CGPoint(x: 1024/2, y: 768/2)
+     
+        cameraNode = SKCameraNode()
+        cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
+        cameraNode.setScale(0.5)
+        self.addChild(cameraNode)
+        self.camera = cameraNode
+
         
-
-        background.zPosition = ZPosition.background;
-
-
+        let labelOffset : CGFloat = -scene!.size.width / 2 + 5
+        let labelOffsetY : CGFloat = scene!.size.height/2
         print(scene?.size.width, scene?.size.height)
-
         waveLabel.fontSize = 65
-        waveLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 60)
-        waveLabel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
+        waveLabel.position = CGPoint(x: labelOffset, y: labelOffsetY - 60)
+        waveLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         
-        enemiesLabel.fontSize = 45
-        enemiesLabel.position = CGPoint(x: CGRectGetMaxX(self.frame) - 20, y: CGRectGetMaxY(self.frame) - 60)
-        enemiesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
-
         myLabel.text = "DEFFEND!";
         myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 60);
+        myLabel.position = CGPoint(x: labelOffset, y: labelOffsetY - 100);
         myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         
         xpLabel.fontSize = 45;
-        xpLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 10, y:CGRectGetMaxY(self.frame) - 120);
+        xpLabel.position = CGPoint(x: labelOffset, y: labelOffsetY - 140);
         xpLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        o2Label.fontSize = 45;
-        o2Label.position = CGPoint(x:CGRectGetMinX(self.frame) + 60, y:CGRectGetMaxY(self.frame) - 60);
-        o2Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
-        o2Label.text = "o2 lael"
+        
+        enemiesLabel.fontSize = 45
+        enemiesLabel.position = CGPoint(x: labelOffset, y: labelOffsetY - 180)
+        enemiesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+
         metalLabel.fontSize = 45;
-        metalLabel.position = CGPoint(x:CGRectGetMinX(self.frame) + 120, y:CGRectGetMaxY(self.frame) - 120);
+        metalLabel.position = CGPoint(x: labelOffset, y: labelOffsetY - 220);
         metalLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         metalLabel.text = "metal label"
-        self.addChild(waveLabel)
-        self.addChild(o2Label )
-        self.addChild(metalLabel)
+        
+        o2Label.fontSize = 45;
+        o2Label.position = CGPoint(x: labelOffset, y: labelOffsetY - 260)
+        o2Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        o2Label.text = "o2 lael"
+
+        
+        cameraNode.addChild(waveLabel)
+        cameraNode.addChild(o2Label )
+       cameraNode.addChild(metalLabel)
         waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
         waveLabel.zPosition = ZPosition.bullet
         
-        self.addChild(enemiesLabel)
+        cameraNode.addChild(enemiesLabel)
         enemiesLabel.zPosition = ZPosition.bullet
         
-        self.addChild(myLabel)
+        cameraNode.addChild(myLabel)
         myLabel.zPosition = ZPosition.bullet
         
-        self.addChild(xpLabel)
+        cameraNode.addChild(xpLabel)
         xpLabel.zPosition = ZPosition.bullet
-        
-        self.addChild(background)
+
 
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
@@ -124,31 +138,118 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             towerBuilder.addUpgradeView(tower, location: touchLocation, gameScene: self)
 
         }
+     
+        
+    
+    }
+    //this function we are mostly just grabbing the differnet locations of the touch events
+    //we are only currently interested in the first two and disregarding any other touches.
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.locationInNode(self)
+        var counter = 0
+        for touch in touches {
+            desTouches.append(touch)
+            counter++
+        }
+        
+        if (touches.count > 1)
+        {
+            firstTouch2 = desTouches[1].locationInNode(self)
+            let duration = 0.25
+            if !isZoomed
+            {
+                // Lerp the camera to 100, 50 over the next half-second.
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: duration))
+                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(1), duration: duration))
+               // self.cameraNode.setScale(1.5)
+                isZoomed = true
+            
+                
+            }
+            else
+            {
+               
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: duration))
+                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(0.5), duration: duration))
+                isZoomed = false
+            }
+        }
+        
+       
+        firstTouch = touchLocation
+        scaleScale = 0
+        
         
     }
+    //some class level variables to keep track of the last touch locations
+    var touchScale : CGFloat = 0.0
+    var scaleScale : CGFloat = 0.0
+    var scaleSet = false
+    var lastTouchSet = false
+    var isZoomed = false
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.locationInNode(self)
+        var counter = 0
+        for touch in touches {
+            desTouches.append(touch)
+            counter++
+        }
+   
+            if lastTouch == nil {
+                lastTouch = firstTouch
+            }
+            touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
+            lastTouch = touchLocation
+            //these devisors are just floats that feel nice to make the differnece in width to height
+            self.cameraNode.position.x -= touchDelta!.x/2.0
+            self.cameraNode.position.y -= touchDelta!.y/1.25
+        
+        
+        
     
+    }
     
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        //this gets set to nil for a check in the touchesMoved function
+        lastTouch = nil
+        lastTouch2 = nil
+        
+        desTouches.removeAll()
         /* Called when a touch begins */
         let touch = touches.first
+        
         let location = touch!.locationInNode(self)
        let viewLocation = touch!.locationInView(self.view!)
+
         
+        //this is just a thing to tringer conduvtor stuff.
         if touches.count > 2
         {
             
             appDelegate!.conductor.recursiveNotesRandom(5, maxLength: 2.0)
 
         }
-        if touches.count > 1 && !mainBuild
+        if touch?.tapCount > 1 && !mainBuild
+        //if touches.count > 1 && !mainBuild
         {
             let mainTower = towerBuilder.BuildMainTower(location)
             GameScene.towers.append(mainTower)
             mainBuild = true
+            return
         }
-        
-       //check each tower and see if the touch location was the same as the tower
+        else if touch?.tapCount > 1
+        {
+        //if we found a tower open menu else add tower
+        if GameScene.towers.count <= towerHardLimit
+        {
+            
+            addTower(location, touch: touch!)
+            return
+        }
+        }
         for each in GameScene.towers
         {
             if each.sprite.containsPoint(location)
@@ -166,12 +267,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 return
             }
         }
-        //if we found a tower open menu else add tower
-        if GameScene.towers.count <= towerHardLimit
-        {
-            
-            addTower(location, touch: touch!)
-        }
+        
+        
     }
 
     

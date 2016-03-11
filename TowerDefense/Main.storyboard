@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OU6-ug-I46">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dCC-XD-tRi">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Square.ttf">
@@ -37,24 +37,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="XdY-Sw-Wtn" appends="YES" id="VfE-kz-bFK"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="aBQ-vg-FSn"/>
                     <connections>
                         <segue destination="5k1-Wf-1Hy" kind="show" identifier="toEndGame" id="Jef-cF-DqJ"/>
                         <segue destination="OU6-ug-I46" kind="show" identifier="toPlanetPicker" id="pV1-pH-AOp"/>
+                        <segue destination="dCC-XD-tRi" kind="show" identifier="backToLogin" id="XsS-oS-jkI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="XdY-Sw-Wtn">
+                <pinchGestureRecognizer id="ZcX-FR-HaH">
                     <connections>
-                        <action selector="PinchAction:" destination="BV1-FR-VrT" id="qun-x9-465"/>
+                        <action selector="pinchAction:" destination="BV1-FR-VrT" id="YA1-eJ-PRT"/>
                     </connections>
                 </pinchGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="169" y="355"/>
+            <point key="canvasLocation" x="213" y="389"/>
         </scene>
         <!--End Game Controller-->
         <scene sceneID="Lti-cQ-hAu">
@@ -149,7 +147,7 @@
                         <viewControllerLayoutGuide type="top" id="Tx8-aD-5Qm"/>
                         <viewControllerLayoutGuide type="bottom" id="Ydm-sh-xuk"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cUs-Wi-Iro" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" id="cUs-Wi-Iro">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -369,6 +367,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="XIn-3t-bSC"/>
         <segue reference="pV1-pH-AOp"/>
-        <segue reference="jBp-kB-KP0"/>
+        <segue reference="XsS-oS-jkI"/>
     </inferredMetricsTieBreakers>
 </document>
