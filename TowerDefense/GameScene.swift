@@ -63,14 +63,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     override func didMoveToView(view: SKView) {
 
         gameOver = false
-        let background = SKSpriteNode(imageNamed: "background")
-        background.position = CGPoint(x: 1024/2, y: 768/2)
+     
         cameraNode = SKCameraNode()
-        cameraNode.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
+        cameraNode.setScale(0.5)
         self.addChild(cameraNode)
         self.camera = cameraNode
 
-        background.zPosition = ZPosition.background;
         
 
         print(scene?.size.width, scene?.size.height)
@@ -113,8 +112,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         self.addChild(xpLabel)
         xpLabel.zPosition = ZPosition.bullet
-        
-        self.addChild(background)
+
 
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
@@ -163,7 +161,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 
                 // Lerp the camera to 100, 50 over the next half-second.
                 self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: duration))
-                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(1.6), duration: duration))
+                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(1), duration: duration))
                // self.cameraNode.setScale(1.5)
                 isZoomed = true
                 x = self.cameraNode.xScale
@@ -177,7 +175,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 var y = self.cameraNode.yScale
                 print("scale back to regular x: \(x), y: \(y)")
                 self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: duration))
-                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(1), duration: duration))
+                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(0.5), duration: duration))
                 isZoomed = false
                  x = self.cameraNode.xScale
                  y = self.cameraNode.yScale
