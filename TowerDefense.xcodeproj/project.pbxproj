@@ -31,6 +31,7 @@
 		97B633C01C0D517B00CB6B8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BF1C0D517B00CB6B8B /* Assets.xcassets */; };
 		97B633C21C0D5CCB00CB6B8B /* Explosion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B633C11C0D5CCB00CB6B8B /* Explosion.swift */; };
 		97B633C31C0D62AA00CB6B8B /* Explosion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B633C11C0D5CCB00CB6B8B /* Explosion.swift */; };
+		97FD25641C8E7BD400CF0E00 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D2B1C87E53F006D38D1 /* Planet.swift */; };
 		990133A51C549BAB00447736 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C22E0C1C54992300487B9A /* AudioKit.framework */; };
 		990133A61C549BAB00447736 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99C22E0C1C54992300487B9A /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9919CF291C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF281C0CF7690024DFBB /* TowerAttackPulse.swift */; };
@@ -618,6 +619,7 @@
 				99BA33D51BF5171700152764 /* UserModel.xcdatamodeld in Sources */,
 				99BA33BF1BF2A24300152764 /* EnemyAttackBoss.swift in Sources */,
 				9943460F1C7924F2000012F0 /* PlanetPickView.swift in Sources */,
+				97FD25641C8E7BD400CF0E00 /* Planet.swift in Sources */,
 				993BC2B71C003A50009596FA /* LoginController.swift in Sources */,
 				99BA33BB1BF2A24300152764 /* EnemyMoveBoss.swift in Sources */,
 				99A28B261C7E4DDD007B39DF /* TowerMain.swift in Sources */,
