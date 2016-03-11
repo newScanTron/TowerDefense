@@ -154,22 +154,34 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         if (touches.count > 1)
         {
             firstTouch2 = desTouches[1].locationInNode(self)
+            let duration = 0.25
             if !isZoomed
             {
-                
+                var x = self.cameraNode.xScale
+                var y = self.cameraNode.yScale
+                print("scale x: \(x), y: \(y)")
                 
                 // Lerp the camera to 100, 50 over the next half-second.
-                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: 0.5))
-                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(2), duration: 0.5))
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: duration))
+                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(1.6), duration: duration))
                // self.cameraNode.setScale(1.5)
                 isZoomed = true
+                x = self.cameraNode.xScale
+                y = self.cameraNode.yScale
+                print("scale x: \(x), y: \(y)")
                 
             }
             else
             {
-                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: 0.5))
-                self.cameraNode.runAction(SKAction.scaleBy(CGFloat(0.5), duration: 0.5))
+                var x = self.cameraNode.xScale
+                var y = self.cameraNode.yScale
+                print("scale back to regular x: \(x), y: \(y)")
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation.x, y: touchLocation.y), duration: duration))
+                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(1), duration: duration))
                 isZoomed = false
+                 x = self.cameraNode.xScale
+                 y = self.cameraNode.yScale
+                print("scale back to regular x: \(x), y: \(y)")
                 
             }
         }
