@@ -203,8 +203,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
             lastTouch = touchLocation
             //these devisors are just floats that feel nice to make the differnece in width to height
-            self.cameraNode.position.x -= touchDelta!.x/2.8
-            self.cameraNode.position.y -= touchDelta!.y/1.5
+            self.cameraNode.position.x -= touchDelta!.x/2.0
+            self.cameraNode.position.y -= touchDelta!.y/1.25
         
         
         
