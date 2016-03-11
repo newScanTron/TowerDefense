@@ -56,7 +56,7 @@ class MainTowerHUD: UIView {
         self.addSubview(mainLabel)
         self.addSubview(playerLabel)
         self.addSubview(costLabel)
-        b.addTarget(self, action: "dummieAction", forControlEvents:  UIControlEvents.TouchUpInside)
+        b.addTarget(self, action: "toSideScroll", forControlEvents:  UIControlEvents.TouchUpInside)
         c.addTarget(self, action: "endTowerGame", forControlEvents: UIControlEvents.TouchUpInside)
         self.backgroundColor = UIColor(red: 200, green: 155, blue: 34, alpha: 0.6)
     }
@@ -70,6 +70,12 @@ class MainTowerHUD: UIView {
         let appDelegate =
         UIApplication.sharedApplication().delegate as? AppDelegate
         appDelegate?.gameScene?.toPlanetPicker()
+    }
+    func toSideScroll()
+    {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        appDelegate?.gameScene?.toSideScroll()
     }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */

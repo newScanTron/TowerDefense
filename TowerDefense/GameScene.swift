@@ -468,6 +468,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     {
         self.viewController.toPlanetPicker()
     }
+    func toSideScroll()
+    {
+        self.viewController.toSideScroll()
+    }
     func endGame() {
 
     gameOver = true

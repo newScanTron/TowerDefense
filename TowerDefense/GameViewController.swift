@@ -57,6 +57,9 @@ class GameViewController: UIViewController {
     func toPlanetPicker(){
         performSegueWithIdentifier("toPlanetPicker", sender: nil)
     }
+    func toSideScroll(){
+        performSegueWithIdentifier("gameToSide", sender: nil)
+    }
     //calls the segue to side scroll game scene
     //func sideScroll(){
     //    performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
