@@ -25,7 +25,7 @@ class TowerBuilder
     }
     
     func BuildBaseShip()  -> TowerBase {
-        let attack = TowerAttackStrat()
+        let attack = TowerAttackBasic()
         let defense = TowerDefenseStrat()
         let tower = TowerBase(location: CGPointMake(200, 200), _attack: attack, _defense: defense)
         
@@ -42,7 +42,7 @@ class TowerBuilder
         
         tower.sprite.zRotation = CGFloat(-M_PI/2)
         
-
+        SideScrolScene.scene?.addChild(tower.sprite)
         
         return tower
     }

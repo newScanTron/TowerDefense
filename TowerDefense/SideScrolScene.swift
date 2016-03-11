@@ -32,7 +32,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     let backgroundVelocity: CGFloat = 2.0
     var gameTime : CGFloat = 0
     var deltaTime : CGFloat = 0
-
+    var ship :TowerBase? = nil
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -47,24 +47,22 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         physicsWorld.contactDelegate = self
         self.view!.multipleTouchEnabled = true
         self.backgroundColor = SKColor.blackColor()
-        var path = NSBundle.mainBundle().pathForResource("StarsBG", ofType: "sks")
-        var starParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
+        let path = NSBundle.mainBundle().pathForResource("StarsBG", ofType: "sks")
+        let starParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
         starParticle.position = CGPointMake(self.size.width/2, self.size.height)
         starParticle.targetNode = self.scene
         self.addChild(starParticle)
         
-        var Thrusterpath = NSBundle.mainBundle().pathForResource("ShipThruster", ofType: "sks")
-        var thrusterParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Thrusterpath!) as! SKEmitterNode
+        let Thrusterpath = NSBundle.mainBundle().pathForResource("ShipThruster", ofType: "sks")
+        let thrusterParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Thrusterpath!) as! SKEmitterNode
         thrusterParticle.position = CGPointMake(0, 0)
         thrusterParticle.targetNode = self.scene
         midgroundNode.addChild(thrusterParticle)
         self.addChild(midgroundNode)
 
-        //self.initializingScrollingBackground()
-        
-        createShip()
-        //foregroundNode.addChild(ship)
-        SideScrolScene.scene?.addChild(shipSprite)
+
+        ship = towerBuilder.BuildBaseShip()
+        SideScrolScene.ships.append(ship!)
 
     }
     
@@ -82,8 +80,8 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         }
         touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
         lastTouch = touchLocation
-        shipSprite.position = CGPoint(x: shipSprite.position.x + touchDelta!.x, y: shipSprite.position.y + touchDelta!.y)
-        midgroundNode.position = CGPoint(x: (shipSprite.position.x - CGFloat(13.0)) + touchDelta!.x, y: shipSprite.position.y + touchDelta!.y)
+        ship?.sprite.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
+        midgroundNode.position = CGPoint(x: (ship!.sprite.position.x - CGFloat(13.0)) + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
     }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         lastTouch = nil
@@ -118,14 +116,17 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             SideScrolScene.enemies.append(newObstacle!)
             SideScrolScene.scene?.addChild(newObstacle!.sprite)
         }
-        
-        //self.moveBackground()
-        
+
         for (var i = 0; i < SideScrolScene.enemies.count; i++)
         {
             let e = SideScrolScene.enemies[i]
             e.TriggerAttack()
             e.moveMore()
+        }
+        for (var i = 0; i < SideScrolScene.ships.count; i++)
+        {
+            let e = SideScrolScene.ships[i]
+            e.TriggerAttack()
         }
     }
     func addEarth() {
@@ -138,35 +139,6 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         earthSprite.physicsBody?.velocity.dy = -10
         
         SideScrolScene.scene?.addChild(earthSprite)
-
-
-    }
-    func createShip() -> SKNode {
-
-        let ship : TowerBase = towerBuilder.BuildBaseShip()
-        
-        //shipNode.position = CGPoint(x: 200, y: 200)
-        /*shipSprite.position = CGPoint(x: 200, y: 200)
-
-        shipSprite.physicsBody?.dynamic = false
-        shipSprite.physicsBody?.mass = 1
-        shipSprite.physicsBody?.restitution = 1.0
-        shipSprite.physicsBody?.linearDamping = 1.0
-        shipSprite.physicsBody?.angularDamping = 1.0
-        shipSprite.physicsBody?.allowsRotation = false
-        shipSprite.zPosition = ZPosition.tower
-        shipSprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
-
-        */
-        shipSprite.zRotation = CGFloat(-M_PI/2)
-        shipSprite.xScale = 0.1
-        shipSprite.yScale = 0.1
-        //shipNode.addChild(shipSprite)
-        /*func attack(){
-            Bullet(_shooter: shipSprite, _target: shipSprite.position + CGPointMake(x: shipSprite.position.x + 200, y: shipSprite.position.y), _speed: speed, _damage: 10, size: 15, shotByEnemy: true)
-            
-        }*/
-        return shipSprite
     }
 
     func createMidgroundNode() -> SKNode {
@@ -176,29 +148,5 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         backgroundNode.addChild(node)
         
         return backgroundNode
-    }
-    
-    func moveBackground(){
-        self.enumerateChildNodesWithName("background", usingBlock: {(node, stop) -> Void in
-            if let bg = node as? SKSpriteNode {
-                bg.position = CGPoint(x: bg.position.x - self.backgroundVelocity, y: bg.position.y)
-                
-                if bg.position.x <= -bg.size.width {
-                    bg.position = CGPointMake(bg.position.x + bg.size.width * 2, bg.position.y)
-                }
-            }
-        
-        })
-    }
-    func initializingScrollingBackground() {
-        for var index = 0; index < 15; ++index{
-            let bg = SKSpriteNode(imageNamed: "SideScrollbg")
-            bg.position = CGPoint(x: index * Int(bg.size.width), y: 0)
-            bg.anchorPoint = CGPointZero
-            bg.name = "background"
-            bg.zPosition = ZPosition.background
-            self.addChild(bg)
-            
-        }
     }
 }

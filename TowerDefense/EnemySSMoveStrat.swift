@@ -10,10 +10,10 @@ import Foundation
 
 class EnemySSMoveStrat: EnemyMoveStrat{
     
-    var moveTo = SideScrolScene.scene?.shipSprite.position
+    var moveTo = SideScrolScene.scene?.ship?.sprite.position
     
     override func Move(enemy : EnemyBase){
-        let vector = getVector(enemy.sprite.position, to: SideScrolScene.scene!.shipSprite.position, speed: 20)
+        let vector = getVector(enemy.sprite.position, to: moveTo!, speed: 10)
         
         if enemy.sprite.position.x < moveTo?.x {
             enemy.sprite.physicsBody?.velocity.dx = 0
