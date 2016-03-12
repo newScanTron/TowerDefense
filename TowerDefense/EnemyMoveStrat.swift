@@ -28,7 +28,7 @@ class EnemyMoveStrat
     
     //This is called when the sprite is going off the screen
     func outOfBounds(enemy : EnemyBase){
-        let centerPoint = CGPointMake(SideScrolScene.scene!.size.width/2, SideScrolScene.scene!.size.height/2)
+        let centerPoint = CGPointMake(1024, 768)
         let center = getVector(enemy.sprite.position, to: centerPoint, speed: 4)
         enemy.sprite.physicsBody?.linearDamping = 0.5
         enemy.sprite.physicsBody?.applyImpulse(center)

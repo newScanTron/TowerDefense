@@ -31,7 +31,7 @@ class EnemyFactory
             lastEnemy = GameScene.gameTime
             
             if(enemyCount <= (9 + theWave)){
-                enemy = CreateEnemy()
+                enemy = CreateEnemyTowerDefense()
                 waveDelay = 2.0
                 enemyCount++
                 return enemy!
@@ -62,7 +62,44 @@ class EnemyFactory
         enemyCount = 0.0
         theWave++
     }
-    
+    //Enemy with Ranged attack strategy
+    func CreateEnemyTowerDefense() -> EnemyBase{
+        
+        
+        
+        let attack = EnemyAttackRanged()
+        let moveStrat = EnemyMoveBasicTowerDefense()
+        let range: CGFloat = 250.00
+        
+        attack.damage = 5.5
+        attack.fireDelay = 1
+        attack.speed = 300
+        
+        let moveDelay : CGFloat = 0.5
+        let name = "RangedSprite"
+        let sprite = SKSpriteNode(imageNamed: "Spaceship")
+        let reward = 100
+        
+        
+        //Set attack variables
+        attack.damage = 0.5
+        
+        attack.fireDelay = 1
+        attack.speed = 300
+        
+        sprite.size = CGSizeMake(100, 100)
+        sprite.zPosition = ZPosition.enemy
+        
+        //Instantiate enemy object
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
+        
+        //Set enemy specific health
+        enemy.health = 150
+        enemy.maxHealth = 150
+        
+        //return the object to the GameScene
+        return enemy
+    }
     //Enemy with Ranged attack strategy
     func CreateEnemy() -> EnemyBase{
         

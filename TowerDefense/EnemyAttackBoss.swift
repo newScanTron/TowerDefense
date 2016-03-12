@@ -28,7 +28,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
             e.sprite.physicsBody?.linearDamping = 0.0
 
 
-            e.setMoveStrategy(EnemyMoveBasic())
+            e.setMoveStrategy(EnemyMoveBasicTowerDefense())
 
         }
         

@@ -29,8 +29,8 @@ class TowerBuilder
     {
         let attack = TowerMainAttackStrat()
         let defense = TowerMainDefenseStrat()
-        let tower = TowerMain(locaton: point, _attack: attack, _defense: defense)
-        return tower
+        let mainTower = TowerMain(locaton: point, _attack: attack, _defense: defense)
+        return mainTower
     }
 
     
@@ -52,7 +52,7 @@ class TowerBuilder
         
         tower.sprite.zRotation = CGFloat(-M_PI/2)
         
-        SideScrolScene.scene?.addChild(tower.sprite)
+  //      SideScrolScene.scene?.addChild(tower.sprite)
         
         return tower
     }

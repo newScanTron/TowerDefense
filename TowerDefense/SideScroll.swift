@@ -1,4 +1,4 @@
-//
+	//
 //  SideScroll.swift
 //  TowerDefense
 //
@@ -21,6 +21,17 @@ class SideScroll: UIViewController
         super.viewDidLoad()
         appDelegate.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
 
+        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedLeft:"))
+        swipeLeft.direction = .Left
+        swipeLeft.numberOfTouchesRequired = 2
+        view.addGestureRecognizer(swipeLeft)
+        //this block adds a call to the function swiped right when the user swipes right with 2 fingers
+//        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("swipedRight:"))
+//        swipeRight.numberOfTouchesRequired = 2
+//        swipeRight.direction = .Right
+//        view.addGestureRecognizer(swipeRight)
+        
+      
         let skView = self.view as! SKView
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true
@@ -33,5 +44,7 @@ class SideScroll: UIViewController
         skView.presentScene(appDelegate.sideScrollScene)
     }
     
-    
+    func swipedLeft(sender:UISwipeGestureRecognizer){
+        performSegueWithIdentifier("GoToTowerDefense", sender: nil)
+    }
 }

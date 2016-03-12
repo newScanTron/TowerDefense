@@ -49,6 +49,46 @@ class EnemyMoveBasic: EnemyMoveStrat{
     }
 }
 
+class EnemyMoveBasicTowerDefense: EnemyMoveStrat{
+    
+    //Instance variable
+    var lastMove : CGFloat = 0
+    let offSet : CGFloat = 150
+    //Continuously call the execute method passing the strategy
+    // and sprite to be moved
+    override func Move(enemy : EnemyBase){
+        
+        //if (GameScene.gameTime > lastMove + enemy.moveDelay) {
+        
+        lastMove = GameScene.gameTime
+        
+        //Handles what strategy to use depending on the sprite position
+        
+//        if (enemy.sprite.position.y <= offSet){
+//            
+//            outOfBounds(enemy)
+//        }
+//        else if(enemy.sprite.position.y >= SideScrolScene.scene!.size.height - offSet){
+//            outOfBounds(enemy)
+//            
+//        }
+//        else if (enemy.sprite.position.x < offSet){
+//            outOfBounds(enemy)
+//        }
+//        else if (enemy.sprite.position.x > SideScrolScene.scene!.size.width - offSet) {
+//            outOfBounds(enemy)
+//            
+//        }
+//            //            else if (nodeToMove.sprite.position.x > GameScene.scene!.size.width - 150) {
+//            //                outOfBounds()
+//            //}
+//        else {
+            enemy.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYRand()))
+//        }
+        // }
+    }
+}
+
 //Handles enemy wander - when the y coordinate is approaching zero
 
 class stateYLow : EnemyMoveStrat{
