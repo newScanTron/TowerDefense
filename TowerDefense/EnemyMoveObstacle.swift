@@ -11,6 +11,6 @@ import Foundation
 class EnemyMoveObstacle: EnemyMoveStrat{
     
     override func Move(enemy : EnemyBase){
-    
+       
     }
 }

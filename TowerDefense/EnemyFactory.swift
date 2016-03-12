@@ -138,7 +138,6 @@ class EnemyFactory
     //Grunt enemy with Ranged attack
     func CreateEnemyGrunt() -> EnemyBase{
         
-
         //Set enemy strategies and variables
         let attack = EnemyAttackRanged()
         let moveStrat = EnemyMoveKamikaze()
@@ -152,7 +151,6 @@ class EnemyFactory
         attack.fireDelay = 1
         attack.speed = 300
 
-        
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
 
         sprite.size = CGSizeMake(100, 100)
@@ -161,7 +159,6 @@ class EnemyFactory
         //Instantiate enemy object
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
 
-        
         //Set object specific variables
         enemy.health = 100
         enemy.maxHealth = 100
@@ -170,15 +167,92 @@ class EnemyFactory
 
         return enemy
     }
-    
-    /*func GetNextObstacle() -> EnemyBase? {
+    func getNextSSEnemy() -> EnemyBase {
+        var enemy :EnemyBase? = getSSEnemy()
+        return enemy! 
+    }
+    func getObstacle() -> EnemyBase? {
         
+        
+        //Set enemy strategies and variables
         let attack = EnemyAttackObstacle()
-        let moveStrat = EnemyMoveObstacle
+        let moveStrat = EnemyMoveObstacle()
+        let range: CGFloat = 200.00
+        let moveDelay : CGFloat = 1.0
+        let name = "GruntSprite"
+        let reward = 100
+        var intro : Bool = false
         
-        let obstacle = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: <#T##SKSpriteNode#>, _range: <#T##CGFloat#>, _moveDelay: <#T##CGFloat#>, _reward: <#T##Int#>, _name: <#T##String#>))
+        //Set attack variables
+        attack.damage = 0.5
+        attack.fireDelay = 1
+        attack.speed = 300
         
-        return obstacle
-    }*/
+        let sprite = SKSpriteNode(imageNamed: "bullet")
+        let size = random(min: 15, max: 40)
+        var speed = random(min:-40 , max:-120)
+        
+        sprite.size = CGSizeMake(size, size)
+        sprite.zPosition = ZPosition.enemy
+        
+        
+        //Instantiate enemy object
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
+        
+        if SideScrolScene.scene!.intro == false {
+            speed = random(min: -440, max: -520)
+            sprite.physicsBody?.velocity.dx = speed
+            if SideScrolScene.scene?.deltaTime > 239 {
+                intro = true
+                for (var i = 0; i < SideScrolScene.enemies.count; i++)
+                {
+                    let e = SideScrolScene.enemies[i]
+                    e.sprite.physicsBody?.velocity.dx += 200
+                }
+            }
+        }
+        else{
+            sprite.physicsBody?.velocity.dx = speed
+        }
+        
+        
+        //Set object specific variables
+        enemy.health = 100
+        enemy.maxHealth = 100
+        
+        //Return object to the GameScene
+        return enemy
+    }
+    func getSSEnemy() -> EnemyBase? {
+        //Set enemy strategies and variables
+        let attack = EnemyAttackRanged()
+        let moveStrat = EnemySSMoveStrat()
+        let range: CGFloat = 200.00
+        let moveDelay : CGFloat = 1.0
+        let name = "GruntSprite"
+        let reward = 100
+        
+        //Set attack variables
+        attack.damage = 0.5
+        attack.fireDelay = 1
+        attack.speed = 300
+        
+        let sprite = SKSpriteNode(imageNamed: "Spaceship")
+        
+        sprite.size = CGSizeMake(90, 90)
+        sprite.zPosition = ZPosition.enemy
+        
+        //Instantiate enemy object
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
+        
+        //Set object specific variables
+        enemy.health = 100
+        enemy.maxHealth = 100
+        
+        //Return object to the GameScene
+        
+        return enemy
+
+    }
 
 }
