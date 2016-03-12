@@ -24,6 +24,8 @@ class PlanetPickView: UIViewController
         let skView = self.view as! SKView
         
         
+        
+        
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true
         

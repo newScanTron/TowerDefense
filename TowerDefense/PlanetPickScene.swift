@@ -22,6 +22,21 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     var offset : CGPoint = CGPoint(x: 0.0, y: 0.0);
     
+    var isZoomed = false
+    
+    var cameraNode: SKCameraNode!
+    
+    var touchLocation : CGPoint?
+    
+    var lastTouch : CGPoint? = nil
+    var firstTouch : CGPoint? = nil
+    
+        var touchDelta : CGPoint? = nil
+    
+    var selectedPlanet : Planet?
+    
+    var currentCircle : SKShapeNode?
+    
     //var midgroundNode: SKNode = SKNode()
     //var foregroundNode: SKNode = SKNode()
     //var hudNode: SKNode = SKNode()
@@ -36,38 +51,124 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     override func didMoveToView(view: SKView) {
         
+        cameraNode = SKCameraNode()
+        cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
+        cameraNode.setScale(0.5)
+        self.addChild(cameraNode)
+        self.camera = cameraNode
+        
         self.backgroundColor = SKColor.blackColor()
         
         for (var i = 0; i < 100 ; i++) {
-            PlanetPickScene.planets.append(Planet(size: 10 + CGFloat(arc4random_uniform(10)), position: getPlanetPosition(), color: getRandomColor()));
+            PlanetPickScene.planets.append(Planet(
+                size: 10 + CGFloat(arc4random_uniform(10)),
+                position: getPlanetPosition(),
+                color: getRandomColor(),
+                metal: Int(arc4random_uniform(100)),
+                oxygen: Int(arc4random_uniform(100)),
+                fuel: Int(arc4random_uniform(100))
+            ));
         }
         
-        newDiscovery(1000, y: 1000, r: 1000);
+        let firstPlanet : Planet = PlanetPickScene.planets[Int(arc4random_uniform(UInt32(PlanetPickScene.planets.count)))]
+        cameraNode.position = firstPlanet.position
         
         
+        newDiscovery(firstPlanet.position.x, y: firstPlanet.position.y, r: 250);
+        
+        self.view!.multipleTouchEnabled = true;
         
     }
     
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        for t in touches {
-            self.newDiscovery(t.locationInNode(self).x, y: t.locationInNode(self).y, r: 100);
-            break;
-        }
-    }
-    
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
 //        for t in touches {
-//            let deltaP : CGPoint = CGPoint(x: t.locationInNode(self).x-lastTouchPosition.x, y: t.locationInNode(self).y-lastTouchPosition.y);
-//            offset.x += deltaP.x;
-//            offset.y += deltaP.y;
-//            lastTouchPosition = t.locationInNode(self);
+//            //self.newDiscovery(t.locationInNode(self).x, y: t.locationInNode(self).y, r: 100);
+//            touchLocation = t.locationInNode(self)
 //            break;
 //        }
-//        for p in PlanetPickScene.planets {
-//            p.update(offset);
+        
+        touchLocation = touches.first!.locationInNode(self)
+        
+        
+        selectedPlanet = nil
+        
+        for p in PlanetPickScene.planets {
+            if (getDistance(p.position,to: touchLocation!) < p.size) {
+                selectedPlanet = p
+                newDiscovery(p.position.x, y: p.position.y, r: 250)
+                break
+            }
+        }
+        
+        if (selectedPlanet != nil) {
+            print("M: \(selectedPlanet!.metal) O: \(selectedPlanet!.oxygen) F: \(selectedPlanet!.fuel) ")
+        }
+        
+        
+        
+        firstTouch = touchLocation
+        
+        print("began: \(touches.count)")
+        
+        if (touches.count > 1) {
+            print("count")
+            let duration = 0.25
+            if !isZoomed
+            {
+                // Lerp the camera to 100, 50 over the next half-second.
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation!.x, y: touchLocation!.y), duration: duration))
+                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(1), duration: duration))
+                // self.cameraNode.setScale(1.5)
+                isZoomed = true
+                print("zoom")
+            
+            
+                
+            }
+            else
+            {
+            
+                self.cameraNode.runAction(SKAction.moveTo(CGPoint(x: touchLocation!.x, y: touchLocation!.y), duration: duration))
+                self.cameraNode.runAction(SKAction.scaleTo(CGFloat(0.5), duration: duration))
+                isZoomed = false
+                print("unzoom")
+            }
+            
+        }
+        
+        
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        //this gets set to nil for a check in the touchesMoved function
+        lastTouch = nil
+        
+        
+    }
+
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first! as UITouch
+        let touchLocation = touch.locationInNode(self)
+        //var counter = 0
+//        for touch in touches {
+//            desTouches.append(touch)
+//            counter++
 //        }
+        
+        if lastTouch == nil {
+            lastTouch = firstTouch
+        }
+        touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
+        lastTouch = touchLocation
+        //these devisors are just floats that feel nice to make the differnece in width to height
+        self.cameraNode.position.x -= touchDelta!.x/2.0
+        self.cameraNode.position.y -= touchDelta!.y/1.25
+        
+        
+        
+        
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -91,6 +192,31 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     }
     
     func newDiscovery(x: CGFloat, y: CGFloat, r: CGFloat) {
+//        let light : SKLightNode = SKLightNode();
+//        light.lightColor = SKColor.whiteColor();
+//        light.shadowColor = SKColor.blackColor()
+//        light.position = CGPoint(x: x,y: y);
+//        light.zPosition = ZPosition.tower-2;
+//        light.falloff = r/1000
+//        PlanetPickScene.scene?.addChild(light);
+        
+        currentCircle?.removeFromParent()
+        
+        currentCircle = SKShapeNode(circleOfRadius: r);
+        currentCircle!.position = CGPoint(x: x, y: y);
+        currentCircle!.lineWidth = 1.0;
+        currentCircle!.glowWidth = 2.0;
+        
+        // Color fades as pulse progresses
+        currentCircle!.fillColor = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0);
+        currentCircle!.strokeColor = SKColor.whiteColor();
+        
+        currentCircle!.zPosition = ZPosition.tower-5;
+        
+        // Add circle back to scene
+        PlanetPickScene.scene?.addChild(currentCircle!)
+        
+        
         let circle : SKShapeNode = SKShapeNode(circleOfRadius: r);
         circle.position = CGPoint(x: x, y: y);
         circle.lineWidth = 0.0;
