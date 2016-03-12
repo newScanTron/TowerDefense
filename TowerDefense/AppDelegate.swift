@@ -226,6 +226,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.gameScene!.xpLabel.text = ("XP: \(self.user.xp)")
         self.gameScene!.enemiesLabel.text = ("Enemies: \(self.gameState.enemies.count)")
         self.gameScene!.waveLabel.text = ("\(self.gameState.wave)")
+     
+        
     }
 }
 

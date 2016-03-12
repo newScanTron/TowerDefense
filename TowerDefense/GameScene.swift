@@ -138,8 +138,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             towerBuilder.addUpgradeView(tower, location: touchLocation, gameScene: self)
 
         }
-     
-        
     
     }
     //this function we are mostly just grabbing the differnet locations of the touch events
@@ -205,8 +203,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             //these devisors are just floats that feel nice to make the differnece in width to height
             self.cameraNode.position.x -= touchDelta!.x/2.0
             self.cameraNode.position.y -= touchDelta!.y/1.25
-        
-        
         
     
     }
