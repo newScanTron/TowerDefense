@@ -36,5 +36,9 @@ class PlanetPickView: UIViewController
         appDelegate.planetPickScene!.viewController = self
         skView.presentScene(appDelegate.planetPickScene)
     }
+    func goToScene()
+    {
+        appDelegate.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
+    }
     
 }
