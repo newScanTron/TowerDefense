@@ -80,7 +80,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
-    func travelToPlanet(Planet p) {
+    func travelToPlanet(p : Planet) {
         
     }
     
