@@ -80,6 +80,10 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         
     }
     
+    func travelToPlanet(Planet p) {
+        
+    }
+    
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //        for t in touches {
@@ -97,6 +101,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
             if (getDistance(p.position,to: touchLocation!) < p.size) {
                 selectedPlanet = p
                 newDiscovery(p.position.x, y: p.position.y, r: 250)
+                travelToPlanet(p);
                 break
             }
         }
@@ -143,7 +148,6 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         //this gets set to nil for a check in the touchesMoved function
         lastTouch = nil
-        
         
     }
 
