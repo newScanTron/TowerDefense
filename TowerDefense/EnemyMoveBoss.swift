@@ -16,9 +16,11 @@ class EnemyMoveBoss: EnemyMoveStrat {
     //var bossNode : EnemyBase! = nil
     var target : [TowerBase] = [TowerBase]()
     var setEnemies : Bool = false
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     override func Move(enemy : EnemyBase){
-
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
         //offSet keeps the sprite using this strategy in the field of view
         let offSet : CGFloat = 150
         //bossNode = nodeToMove
@@ -26,7 +28,7 @@ class EnemyMoveBoss: EnemyMoveStrat {
         target = getTowersInRange(enemy.sprite.position, range: 150)
         
         //Determines sprite position and sets out of bounds or if there is near by target
-        if (enemy.sprite.position.x >= GameScene.scene!.size.width - offSet || enemy.sprite.position.x <= 0 + offSet || enemy.sprite.position.y >= GameScene.scene!.size.height - offSet || enemy.sprite.position.y <= 0 + offSet){
+        if (enemy.sprite.position.x >= appDelegate!.gameScene!.size.width - offSet || enemy.sprite.position.x <= 0 + offSet || enemy.sprite.position.y >= appDelegate!.gameScene!.size.height - offSet || enemy.sprite.position.y <= 0 + offSet){
             outOfBounds(enemy)
 
         }
@@ -47,7 +49,7 @@ class EnemyMoveBoss: EnemyMoveStrat {
         // Changes enemy move strategy to the Swarm strategy
         if !setEnemies {
             if enemy.sprite.position.x < 1000{
-                for e in GameScene.enemies{
+                for e in appDelegate!.gameScene!.enemies{
 
                     if e.name != "BossSprite"{ // Skip boss
                         if e.name != "kamikaze"{ // Skip kamikaze

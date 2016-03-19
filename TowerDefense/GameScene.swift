@@ -46,19 +46,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
     //making all of these static allows us to not have to pass them around method calls
-    static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
-    static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
-    static var items : [Item] = [Item]()
+     var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
+    var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
+     var items : [Item] = [Item]()
     //static var boss : [EnemyBase] = [EnemyBase]()
-    static var gameTime : CGFloat = 0
-    static var deltaTime : CGFloat = 0
+    var gameTime : CGFloat = 0
+    var deltaTime : CGFloat = 0
+    var totalTime : CGFloat = 0.0
     static var scene : GameScene? = nil
     //bool actions
     var mainHudIsUP = false
     var mainBuild = false
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
-    static var totalTime : CGFloat = 0.0
+    
     
     override func didMoveToView(view: SKView) {
 
@@ -132,7 +133,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let tower : TowerBase = towerBuilder.BuildBaseTower(location)
         
         if (addGold(-100)) {
-            GameScene.towers.append(tower)
+            appDelegate!.gameScene!.towers.append(tower)
 
 
             towerBuilder.addUpgradeView(tower, location: touchLocation, gameScene: self)
@@ -232,21 +233,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //if touches.count > 1 && !mainBuild
         {
             let mainTower = towerBuilder.BuildMainTower(location)
-            GameScene.towers.append(mainTower)
+            appDelegate!.gameScene!.towers.append(mainTower)
             mainBuild = true
             return
         }
         else if touch?.tapCount > 1
         {
         //if we found a tower open menu else add tower
-        if GameScene.towers.count <= towerHardLimit
+        if appDelegate!.gameScene!.towers.count <= towerHardLimit
         {
             
             addTower(location, touch: touch!)
             return
         }
         }
-        for each in GameScene.towers
+        for each in appDelegate!.gameScene!.towers
         {
             if each.sprite.containsPoint(location)
             {
@@ -271,18 +272,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
-
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
         if gameOver {
             return
         }
 
-        GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
-        GameScene.totalTime += GameScene.deltaTime
-        GameScene.gameTime = CGFloat(currentTime)
+        appDelegate.gameScene!.deltaTime = CGFloat(currentTime) - appDelegate.gameScene!.gameTime
+        appDelegate.gameScene!.totalTime += appDelegate.gameScene!.deltaTime
+        appDelegate.gameScene!.gameTime = CGFloat(currentTime)
+        
+        
+        
+        
         
         //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
+  
         
         appDelegate.updateMyLabel()
         
@@ -290,27 +295,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         let newEnemy = enemyFactory.getNextEnemy()
         if newEnemy != nil {
             nextWaveDelay = false
-            GameScene.enemies.append(newEnemy!)
+            appDelegate.gameScene!.enemies.append(newEnemy!)
             appDelegate.gameState.enemies.append(newEnemy!)
             GameScene.scene?.addChild(newEnemy!.sprite)
         }
         // Trigger attack/defend strategies for each tower
-        for (var i = 0; i < GameScene.towers.count; i++)
+        for (var i = 0; i < appDelegate.gameScene!.towers.count; i++)
         {
-            let t = GameScene.towers[i]
+            let t = appDelegate.gameScene!.towers[i]
             t.TriggerAttack()
             t.TriggerDefend()
             
             if t.CheckIfDead(){
                 t.sprite.removeFromParent()
                 
-                GameScene.towers.removeAtIndex(i)
+                appDelegate.gameScene!.towers.removeAtIndex(i)
                 i -= 1
             }
         }
-        for (var i = 0; i < GameScene.enemies.count; i++)
+        for (var i = 0; i < appDelegate.gameScene!.enemies.count; i++)
         {
-            let e = GameScene.enemies[i]
+            let e = appDelegate.gameScene!.enemies[i]
             e.TriggerAttack()
             e.moveMore()
             e.UpdateLabel()
@@ -322,16 +327,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 appDelegate.user.gold += e.reward
                 appDelegate.gameState.enemies.removeAtIndex(i)
                 
-                GameScene.enemies.removeAtIndex(i)
+                appDelegate.gameScene!.enemies.removeAtIndex(i)
                 i -= 1
             }
         }
         
-        for (var i = 0; i < GameScene.items.count; i++) {
-            let item = GameScene.items[i]
+        for (var i = 0; i < appDelegate.gameScene!.items.count; i++) {
+            let item = appDelegate.gameScene!.items[i]
             if (item.destroyThis) {
                 item.destroy()
-                GameScene.items.removeAtIndex(i)
+                appDelegate.gameScene!.items.removeAtIndex(i)
                 i -= 1;
             }
             else {
@@ -341,23 +346,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         // Calculate player y offset
         if bossNode?.sprite.position.y > 200.0 {
-        for t in GameScene.towers{
+        for t in appDelegate.gameScene!.towers{
             t.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/10))
         }
-        for e in GameScene.enemies {
+        for e in appDelegate.gameScene!.enemies {
             e.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/4))
         }
         
             background!.position = CGPoint(x: 0.0, y: -(bossNode!.sprite.position.y - 200.0))
         }
         
-        if GameScene.enemies.isEmpty && appDelegate.user.gold < 100 && GameScene.towers.isEmpty {
+        if appDelegate.gameScene!.enemies.isEmpty && appDelegate.user.gold < 100 && appDelegate.gameScene!.towers.isEmpty {
             
             endGame()
             appDelegate.resetUser()
-        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty && !nextWaveDelay{
+        } else if appDelegate.gameScene!.enemies.isEmpty && !appDelegate.gameScene!.towers.isEmpty && !nextWaveDelay{
            nextWave()
-        } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty && appDelegate.user.gold < 100{
+        } else if !appDelegate.gameScene!.enemies.isEmpty && appDelegate.gameScene!.towers.isEmpty && appDelegate.user.gold < 100{
             appDelegate.resetUser()
             endGame()
 
@@ -414,7 +419,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //this first case is executed when a tower bullet hits a enemy.
         case CategoryMask.Enemy | CategoryMask.TowerBullet:
             
-            for e in GameScene.enemies{
+            for e in appDelegate!.gameScene!.enemies{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
@@ -436,7 +441,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
          //this case is if an enemy bullet has hit a tower.
         case CategoryMask.Tower | CategoryMask.EnemyBullet:
             
-            for t in GameScene.towers{
+            for t in appDelegate!.gameScene!.towers{
                 
                 if t.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet

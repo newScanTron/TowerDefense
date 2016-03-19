@@ -20,6 +20,8 @@ class MainTowerHUD: UIView {
     var mainLabel: UILabel
     var playerLabel: UILabel
     var costLabel: UILabel
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     required init?(coder aDecoder: NSCoder) {
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectPlayerLbl)
@@ -30,8 +32,7 @@ class MainTowerHUD: UIView {
     
     init(x: CGFloat, y: CGFloat)
     {
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as? AppDelegate
+        
         
         
         mainLabel = UILabel(frame: rectOne)
@@ -63,7 +64,7 @@ class MainTowerHUD: UIView {
     //function for button b
     func dummieAction()
     {
-        costLabel.text = "Time: \(GameScene.totalTime)"
+        costLabel.text = "Time: \(appDelegate!.gameScene!.totalTime)"
     }
     func endTowerGame()
     {

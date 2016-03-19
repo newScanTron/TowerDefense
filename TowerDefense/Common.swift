@@ -65,12 +65,13 @@ extension UIView {
 
 // Returns closest enemy to given point
 func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var closestEnemy : EnemyBase?
     var closestDistance : CGFloat = 999999
     var tempDistance : CGFloat
     
-    for e in GameScene.enemies {
+    for e in appDelegate!.gameScene!.enemies {
         tempDistance = getDistance(point,to: e.sprite.position)
         if (tempDistance < closestDistance) {
             closestDistance = tempDistance
@@ -87,8 +88,10 @@ func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
 
 // Returns a list of towers in range to given points range
 func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var inRange : [TowerBase] = [TowerBase]()
-    for t in GameScene.towers {
+    for t in appDelegate!.gameScene!.towers {
         if (getDistance(point,to:t.sprite.position) < range) {
             inRange.append(t);
         }
@@ -98,8 +101,10 @@ func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
 
 // Returns a list of enemies in range to given points range
 func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var inRange : [EnemyBase] = [EnemyBase]()
-    for e in GameScene.enemies {
+    for e in appDelegate!.gameScene!.enemies {
         if (getDistance(point,to:e.sprite.position) < range) {
             inRange.append(e);
         }
@@ -109,12 +114,13 @@ func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
 
 // Returns closest tower to given point
 func getClosestTower(point : CGPoint) -> TowerBase? {
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var closestTower : TowerBase?
     var closestDistance : CGFloat = 999999
     var tempDistance : CGFloat
     
-    for t in GameScene.towers {
+    for t in appDelegate!.gameScene!.towers {
         tempDistance = getDistance(point,to: t.sprite.position)
         if (tempDistance < closestDistance) {
             closestDistance = tempDistance

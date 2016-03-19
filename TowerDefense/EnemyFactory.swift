@@ -17,18 +17,19 @@ class EnemyFactory
     var enemyCount : CGFloat = 0
     var theWave : CGFloat = 0
     var enemyClone : EnemyBase? = nil
-
+    
     init(){
         enemyClone = CreateEnemy()
     }
     
     // Decides what enemy and how many to return to the GameScene
     func getNextEnemy() -> EnemyBase? {
-        
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
         var enemy :EnemyBase? = nil
         
-        if GameScene.gameTime > lastEnemy + waveDelay{
-            lastEnemy = GameScene.gameTime
+        if appDelegate.gameScene!.gameTime > lastEnemy + waveDelay{
+            lastEnemy = appDelegate.gameScene!.gameTime
             
             if(enemyCount <= (9 + theWave)){
                 enemy = CreateEnemyTowerDefense()

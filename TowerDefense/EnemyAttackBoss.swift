@@ -21,9 +21,11 @@ class EnemyAttackBoss: EnemyAttackStrat{
     
     //Die function that cleans up boss death
     override func Die()  {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
         circle?.removeFromParent()
         circle = nil
-        for e in GameScene.enemies{
+        for e in appDelegate!.gameScene!.enemies{
             e.isImmune = false
             e.sprite.physicsBody?.linearDamping = 0.0
 
@@ -42,13 +44,14 @@ class EnemyAttackBoss: EnemyAttackStrat{
     //they're in range. Also changes cricle color depending on whether its
     //healing or dealing damage
     override func Attack(){
-        
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
         healthCount = 0
         healingTarget = getEnemiesInRange(parent!.sprite.position, range: 125)
         
         //Loop determing if there are injured enemies or not and setting flags 
         //appropriately
-        for e in GameScene.enemies {
+        for e in appDelegate!.gameScene!.enemies {
             if e.name == "BossSprite" {
 
             }
@@ -89,7 +92,7 @@ class EnemyAttackBoss: EnemyAttackStrat{
         circle?.zPosition = ZPosition.enemy
         circle?.blendMode = SKBlendMode.Screen
         if(parent!.sprite.position.x < 1000){
-            GameScene.scene?.addChild(circle!)
+            appDelegate!.gameScene!.scene?.addChild(circle!)
         }
 
         /*if (allHealthy){

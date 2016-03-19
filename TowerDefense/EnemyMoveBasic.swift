@@ -16,11 +16,13 @@ class EnemyMoveBasic: EnemyMoveStrat{
     let offSet : CGFloat = 150
     //Continuously call the execute method passing the strategy
     // and sprite to be moved
+   
     override func Move(enemy : EnemyBase){
 
         //if (GameScene.gameTime > lastMove + enemy.moveDelay) {
-            
-            lastMove = GameScene.gameTime
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+            lastMove = appDelegate.gameScene!.gameTime
             
             //Handles what strategy to use depending on the sprite position
 
@@ -50,7 +52,8 @@ class EnemyMoveBasic: EnemyMoveStrat{
 }
 
 class EnemyMoveBasicTowerDefense: EnemyMoveStrat{
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     //Instance variable
     var lastMove : CGFloat = 0
     let offSet : CGFloat = 150
@@ -60,7 +63,7 @@ class EnemyMoveBasicTowerDefense: EnemyMoveStrat{
         
         //if (GameScene.gameTime > lastMove + enemy.moveDelay) {
         
-        lastMove = GameScene.gameTime
+        lastMove = appDelegate.gameScene!.gameTime
         
         //Handles what strategy to use depending on the sprite position
         
@@ -94,11 +97,12 @@ class EnemyMoveBasicTowerDefense: EnemyMoveStrat{
 class stateYLow : EnemyMoveStrat{
  
     var lastMove : CGFloat = 0
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     override func Move(nodeToMove : EnemyBase){
-        if (GameScene.gameTime > lastMove + nodeToMove.moveDelay) {
+        if (appDelegate.gameScene!.gameTime > lastMove + nodeToMove.moveDelay) {
             
-            lastMove = GameScene.gameTime
+            lastMove = appDelegate.gameScene!.gameTime
 
             nodeToMove.sprite.physicsBody?.linearDamping = 0.50
             nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), (getImpulseYPos()*(3))))
@@ -114,14 +118,15 @@ class stateYLow : EnemyMoveStrat{
 
 //Handles enemy wander in the other direction, top of screen
 class stateYHigh : EnemyMoveStrat{
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     var lastMove : CGFloat = 0
     
     override func Move(nodeToMove : EnemyBase){
         
-        if GameScene.gameTime > lastMove + nodeToMove.moveDelay{
+        if appDelegate.gameScene!.gameTime > lastMove + nodeToMove.moveDelay{
             
-            lastMove = GameScene.gameTime
+            lastMove = appDelegate.gameScene!.gameTime
             
             nodeToMove.sprite.physicsBody?.linearDamping = 0.50
             nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), (getImpulseYNeg()*(3))))
