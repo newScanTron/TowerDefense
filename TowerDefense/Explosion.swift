@@ -33,9 +33,11 @@ class Explosion : Item {
     }
     
     func trigger(_location : CGPoint) {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
         //print("explosion trigger")
         location = _location
-        GameScene.items.append(self)
+        appDelegate!.gameScene!.items.append(self)
     }
     
     override func update() -> Void {

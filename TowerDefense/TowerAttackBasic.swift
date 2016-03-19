@@ -10,7 +10,8 @@ import Foundation
 import SpriteKit
 
 class TowerAttackBasic : TowerAttackStrat {
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     var lastFire : CGFloat = 0
     
     var expLevel : Int = 0 //
@@ -123,8 +124,8 @@ class TowerAttackBasic : TowerAttackStrat {
         
         
         // If enough time has passed since our last fire
-        if (GameScene.gameTime > lastFire + fireDelay) {
-            lastFire = GameScene.gameTime
+        if (appDelegate.gameScene!.gameTime > lastFire + fireDelay) {
+            lastFire = appDelegate.gameScene!.gameTime
             target = getClosestEnemy(tower.sprite.position, range: range)
             
             // If a target was found...

@@ -45,10 +45,13 @@ class GameViewController: UIViewController {
     }
     //this method is called when this view is no longer in view e.g. when swiped right and a new user logs in
     override func viewDidDisappear(animated: Bool) {
-        appDelegate.updateUser()
-        appDelegate.gameScene!.scene?.removeAllChildren()
-        GameScene.towers = [TowerBase]()
-        GameScene.enemies = [EnemyBase]()
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        appDelegate!.updateUser()
+        appDelegate!.gameScene!.scene?.removeAllChildren()
+        
+        appDelegate!.gameScene!.towers = [TowerBase]()
+        appDelegate!.gameScene!.enemies = [EnemyBase]()
     }
     //calls the segue that takes the use to the game over scene
     func gameOver(){

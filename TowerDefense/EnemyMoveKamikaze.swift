@@ -20,7 +20,8 @@ class EnemyMoveKamikaze: EnemyMoveStrat{
     //Continuously call the execute method passing the strategy
     // and sprite to be moved
     override func Move(enemy : EnemyBase){
-
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
         enemy.name = "kamikaze"
         if enemy.health < enemy.maxHealth * 0.2{
         enemy.health = enemy.maxHealth + 500
@@ -33,13 +34,13 @@ class EnemyMoveKamikaze: EnemyMoveStrat{
             if (enemy.sprite.position.y <= offSet){
                 outOfBounds(enemy)
             }
-            else if(enemy.sprite.position.y >= GameScene.scene!.size.height - offSet){
+            else if(enemy.sprite.position.y >= appDelegate!.gameScene!.size.height - offSet){
                 outOfBounds(enemy)
             }
             else if (enemy.sprite.position.x < offSet){
                 outOfBounds(enemy)
             }
-            else if (enemy.sprite.position.x > GameScene.scene!.size.width - offSet) {
+            else if (enemy.sprite.position.x > appDelegate!.gameScene!.size.width - offSet) {
                 outOfBounds(enemy)
             }
             else {

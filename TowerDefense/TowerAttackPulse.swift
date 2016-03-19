@@ -13,7 +13,8 @@ import SpriteKit
 class TowerAttackPulse : TowerAttackStrat {
     
     var lastFire : CGFloat = 0
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     override init () {
         super.init()
         imageName = "pulseTop"
@@ -52,9 +53,9 @@ class TowerAttackPulse : TowerAttackStrat {
     }
     
     override func Attack(tower : TowerBase) {
-        if (GameScene.gameTime > lastFire + fireDelay) {
+        if (appDelegate.gameScene!.gameTime > lastFire + fireDelay) {
             // Start new pulse
-            lastFire = GameScene.gameTime
+            lastFire = appDelegate.gameScene!.gameTime
             Explosion(_radius: range, _damage: damage).trigger(tower.sprite.position)
             
         }

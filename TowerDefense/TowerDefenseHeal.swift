@@ -59,9 +59,10 @@ class TowerDefenseHeal : TowerDefenseStrat {
             circle?.glowWidth = 0.5;
             circle?.zPosition = ZPosition.tower-1
             circle?.blendMode = SKBlendMode.Screen
-            
+            let appDelegate =
+            UIApplication.sharedApplication().delegate as? AppDelegate
             // Add circle to scene
-            GameScene.scene?.addChild(circle!)
+            appDelegate!.gameScene!.addChild(circle!)
         }
         
         // Find enemies in radius, heal them

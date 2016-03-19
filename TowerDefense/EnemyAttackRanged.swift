@@ -13,15 +13,16 @@ import SpriteKit
 class EnemyAttackRanged: EnemyAttackStrat{
     
     var lastFire : CGFloat = 0
-
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     //Enemy ranged attack strategy that uses the bullet class to attack towers
     override func Attack() {
         
-        if (GameScene.gameTime > lastFire + fireDelay) {
+        if (appDelegate!.gameScene!.gameTime > lastFire + fireDelay) {
     
-            lastFire = GameScene.gameTime
+            lastFire = appDelegate!.gameScene!.gameTime
             if (parent != nil) {
-                if(GameScene.towers.count > 0){
+                if(appDelegate!.gameScene!.towers.count > 0){
                     let t = getTowersInRange(parent!.sprite.position, range: parent!.range)
                     if t.isEmpty{}
                     else{target = t.first

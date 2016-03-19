@@ -30,7 +30,9 @@ class Conductor {
    
     func playWaveMelody()
     {
-        let enemies = GameScene.enemies
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        let enemies = appDelegate!.gameScene!.enemies
    
         
         for _ in enemies
