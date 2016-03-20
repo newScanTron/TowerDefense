@@ -49,6 +49,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
      var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
      var items : [Item] = [Item]()
+     var spawnLocs : [CGPoint] = [CGPoint]()
     //static var boss : [EnemyBase] = [EnemyBase]()
     var gameTime : CGFloat = 0
     var deltaTime : CGFloat = 0
@@ -128,6 +129,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
         self.view!.multipleTouchEnabled = true
+        //get the location of the spawn points
+        enumerateChildNodesWithName("spawn", usingBlock: {
+            (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
+            // do something with node or stop
+            self.spawnLocs.append(node.position)
+            
+        })
         
     }
     
@@ -293,17 +301,24 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         giveResources(appDelegate.gameScene!.totalTime)
         
         //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
-  
+       
         
         appDelegate.updateMyLabel()
         
         // Get enemies and add them to list and scene
         let newEnemy = enemyFactory.getNextEnemy()
         if newEnemy != nil {
-            nextWaveDelay = false
-            appDelegate.gameScene!.enemies.append(newEnemy!)
-            appDelegate.gameState.enemies.append(newEnemy!)
-            GameScene.scene?.addChild(newEnemy!.sprite)
+           let randNum = arc4random_uniform(UInt32(spawnLocs.count))
+            //going to set the location to one of the enemy spawn spots
+            let spawnLocation = spawnLocs[Int(randNum)]
+                newEnemy?.sprite.position = spawnLocation
+                nextWaveDelay = false
+                appDelegate.gameScene!.enemies.append(newEnemy!)
+                appDelegate.gameState.enemies.append(newEnemy!)
+                appDelegate.gameScene!.addChild(newEnemy!.sprite)
+            
+            
+           
         }
         // Trigger attack/defend strategies for each tower
         for (var i = 0; i < appDelegate.gameScene!.towers.count; i++)
