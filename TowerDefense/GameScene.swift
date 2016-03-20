@@ -129,10 +129,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
         self.view!.multipleTouchEnabled = true
-        //get the location of the spawn points
+        //randomize the spawn locations then put those locations in spawnLocs[]
         enumerateChildNodesWithName("spawn", usingBlock: {
             (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
             // do something with node or stop
+            let randNumWidth = arc4random_uniform(UInt32(self.size.width))
+            let randNumHeight = arc4random_uniform(UInt32(self.size.height))
+            
+            node.position = CGPoint(x: CGFloat(randNumWidth), y: CGFloat(randNumHeight))
+            
             self.spawnLocs.append(node.position)
             
         })
