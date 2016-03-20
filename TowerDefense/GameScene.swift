@@ -102,10 +102,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         o2Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         o2Label.text = "o2 lael"
 
+        fuelLabel.fontSize = 45;
+        fuelLabel.position = CGPoint(x: labelOffset, y: labelOffsetY - 300)
+        fuelLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        fuelLabel.text = "fuelLabel"
+        
         
         cameraNode.addChild(waveLabel)
         cameraNode.addChild(o2Label )
        cameraNode.addChild(metalLabel)
+        cameraNode.addChild(fuelLabel)
         waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
         waveLabel.zPosition = ZPosition.bullet
         
@@ -284,7 +290,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         
         
-        
+        giveResources(appDelegate.gameScene!.totalTime)
         
         //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
   
