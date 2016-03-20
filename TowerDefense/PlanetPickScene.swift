@@ -161,11 +161,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first! as UITouch
         let touchLocation = touch.locationInNode(self)
-        //var counter = 0
-//        for touch in touches {
-//            desTouches.append(touch)
-//            counter++
-//        }
+
         
         if lastTouch == nil {
             lastTouch = firstTouch
@@ -175,9 +171,6 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         //these devisors are just floats that feel nice to make the differnece in width to height
         self.cameraNode.position.x -= touchDelta!.x/2.0
         self.cameraNode.position.y -= touchDelta!.y/1.25
-        
-        
-        
         
     }
     

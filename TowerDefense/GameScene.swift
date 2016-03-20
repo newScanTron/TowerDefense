@@ -132,6 +132,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //get the location of the spawn points
         enumerateChildNodesWithName("spawn", usingBlock: {
             (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
+            
+            let x = arc4random_uniform(100)
             // do something with node or stop
             self.spawnLocs.append(node.position)
             

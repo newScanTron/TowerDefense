@@ -24,7 +24,7 @@ class Planet {
     var metal : Int = 0;
     var oxygen : Int = 0;
     var fuel : Int = 0;
-
+    var mapArray = [[Int]]()
     
     
     init (size : CGFloat, position : CGPoint, color : SKColor, metal : Int, oxygen : Int, fuel : Int) {
@@ -40,6 +40,7 @@ class Planet {
         
         
         //self.discover();
+        self.makeMap()
     }
     
     func getColor() {
@@ -96,5 +97,40 @@ class Planet {
     func update(offset : CGPoint) {
         circle?.position = CGPoint(x: self.position.x + offset.x, y: self.position.y + offset.y);
     }
-    
+    //function to build a 2d array for placement of objects in the TowerDefenseScene
+    func makeMap()
+    {
+        
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        let towDefScene = appDelegate?.gameScene!
+        //say my icons are 32 by 32 then we will divide the scene height and width by that to allow the array to represent the location of the
+        let widthOffset =  (towDefScene?.size.width)!/32
+        let heightOffset =  (towDefScene?.size.height)!/32
+        print("offsests x: \(widthOffset) \(heightOffset)")
+        for (var i : CGFloat = 0; i < widthOffset; i++)
+        {
+            for (var j : CGFloat = 0; j < heightOffset; j++)
+            {
+                
+                if (i == 0 || i == widthOffset-1)
+                {
+                    
+                   let ii = Int(i)
+                    let jj = Int(j)
+                    
+                    mapArray[ii][jj] = 0
+                }
+                else {
+                    
+                }
+                
+                
+            }
+        }
+        
+        
+        
+        
+    }
 }
