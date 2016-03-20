@@ -24,7 +24,7 @@ class Planet {
     var metal : Int = 0;
     var oxygen : Int = 0;
     var fuel : Int = 0;
-    var mapArray = [[Int]]()
+    var mapArray = Array(count: 64, repeatedValue: Array(count: 48, repeatedValue: 0))
     
     
     init (size : CGFloat, position : CGPoint, color : SKColor, metal : Int, oxygen : Int, fuel : Int) {
@@ -107,29 +107,29 @@ class Planet {
         //say my icons are 32 by 32 then we will divide the scene height and width by that to allow the array to represent the location of the
         let widthOffset =  (towDefScene?.size.width)!/32
         let heightOffset =  (towDefScene?.size.height)!/32
-        print("offsests x: \(widthOffset) \(heightOffset)")
         for (var i : CGFloat = 0; i < widthOffset; i++)
         {
             for (var j : CGFloat = 0; j < heightOffset; j++)
             {
                 
-                if (i == 0 || i == widthOffset-1)
+                let ii = Int(i)
+                let jj = Int(j)
+             
+                if (i == 0 || i == widthOffset-1 || j == heightOffset-1 || j == 0)
                 {
                     
-                   let ii = Int(i)
-                    let jj = Int(j)
+                   mapArray[ii][jj] = 0
                     
-                    mapArray[ii][jj] = 0
+                   
                 }
                 else {
+                    let randNum = arc4random_uniform(UInt32(3))
+                    mapArray[ii][jj] = Int(randNum)
                     
                 }
-                
-                
+            
             }
         }
-        
-        
         
         
     }

@@ -133,7 +133,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         enumerateChildNodesWithName("spawn", usingBlock: {
             (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
             
-            let x = arc4random_uniform(100)
+         
             // do something with node or stop
             let randNumWidth = arc4random_uniform(UInt32(self.size.width))
             let randNumHeight = arc4random_uniform(UInt32(self.size.height))
