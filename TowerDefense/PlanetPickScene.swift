@@ -32,6 +32,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     var firstTouch : CGPoint? = nil
     
         var touchDelta : CGPoint? = nil
+    var touchTimeDeleta : NSTimeInterval = 0.0
     
     var selectedPlanet : Planet?
     
@@ -93,7 +94,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
 //        }
         
         touchLocation = touches.first!.locationInNode(self)
-        
+        touchTimeDeleta = (event?.timestamp)!
         
         selectedPlanet = nil
         
@@ -128,8 +129,6 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                 isZoomed = true
                 print("zoom")
             
-            
-                
             }
             else
             {
@@ -148,6 +147,13 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         //this gets set to nil for a check in the touchesMoved function
         lastTouch = nil
+        //this calulates how long the touch was and sends the player  to the planet they pressed on for atleast a set time interval
+        touchTimeDeleta = (event?.timestamp)! - touchTimeDeleta
+        print("touchTimeDelta \(touchTimeDeleta)")
+        if touchTimeDeleta > 0.7
+        {
+            self.viewController.goToTowerDefense()
+        }
         
     }
 

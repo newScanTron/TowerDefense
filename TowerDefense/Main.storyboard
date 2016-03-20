@@ -366,9 +366,9 @@
         <image name="towerFuryTitle" width="500" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XsS-oS-jkI"/>
         <segue reference="XIn-3t-bSC"/>
-        <segue reference="dTJ-Rp-l4l"/>
+        <segue reference="ugQ-Xr-Umw"/>
         <segue reference="pV1-pH-AOp"/>
+        <segue reference="XsS-oS-jkI"/>
     </inferredMetricsTieBreakers>
 </document>

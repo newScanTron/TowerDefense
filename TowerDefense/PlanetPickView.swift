@@ -40,5 +40,7 @@ class PlanetPickView: UIViewController
     {
         appDelegate.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
     }
-    
+    func goToTowerDefense(){
+        performSegueWithIdentifier("GoToSideScroll", sender: nil)
+    }
 }
