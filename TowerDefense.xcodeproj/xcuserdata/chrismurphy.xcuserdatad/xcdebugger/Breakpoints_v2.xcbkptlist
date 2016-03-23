@@ -546,23 +546,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefense/GameScene.swift"
-            timestampString = "480404507.439637"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "touchesBegan(_:withEvent:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TowerDefense/GameScene.swift"
-            timestampString = "480404507.439637"
+            timestampString = "480405360.253174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "203"
@@ -578,11 +562,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefense/GameScene.swift"
-            timestampString = "480404507.439637"
+            timestampString = "480405360.253174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "530"
-            endingLineNumber = "530"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "touchesBegan(_:withEvent:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TowerDefense/GameScene.swift"
+            timestampString = "480405360.253174"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "544"
+            endingLineNumber = "544"
             landmarkName = "endGame()"
             landmarkType = "5">
          </BreakpointContent>

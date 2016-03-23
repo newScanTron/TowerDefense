@@ -150,20 +150,34 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     func drawStuff()
     {
         let mapArray = currentPlanet.mapArray
-        var string = ""
+        var sprite : SKSpriteNode
         for (var i = 0; i < 2048/32; i++)
         {
             for (var j = 0; j < 1536/32; j++)
             {
                if mapArray[i][j] == 0
                {
-               var sprite = SKSpriteNode(imageNamed: "fuel")
+                sprite = SKSpriteNode(imageNamed: "fuel")
                 sprite.position.x = CGFloat(i * 32)
                 sprite.position.y = CGFloat(j * 32)
                 self.addChild(sprite)
                 }
+                else if mapArray[i][j] == 1
+                {
+                    sprite = SKSpriteNode(imageNamed: "o2")
+                    sprite.position.x = CGFloat(i * 32)
+                    sprite.position.y = CGFloat(j * 32)
+                    self.addChild(sprite)
+                }
+                else if mapArray[i][j] == 2
+                {
+                    sprite = SKSpriteNode(imageNamed: "rock32by32")
+                    sprite.position.x = CGFloat(i * 32)
+                    sprite.position.y = CGFloat(j * 32)
+                    self.addChild(sprite)
+                }
             }
-            print(string)
+
         }
     }
     //helper to make towers

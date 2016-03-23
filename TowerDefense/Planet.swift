@@ -123,7 +123,7 @@ class Planet {
                    
                 }
                 else {
-                    let randNum = arc4random_uniform(UInt32(3))
+                    let randNum = arc4random_uniform(UInt32(55))
                     mapArray[ii][jj] = Int(randNum)
                     
                 }
