@@ -146,15 +146,27 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         //this gets set to nil for a check in the touchesMoved function
+        let touch = touches.first
+        
+        let location = touch!.locationInNode(self)
         lastTouch = nil
         //this calulates how long the touch was and sends the player  to the planet they pressed on for atleast a set time interval
         touchTimeDeleta = (event?.timestamp)! - touchTimeDeleta
-        print("touchTimeDelta \(touchTimeDeleta)")
-        if touchTimeDeleta > 0.7
-        {
-            self.viewController.goToTowerDefense()
+       
+        
+        for p in PlanetPickScene.planets {
+            if (p.position.x - location.x <= 20)
+            {
+                currentPlanet = p
+                if touchTimeDeleta > 0.7
+                {
+                    self.viewController.goToTowerDefense()
+                     print("touchTimeDelta \(touchTimeDeleta)")
+                }
+            }
         }
         
+            
     }
 
     

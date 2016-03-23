@@ -63,7 +63,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     
     override func didMoveToView(view: SKView) {
-
+        currentScene = self
+        drawStuff()
+        
         gameOver = false
      
         cameraNode = SKCameraNode()
@@ -145,7 +147,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         })
         
     }
-    
+    func drawStuff()
+    {
+        let mapArray = currentPlanet.mapArray
+        var string = ""
+        for (var i = 0; i < 2048/32; i++)
+        {
+            for (var j = 0; j < 1536/32; j++)
+            {
+               if mapArray[i][j] == 0
+               {
+               var sprite = SKSpriteNode(imageNamed: "fuel")
+                sprite.position.x = CGFloat(i * 32)
+                sprite.position.y = CGFloat(j * 32)
+                self.addChild(sprite)
+                }
+            }
+            print(string)
+        }
+    }
     //helper to make towers
     func addTower(location: CGPoint, touch: UITouch)
     {
