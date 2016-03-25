@@ -158,7 +158,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                if mapArray[i][j] == 0
                {
                 sprite = SKSpriteNode(imageNamed: "fuel")
-                sprite.position.x = CGFloat(i * 32)
+                sprite.position.x = CGFloat(i * 32 + 32)
                 sprite.position.y = CGFloat(j * 32)
                 self.addChild(sprite)
                 }

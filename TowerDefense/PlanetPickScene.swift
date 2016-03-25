@@ -155,15 +155,20 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
        
         
         for p in PlanetPickScene.planets {
-            if (p.position.x - location.x <= 20)
-            {
-                currentPlanet = p
-                if touchTimeDeleta > 0.7
+           
+            
+                if (p.sprite != nil  && p.sprite!.containsPoint(location))
                 {
-                    self.viewController.goToTowerDefense()
-                     print("touchTimeDelta \(touchTimeDeleta)")
+                    currentPlanet = p
+                    if touchTimeDeleta > 0.7
+                    {
+                        self.viewController.goToTowerDefense()
+                        print("touchTimeDelta \(touchTimeDeleta)")
+                    }
                 }
-            }
+                
+                
+            
         }
         
             
