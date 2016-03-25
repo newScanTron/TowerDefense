@@ -89,7 +89,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
         
         if appDelegate.user.pswd == passText.text!
         {
-            performSegueWithIdentifier("playGame", sender: nil)
+            performSegueWithIdentifier("gotoSideScroll", sender: nil)
         }
         else
         {

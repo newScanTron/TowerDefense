@@ -35,12 +35,11 @@ class TowerBuilder
 
     
     func BuildBaseShip()  -> TowerBase {
-        let attack = TowerAttackBasic()
+        let attack = TowerAttackSideScroll()
         let defense = TowerDefenseStrat()
         let tower = TowerBase(location: CGPointMake(200, 200), _attack: attack, _defense: defense)
         
-        tower.sprite.xScale = 0.1
-        tower.sprite.yScale = 0.1
+
         tower.sprite.physicsBody?.dynamic = false
         tower.sprite.physicsBody?.mass = 1
         tower.sprite.physicsBody?.restitution = 1.0
@@ -49,9 +48,10 @@ class TowerBuilder
         tower.sprite.physicsBody?.allowsRotation = false
         tower.sprite.zPosition = ZPosition.tower
         tower.sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
-        
-        tower.sprite.zRotation = CGFloat(-M_PI/2)
-        
+    
+        tower.attackSprite.zRotation = CGFloat(-M_PI/2)
+        tower.attackSprite.xScale = 0.15
+        tower.attackSprite.yScale = 0.15
   //      SideScrolScene.scene?.addChild(tower.sprite)
         
         return tower

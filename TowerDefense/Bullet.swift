@@ -63,7 +63,13 @@ class Bullet : Item {
         // Set up initial location and size of projectile
         sprite.position = _shooter.sprite.position
         
-        activate()
+        if GameScene.scene != nil {
+            activate()
+        }
+        else{
+            activate2()
+        }
+        
         
     }
     
@@ -80,8 +86,6 @@ class Bullet : Item {
         homingForce = _homingForce
     }
     
-    
-    
     func activate() {
         
         // Set start time so we can calculate when lifeTime has expired
@@ -91,6 +95,17 @@ class Bullet : Item {
         appDelegate.gameScene!.scene!.addChild(sprite)
         appDelegate.gameScene!.items.append(self)
         
+        sprite.physicsBody?.velocity = Bullet.getVector(sprite.position, to: target.position, speed: speed)
+        
+    }
+    func activate2() {
+        
+        // Set start time so we can calculate when lifeTime has expired
+        startTime = SideScrolScene.gameTime
+        
+        // Add to scene
+        SideScrolScene.scene!.addChild(sprite)
+                
         sprite.physicsBody?.velocity = Bullet.getVector(sprite.position, to: target.position, speed: speed)
         
     }

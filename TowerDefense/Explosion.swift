@@ -37,7 +37,16 @@ class Explosion : Item {
         UIApplication.sharedApplication().delegate as? AppDelegate
         //print("explosion trigger")
         location = _location
+
         appDelegate!.gameScene!.items.append(self)
+
+
+    }
+    func sideScrollTrigger(_location : CGPoint) {
+        
+        var theScene : [Item] = getItems()
+        theScene.append(self)
+        
     }
     
     override func update() -> Void {
