@@ -35,7 +35,8 @@ class Explosion : Item {
     func trigger(_location : CGPoint) {
         //print("explosion trigger")
         location = _location
-        GameScene.items.append(self)
+        var theScene : [Item] = getItems()
+        theScene.append(self)
     }
     
     override func update() -> Void {

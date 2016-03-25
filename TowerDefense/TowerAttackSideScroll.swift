@@ -11,6 +11,11 @@ import SpriteKit
 
 class TowerAttackSideScroll : TowerAttackStrat {
     
+    override init () {
+        super.init()
+        imageName = "Spaceship"
+    }
+    
     override func Attack(tower: TowerBase) {
         let passTarget = SKSpriteNode()
         passTarget.position = CGPointMake(tower.sprite.position.x + 100, tower.sprite.position.y)

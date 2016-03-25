@@ -262,7 +262,8 @@ class EnemyFactory
     }
     func getSSEnemy() -> EnemyBase? {
         //Set enemy strategies and variables
-        let attack = EnemyAttackRanged()
+        let attack = EnemySSAttackStrat()
+        
         let moveStrat = EnemySSMoveStrat()
         let range: CGFloat = 200.00
         let moveDelay : CGFloat = 1.0
@@ -279,6 +280,8 @@ class EnemyFactory
         sprite.size = CGSizeMake(90, 90)
         sprite.zPosition = ZPosition.enemy
         
+
+        
         //Instantiate enemy object
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
         
@@ -286,6 +289,10 @@ class EnemyFactory
         enemy.health = 100
         enemy.maxHealth = 100
         
+        if SideScrolScene.enemies.count < 5 {
+            enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width + 20.0, SideScrolScene.scene!.size.height - 100)
+            enemy.setMoveStrategy(EnemySS2MoveStrat())
+        }
         //Return object to the GameScene
         
         return enemy

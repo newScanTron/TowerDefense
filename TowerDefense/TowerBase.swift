@@ -53,7 +53,10 @@ class TowerBase: Entity{
             GameScene.scene!.addChild(sprite)
             GameScene.scene!.addChild(attackSprite)
         }
-        
+        else if SideScrolScene.scene != nil{
+            //SideScrolScene.scene!.addChild(sprite)
+            SideScrolScene.scene!.addChild(attackSprite)
+        }
         
     }
     

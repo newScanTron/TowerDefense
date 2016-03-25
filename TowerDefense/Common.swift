@@ -156,6 +156,14 @@ func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
         return value
     }
 }
+func getItems() -> [Item]{
+    if GameScene.scene != nil{
+        return GameScene.items
+    }
+    else{
+        return SideScrolScene.items
+    }
+}
 //delay function that can be called as a clouser 
 func delay(delay:Double, closure:()->()) {
     dispatch_after(

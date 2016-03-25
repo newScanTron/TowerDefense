@@ -29,12 +29,10 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var touchDelta : CGPoint? = nil
     var touchTime : CGFloat = 0
     let earthSprite = SKSpriteNode(imageNamed: "earth10")
-    let shipSprite = SKSpriteNode(imageNamed: "Spaceship")
-
-    let backgroundVelocity: CGFloat = 2.0
     static var gameTime : CGFloat = 0
     var deltaTime : CGFloat = 0
     var ship :TowerBase? = nil
+    static var items : [Item] = [Item]()
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
@@ -85,7 +83,8 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
         lastTouch = touchLocation
         ship?.sprite.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
-        midgroundNode.position = CGPoint(x: (ship!.sprite.position.x - CGFloat(13.0)) + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
+        ship?.attackSprite.position = CGPoint(x: ship!.attackSprite.position.x + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
+        midgroundNode.position = CGPoint(x: (ship!.attackSprite.position.x - CGFloat(13.0)) + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
     }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         lastTouch = nil
@@ -108,7 +107,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             deltaTime = 0
             scene!.view?.paused = true
             addEarth()
-            earthSprite.physicsBody?.velocity.dx = -20
+            earthSprite.physicsBody?.velocity.dx = -240
         }
         if intro == false {
             //SideScrolScene.enemies.append(newObstacle!)
@@ -143,6 +142,17 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
                 
                 SideScrolScene.enemies.removeAtIndex(i)
                 i -= 1
+            }
+        }
+        for (var i = 0; i < SideScrolScene.items.count; i++) {
+            let item = SideScrolScene.items[i]
+            if (item.destroyThis) {
+                item.destroy()
+                SideScrolScene.items.removeAtIndex(i)
+                i -= 1;
+            }
+            else {
+                item.update()
             }
         }
     }

@@ -13,4 +13,12 @@ class EnemySSAttackStrat: EnemyAttackStrat {
     override func Attack() {
         
     }
+    //Die function that cleans up boss death
+    override func Die()  {
+
+        let exp : Explosion = Explosion(_radius: 120, _damage: 80)
+        exp.trigger(parent!.sprite.position)
+        
+        
+    }
 }
