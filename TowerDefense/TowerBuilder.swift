@@ -35,7 +35,7 @@ class TowerBuilder
 
     
     func BuildBaseShip()  -> TowerBase {
-        let attack = TowerAttackBasic()
+        let attack = TowerAttackSideScroll()
         let defense = TowerDefenseStrat()
         let tower = TowerBase(location: CGPointMake(200, 200), _attack: attack, _defense: defense)
         

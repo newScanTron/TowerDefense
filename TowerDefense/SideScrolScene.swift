@@ -32,7 +32,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     let shipSprite = SKSpriteNode(imageNamed: "Spaceship")
 
     let backgroundVelocity: CGFloat = 2.0
-    var gameTime : CGFloat = 0
+    static var gameTime : CGFloat = 0
     var deltaTime : CGFloat = 0
     var ship :TowerBase? = nil
     //Enemy Factory
@@ -99,9 +99,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
         
         deltaTime += 1.0
-        
-
-        gameTime = CGFloat(currentTime)
+        SideScrolScene.gameTime = CGFloat(currentTime)
         
         let newEnemy = enemyFactory.getNextSSEnemy()
         let newObstacle = enemyFactory.getObstacle()
@@ -113,15 +111,22 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             earthSprite.physicsBody?.velocity.dx = -20
         }
         if intro == false {
-            SideScrolScene.enemies.append(newObstacle!)
-            SideScrolScene.scene?.addChild(newObstacle!.sprite)
+            //SideScrolScene.enemies.append(newObstacle!)
+            //SideScrolScene.scene?.addChild(newObstacle!.sprite)
         }
         if deltaTime > 40 && intro == true{
             deltaTime = 0
             SideScrolScene.enemies.append(newEnemy)
             SideScrolScene.scene?.addChild(newEnemy.sprite)
-            SideScrolScene.enemies.append(newObstacle!)
-            SideScrolScene.scene?.addChild(newObstacle!.sprite)
+            //SideScrolScene.enemies.append(newObstacle!)
+            //SideScrolScene.scene?.addChild(newObstacle!.sprite)
+            
+            for (var i = 0; i < SideScrolScene.ships.count; i++)
+            {
+                let e = SideScrolScene.ships[i]
+                e.TriggerAttack()
+            }
+
         }
 
         for (var i = 0; i < SideScrolScene.enemies.count; i++)
@@ -129,11 +134,16 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             let e = SideScrolScene.enemies[i]
             e.TriggerAttack()
             e.moveMore()
-        }
-        for (var i = 0; i < SideScrolScene.ships.count; i++)
-        {
-            let e = SideScrolScene.ships[i]
-            e.TriggerAttack()
+            if e.CheckIfDead(){
+                e.sprite.removeFromParent()
+                
+                //add gold to user when enemys die
+                //appDelegate.user.gold += e.reward
+                //appDelegate.gameState.enemies.removeAtIndex(i)
+                
+                SideScrolScene.enemies.removeAtIndex(i)
+                i -= 1
+            }
         }
     }
     func addEarth() {
@@ -156,5 +166,59 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         backgroundNode.addChild(node)
         
         return backgroundNode
+    }
+    //this method is called whenever two physicsBodies contact.  The appropriate logic is called depending which objects did hte contacting.
+    func didBeginContact(contact: SKPhysicsContact) {
+        // Bitiwse OR the bodies' categories to find out what kind of contact we have
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        switch contactMask {
+            //this first case is executed when a tower bullet hits a enemy.
+        case CategoryMask.Enemy | CategoryMask.TowerBullet:
+            
+            for e in SideScrolScene.enemies{
+                if e.sprite == contact.bodyA.node{
+                    let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
+                    e.health -= contactTest.damage
+                    //giveXp(e)
+                    e.UpdateLabel()
+                    contactTest.destroy()
+                    //appDelegate!.conductor.hitEnemyPlaySound(0.0125, e: e)
+                    contact.bodyB.node?.removeFromParent()
+                } else if e.sprite == contact.bodyB.node{
+                    let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
+                    e.health -= contactTest.damage
+                    //giveXp(e)
+                    e.UpdateLabel()
+                    contactTest.destroy()
+                    //appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
+                    contact.bodyA.node?.removeFromParent()
+                }
+            }
+            //this case is if an enemy bullet has hit a tower.
+        case CategoryMask.Tower | CategoryMask.EnemyBullet:
+            
+            for t in SideScrolScene.ships{
+                
+                if t.sprite == contact.bodyA.node{
+                    let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
+                    t.health -= CGFloat(contactTest.damage)
+                    //t.UpdateLabel()
+                    contactTest.destroy()
+                    //conductor.hitTowerPlaySoundForDuration(0.02)
+                    contact.bodyB.node?.removeFromParent()
+                } else if t.sprite == contact.bodyB.node{
+                    let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
+                    t.health -= CGFloat(contactTest.damage)
+                    //t.UpdateLabel()
+                    //conductor.hitTowerPlaySoundForDuration(0.02)
+                    contactTest.destroy()
+                    contact.bodyA.node?.removeFromParent()
+                }
+            }
+            
+        default:
+            
+            print("other collision: \(contactMask)")
+        }
     }
 }

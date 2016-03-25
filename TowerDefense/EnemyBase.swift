@@ -120,7 +120,7 @@ class EnemyBase: Entity{
         
         //offset to set how far off screen to allow sprite
         let offSet: CGFloat = 110
-        if (health <= 0 || self.sprite.position.x < -offSet || self.sprite.position.x > GameScene.scene!.size.width + offSet || self.sprite.position.y > GameScene.scene!.size.height + offSet || self.sprite.position.y < -offSet ){
+        if (health <= 0){
 
             attack.Die()
             indicator.removeFromParent()
