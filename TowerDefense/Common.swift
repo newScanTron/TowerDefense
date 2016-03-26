@@ -168,8 +168,8 @@ func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
     }
 }
 func getItems() -> [Item]{
-    if GameScene.scene != nil{
-        return GameScene.items
+    if gameScene.scene != nil{
+        return gameScene.items
     }
     else{
         return SideScrolScene.items

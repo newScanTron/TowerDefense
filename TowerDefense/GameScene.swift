@@ -67,7 +67,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         drawStuff()
         
         gameOver = false
-     
+        gameScene = self
         cameraNode = SKCameraNode()
         cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
         cameraNode.setScale(0.5)
@@ -158,22 +158,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                if mapArray[i][j] == 0
                {
                 sprite = SKSpriteNode(imageNamed: "fuel")
-                sprite.position.x = CGFloat(i * 32 + 32)
-                sprite.position.y = CGFloat(j * 32)
+                sprite.position.x = CGFloat(i * 32 + 16)
+                sprite.position.y = CGFloat(j * 32 + 16)
                 self.addChild(sprite)
                 }
                 else if mapArray[i][j] == 1
                 {
                     sprite = SKSpriteNode(imageNamed: "o2")
-                    sprite.position.x = CGFloat(i * 32)
-                    sprite.position.y = CGFloat(j * 32)
+                    sprite.position.x = CGFloat(i * 32 + 16)
+                    sprite.position.y = CGFloat(j * 32 + 16)
                     self.addChild(sprite)
                 }
                 else if mapArray[i][j] == 2
                 {
                     sprite = SKSpriteNode(imageNamed: "rock32by32")
-                    sprite.position.x = CGFloat(i * 32)
-                    sprite.position.y = CGFloat(j * 32)
+                    sprite.position.x = CGFloat(i * 32 + 16)
+                    sprite.position.y = CGFloat(j * 32 + 16)
                     self.addChild(sprite)
                 }
             }

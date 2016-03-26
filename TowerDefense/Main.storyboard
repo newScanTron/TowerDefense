@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dCC-XD-tRi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dCC-XD-tRi">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Square.ttf">
@@ -274,7 +273,6 @@
                         <outlet property="userNameLbl" destination="kss-K5-f40" id="rgu-Es-9F5"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="playGame" id="sHx-ez-1y1"/>
                         <segue destination="OU6-ug-I46" kind="show" identifier="playGame" id="CTC-YW-bYQ"/>
-                        <segue destination="hnP-IO-phG" kind="showDetail" identifier="gotoSideScroll" id="f1z-yQ-lLp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4A-yY-IUl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -368,16 +366,9 @@
         <image name="towerFuryTitle" width="500" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-
-        <segue reference="XIn-3t-bSC"/>
-        <segue reference="ugQ-Xr-Umw"/>
-        <segue reference="pV1-pH-AOp"/>
-        <segue reference="XsS-oS-jkI"/>
-
-        <segue reference="XsS-oS-jkI"/>
         <segue reference="sHx-ez-1y1"/>
+        <segue reference="XsS-oS-jkI"/>
         <segue reference="CTC-YW-bYQ"/>
-        <segue reference="f1z-yQ-lLp"/>
-
+        <segue reference="ugQ-Xr-Umw"/>
     </inferredMetricsTieBreakers>
 </document>

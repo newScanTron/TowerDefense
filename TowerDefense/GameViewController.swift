@@ -80,6 +80,7 @@ class GameViewController: UIViewController {
     }
     func swipedRight(sender:UISwipeGestureRecognizer) {
         performSegueWithIdentifier("backToLogin", sender: nil)
+        
     }
     
     //iOS framework functions that allow the rotation of the iOS device and other things that are automaticly added when the project was created.
