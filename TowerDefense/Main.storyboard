@@ -138,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dKF-Wz-ZRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-582" y="1738"/>
+            <point key="canvasLocation" x="-538" y="1338"/>
         </scene>
         <!--Planet Pick View-->
         <scene sceneID="6dH-8O-4ZS">
@@ -159,7 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WkI-fD-vtL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="400" y="1738"/>
+            <point key="canvasLocation" x="460" y="1332"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="xRY-kW-HnC">
@@ -271,7 +271,6 @@
                         <outlet property="UserPicker" destination="j4N-Uy-uob" id="q5Y-uG-9w2"/>
                         <outlet property="passText" destination="YZZ-Or-CSG" id="9FL-PV-DPR"/>
                         <outlet property="userNameLbl" destination="kss-K5-f40" id="rgu-Es-9F5"/>
-                        <segue destination="BV1-FR-VrT" kind="show" identifier="playGame" id="sHx-ez-1y1"/>
                         <segue destination="OU6-ug-I46" kind="show" identifier="playGame" id="CTC-YW-bYQ"/>
                     </connections>
                 </viewController>
@@ -362,13 +361,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gridBG" width="889" height="554"/>
+        <image name="gridBG" width="1024" height="768"/>
         <image name="towerFuryTitle" width="500" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XIn-3t-bSC"/>
         <segue reference="ugQ-Xr-Umw"/>
         <segue reference="pV1-pH-AOp"/>
-        <segue reference="XsS-oS-jkI"/>
+        <segue reference="jBp-kB-KP0"/>
     </inferredMetricsTieBreakers>
 </document>

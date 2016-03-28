@@ -35,6 +35,10 @@ class PlanetPickView: UIViewController
         
         appDelegate.planetPickScene!.viewController = self
         skView.presentScene(appDelegate.planetPickScene)
+        appDelegate.planetPickScene?.paused = false
+    }
+    override func viewDidDisappear(animated: Bool) {
+        appDelegate.planetPickScene?.paused = true
     }
     func goToScene()
     {

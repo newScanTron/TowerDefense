@@ -13,6 +13,12 @@
 		4615CE441C113103005A4290 /* EndGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4615CE421C113103005A4290 /* EndGameController.swift */; };
 		46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */; };
 		46237E831C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */; };
+		7513D85F1CA322120025A96D /* TowerAttackSideScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513D85E1CA322120025A96D /* TowerAttackSideScroll.swift */; };
+		7513D8601CA324FD0025A96D /* TowerAttackSideScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513D85E1CA322120025A96D /* TowerAttackSideScroll.swift */; };
+		7513D8621CA56BF90025A96D /* EnemySS2MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */; };
+		7513D8631CA56BF90025A96D /* EnemySS2MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */; };
+		7513D8681CA587A80025A96D /* enemyExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7513D8671CA587A80025A96D /* enemyExplosion.sks */; };
+		7513D8691CA587A80025A96D /* enemyExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7513D8671CA587A80025A96D /* enemyExplosion.sks */; };
 		75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
 		75D991501C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
 		75D991521C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */; };
@@ -170,6 +176,9 @@
 		4615CE391C0FC145005A4290 /* EnemySwarmStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySwarmStrat.swift; sourceTree = "<group>"; };
 		4615CE421C113103005A4290 /* EndGameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameController.swift; sourceTree = "<group>"; };
 		46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveKamikaze.swift; sourceTree = "<group>"; };
+		7513D85E1CA322120025A96D /* TowerAttackSideScroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerAttackSideScroll.swift; sourceTree = "<group>"; };
+		7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySS2MoveStrat.swift; sourceTree = "<group>"; };
+		7513D8671CA587A80025A96D /* enemyExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = enemyExplosion.sks; sourceTree = "<group>"; };
 		75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SideScrollScene.sks; sourceTree = "<group>"; };
 		75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAttackObstacle.swift; sourceTree = "<group>"; };
 		75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveObstacle.swift; sourceTree = "<group>"; };
@@ -285,6 +294,7 @@
 				9946E4111BE571E5007E9559 /* TowerBuilder.swift */,
 				99A28B241C7E4DDC007B39DF /* TowerMain.swift */,
 				99A28B271C7E505B007B39DF /* TowerMainStat.swift */,
+				7513D85E1CA322120025A96D /* TowerAttackSideScroll.swift */,
 			);
 			name = Tower;
 			sourceTree = "<group>";
@@ -307,6 +317,7 @@
 				75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */,
 				75D991571C8CF5D3008F2A70 /* EnemySSMoveStrat.swift */,
 				75D9915A1C8CF5EC008F2A70 /* EnemySSAttackStrat.swift */,
+				7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */,
 			);
 			name = Enemy;
 			sourceTree = "<group>";
@@ -326,7 +337,10 @@
 				75D991631C9242C9008F2A70 /* ShipThruster.sks */,
 				75D991691C931B02008F2A70 /* WeaponParticle.sks */,
 
+
 				97176D281C87DC62006D38D1 /* PlanetPickScene.sks */,
+
+				7513D8671CA587A80025A96D /* enemyExplosion.sks */,
 
 			);
 			name = Visual;
@@ -540,6 +554,7 @@
 				75D9915F1C9221BE008F2A70 /* StarsBG.sks in Resources */,
 				75D9916A1C931B02008F2A70 /* WeaponParticle.sks in Resources */,
 				99FD083A1BE035D80070F4B8 /* LaunchScreen.storyboard in Resources */,
+				7513D8681CA587A80025A96D /* enemyExplosion.sks in Resources */,
 				75D991611C9221BE008F2A70 /* spark.png in Resources */,
 				75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */,
 				97176D291C87DC62006D38D1 /* PlanetPickScene.sks in Resources */,
@@ -551,6 +566,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7513D8691CA587A80025A96D /* enemyExplosion.sks in Resources */,
 				75D991621C9221BE008F2A70 /* spark.png in Resources */,
 				75D991601C9221BE008F2A70 /* StarsBG.sks in Resources */,
 				75D9916B1C931B02008F2A70 /* WeaponParticle.sks in Resources */,
@@ -589,8 +605,10 @@
 				46237E821C1A751200E0B774 /* EnemyMoveKamikaze.swift in Sources */,
 				99CE60D21C1BD6B900CB8F22 /* Conductor.swift in Sources */,
 				75D9915B1C8CF5EC008F2A70 /* EnemySSAttackStrat.swift in Sources */,
+				7513D8621CA56BF90025A96D /* EnemySS2MoveStrat.swift in Sources */,
 				992622381BED1ECB0080D35A /* EnemyAttackBoss.swift in Sources */,
 				99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */,
+				7513D85F1CA322120025A96D /* TowerAttackSideScroll.swift in Sources */,
 				75D991521C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */,
 				994346111C792662000012F0 /* SideScroll.swift in Sources */,
 				992622351BED1ECB0080D35A /* EnemyMoveBasic.swift in Sources */,
@@ -646,8 +664,10 @@
 				99BA33C91BF2A24800152764 /* UpgradeView.swift in Sources */,
 				99CE60D31C1BD6B900CB8F22 /* Conductor.swift in Sources */,
 				99BA33C81BF2A24800152764 /* GameViewController.swift in Sources */,
+				7513D8631CA56BF90025A96D /* EnemySS2MoveStrat.swift in Sources */,
 				9919CF2D1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
 				994346121C792662000012F0 /* SideScroll.swift in Sources */,
+				7513D8601CA324FD0025A96D /* TowerAttackSideScroll.swift in Sources */,
 				99BA33C11BF2A24300152764 /* EnemyBase.swift in Sources */,
 				75D991591C8CF5D3008F2A70 /* EnemySSMoveStrat.swift in Sources */,
 				99A868D71C65332000A97EF1 /* SideScrolScene.swift in Sources */,

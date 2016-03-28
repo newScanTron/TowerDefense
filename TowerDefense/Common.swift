@@ -12,7 +12,7 @@ import SpriteKit
 //project level variables are allowed in swift.  I feel like i should have been using this more.
 var currentPlanet = Planet(size: CGFloat(2), position: CGPoint(x: 0, y: 0), color: SKColor.greenColor(), metal: 0, oxygen: 0, fuel: 0 )
 var currentScene : SKScene = SKScene()
-
+var gameScene = GameScene()
 
 struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
     static let None         : UInt32 = 0
@@ -49,6 +49,7 @@ struct ZPosition {
     static let tower        : CGFloat = 5
     static let enemy        : CGFloat = 6
     static let bullet       : CGFloat = 7
+    static let camera       : CGFloat = 20
 }
 
 extension UIView {
@@ -165,6 +166,14 @@ func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
     }
     else {
         return value
+    }
+}
+func getItems() -> [Item]{
+    if gameScene.scene != nil{
+        return gameScene.items
+    }
+    else{
+        return SideScrolScene.items
     }
 }
 //delay function that can be called as a clouser 

@@ -42,8 +42,18 @@ class SideScroll: UIViewController
         
         appDelegate.sideScrollScene!.viewController = self
         skView.presentScene(appDelegate.sideScrollScene)
+          appDelegate.sideScrollScene!.paused = false
     }
-    
+    override func viewDidDisappear(animated: Bool) {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        appDelegate!.updateUser()
+        SideScrolScene.scene?.removeAllChildren()
+        SideScrolScene.items = [Item]()
+       print("we left the side scroll scene")
+        appDelegate!.sideScrollScene!.paused = true
+
+    }
     func swipedLeft(sender:UISwipeGestureRecognizer){
         performSegueWithIdentifier("GoToTowerDefense", sender: nil)
     }

@@ -42,6 +42,22 @@ class GameViewController: UIViewController {
         view.addGestureRecognizer(swipeRight)
         appDelegate.gameScene!.viewController = self
         skView.presentScene(appDelegate.gameScene)
+//        
+//        appDelegate.gameScene!.paused = false
+//        appDelegate.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
+        
+        
+        view.addGestureRecognizer(swipeLeft)
+
+
+//        
+//        /* Set the scale mode to scale to fit the window */
+//        appDelegate.sideScrollScene!.scaleMode = .AspectFill
+//        SideScrolScene.scene = appDelegate.sideScrollScene
+        
+        
+        
+        
     }
     //this method is called when this view is no longer in view e.g. when swiped right and a new user logs in
     override func viewDidDisappear(animated: Bool) {
@@ -49,7 +65,7 @@ class GameViewController: UIViewController {
         UIApplication.sharedApplication().delegate as? AppDelegate
         appDelegate!.updateUser()
         appDelegate!.gameScene!.scene?.removeAllChildren()
-        
+        appDelegate!.gameScene!.paused = true
         appDelegate!.gameScene!.towers = [TowerBase]()
         appDelegate!.gameScene!.enemies = [EnemyBase]()
     }
@@ -80,6 +96,7 @@ class GameViewController: UIViewController {
     }
     func swipedRight(sender:UISwipeGestureRecognizer) {
         performSegueWithIdentifier("backToLogin", sender: nil)
+        
     }
     
     //iOS framework functions that allow the rotation of the iOS device and other things that are automaticly added when the project was created.
