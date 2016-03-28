@@ -131,14 +131,11 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         for (var i = 0; i < SideScrolScene.enemies.count; i++)
         {
             let e = SideScrolScene.enemies[i]
+            
             e.TriggerAttack()
             e.moveMore()
             if e.CheckIfDead(){
-                e.sprite.removeFromParent()
-                
-                //add gold to user when enemys die
-                //appDelegate.user.gold += e.reward
-                //appDelegate.gameState.enemies.removeAtIndex(i)
+                e.sprite.removeFromParent() 
                 
                 SideScrolScene.enemies.removeAtIndex(i)
                 i -= 1

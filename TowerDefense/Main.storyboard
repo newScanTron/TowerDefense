@@ -271,7 +271,6 @@
                         <outlet property="UserPicker" destination="j4N-Uy-uob" id="q5Y-uG-9w2"/>
                         <outlet property="passText" destination="YZZ-Or-CSG" id="9FL-PV-DPR"/>
                         <outlet property="userNameLbl" destination="kss-K5-f40" id="rgu-Es-9F5"/>
-                        <segue destination="BV1-FR-VrT" kind="show" identifier="playGame" id="sHx-ez-1y1"/>
                         <segue destination="OU6-ug-I46" kind="show" identifier="playGame" id="CTC-YW-bYQ"/>
                     </connections>
                 </viewController>
@@ -366,9 +365,9 @@
         <image name="towerFuryTitle" width="500" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sHx-ez-1y1"/>
-        <segue reference="XsS-oS-jkI"/>
-        <segue reference="CTC-YW-bYQ"/>
+        <segue reference="XIn-3t-bSC"/>
         <segue reference="ugQ-Xr-Umw"/>
+        <segue reference="CTC-YW-bYQ"/>
+        <segue reference="XsS-oS-jkI"/>
     </inferredMetricsTieBreakers>
 </document>
