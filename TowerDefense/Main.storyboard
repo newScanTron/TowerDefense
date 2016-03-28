@@ -138,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dKF-Wz-ZRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-582" y="1738"/>
+            <point key="canvasLocation" x="-538" y="1338"/>
         </scene>
         <!--Planet Pick View-->
         <scene sceneID="6dH-8O-4ZS">
@@ -159,7 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WkI-fD-vtL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="400" y="1738"/>
+            <point key="canvasLocation" x="460" y="1332"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="xRY-kW-HnC">
@@ -361,13 +361,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gridBG" width="889" height="554"/>
+        <image name="gridBG" width="1024" height="768"/>
         <image name="towerFuryTitle" width="500" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="XIn-3t-bSC"/>
         <segue reference="ugQ-Xr-Umw"/>
-        <segue reference="CTC-YW-bYQ"/>
-        <segue reference="XsS-oS-jkI"/>
+        <segue reference="pV1-pH-AOp"/>
+        <segue reference="jBp-kB-KP0"/>
     </inferredMetricsTieBreakers>
 </document>

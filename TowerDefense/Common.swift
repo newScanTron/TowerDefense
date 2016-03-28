@@ -49,6 +49,7 @@ struct ZPosition {
     static let tower        : CGFloat = 5
     static let enemy        : CGFloat = 6
     static let bullet       : CGFloat = 7
+    static let camera       : CGFloat = 20
 }
 
 extension UIView {

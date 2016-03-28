@@ -71,6 +71,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         cameraNode = SKCameraNode()
         cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
         cameraNode.setScale(0.5)
+        cameraNode.zPosition = ZPosition.camera
         self.addChild(cameraNode)
         self.camera = cameraNode
 
@@ -160,6 +161,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 sprite = SKSpriteNode(imageNamed: "fuel")
                 sprite.position.x = CGFloat(i * 32 + 16)
                 sprite.position.y = CGFloat(j * 32 + 16)
+                sprite.zPosition = ZPosition.wall
                 self.addChild(sprite)
                 }
                 else if mapArray[i][j] == 1
@@ -168,6 +170,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     sprite.position.x = CGFloat(i * 32 + 16)
                     sprite.position.y = CGFloat(j * 32 + 16)
                     self.addChild(sprite)
+                     sprite.zPosition = ZPosition.wall
                 }
                 else if mapArray[i][j] == 2
                 {
@@ -175,6 +178,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                     sprite.position.x = CGFloat(i * 32 + 16)
                     sprite.position.y = CGFloat(j * 32 + 16)
                     self.addChild(sprite)
+                     sprite.zPosition = ZPosition.wall
                 }
             }
 
@@ -436,9 +440,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     {
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.user.o2 += Int(time)
-        appDelegate.user.metal += Int(time)
-        appDelegate.user.fuel += Int(time)
+        appDelegate.user.o2 += Int(time/(time-1))
+        appDelegate.user.metal += Int(time/(time-21))
+        appDelegate.user.fuel += Int(time/(time-134))
     }
     
     //function to add xp to the player currently based on the damage of the strategy of the enemy
