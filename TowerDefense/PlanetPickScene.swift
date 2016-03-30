@@ -162,8 +162,11 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                     currentPlanet = p
                     if touchTimeDeleta > 0.7
                     {
-                        self.viewController.goToTowerDefense()
+                        //self.viewController.goToTowerDefense()
                         print("touchTimeDelta \(touchTimeDeleta)")
+                        
+                    let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
+                        self.view?.presentScene(gameScene, transition: transition)
                     }
                 }
                 
