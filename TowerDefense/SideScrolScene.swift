@@ -30,7 +30,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var previousTouch :CGPoint? = nil
     var touchDelta : CGPoint? = nil
     var touchTime : CGFloat = 0
-    let earthSprite = SKSpriteNode(imageNamed: "earth10")
+    let earthSprite = SKSpriteNode(imageNamed: "rock32by32")
     let livesLeft1 = SKSpriteNode(imageNamed: "Spaceship")
     let livesLeft2 = SKSpriteNode(imageNamed: "Spaceship")
     let livesLeft3 = SKSpriteNode(imageNamed: "Spaceship")
@@ -112,8 +112,9 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         deltaTime += 1.0
         SideScrolScene.gameTime = CGFloat(currentTime)
         
-        let newEnemy = enemyFactory.getNextSSEnemy()
+
         let newObstacle = enemyFactory.getObstacle()
+        
         if deltaTime > 50 {
             intro = true
             deltaTime = 0
@@ -127,8 +128,9 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         }
         if deltaTime > 40 && intro == true{
             deltaTime = 0
-            SideScrolScene.enemies.append(newEnemy)
-            SideScrolScene.scene?.addChild(newEnemy.sprite)
+            let newEnemy = enemyFactory.getNextSSEnemy()
+            SideScrolScene.enemies.append(newEnemy!)
+            SideScrolScene.scene?.addChild(newEnemy!.sprite)
             //SideScrolScene.enemies.append(newObstacle!)
             //SideScrolScene.scene?.addChild(newObstacle!.sprite)
             
@@ -185,12 +187,14 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEarth() {
 
-        earthSprite.position = CGPoint(x: 1200, y: -200)
+        earthSprite.position = CGPoint(x: 1200, y: 100)
         earthSprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.25, 0.25))
         earthSprite.physicsBody?.dynamic = true
         earthSprite.physicsBody?.mass = 1
         earthSprite.physicsBody?.velocity.dx = -200
         earthSprite.physicsBody?.velocity.dy = -10
+        earthSprite.xScale = 2
+        earthSprite.yScale = 2
         
         livesLeft1.xScale = 0.06
         livesLeft1.yScale = 0.06

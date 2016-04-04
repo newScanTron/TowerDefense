@@ -205,9 +205,21 @@ class EnemyFactory
 
         return enemy
     }
-    func getNextSSEnemy() -> EnemyBase {
-        let enemy :EnemyBase? = getSSEnemy()
-        return enemy! 
+    func getNextSSEnemy() -> EnemyBase? {
+        
+        var enemy : EnemyBase? = nil
+        
+        if enemyCount < 5 {
+            enemyCount++
+            enemy = getSSEnemy()
+            return enemy!
+        }
+        if enemyCount > 4 {
+            enemyCount++
+            enemy = getSS2Enemy()
+            return enemy!
+        }
+        return nil
     }
     func getObstacle() -> EnemyBase? {
         
@@ -265,7 +277,7 @@ class EnemyFactory
         //Set enemy strategies and variables
         let attack = EnemySSAttackStrat()
         
-        let moveStrat = EnemySSMoveStrat()
+        let moveStrat = EnemySS2MoveStrat()
         let range: CGFloat = 200.00
         let moveDelay : CGFloat = 1.0
         let name = "GruntSprite"
@@ -281,8 +293,6 @@ class EnemyFactory
         sprite.size = CGSizeMake(90, 90)
         sprite.zPosition = ZPosition.enemy
         
-
-        
         //Instantiate enemy object
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
         
@@ -290,14 +300,46 @@ class EnemyFactory
         enemy.health = 100
         enemy.maxHealth = 100
         
-        if SideScrolScene.enemies.count < 5 {
-            enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width + 20.0, SideScrolScene.scene!.size.height - 100)
-            enemy.setMoveStrategy(EnemySS2MoveStrat())
-        }
+        enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width + 20.0, SideScrolScene.scene!.size.height - 100)
+
         //Return object to the GameScene
         
         return enemy
 
+    }
+    func getSS2Enemy() -> EnemyBase? {
+        //Set enemy strategies and variables
+        let attack = EnemySSAttackStrat()
+        
+        let moveStrat = EnemySS3MoveStrat()
+        let range: CGFloat = 200.00
+        let moveDelay : CGFloat = 1.0
+        let name = "GruntSprite"
+        let reward = 100
+        
+        //Set attack variables
+        attack.damage = 0.5
+        attack.fireDelay = 1
+        attack.speed = 300
+        
+        let sprite = SKSpriteNode(imageNamed: "Spaceship")
+        
+        sprite.size = CGSizeMake(90, 90)
+        sprite.zPosition = ZPosition.enemy
+        
+        //Instantiate enemy object
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
+        
+        //Set object specific variables
+        enemy.health = 100
+        enemy.maxHealth = 100
+
+        enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width - 60.0, -20)
+
+        //Return object to the GameScene
+        
+        return enemy
+        
     }
 
 }

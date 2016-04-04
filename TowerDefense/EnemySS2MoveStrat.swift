@@ -13,7 +13,10 @@ class EnemySS2MoveStrat: EnemyMoveStrat{
     
     override func Move(enemy : EnemyBase){
         
-        enemy.sprite.physicsBody?.velocity.dx = -160
+        if enemy.sprite.position.x > (SideScrolScene.scene!.size.width) {
+            enemy.sprite.physicsBody?.velocity.dx = -160
+        }
+        
         if enemy.sprite.position.x < (SideScrolScene.scene!.size.width - 100) {
             enemy.sprite.physicsBody?.velocity.dx = 0
             enemy.sprite.physicsBody?.velocity.dy = 0
@@ -23,7 +26,7 @@ class EnemySS2MoveStrat: EnemyMoveStrat{
             enemy.sprite.physicsBody?.velocity.dy = -120
             
         }
-        if enemy.sprite.position.y < 100 {
+        if enemy.sprite.position.y < 200 {
             enemy.setMoveStrategy(EnemySSMoveStrat())
         }
     }

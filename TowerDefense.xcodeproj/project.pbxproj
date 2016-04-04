@@ -19,13 +19,14 @@
 		7513D8631CA56BF90025A96D /* EnemySS2MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */; };
 		7513D8681CA587A80025A96D /* enemyExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7513D8671CA587A80025A96D /* enemyExplosion.sks */; };
 		7513D8691CA587A80025A96D /* enemyExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7513D8671CA587A80025A96D /* enemyExplosion.sks */; };
+		75148D7B1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75148D7A1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift */; };
+		75148D7C1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75148D7A1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift */; };
 		75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
 		75D991501C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
 		75D991521C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */; };
 		75D991531C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */; };
 		75D991551C8249DC008F2A70 /* EnemyMoveObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */; };
 		75D991561C8249DC008F2A70 /* EnemyMoveObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */; };
-
 		75D991581C8CF5D3008F2A70 /* EnemySSMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991571C8CF5D3008F2A70 /* EnemySSMoveStrat.swift */; };
 		75D991591C8CF5D3008F2A70 /* EnemySSMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991571C8CF5D3008F2A70 /* EnemySSMoveStrat.swift */; };
 		75D9915B1C8CF5EC008F2A70 /* EnemySSAttackStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D9915A1C8CF5EC008F2A70 /* EnemySSAttackStrat.swift */; };
@@ -38,13 +39,11 @@
 		75D991651C9242C9008F2A70 /* ShipThruster.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D991631C9242C9008F2A70 /* ShipThruster.sks */; };
 		75D9916A1C931B02008F2A70 /* WeaponParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D991691C931B02008F2A70 /* WeaponParticle.sks */; };
 		75D9916B1C931B02008F2A70 /* WeaponParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D991691C931B02008F2A70 /* WeaponParticle.sks */; };
-
 		97176D261C87D8CB006D38D1 /* PlanetPickScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */; };
 		97176D271C87D95E006D38D1 /* PlanetPickScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */; };
 		97176D291C87DC62006D38D1 /* PlanetPickScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 97176D281C87DC62006D38D1 /* PlanetPickScene.sks */; };
 		97176D2A1C87DC80006D38D1 /* PlanetPickScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 97176D281C87DC62006D38D1 /* PlanetPickScene.sks */; };
 		97176D2C1C87E53F006D38D1 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D2B1C87E53F006D38D1 /* Planet.swift */; };
-
 		977E3CA71C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		977E3CA81C13597200BA8F52 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E3CA61C13597200BA8F52 /* Item.swift */; };
 		97B633BD1C0D4D5500CB6B8B /* Square.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B633BC1C0D4C3E00CB6B8B /* Square.ttf */; };
@@ -179,21 +178,19 @@
 		7513D85E1CA322120025A96D /* TowerAttackSideScroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerAttackSideScroll.swift; sourceTree = "<group>"; };
 		7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySS2MoveStrat.swift; sourceTree = "<group>"; };
 		7513D8671CA587A80025A96D /* enemyExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = enemyExplosion.sks; sourceTree = "<group>"; };
+		75148D7A1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySS3MoveStrat.swift; sourceTree = "<group>"; };
 		75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SideScrollScene.sks; sourceTree = "<group>"; };
 		75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAttackObstacle.swift; sourceTree = "<group>"; };
 		75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveObstacle.swift; sourceTree = "<group>"; };
-
 		75D991571C8CF5D3008F2A70 /* EnemySSMoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySSMoveStrat.swift; sourceTree = "<group>"; };
 		75D9915A1C8CF5EC008F2A70 /* EnemySSAttackStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySSAttackStrat.swift; sourceTree = "<group>"; };
 		75D9915D1C9221BE008F2A70 /* StarsBG.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StarsBG.sks; sourceTree = "<group>"; };
 		75D9915E1C9221BE008F2A70 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		75D991631C9242C9008F2A70 /* ShipThruster.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShipThruster.sks; sourceTree = "<group>"; };
 		75D991691C931B02008F2A70 /* WeaponParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WeaponParticle.sks; sourceTree = "<group>"; };
-
 		97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetPickScene.swift; sourceTree = "<group>"; };
 		97176D281C87DC62006D38D1 /* PlanetPickScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlanetPickScene.sks; sourceTree = "<group>"; };
 		97176D2B1C87E53F006D38D1 /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
-
 		977E3CA61C13597200BA8F52 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		97B633BC1C0D4C3E00CB6B8B /* Square.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Square.ttf; sourceTree = "<group>"; };
 		97B633BF1C0D517B00CB6B8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -318,6 +315,7 @@
 				75D991571C8CF5D3008F2A70 /* EnemySSMoveStrat.swift */,
 				75D9915A1C8CF5EC008F2A70 /* EnemySSAttackStrat.swift */,
 				7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */,
+				75148D7A1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift */,
 			);
 			name = Enemy;
 			sourceTree = "<group>";
@@ -331,17 +329,12 @@
 				99FD08381BE035D80070F4B8 /* LaunchScreen.storyboard */,
 				99FD082D1BE035D80070F4B8 /* GameScene.sks */,
 				75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */,
-
 				75D9915D1C9221BE008F2A70 /* StarsBG.sks */,
 				75D9915E1C9221BE008F2A70 /* spark.png */,
 				75D991631C9242C9008F2A70 /* ShipThruster.sks */,
 				75D991691C931B02008F2A70 /* WeaponParticle.sks */,
-
-
 				97176D281C87DC62006D38D1 /* PlanetPickScene.sks */,
-
 				7513D8671CA587A80025A96D /* enemyExplosion.sks */,
-
 			);
 			name = Visual;
 			sourceTree = "<group>";
@@ -629,6 +622,7 @@
 				998722901BED58C60097B677 /* TowerBuilderNodes.swift in Sources */,
 				9946E4011BE56E54007E9559 /* TowerBase.swift in Sources */,
 				9919CF2C1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
+				75148D7B1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift in Sources */,
 				97176D261C87D8CB006D38D1 /* PlanetPickScene.swift in Sources */,
 				99A3BBE91BE94C1900AAB350 /* TowerAttackBasic.swift in Sources */,
 				9943460E1C7924F2000012F0 /* PlanetPickView.swift in Sources */,
@@ -688,6 +682,7 @@
 				99A28B261C7E4DDD007B39DF /* TowerMain.swift in Sources */,
 				99BA33C21BF2A24300152764 /* EnemyAttackStrat.swift in Sources */,
 				99EDA20C1C78FB2900AFF94E /* ToneGenerator.swift in Sources */,
+				75148D7C1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift in Sources */,
 				99BA33B11BF2A23000152764 /* TowerDefenseHeal.swift in Sources */,
 				97176D271C87D95E006D38D1 /* PlanetPickScene.swift in Sources */,
 				99BA33D01BF2A25F00152764 /* GameState.swift in Sources */,
