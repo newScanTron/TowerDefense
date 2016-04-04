@@ -14,7 +14,8 @@ import AudioKit
 
 class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var viewController: SideScroll!
 
     var backgroundNode: SKNode = SKNode()
@@ -23,12 +24,17 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var hudNode: SKNode = SKNode()
 
     var intro : Bool = false
+    
     var lastTouch : CGPoint? = nil
     var firstTouch : CGPoint? = nil
     var previousTouch :CGPoint? = nil
     var touchDelta : CGPoint? = nil
     var touchTime : CGFloat = 0
     let earthSprite = SKSpriteNode(imageNamed: "earth10")
+    let livesLeft1 = SKSpriteNode(imageNamed: "Spaceship")
+    let livesLeft2 = SKSpriteNode(imageNamed: "Spaceship")
+    let livesLeft3 = SKSpriteNode(imageNamed: "Spaceship")
+    let enemiesLabel = SKLabelNode(fontNamed:"Square")
     static var gameTime : CGFloat = 0
     var deltaTime : CGFloat = 0
     var ship :TowerBase? = nil
@@ -39,6 +45,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     
     static var ships : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
+    var items : [Item] = [Item]()
     static var scene : SideScrolScene? = nil
     
     override func didMoveToView(view: SKView) {
@@ -58,10 +65,15 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         let thrusterParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Thrusterpath!) as! SKEmitterNode
         thrusterParticle.position = CGPointMake(0, 0)
         thrusterParticle.targetNode = self.scene
+
+        enemiesLabel.fontSize = 45
+        enemiesLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 30)
+        enemiesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        
         midgroundNode.addChild(thrusterParticle)
         self.addChild(midgroundNode)
-
-
+        self.addChild(enemiesLabel)
+        
         ship = towerBuilder.BuildBaseShip()
         SideScrolScene.ships.append(ship!)
 
@@ -102,7 +114,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         
         let newEnemy = enemyFactory.getNextSSEnemy()
         let newObstacle = enemyFactory.getObstacle()
-        if deltaTime > 240 {
+        if deltaTime > 50 {
             intro = true
             deltaTime = 0
             scene!.view?.paused = true
@@ -128,6 +140,13 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
         }
 
+        if deltaTime / 10 == 1 || deltaTime / 10 == 2 || deltaTime / 10 == 3 && intro == true{
+            for (var i = 0; i < SideScrolScene.ships.count; i++)
+            {
+                let e = SideScrolScene.ships[i]
+                e.TriggerAttack()
+            }
+        }
         for (var i = 0; i < SideScrolScene.enemies.count; i++)
         {
             let e = SideScrolScene.enemies[i]
@@ -152,6 +171,17 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
                 item.update()
             }
         }
+        for (var i = 0; i < appDelegate!.sideScrollScene!.items.count; i++) {
+            let item = appDelegate!.sideScrollScene!.items[i]
+            if (item.destroyThis) {
+                item.destroy()
+                appDelegate!.sideScrollScene!.items.removeAtIndex(i)
+                i -= 1;
+            }
+            else {
+                item.update()
+            }
+        }
     }
     func addEarth() {
 
@@ -162,6 +192,26 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         earthSprite.physicsBody?.velocity.dx = -200
         earthSprite.physicsBody?.velocity.dy = -10
         
+        livesLeft1.xScale = 0.06
+        livesLeft1.yScale = 0.06
+        
+        livesLeft1.position = CGPointMake(30, SideScrolScene.scene!.size.height - 40)
+        
+        
+        livesLeft2.xScale = 0.06
+        livesLeft2.yScale = 0.06
+        
+        livesLeft2.position = CGPointMake(60, SideScrolScene.scene!.size.height - 40)
+        
+        livesLeft3.xScale = 0.06
+        livesLeft3.yScale = 0.06
+        
+        livesLeft3.position = CGPointMake(90, SideScrolScene.scene!.size.height - 40)
+        
+        
+        SideScrolScene.scene?.addChild(livesLeft1)
+        SideScrolScene.scene?.addChild(livesLeft2)
+        SideScrolScene.scene?.addChild(livesLeft3)
         SideScrolScene.scene?.addChild(earthSprite)
 
     }
@@ -188,7 +238,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
                     e.health -= contactTest.damage
                     //giveXp(e)
                     e.UpdateLabel()
-                    contactTest.destroy()
+                    contactTest.sideScrollTrigger()
                     //appDelegate!.conductor.hitEnemyPlaySound(0.0125, e: e)
                     contact.bodyB.node?.removeFromParent()
                 } else if e.sprite == contact.bodyB.node{
@@ -196,7 +246,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
                     e.health -= contactTest.damage
                     //giveXp(e)
                     e.UpdateLabel()
-                    contactTest.destroy()
+                    contactTest.sideScrollTrigger()
                     //appDelegate!.conductor.hitEnemyPlaySound(0.02, e: e)
                     contact.bodyA.node?.removeFromParent()
                 }
@@ -210,7 +260,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
-                    contactTest.destroy()
+                    contactTest.sideScrollTrigger()
                     //conductor.hitTowerPlaySoundForDuration(0.02)
                     contact.bodyB.node?.removeFromParent()
                 } else if t.sprite == contact.bodyB.node{
@@ -218,7 +268,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
                     t.health -= CGFloat(contactTest.damage)
                     //t.UpdateLabel()
                     //conductor.hitTowerPlaySoundForDuration(0.02)
-                    contactTest.destroy()
+                    contactTest.sideScrollTrigger()
                     contact.bodyA.node?.removeFromParent()
                 }
             }

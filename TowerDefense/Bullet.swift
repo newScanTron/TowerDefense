@@ -132,7 +132,10 @@ class Bullet : Item {
         explosion?.trigger(sprite.position)
         sprite.removeFromParent()
     }
-    
+    func sideScrollTrigger() {
+        explosion?.sideScrollTrigger(sprite.position)
+        sprite.removeFromParent()
+    }
     
     
     class func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {

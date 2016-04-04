@@ -48,7 +48,7 @@ class EnemyBase: Entity{
         sprite.xScale = 0.25
         sprite.yScale = 0.25
         
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(1.0, 1.0))
 
         
         let actualY = random(min: 10.0, max: 768)

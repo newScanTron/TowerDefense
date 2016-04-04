@@ -11,6 +11,9 @@ import SpriteKit
 
 class Explosion : Item {
     
+    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var radius : CGFloat
     var currentRadius : CGFloat = 0
     
@@ -33,8 +36,7 @@ class Explosion : Item {
     }
     
     func trigger(_location : CGPoint) {
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as? AppDelegate
+
         //print("explosion trigger")
         location = _location
 
@@ -43,9 +45,11 @@ class Explosion : Item {
 
     }
     func sideScrollTrigger(_location : CGPoint) {
+
+        //print("explosion trigger")
+        location = _location
         
-        var theScene : [Item] = getItems()
-        theScene.append(self)
+        appDelegate!.sideScrollScene!.items.append(self)
         
     }
     
@@ -92,6 +96,7 @@ class Explosion : Item {
             
             // Add circle back to scene
             GameScene.scene?.addChild(circle!)
+            SideScrolScene.scene?.addChild(circle!)
         }
         
     }
