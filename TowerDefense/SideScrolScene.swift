@@ -21,6 +21,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var backgroundNode: SKNode = SKNode()
     var midgroundNode: SKNode = SKNode()
     var foregroundNode: SKNode = SKNode()
+    var shieldParentNode : SKNode = SKNode()
     var shieldNode : SKNode = SKNode()
     var shieldNode1 : SKNode = SKNode()
     var hudNode: SKNode = SKNode()
@@ -72,15 +73,17 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         thrusterParticle.position = CGPointMake(0, 0)
         thrusterParticle.targetNode = self.scene
         
-        let Shieldpath = NSBundle.mainBundle().pathForResource("WeaponParticle", ofType: "sks")
-        let superWeaponParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Shieldpath!) as! SKEmitterNode
-        let shieldParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Thrusterpath!) as! SKEmitterNode
-        let shieldParticle1 = NSKeyedUnarchiver.unarchiveObjectWithFile(Thrusterpath!) as! SKEmitterNode
+        let Weaponpath = NSBundle.mainBundle().pathForResource("WeaponParticle", ofType: "sks")
+        let superWeaponParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Weaponpath!) as! SKEmitterNode
         superWeaponParticle.position = CGPointMake(0, 0)
         superWeaponParticle.targetNode = self.scene
-        shieldParticle.position = CGPointMake(0, 10)
+        
+        let Shieldpath = NSBundle.mainBundle().pathForResource("Shield", ofType: "sks")
+        let shieldParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Shieldpath!) as! SKEmitterNode
+        let shieldParticle1 = NSKeyedUnarchiver.unarchiveObjectWithFile(Shieldpath!) as! SKEmitterNode
+        shieldParticle.position = CGPointMake(0, 52.5)
         shieldParticle.targetNode = self.scene
-        shieldParticle1.position = CGPointMake(0, -10)
+        shieldParticle1.position = CGPointMake(0, -52.5)
         shieldParticle1.targetNode = self.scene
         
         enemiesLabel.fontSize = 45
@@ -92,10 +95,12 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         foregroundNode.addChild(superWeaponParticle)
         shieldNode.addChild(shieldParticle)
         shieldNode1.addChild(shieldParticle1)
-        midgroundNode.addChild(thrusterParticle)
-        self.addChild(shieldNode)
-        self.addChild(shieldNode1)
         
+        midgroundNode.addChild(thrusterParticle)
+        shieldParentNode.addChild(shieldNode)
+        shieldParentNode.addChild(shieldNode1)
+        
+        self.addChild(shieldParentNode)
         self.addChild(midgroundNode)
         self.addChild(enemiesLabel)
         
@@ -120,6 +125,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         }
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?){
+
         let touch = touches.first! as UITouch
         let touchLocation = touch.locationInNode(self)
         if lastTouch == nil {
@@ -129,8 +135,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
         lastTouch = touchLocation
         ship?.sprite.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
-        shieldNode.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y - CGFloat(43.0))
-        shieldNode1.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y + CGFloat(43.0))
+        shieldParentNode.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
         ship?.attackSprite.position = CGPoint(x: ship!.attackSprite.position.x + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
         midgroundNode.position = CGPoint(x: (ship!.attackSprite.position.x - CGFloat(13.0)) + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
         if foregroundNode.parent != nil && inTransit == false{
@@ -156,10 +161,14 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         deltaTime += 1.0
         SideScrolScene.gameTime = CGFloat(currentTime)
         
+        //Removes SuperWeapon parent node and resets inTransit flag
         if foregroundNode.position.x > scene?.size.width {
             foregroundNode.removeFromParent()
             inTransit = false
         }
+        
+        //Need to move to Tower class or its own
+        shieldParentNode.zRotation += CGFloat(-M_PI/16)
         
         let newObstacle = enemyFactory.getObstacle()
         

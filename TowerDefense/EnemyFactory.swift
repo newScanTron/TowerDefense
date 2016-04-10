@@ -219,6 +219,11 @@ class EnemyFactory
             enemy = getSS2Enemy()
             return enemy!
         }
+        if enemyCount == 10 {
+            enemyCount++
+            enemy = CreateEnemySSBoss()
+            return enemy!
+        }
         return nil
     }
     func getObstacle() -> EnemyBase? {
@@ -341,5 +346,38 @@ class EnemyFactory
         return enemy
         
     }
+    func CreateEnemySSBoss() -> EnemyBase{
+        
+        
+        //Set enemy strategies and variables
+        let attack = EnemyAttackBoss()
+        let moveStrat = EnemyMoveBoss()
+        let range: CGFloat = 999.00
+        let moveDelay :CGFloat = 1.0
+        let name = "BossSprite"
+        let reward = 500
+        
+        //Set attack variables
+        attack.damage = 2
+        
+        attack.fireDelay = 1
+        attack.speed = 200
+        
+        let sprite = SKSpriteNode(imageNamed: name)
+        sprite.zPosition = ZPosition.enemy+1
+        
+        sprite.size = CGSizeMake(300, 300)
+        sprite.name = name
+        
+        //Instantiate enemy object
+        let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
+        
+        //Set object specific variables
+        enemy.health = 175
+        enemy.maxHealth = 175
+        enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width + 20, SideScrolScene.scene!.size.height / 2)
 
+        //Return object to the GameScene
+        return enemy
+    }
 }

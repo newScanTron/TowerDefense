@@ -47,7 +47,7 @@ class TowerBuilder
         tower.sprite.physicsBody?.angularDamping = 1.0
         tower.sprite.physicsBody?.allowsRotation = false
         tower.sprite.zPosition = ZPosition.tower
-        tower.sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(10, 10))
+        tower.sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(50, 50))
     
         tower.attackSprite.zRotation = CGFloat(-M_PI/2)
         tower.attackSprite.xScale = 0.15
