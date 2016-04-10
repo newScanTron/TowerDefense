@@ -17,8 +17,6 @@
 		7513D8601CA324FD0025A96D /* TowerAttackSideScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513D85E1CA322120025A96D /* TowerAttackSideScroll.swift */; };
 		7513D8621CA56BF90025A96D /* EnemySS2MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */; };
 		7513D8631CA56BF90025A96D /* EnemySS2MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */; };
-		7513D8681CA587A80025A96D /* enemyExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7513D8671CA587A80025A96D /* enemyExplosion.sks */; };
-		7513D8691CA587A80025A96D /* enemyExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7513D8671CA587A80025A96D /* enemyExplosion.sks */; };
 		75148D7B1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75148D7A1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift */; };
 		75148D7C1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75148D7A1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift */; };
 		75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
@@ -177,7 +175,6 @@
 		46237E811C1A751200E0B774 /* EnemyMoveKamikaze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveKamikaze.swift; sourceTree = "<group>"; };
 		7513D85E1CA322120025A96D /* TowerAttackSideScroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerAttackSideScroll.swift; sourceTree = "<group>"; };
 		7513D8611CA56BF90025A96D /* EnemySS2MoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySS2MoveStrat.swift; sourceTree = "<group>"; };
-		7513D8671CA587A80025A96D /* enemyExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = enemyExplosion.sks; sourceTree = "<group>"; };
 		75148D7A1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySS3MoveStrat.swift; sourceTree = "<group>"; };
 		75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SideScrollScene.sks; sourceTree = "<group>"; };
 		75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAttackObstacle.swift; sourceTree = "<group>"; };
@@ -334,7 +331,6 @@
 				75D991631C9242C9008F2A70 /* ShipThruster.sks */,
 				75D991691C931B02008F2A70 /* WeaponParticle.sks */,
 				97176D281C87DC62006D38D1 /* PlanetPickScene.sks */,
-				7513D8671CA587A80025A96D /* enemyExplosion.sks */,
 			);
 			name = Visual;
 			sourceTree = "<group>";
@@ -547,7 +543,6 @@
 				75D9915F1C9221BE008F2A70 /* StarsBG.sks in Resources */,
 				75D9916A1C931B02008F2A70 /* WeaponParticle.sks in Resources */,
 				99FD083A1BE035D80070F4B8 /* LaunchScreen.storyboard in Resources */,
-				7513D8681CA587A80025A96D /* enemyExplosion.sks in Resources */,
 				75D991611C9221BE008F2A70 /* spark.png in Resources */,
 				75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */,
 				97176D291C87DC62006D38D1 /* PlanetPickScene.sks in Resources */,
@@ -559,7 +554,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7513D8691CA587A80025A96D /* enemyExplosion.sks in Resources */,
 				75D991621C9221BE008F2A70 /* spark.png in Resources */,
 				75D991601C9221BE008F2A70 /* StarsBG.sks in Resources */,
 				75D9916B1C931B02008F2A70 /* WeaponParticle.sks in Resources */,

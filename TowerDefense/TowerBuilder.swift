@@ -40,14 +40,14 @@ class TowerBuilder
         let tower = TowerBase(location: CGPointMake(200, 200), _attack: attack, _defense: defense)
         
 
-        tower.sprite.physicsBody?.dynamic = false
+        tower.sprite.physicsBody?.dynamic = true
         tower.sprite.physicsBody?.mass = 1
         tower.sprite.physicsBody?.restitution = 1.0
         tower.sprite.physicsBody?.linearDamping = 1.0
         tower.sprite.physicsBody?.angularDamping = 1.0
         tower.sprite.physicsBody?.allowsRotation = false
         tower.sprite.zPosition = ZPosition.tower
-        tower.sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
+        tower.sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(10, 10))
     
         tower.attackSprite.zRotation = CGFloat(-M_PI/2)
         tower.attackSprite.xScale = 0.15

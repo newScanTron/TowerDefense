@@ -242,7 +242,7 @@ class EnemyFactory
         let size = random(min: 15, max: 40)
         var speed = random(min:-40 , max:-120)
         
-        sprite.size = CGSizeMake(size, size)
+        sprite.size = CGSizeMake(40, 40)
         sprite.zPosition = ZPosition.enemy
         
         
@@ -290,7 +290,7 @@ class EnemyFactory
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
         
-        sprite.size = CGSizeMake(90, 90)
+        sprite.size = CGSizeMake(140, 140)
         sprite.zPosition = ZPosition.enemy
         
         //Instantiate enemy object
@@ -324,7 +324,7 @@ class EnemyFactory
         
         let sprite = SKSpriteNode(imageNamed: "Spaceship")
         
-        sprite.size = CGSizeMake(90, 90)
+        sprite.size = CGSizeMake(140, 140)
         sprite.zPosition = ZPosition.enemy
         
         //Instantiate enemy object

@@ -21,9 +21,13 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var backgroundNode: SKNode = SKNode()
     var midgroundNode: SKNode = SKNode()
     var foregroundNode: SKNode = SKNode()
+    var shieldNode : SKNode = SKNode()
+    var shieldNode1 : SKNode = SKNode()
     var hudNode: SKNode = SKNode()
 
     var intro : Bool = false
+    var superWeapon : Bool = false
+    var inTransit : Bool = false
     
     var lastTouch : CGPoint? = nil
     var firstTouch : CGPoint? = nil
@@ -47,6 +51,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
     var items : [Item] = [Item]()
     static var scene : SideScrolScene? = nil
+
     
     override func didMoveToView(view: SKView) {
 
@@ -59,18 +64,38 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         starParticle.position = CGPointMake(self.size.width/2, self.size.height)
         starParticle.targetNode = self.scene
         self.addChild(starParticle)
-        
 
         let Thrusterpath = NSBundle.mainBundle().pathForResource("ShipThruster", ofType: "sks")
         let thrusterParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Thrusterpath!) as! SKEmitterNode
+        
+
         thrusterParticle.position = CGPointMake(0, 0)
         thrusterParticle.targetNode = self.scene
-
+        
+        let Shieldpath = NSBundle.mainBundle().pathForResource("WeaponParticle", ofType: "sks")
+        let superWeaponParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Shieldpath!) as! SKEmitterNode
+        let shieldParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(Thrusterpath!) as! SKEmitterNode
+        let shieldParticle1 = NSKeyedUnarchiver.unarchiveObjectWithFile(Thrusterpath!) as! SKEmitterNode
+        superWeaponParticle.position = CGPointMake(0, 0)
+        superWeaponParticle.targetNode = self.scene
+        shieldParticle.position = CGPointMake(0, 10)
+        shieldParticle.targetNode = self.scene
+        shieldParticle1.position = CGPointMake(0, -10)
+        shieldParticle1.targetNode = self.scene
+        
         enemiesLabel.fontSize = 45
         enemiesLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 30)
         enemiesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         
+        foregroundNode.physicsBody?.dynamic = true
+        foregroundNode.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(10.0, 10.0))
+        foregroundNode.addChild(superWeaponParticle)
+        shieldNode.addChild(shieldParticle)
+        shieldNode1.addChild(shieldParticle1)
         midgroundNode.addChild(thrusterParticle)
+        self.addChild(shieldNode)
+        self.addChild(shieldNode1)
+        
         self.addChild(midgroundNode)
         self.addChild(enemiesLabel)
         
@@ -84,6 +109,15 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         let touch = touches.first! as UITouch
         let touchLocation = touch.locationInNode(self)
         firstTouch = touchLocation
+        
+        if (touches.count > 1)
+        {
+            if foregroundNode.parent == nil {
+                SideScrolScene.scene!.addChild(foregroundNode)
+            }
+
+            superWeapon = true
+        }
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?){
         let touch = touches.first! as UITouch
@@ -95,13 +129,23 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
         lastTouch = touchLocation
         ship?.sprite.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
+        shieldNode.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y - CGFloat(43.0))
+        shieldNode1.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y + CGFloat(43.0))
         ship?.attackSprite.position = CGPoint(x: ship!.attackSprite.position.x + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
         midgroundNode.position = CGPoint(x: (ship!.attackSprite.position.x - CGFloat(13.0)) + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
+        if foregroundNode.parent != nil && inTransit == false{
+            foregroundNode.position = CGPoint(x: (ship!.attackSprite.position.x + CGFloat(33.0)) + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
+        }
     }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         lastTouch = nil
         
-        scene?.view?.paused = true
+        if superWeapon == true {
+            foregroundNode.physicsBody?.velocity.dx = 500
+            inTransit = true
+            superWeapon = false
+        }
+        //scene?.view?.paused = true
         
     }
 
@@ -112,13 +156,17 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         deltaTime += 1.0
         SideScrolScene.gameTime = CGFloat(currentTime)
         
-
+        if foregroundNode.position.x > scene?.size.width {
+            foregroundNode.removeFromParent()
+            inTransit = false
+        }
+        
         let newObstacle = enemyFactory.getObstacle()
         
         if deltaTime > 50 {
             intro = true
             deltaTime = 0
-            scene!.view?.paused = true
+            //scene!.view?.paused = true
             addEarth()
             earthSprite.physicsBody?.velocity.dx = -240
         }
@@ -137,16 +185,20 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             for (var i = 0; i < SideScrolScene.ships.count; i++)
             {
                 let e = SideScrolScene.ships[i]
-                e.TriggerAttack()
+                if superWeapon == false {
+                    e.TriggerAttack()
+                }
             }
 
         }
-
-        if deltaTime / 10 == 1 || deltaTime / 10 == 2 || deltaTime / 10 == 3 && intro == true{
+        
+        if deltaTime / 10 == 1 || deltaTime / 10 == 2 || deltaTime / 10 == 3 || deltaTime / 5 == 1 && intro == true{
             for (var i = 0; i < SideScrolScene.ships.count; i++)
             {
                 let e = SideScrolScene.ships[i]
-                e.TriggerAttack()
+                if superWeapon == false {
+                    e.TriggerAttack()
+                }
             }
         }
         for (var i = 0; i < SideScrolScene.enemies.count; i++)
@@ -162,7 +214,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
                 i -= 1
             }
         }
-        for (var i = 0; i < SideScrolScene.items.count; i++) {
+        /*for (var i = 0; i < SideScrolScene.items.count; i++) {
             let item = SideScrolScene.items[i]
             if (item.destroyThis) {
                 item.destroy()
@@ -172,7 +224,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             else {
                 item.update()
             }
-        }
+        }*/
         for (var i = 0; i < appDelegate!.sideScrollScene!.items.count; i++) {
             let item = appDelegate!.sideScrollScene!.items[i]
             if (item.destroyThis) {
@@ -235,7 +287,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         switch contactMask {
             //this first case is executed when a tower bullet hits a enemy.
         case CategoryMask.Enemy | CategoryMask.TowerBullet:
-            
+            print("Enemy or TowerBullet collide")
             for e in SideScrolScene.enemies{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
@@ -276,6 +328,28 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
                     contact.bodyA.node?.removeFromParent()
                 }
             }
+            
+        case CategoryMask.Enemy | CategoryMask.Tower:
+             print("Enemy or Tower collide")
+            for t in SideScrolScene.ships{
+                
+                if t.sprite == contact.bodyA.node{
+                    //let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
+                    t.health -= CGFloat(1000)
+                    //t.UpdateLabel()
+                    //contactTest.sideScrollTrigger()
+                    //conductor.hitTowerPlaySoundForDuration(0.02)
+                    contact.bodyB.node?.removeFromParent()
+                } else if t.sprite == contact.bodyB.node{
+                    //let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
+                    t.health -= CGFloat(1000)
+                    //t.UpdateLabel()
+                    //conductor.hitTowerPlaySoundForDuration(0.02)
+                    //contactTest.sideScrollTrigger()
+                    contact.bodyA.node?.removeFromParent()
+                }
+            }
+
             
         default:
             

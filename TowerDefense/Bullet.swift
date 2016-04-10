@@ -32,7 +32,7 @@ class Bullet : Item {
         damage = _damage
         sprite = SKSpriteNode(imageNamed: "bullet")
         sprite.size = CGSizeMake(size,size)
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(40, 40))
         enemy = shotByEnemy
         if (shotByEnemy) {
             sprite.physicsBody?.categoryBitMask = CategoryMask.EnemyBullet
