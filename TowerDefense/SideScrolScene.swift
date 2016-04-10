@@ -134,19 +134,19 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         }
         touchDelta = CGPoint(x: touchLocation.x - lastTouch!.x, y: touchLocation.y - lastTouch!.y)
         lastTouch = touchLocation
-        ship?.sprite.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
-        shieldParentNode.position = CGPoint(x: ship!.sprite.position.x + touchDelta!.x, y: ship!.sprite.position.y + touchDelta!.y)
+        ship?.sprite.position = CGPoint(x: ship!.attackSprite.position.x + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
+        shieldParentNode.position = CGPoint(x: ship!.attackSprite.position.x + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
         ship?.attackSprite.position = CGPoint(x: ship!.attackSprite.position.x + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
         midgroundNode.position = CGPoint(x: (ship!.attackSprite.position.x - CGFloat(13.0)) + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
-        if foregroundNode.parent != nil && inTransit == false{
+        /*if foregroundNode.parent != nil && inTransit == false{
             foregroundNode.position = CGPoint(x: (ship!.attackSprite.position.x + CGFloat(33.0)) + touchDelta!.x, y: ship!.attackSprite.position.y + touchDelta!.y)
-        }
+        }*/
     }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         lastTouch = nil
         
         if superWeapon == true {
-            foregroundNode.physicsBody?.velocity.dx = 500
+            //foregroundNode.physicsBody?.velocity.dx = 500
             inTransit = true
             superWeapon = false
         }

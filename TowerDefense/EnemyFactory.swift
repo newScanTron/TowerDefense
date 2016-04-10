@@ -209,12 +209,12 @@ class EnemyFactory
         
         var enemy : EnemyBase? = nil
         
-        if enemyCount < 5 {
+        if enemyCount < 5 || enemyCount >= 11{
             enemyCount++
             enemy = getSSEnemy()
             return enemy!
         }
-        if enemyCount > 4 {
+        if enemyCount > 4 && enemyCount < 10 {
             enemyCount++
             enemy = getSS2Enemy()
             return enemy!
@@ -351,7 +351,7 @@ class EnemyFactory
         
         //Set enemy strategies and variables
         let attack = EnemyAttackBoss()
-        let moveStrat = EnemyMoveBoss()
+        let moveStrat = EnemyMoveSSBoss()
         let range: CGFloat = 999.00
         let moveDelay :CGFloat = 1.0
         let name = "BossSprite"

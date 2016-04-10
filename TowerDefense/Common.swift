@@ -27,8 +27,8 @@ struct CategoryMask { // Assigns categories for use with CollisionMask and Conta
 struct CollisionMask { // Which categories should this object "collide" with, i.e. interact with physically. Match with categories above.
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max
-    static let Tower        : UInt32 = 0b00011 // Towers only collide with other Towers and Enemies
-    static let Enemy        : UInt32 = 0b00011 // Enemies only collide with other Enemies and Towers
+    static let Tower        : UInt32 = 0b00010 // Towers only collide with other Towers and Enemies
+    static let Enemy        : UInt32 = 0b00001 // Enemies only collide with other Enemies and Towers
     static let EnemyBullet       : UInt32 = 0b10000 // EnemyBullet only collides with TowerShield
     static let TowerBullet       : UInt32 = 0b00000 // TowerBullet does not collide with anything
 }
