@@ -30,17 +30,11 @@ class TowerDefenseTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         let enemey = EnemyFactory();
-        XCTAssertEqual(enemey.CreateEnemy(scene).range , enemey.CreateEnemy(scene).range)
+        XCTAssertEqual(enemey.CreateEnemy().range , enemey.CreateEnemy().range)
         
         
     }
     
-    func testLogin()
-    {
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
-        XCTAssertEqual(appDelegate.user.userName, appDelegate.user.userName)
-    }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.

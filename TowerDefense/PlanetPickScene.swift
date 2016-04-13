@@ -52,6 +52,9 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     override func didMoveToView(view: SKView) {
         
+        gameScene = GameScene(fileNamed: "GameScene")!
+        
+        
         cameraNode = SKCameraNode()
         cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
         cameraNode.setScale(0.5)
@@ -165,7 +168,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                         //self.viewController.goToTowerDefense()
                         print("touchTimeDelta \(touchTimeDeleta)")
                         
-                    let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
+                        let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
                         self.view?.presentScene(gameScene, transition: transition)
                     }
                 }
