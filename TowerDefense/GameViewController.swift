@@ -23,7 +23,10 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate.gameScene = GameScene(fileNamed:"GameScene")
+        gameScene = appDelegate.gameScene!
+        sideScrollScene = SideScrolScene(fileNamed:"SideScrollScene")!
         // Configure the view.
+        print("i hate  you")
         let skView = self.view as! SKView
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true
