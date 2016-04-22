@@ -54,7 +54,10 @@ class TowerBuilder
         tower.sprite.yScale = 0.15
         tower.attackSprite.xScale = 0.15
         tower.attackSprite.yScale = 0.15
+        tower.attackSprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(25, 25))
+        tower.attackSprite.physicsBody?.categoryBitMask = CategoryMask.Tower
         tower.attackSprite.physicsBody?.collisionBitMask = CollisionMask.Tower
+        tower.attackSprite.physicsBody?.contactTestBitMask = ContactMask.Tower
   //      SideScrolScene.scene?.addChild(tower.sprite)
         
         return tower

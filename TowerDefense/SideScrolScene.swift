@@ -35,7 +35,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var previousTouch :CGPoint? = nil
     var touchDelta : CGPoint? = nil
     var touchTime : CGFloat = 0
-    let earthSprite = SKSpriteNode(imageNamed: "rock32by32")
+    let earthSprite = SKSpriteNode(imageNamed: "planet1")
     let livesLeft1 = SKSpriteNode(imageNamed: "Spaceship")
     let livesLeft2 = SKSpriteNode(imageNamed: "Spaceship")
     let livesLeft3 = SKSpriteNode(imageNamed: "Spaceship")
@@ -177,7 +177,6 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             deltaTime = 0
             //scene!.view?.paused = true
             addEarth()
-            earthSprite.physicsBody?.velocity.dx = -240
         }
         if intro == false {
             //SideScrolScene.enemies.append(newObstacle!)
@@ -248,11 +247,11 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEarth() {
 
-        earthSprite.position = CGPoint(x: 1200, y: 100)
+        earthSprite.position = CGPoint(x: SideScrolScene.scene!.size.width - 20, y: 100)
         earthSprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.25, 0.25))
         earthSprite.physicsBody?.dynamic = true
         earthSprite.physicsBody?.mass = 1
-        earthSprite.physicsBody?.velocity.dx = -200
+        earthSprite.physicsBody?.velocity.dx = -10
         earthSprite.physicsBody?.velocity.dy = -10
         earthSprite.xScale = 2
         earthSprite.yScale = 2
@@ -342,18 +341,21 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
              print("Enemy or Tower collide")
             for t in SideScrolScene.ships{
                 
-                if t.sprite == contact.bodyA.node{
+                if t.attackSprite == contact.bodyA.node{
                     //let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(1000)
                     //t.UpdateLabel()
-                    //contactTest.sideScrollTrigger()
+                    let exp : Explosion = Explosion(_radius: 200, _damage: 80)
+                    exp.sideScrollTrigger(contact.bodyA.node!.position)
                     //conductor.hitTowerPlaySoundForDuration(0.02)
                     contact.bodyB.node?.removeFromParent()
-                } else if t.sprite == contact.bodyB.node{
+                } else if t.attackSprite == contact.bodyB.node{
                     //let contactTest : Bullet = contact.bodyA.node?.userData?["object"] as! Bullet
                     t.health -= CGFloat(1000)
                     //t.UpdateLabel()
                     //conductor.hitTowerPlaySoundForDuration(0.02)
+                    let exp : Explosion = Explosion(_radius: 200, _damage: 80)
+                    exp.sideScrollTrigger(contact.bodyA.node!.position)
                     //contactTest.sideScrollTrigger()
                     contact.bodyA.node?.removeFromParent()
                 }

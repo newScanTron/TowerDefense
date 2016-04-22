@@ -27,6 +27,7 @@
 		75148D871CBAE4DB003087A9 /* EnemyMoveSSSwarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75148D851CBAE4DB003087A9 /* EnemyMoveSSSwarm.swift */; };
 		75148D891CBAEB29003087A9 /* TowerDefenseSideScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75148D881CBAEB29003087A9 /* TowerDefenseSideScroll.swift */; };
 		75148D8A1CBAEB29003087A9 /* TowerDefenseSideScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75148D881CBAEB29003087A9 /* TowerDefenseSideScroll.swift */; };
+		75148D8C1CBE9280003087A9 /* BenchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75148D8B1CBE9280003087A9 /* BenchUITests.swift */; };
 		75D9914F1C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
 		75D991501C80EAED008F2A70 /* SideScrollScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */; };
 		75D991521C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */; };
@@ -188,6 +189,7 @@
 		75148D821CBAC6AC003087A9 /* EnemyMoveSSBoss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveSSBoss.swift; sourceTree = "<group>"; };
 		75148D851CBAE4DB003087A9 /* EnemyMoveSSSwarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveSSSwarm.swift; sourceTree = "<group>"; };
 		75148D881CBAEB29003087A9 /* TowerDefenseSideScroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseSideScroll.swift; sourceTree = "<group>"; };
+		75148D8B1CBE9280003087A9 /* BenchUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BenchUITests.swift; sourceTree = "<group>"; };
 		75D9914E1C80EAED008F2A70 /* SideScrollScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SideScrollScene.sks; sourceTree = "<group>"; };
 		75D991511C8249BB008F2A70 /* EnemyAttackObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAttackObstacle.swift; sourceTree = "<group>"; };
 		75D991541C8249DC008F2A70 /* EnemyMoveObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyMoveObstacle.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			children = (
 				99FD084F1BE035D80070F4B8 /* TowerDefenseUITests.swift */,
 				99FD08511BE035D80070F4B8 /* Info.plist */,
+				75148D8B1CBE9280003087A9 /* BenchUITests.swift */,
 			);
 			path = TowerDefenseUITests;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 			files = (
 				99BA33D61BF5171700152764 /* UserModel.xcdatamodeld in Sources */,
 				99FD08501BE035D80070F4B8 /* TowerDefenseUITests.swift in Sources */,
+				75148D8C1CBE9280003087A9 /* BenchUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

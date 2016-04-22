@@ -1,14 +1,14 @@
 //
-//  TowerDefenseUITests.swift
-//  TowerDefenseUITests
+//  BenchUITests.swift
+//  TowerDefense
 //
-//  Created by Chris Murphy on 10/27/15.
-//  Copyright © 2015 Chris Murphy. All rights reserved.
+//  Created by Tobias Kundig on 4/13/16.
+//  Copyright © 2016 Chris Murphy. All rights reserved.
 //
 
 import XCTest
 
-class TowerDefenseUITests: XCTestCase {
+class BenchUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
@@ -32,19 +32,10 @@ class TowerDefenseUITests: XCTestCase {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-    
-    func testUIButtons() {
+    func testPLAY() {
         XCUIDevice.sharedDevice().orientation = .LandscapeLeft
         XCUIApplication().buttons["PLAY!"].tap()
-        
-    }
-    func testLoginCancel(){
-        XCUIDevice.sharedDevice().orientation = .LandscapeLeft
-        
-        let app = XCUIApplication()
-        app.buttons["NEW USER"].tap()
-        app.buttons["CANCEL"].tap()
-        
+    
     }
     
 }
