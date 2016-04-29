@@ -20,7 +20,8 @@ class ToneGenerator {
     }
     func setRamp(ramp: Double)
     {
-        toneGenerator.ramp(amplitude: ramp)
+        toneGenerator.rampTime = ramp
+        toneGenerator.amplitude = ramp
     }
     func setAmp(amp: Double)
     {

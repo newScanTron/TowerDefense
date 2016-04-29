@@ -50,8 +50,6 @@
 		97B633C21C0D5CCB00CB6B8B /* Explosion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B633C11C0D5CCB00CB6B8B /* Explosion.swift */; };
 		97B633C31C0D62AA00CB6B8B /* Explosion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B633C11C0D5CCB00CB6B8B /* Explosion.swift */; };
 		97FD25641C8E7BD400CF0E00 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D2B1C87E53F006D38D1 /* Planet.swift */; };
-		990133A51C549BAB00447736 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C22E0C1C54992300487B9A /* AudioKit.framework */; };
-		990133A61C549BAB00447736 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 99C22E0C1C54992300487B9A /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9919CF291C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF281C0CF7690024DFBB /* TowerAttackPulse.swift */; };
 		9919CF2A1C0CF7690024DFBB /* TowerAttackPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF281C0CF7690024DFBB /* TowerAttackPulse.swift */; };
 		9919CF2C1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9919CF2B1C0CF77E0024DFBB /* TowerDefenseSlag.swift */; };
@@ -63,6 +61,8 @@
 		992622391BED1ECB0080D35A /* EnemyAttackRanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992622341BED1ECB0080D35A /* EnemyAttackRanged.swift */; };
 		9926223B1BED2B2C0080D35A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926223A1BED2B2C0080D35A /* User.swift */; };
 		9926223E1BED2B910080D35A /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926223D1BED2B910080D35A /* GameState.swift */; };
+		992AE9CC1CD2DBF20050EB81 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992AE9CB1CD2DBF20050EB81 /* AudioKit.framework */; };
+		992AE9CD1CD2DBF20050EB81 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 992AE9CB1CD2DBF20050EB81 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		993BC2B61C003A50009596FA /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B51C003A50009596FA /* LoginController.swift */; };
 		993BC2B71C003A50009596FA /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B51C003A50009596FA /* LoginController.swift */; };
 		993BC2B91C011A6D009596FA /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B81C011A6D009596FA /* SignUpController.swift */; };
@@ -171,7 +171,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				990133A61C549BAB00447736 /* AudioKit.framework in Embed Frameworks */,
+				992AE9CD1CD2DBF20050EB81 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +210,7 @@
 		992622341BED1ECB0080D35A /* EnemyAttackRanged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAttackRanged.swift; sourceTree = "<group>"; };
 		9926223A1BED2B2C0080D35A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9926223D1BED2B910080D35A /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		992AE9CB1CD2DBF20050EB81 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		993BC2B51C003A50009596FA /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		993BC2B81C011A6D009596FA /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		9943460D1C7924F1000012F0 /* PlanetPickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetPickView.swift; sourceTree = "<group>"; };
@@ -235,7 +236,6 @@
 		99A3BBE71BE94C1900AAB350 /* TowerDefenseStrat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerDefenseStrat.swift; sourceTree = "<group>"; };
 		99A868D51C65331E00A97EF1 /* SideScrolScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideScrolScene.swift; sourceTree = "<group>"; };
 		99BA33D31BF5171700152764 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
-		99C22E0C1C54992300487B9A /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		99C787D11CBEB2B300AEA313 /* MainTowerHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTowerHUD.swift; path = ../MainTowerHUD.swift; sourceTree = "<group>"; };
 		99C787D91CBEB8A900AEA313 /* TowerDefenseTests1.1.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TowerDefenseTests1.1.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		99CE60CF1C1BD6B900CB8F22 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				990133A51C549BAB00447736 /* AudioKit.framework in Frameworks */,
+				992AE9CC1CD2DBF20050EB81 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,7 +384,7 @@
 		99FD081F1BE035D80070F4B8 = {
 			isa = PBXGroup;
 			children = (
-				99C22E0C1C54992300487B9A /* AudioKit.framework */,
+				992AE9CB1CD2DBF20050EB81 /* AudioKit.framework */,
 				99FD082A1BE035D80070F4B8 /* TowerDefense */,
 				99FD08431BE035D80070F4B8 /* TowerDefenseTests */,
 				99FD084E1BE035D80070F4B8 /* TowerDefenseUITests */,
@@ -1021,6 +1021,7 @@
 				99C787E21CBEB8AA00AEA313 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		99FD08231BE035D80070F4B8 /* Build configuration list for PBXProject "TowerDefense" */ = {
 			isa = XCConfigurationList;

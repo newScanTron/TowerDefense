@@ -48,6 +48,16 @@
                ReferencedContainer = "container:TowerDefense.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "99C787D81CBEB8A900AEA313"
+               BuildableName = "TowerDefenseTests1.1.xctest"
+               BlueprintName = "TowerDefenseTests1.1"
+               ReferencedContainer = "container:TowerDefense.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
