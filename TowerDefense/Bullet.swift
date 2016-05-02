@@ -63,12 +63,12 @@ class Bullet : Item {
         // Set up initial location and size of projectile
         sprite.position = _shooter.sprite.position
         
-        if GameScene.scene != nil {
+//        if GameScene.scene != nil {
             activate()
-        }
-        else{
-            activate2()
-        }
+//        }
+//        else{
+//            activate2()
+//        }
         
         
     }
@@ -104,10 +104,12 @@ class Bullet : Item {
         startTime = SideScrolScene.gameTime
         
         // Add to scene
-        SideScrolScene.scene!.addChild(sprite)
+        if let thisSprite : SKSpriteNode = sprite
+        {
+        SideScrolScene.scene!.addChild(thisSprite)
                 
-        sprite.physicsBody?.velocity = Bullet.getVector(sprite.position, to: target.position, speed: speed)
-        
+        thisSprite.physicsBody?.velocity = Bullet.getVector(thisSprite.position, to: target.position, speed: speed)
+        }
     }
     
 //    func copy() -> Bullet {

@@ -13,6 +13,7 @@ import SpriteKit
 var currentPlanet = Planet(size: CGFloat(2), position: CGPoint(x: 0, y: 0), color: SKColor.greenColor(), metal: 0, oxygen: 0, fuel: 0 )
 var currentScene : SKScene = SKScene()
 var gameScene = GameScene()
+var sideScrollScene = SideScrolScene()
 
 struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
     static let None              : UInt32 = 0

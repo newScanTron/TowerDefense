@@ -8,7 +8,7 @@
 import AudioKit
 import Foundation
 class Conductor {
-    let audioKit = AKManager.sharedInstance
+
     var toneGenerator = ToneGenerator()
     let scale = [0,2,4,5,7,9,11,12]
 
@@ -18,9 +18,9 @@ class Conductor {
     var thisKey = [65.41, 73.42, 82.41, 87.31, 98.00,  110.00, 123.47, 130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94, 261.63]
     init() {
         
-        audioKit.audioOutput = toneGenerator.toneGenerator
+        AudioKit.output = toneGenerator.toneGenerator
         
-        audioKit.start()
+        AudioKit.start()
        //toneGenerator.start()
   
 

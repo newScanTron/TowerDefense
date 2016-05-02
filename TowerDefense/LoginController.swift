@@ -84,7 +84,7 @@ class LoginController: UIViewController, UIPickerViewDataSource, UIPickerViewDel
             print("Could not fetch \(error), \(error.userInfo)")
         }
     }
-    
+   
     func checkUser() {
         
         if appDelegate.user.pswd == passText.text!

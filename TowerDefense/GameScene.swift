@@ -436,6 +436,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     //function to give resources to the play based on how long they defend the tower
+    
+    
+    
     func giveResources(time: CGFloat)
     {
         let appDelegate =
@@ -533,11 +536,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func toPlanetPicker()
     {
-        self.viewController.toPlanetPicker()
+        if self.viewController != nil{
+               self.viewController.toPlanetPicker()
+        }
+        else
+        {
+            print("ha you suck")
+  
+            
+           self.view?.presentScene(SideScrolScene(fileNamed: "SideScrollScene")!)
+        }
+     
     }
     func toSideScroll()
     {
-        self.viewController.toSideScroll()
+        //self.viewCo
     }
     func endGame() {
 

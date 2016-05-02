@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 //! Project version number for AudioKit.
 FOUNDATION_EXPORT double AudioKitVersionNumber;
@@ -75,8 +76,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKTriangleOscillatorAudioUnit.h"
 
 // Generators / Physical Models
-#import "AKPluckedStringAudioUnit.h"
 #import "AKDripAudioUnit.h"
+#import "AKMetalBarAudioUnit.h"
+#import "AKPluckedStringAudioUnit.h"
 
 // Mixing
 #import "AKBalancerAudioUnit.h"
