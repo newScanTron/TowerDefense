@@ -32,7 +32,7 @@ class Bullet : Item {
         damage = _damage
         sprite = SKSpriteNode(imageNamed: "bullet")
         sprite.size = CGSizeMake(size,size)
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(40, 40))
         enemy = shotByEnemy
         if (shotByEnemy) {
             sprite.physicsBody?.categoryBitMask = CategoryMask.EnemyBullet
@@ -64,10 +64,10 @@ class Bullet : Item {
         sprite.position = _shooter.sprite.position
         
 //        if GameScene.scene != nil {
-            activate()
+            //activate()
 //        }
 //        else{
-//            activate2()
+            activate2()
 //        }
         
         
@@ -101,15 +101,16 @@ class Bullet : Item {
     func activate2() {
         
         // Set start time so we can calculate when lifeTime has expired
-        startTime = appDelegate.sideScrollScene!.gameTime
+        //startTime = appDelegate.sideScrollScene!.gameTime
         
         // Add to scene
-        if let thisSprite : SKSpriteNode = sprite
-        {
-        appDelegate.sideScrollScene!.addChild(thisSprite)
-                
-        thisSprite.physicsBody?.velocity = Bullet.getVector(thisSprite.position, to: target.position, speed: speed)
-        }
+        //if let thisSprite : SKSpriteNode = sprite
+        //{
+        //appDelegate.sideScrollScene!.addChild(sprite)
+        appDelegate.sideScrollScene!.items.append(self)
+            
+        sprite.physicsBody?.velocity = Bullet.getVector(sprite.position, to: target.position, speed: speed)
+        //}
     }
     
 //    func copy() -> Bullet {
@@ -134,7 +135,10 @@ class Bullet : Item {
         explosion?.trigger(sprite.position)
         sprite.removeFromParent()
     }
-    
+    func sideScrollTrigger() {
+        explosion?.sideScrollTrigger(sprite.position)
+        sprite.removeFromParent()
+    }
     
     
     class func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {

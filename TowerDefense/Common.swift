@@ -16,10 +16,10 @@ var gameScene = GameScene()
 var sideScrollScene = SideScrolScene()
 
 struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
-    static let None         : UInt32 = 0
-    static let All          : UInt32 = UInt32.max
-    static let Tower        : UInt32 = 0b0001
-    static let Enemy        : UInt32 = 0b0010
+    static let None              : UInt32 = 0
+    static let All               : UInt32 = UInt32.max
+    static let Tower             : UInt32 = 0b00001
+    static let Enemy             : UInt32 = 0b00010
     static let EnemyBullet       : UInt32 = 0b00100
     static let TowerBullet       : UInt32 = 0b01000
     static let TowerShield       : UInt32 = 0b10000
@@ -28,8 +28,8 @@ struct CategoryMask { // Assigns categories for use with CollisionMask and Conta
 struct CollisionMask { // Which categories should this object "collide" with, i.e. interact with physically. Match with categories above.
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max
-    static let Tower        : UInt32 = 0b0000 // Towers only collide with other Towers and Enemies
-    static let Enemy        : UInt32 = 0b0000 // Enemies only collide with other Enemies and Towers
+    static let Tower        : UInt32 = 0b00001 // Towers only collide with other Towers and Enemies
+    static let Enemy        : UInt32 = 0b00000 // Enemies only collide with other Enemies and Towers
     static let EnemyBullet       : UInt32 = 0b10000 // EnemyBullet only collides with TowerShield
     static let TowerBullet       : UInt32 = 0b00000 // TowerBullet does not collide with anything
 }
@@ -37,10 +37,10 @@ struct CollisionMask { // Which categories should this object "collide" with, i.
 struct ContactMask { // Which categories should this object trigger notifications about, i.e. in didBeginContact(). Match with categories above.
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max
-    static let Tower        : UInt32 = 0
-    static let Enemy        : UInt32 = 0
-    static let EnemyBullet  : UInt32 = 0b0001 // EnemyBullet should only trigger contacts with Towers, so they can deal damage then be destroyed
-    static let TowerBullet  : UInt32 = 0b0010 // TowerBullet should only trigger contacts with Enemies, so they can deal damage then be destroyed
+    static let Tower        : UInt32 = 0b00010
+    static let Enemy        : UInt32 = 0b00001
+    static let EnemyBullet  : UInt32 = 0b00001 // EnemyBullet should only trigger contacts with Towers, so they can deal damage then be destroyed
+    static let TowerBullet  : UInt32 = 0b00010 // TowerBullet should only trigger contacts with Enemies, so they can deal damage then be destroyed
 }
 
 // Sets the Z position of an x,y,z cartesian plane

@@ -36,7 +36,15 @@ class EnemyMoveStrat
 
         
     }
-    
+    func outOfSSBounds(enemy : EnemyBase){
+        let centerPoint = CGPointMake(512, 364)
+        let center = getVector(enemy.sprite.position, to: centerPoint, speed: 4)
+        enemy.sprite.physicsBody?.linearDamping = 0.5
+        enemy.sprite.physicsBody?.applyImpulse(center)
+        
+        
+        
+    }
     //Helper functions almost all strategies will need
     //Returns impulse vestors to move sprites along x or y axis
     func getImpulseXRand() -> CGFloat{
