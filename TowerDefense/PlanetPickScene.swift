@@ -170,15 +170,12 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                         print("touchTimeDelta \(touchTimeDeleta)")
                         
                         let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
+
                         self.view?.presentScene(appDelegate!.gameScene!, transition: transition)
+
                     }
                 }
-                
-                
-            
         }
-        
-            
     }
 
     

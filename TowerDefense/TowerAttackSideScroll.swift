@@ -10,17 +10,21 @@ import Foundation
 import SpriteKit
 
 class TowerAttackSideScroll : TowerAttackStrat {
+
+    var sprite :SKSpriteNode = SKSpriteNode()
     
     override init () {
         super.init()
         imageName = "Spaceship"
+ 
     }
     
     override func Attack(tower: TowerBase) {
         let passTarget = SKSpriteNode()
-        passTarget.position = CGPointMake(tower.sprite.position.x + 100, tower.sprite.position.y)
+        passTarget.position = CGPointMake(tower.attackSprite.position.x + 100, tower.attackSprite.position.y)
         
-        let b : Bullet = Bullet(_shooter: tower, _target: passTarget, _speed: 330, _damage: 120, size: 15, shotByEnemy: false)
+        let b : Bullet = Bullet(_shooter: tower, _target: passTarget, _speed: 530, _damage: 120, size: 15, shotByEnemy: false)
     }
+
 }
 

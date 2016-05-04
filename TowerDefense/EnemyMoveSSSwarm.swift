@@ -1,22 +1,22 @@
 //
-//  EnemySwarmStrat.swift
+//  EnemyMoveSSSwarm.swift
 //  TowerDefense
 //
-//  Created by My Macbook Pro on 12/2/15.
-//  Copyright © 2015 Chris Murphy. All rights reserved.
+//  Created by Tobias Kundig on 4/10/16.
+//  Copyright © 2016 Chris Murphy. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 
-class EnemyMoveSwarm : EnemyMoveStrat{
+class EnemyMoveSSSwarm : EnemyMoveStrat{
     
     var lastMove : CGFloat = 0
     
     override func Move(nodeToMove : EnemyBase) {
         let appDelegate =
-        UIApplication.sharedApplication().delegate as? AppDelegate
-        for e in appDelegate!.gameScene!.enemies{
+            UIApplication.sharedApplication().delegate as? AppDelegate
+        for e in appDelegate!.sideScrollScene!.enemies{
             
             if e.name == "BossSprite"{
                 

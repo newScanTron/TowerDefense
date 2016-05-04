@@ -39,7 +39,9 @@ class TowerBase: Entity{
         sprite.physicsBody?.categoryBitMask = CategoryMask.Tower
         sprite.physicsBody?.collisionBitMask = CollisionMask.Tower
         sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
-        sprite.physicsBody?.dynamic = false
+        
+        //Testing
+        sprite.physicsBody?.dynamic = true
         sprite.zPosition = ZPosition.tower
         attackSprite.zPosition = ZPosition.tower + 1
         sprite.name = "tower"
@@ -47,17 +49,7 @@ class TowerBase: Entity{
         // Store reference to self in userData. This is the only way to get a reference to this TowerBase when all we have is the SKSpriteNode
         sprite.userData = NSMutableDictionary()
         sprite.userData!.setValue(self,forKey: "object")
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        // For some reason, adding these sprites to the scene at init was causing a crash before the login menu even loads. No idea. This fixed it.
-//        if (appDelegate.gameScene != nil) {
-//            appDelegate.gameScene! .addChild(sprite)
-//            appDelegate.gameScene!
-//                .addChild(attackSprite)
-//        }
-//        else if appDelegate.sideScrollScene!.scene != nil{
-//            //SideScrolScene.scene!.addChild(sprite)
-//            appDelegate.sideScrollScene!.addChild(attackSprite)
-//        }
+
         
     }
     

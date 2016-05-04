@@ -9,16 +9,23 @@
 import SpriteKit
 import UIKit
 import Foundation
+
 import CoreData
 import AudioKit
 
+import CoreGraphics
+
+
 class EnemySSMoveStrat: EnemyMoveStrat{
-    let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-    
+   
     
     override func Move(enemy : EnemyBase){
+        let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+        
+        
         let moveTo = appDelegate!.sideScrollScene!.ship?.sprite.position
-        let vector = getVector(enemy.sprite.position, to: moveTo!, speed: 10)
+        let vector = getVector(enemy.sprite.position, to: CGPoint(x: 0, y: 500), speed: 10)
+
         
         if enemy.sprite.position.x < moveTo?.x {
             enemy.sprite.physicsBody?.velocity.dx = 0
