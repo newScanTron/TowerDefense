@@ -14,7 +14,7 @@ import AudioKit
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
-    var viewController: GameViewController!
+    var viewController: PlanetPickView!
     let appDelegate = 
     UIApplication.sharedApplication().delegate as? AppDelegate
     //let conductor = Conductor()
@@ -536,27 +536,35 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func toPlanetPicker()
     {
-        if self.viewController != nil{
-               self.viewController.toPlanetPicker()
-        }
-        else
-        {
-            print("ha you suck")
+//        if self.viewController != nil{
+//               self.viewController.toPlanetPicker()
+//        }
+        //else
+        //{
+      
+    
   
             
-           self.view?.presentScene(SideScrolScene(fileNamed: "SideScrollScene")!)
-        }
+          // self.view?.presentScene(SideScrolScene(fileNamed: "SideScrollScene")!)
+       // }
      
     }
     func toSideScroll()
     {
-        //self.viewCo
+       // sideScrollScene = SideScrolScene(fileNamed:"SideScrollScene")!
+        
+        appDelegate!.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
+        appDelegate!.sideScrollScene!.scaleMode = .AspectFill
+        print("ha you suck")
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
+        self.view?.presentScene(appDelegate!.sideScrollScene!, transition: transition)
+            print("ha you still suck")
     }
     func endGame() {
 
     gameOver = true
         
-    self.viewController.gameOver()    
+    //self.viewController.gameOver()
         
     /*let reveal = SKTransition.fadeWithDuration(0.05)
     let endGameScene = EndGameScene(size: self.size)

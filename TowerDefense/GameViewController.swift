@@ -43,7 +43,7 @@ class GameViewController: UIViewController {
         swipeRight.numberOfTouchesRequired = 2
         swipeRight.direction = .Right
         view.addGestureRecognizer(swipeRight)
-        appDelegate.gameScene!.viewController = self
+
         skView.presentScene(appDelegate.gameScene)
 //        
 //        appDelegate.gameScene!.paused = false

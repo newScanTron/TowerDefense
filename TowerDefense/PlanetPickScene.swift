@@ -15,7 +15,8 @@ import AudioKit
 class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     var viewController: PlanetPickView!
-    
+    let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
     var backgroundNode: SKNode = SKNode()
     
     var lastTouchPosition: CGPoint = CGPoint(x: 0.0, y: 0.0);
@@ -169,7 +170,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                         print("touchTimeDelta \(touchTimeDeleta)")
                         
                         let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
-                        self.view?.presentScene(gameScene, transition: transition)
+                        self.view?.presentScene(appDelegate!.gameScene!, transition: transition)
                     }
                 }
                 

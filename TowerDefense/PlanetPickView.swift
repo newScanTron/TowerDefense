@@ -21,8 +21,7 @@ class PlanetPickView: UIViewController
         super.viewDidLoad()
         appDelegate.planetPickScene = PlanetPickScene(fileNamed: "PlanetPickScene")!
         appDelegate.gameScene = GameScene(fileNamed:"GameScene")
-        gameScene = appDelegate.gameScene!
-        sideScrollScene = SideScrolScene(fileNamed:"SideScrollScene")!
+        appDelegate.gameScene!.viewController = self
         let skView = self.view as! SKView
         
         
@@ -52,4 +51,5 @@ class PlanetPickView: UIViewController
     func goToTowerDefense(){
         performSegueWithIdentifier("GoToSideScroll", sender: nil)
     }
+   
 }
