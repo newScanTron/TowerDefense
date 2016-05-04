@@ -254,7 +254,7 @@ class EnemyFactory
         //Instantiate enemy object
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
         
-        if SideScrolScene.scene!.intro == false {
+        /*if SideScrolScene.scene!.intro == false {
             speed = random(min: -440, max: -520)
             sprite.physicsBody?.velocity.dx = speed
             if SideScrolScene.scene?.deltaTime > 239 {
@@ -267,9 +267,9 @@ class EnemyFactory
             }
         }
         else{
-            sprite.physicsBody?.velocity.dx = speed
-        }
-        
+         
+        }*/
+        sprite.physicsBody?.velocity.dx = speed
         
         //Set object specific variables
         enemy.health = 100
@@ -305,7 +305,7 @@ class EnemyFactory
         enemy.health = 100
         enemy.maxHealth = 100
         
-        enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width + 20.0, SideScrolScene.scene!.size.height - 100)
+        enemy.sprite.position = CGPointMake(sideScrollScene.scene!.size.width + 20.0, sideScrollScene.size.height - 100)
 
         //Return object to the GameScene
         
@@ -339,7 +339,7 @@ class EnemyFactory
         enemy.health = 100
         enemy.maxHealth = 100
 
-        enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width - 60.0, -20)
+        enemy.sprite.position = CGPointMake(sideScrollScene.scene!.size.width - 60.0, -20)
 
         //Return object to the GameScene
         
@@ -375,7 +375,7 @@ class EnemyFactory
         //Set object specific variables
         enemy.health = 175
         enemy.maxHealth = 175
-        enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width + 20, SideScrolScene.scene!.size.height / 2)
+        enemy.sprite.position = CGPointMake(sideScrollScene.scene!.size.width + 20, sideScrollScene.scene!.size.height / 2)
 
         //Return object to the GameScene
         return enemy

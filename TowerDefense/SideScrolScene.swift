@@ -106,7 +106,8 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         
         ship = towerBuilder.BuildBaseShip()
         SideScrolScene.ships.append(ship!)
-
+        
+        self.addChild(ship!.attackSprite)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -170,7 +171,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         //Need to move to Tower class or its own
         shieldParentNode.zRotation += CGFloat(-M_PI/16)
         
-        let newObstacle = enemyFactory.getObstacle()
+        //let newObstacle = enemyFactory.getObstacle()
         
         if deltaTime > 50 {
             intro = true
@@ -186,15 +187,23 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             deltaTime = 0
             let newEnemy = enemyFactory.getNextSSEnemy()
             SideScrolScene.enemies.append(newEnemy!)
-            SideScrolScene.scene?.addChild(newEnemy!.sprite)
+           
+            self.addChild(newEnemy!.sprite)
             //SideScrolScene.enemies.append(newObstacle!)
             //SideScrolScene.scene?.addChild(newObstacle!.sprite)
             
             for (var i = 0; i < SideScrolScene.ships.count; i++)
             {
+                
                 let e = SideScrolScene.ships[i]
+                
+                let passTarget = SKSpriteNode()
+                passTarget.position = CGPointMake(e.attackSprite.position.x + 100, e.attackSprite.position.y)
+                
+                let b : Bullet = Bullet(_shooter: e, _target: passTarget, _speed: 530, _damage: 120, size: 15, shotByEnemy: false)
+                self.addChild(b.sprite)
                 if superWeapon == false {
-                    e.TriggerAttack()
+                    
                 }
             }
 
@@ -204,7 +213,13 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             for (var i = 0; i < SideScrolScene.ships.count; i++)
             {
                 let e = SideScrolScene.ships[i]
+                let passTarget = SKSpriteNode()
+                passTarget.position = CGPointMake(e.attackSprite.position.x + 100, e.attackSprite.position.y)
+                
+                let b : Bullet = Bullet(_shooter: e, _target: passTarget, _speed: 530, _damage: 120, size: 15, shotByEnemy: false)
+                self.addChild(b.sprite)
                 if superWeapon == false {
+                    
                     e.TriggerAttack()
                 }
             }
@@ -247,7 +262,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     }
     func addEarth() {
 
-        earthSprite.position = CGPoint(x: SideScrolScene.scene!.size.width - 20, y: 100)
+        earthSprite.position = CGPoint(x: self.scene!.size.width - 20, y: 100)
         earthSprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.25, 0.25))
         earthSprite.physicsBody?.dynamic = true
         earthSprite.physicsBody?.mass = 1
@@ -259,24 +274,24 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         livesLeft1.xScale = 0.06
         livesLeft1.yScale = 0.06
         
-        livesLeft1.position = CGPointMake(30, SideScrolScene.scene!.size.height - 40)
+        livesLeft1.position = CGPointMake(30, self.scene!.size.height - 40)
         
         
         livesLeft2.xScale = 0.06
         livesLeft2.yScale = 0.06
         
-        livesLeft2.position = CGPointMake(60, SideScrolScene.scene!.size.height - 40)
+        livesLeft2.position = CGPointMake(60, self.scene!.size.height - 40)
         
         livesLeft3.xScale = 0.06
         livesLeft3.yScale = 0.06
         
-        livesLeft3.position = CGPointMake(90, SideScrolScene.scene!.size.height - 40)
+        livesLeft3.position = CGPointMake(90, self.scene!.size.height - 40)
         
         
-        SideScrolScene.scene?.addChild(livesLeft1)
-        SideScrolScene.scene?.addChild(livesLeft2)
-        SideScrolScene.scene?.addChild(livesLeft3)
-        SideScrolScene.scene?.addChild(earthSprite)
+        self.addChild(livesLeft1)
+        self.addChild(livesLeft2)
+        self.addChild(livesLeft3)
+        self.addChild(earthSprite)
 
     }
 

@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import CoreGraphics
 
 class EnemySSMoveStrat: EnemyMoveStrat{
     
-    var moveTo = SideScrolScene.scene?.ship?.sprite.position
+    var moveTo = SideScrolScene.scene?.ship?.attackSprite.position
     
     override func Move(enemy : EnemyBase){
-        let vector = getVector(enemy.sprite.position, to: moveTo!, speed: 10)
+        let vector = getVector(enemy.sprite.position, to: CGPoint(x: 0, y: 500), speed: 10)
         
         if enemy.sprite.position.x < moveTo?.x {
             enemy.sprite.physicsBody?.velocity.dx = 0

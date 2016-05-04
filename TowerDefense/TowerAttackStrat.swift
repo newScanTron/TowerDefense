@@ -43,5 +43,4 @@ class TowerAttackStrat
         strat.setSpeedLevel(speedLevel)
         return strat
     }
-    
 }

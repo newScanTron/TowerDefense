@@ -51,14 +51,7 @@ class TowerBase: Entity{
         sprite.userData!.setValue(self,forKey: "object")
         
         // For some reason, adding these sprites to the scene at init was causing a crash before the login menu even loads. No idea. This fixed it.
-        if (GameScene.scene != nil) {
-            GameScene.scene!.addChild(sprite)
-            GameScene.scene!.addChild(attackSprite)
-        }
-        else if SideScrolScene.scene != nil{
-            //SideScrolScene.scene!.addChild(sprite)
-            SideScrolScene.scene!.addChild(attackSprite)
-        }
+
         
     }
     

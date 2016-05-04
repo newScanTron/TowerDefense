@@ -64,10 +64,10 @@ class Bullet : Item {
         sprite.position = _shooter.sprite.position
         
 //        if GameScene.scene != nil {
-            activate()
+            //activate()
 //        }
 //        else{
-//            activate2()
+            activate2()
 //        }
         
         
@@ -101,15 +101,18 @@ class Bullet : Item {
     func activate2() {
         
         // Set start time so we can calculate when lifeTime has expired
-        startTime = SideScrolScene.gameTime
+        //startTime = appDelegate.sideScrollScene!.gameTime
         
         // Add to scene
-        if let thisSprite : SKSpriteNode = sprite
-        {
-        SideScrolScene.scene!.addChild(thisSprite)
+        //if let thisSprite : SKSpriteNode = sprite
+        //{
+        //appDelegate.sideScrollScene!.addChild(sprite)
+        appDelegate.sideScrollScene!.items.append(self)
+        //SideScrolScene.scene!.addChild(self.sprite)
+ 
                 
-        thisSprite.physicsBody?.velocity = Bullet.getVector(thisSprite.position, to: target.position, speed: speed)
-        }
+        sprite.physicsBody?.velocity = Bullet.getVector(sprite.position, to: target.position, speed: speed)
+        //}
     }
     
 //    func copy() -> Bullet {

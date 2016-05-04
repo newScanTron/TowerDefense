@@ -18,7 +18,7 @@ class EnemySS3MoveStrat: EnemyMoveStrat{
             enemy.sprite.physicsBody?.velocity.dx = -50
             enemy.sprite.physicsBody?.velocity.dy = 300
         }
-        if enemy.sprite.position.y > (SideScrolScene.scene!.size.height - 200) {
+        if enemy.sprite.position.y > (sideScrollScene.scene!.size.height - 200) {
             enemy.sprite.physicsBody?.applyImpulse(CGVectorMake(CGFloat(-10), CGFloat(-40)))
         }
     }

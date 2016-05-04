@@ -46,7 +46,7 @@ class Explosion : Item {
     }
     func sideScrollTrigger(_location : CGPoint) {
 
-        //print("explosion trigger")
+        print("explosion trigger")
         location = _location
         
         appDelegate!.sideScrollScene!.items.append(self)
