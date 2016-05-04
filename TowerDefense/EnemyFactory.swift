@@ -24,10 +24,10 @@ class EnemyFactory
     
     // Decides what enemy and how many to return to the GameScene
     func getNextEnemy() -> EnemyBase? {
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
-        var enemy :EnemyBase? = nil
         
+        var enemy :EnemyBase? = nil
+        let appDelegate =
+            UIApplication.sharedApplication().delegate as! AppDelegate
         if appDelegate.gameScene!.gameTime > lastEnemy + waveDelay{
             lastEnemy = appDelegate.gameScene!.gameTime
             
@@ -210,7 +210,8 @@ class EnemyFactory
         return enemy! 
     }
     func getObstacle() -> EnemyBase? {
-        
+        let appDelegate =
+            UIApplication.sharedApplication().delegate as! AppDelegate
         
         //Set enemy strategies and variables
         let attack = EnemyAttackObstacle()
@@ -237,14 +238,14 @@ class EnemyFactory
         //Instantiate enemy object
         let enemy = EnemyBase(_attack: attack, _moveStrat: moveStrat, _sprite: sprite, _range: range, _moveDelay: moveDelay, _reward: reward, _name: name)
         
-        if SideScrolScene.scene!.intro == false {
+        if appDelegate.sideScrollScene!.intro == false {
             speed = random(min: -440, max: -520)
             sprite.physicsBody?.velocity.dx = speed
-            if SideScrolScene.scene?.deltaTime > 239 {
+            if appDelegate.sideScrollScene!.deltaTime > 239 {
                 intro = true
-                for (var i = 0; i < SideScrolScene.enemies.count; i++)
+                for (var i = 0; i < appDelegate.sideScrollScene!.enemies.count; i++)
                 {
-                    let e = SideScrolScene.enemies[i]
+                    let e = appDelegate.sideScrollScene!.enemies[i]
                     e.sprite.physicsBody?.velocity.dx += 200
                 }
             }
@@ -289,9 +290,12 @@ class EnemyFactory
         //Set object specific variables
         enemy.health = 100
         enemy.maxHealth = 100
-        
-        if SideScrolScene.enemies.count < 5 {
-            enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width + 20.0, SideScrolScene.scene!.size.height - 100)
+        let appDelegate =
+            UIApplication.sharedApplication().delegate as! AppDelegate
+        if appDelegate.sideScrollScene!.enemies.count < 5 {
+           // enemy.sprite.position = CGPointMake(SideScrolScene.scene!.size.width + 20.0, SideScrolScene.scene!.size.height - 100)
+            enemy.sprite.position = CGPointMake(1024 + 20.0, 750 - 100)
+
             enemy.setMoveStrategy(EnemySS2MoveStrat())
         }
         //Return object to the GameScene

@@ -170,11 +170,13 @@ func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
     }
 }
 func getItems() -> [Item]{
+    let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
     if gameScene.scene != nil{
         return gameScene.items
     }
     else{
-        return SideScrolScene.items
+        return appDelegate!.sideScrollScene!.items
     }
 }
 //delay function that can be called as a clouser 

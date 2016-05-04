@@ -69,8 +69,6 @@
 		993BC2BA1C011A6D009596FA /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993BC2B81C011A6D009596FA /* SignUpController.swift */; };
 		9943460E1C7924F2000012F0 /* PlanetPickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9943460D1C7924F1000012F0 /* PlanetPickView.swift */; };
 		9943460F1C7924F2000012F0 /* PlanetPickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9943460D1C7924F1000012F0 /* PlanetPickView.swift */; };
-		994346111C792662000012F0 /* SideScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994346101C792662000012F0 /* SideScroll.swift */; };
-		994346121C792662000012F0 /* SideScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994346101C792662000012F0 /* SideScroll.swift */; };
 		994346141C792776000012F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 994346131C792776000012F0 /* Main.storyboard */; };
 		994346151C792776000012F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 994346131C792776000012F0 /* Main.storyboard */; };
 		9946E3FF1BE56E33007E9559 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E3FE1BE56E33007E9559 /* Common.swift */; };
@@ -113,7 +111,6 @@
 		99BA33C31BF2A24300152764 /* EnemyMoveStrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4021BE56EBB007E9559 /* EnemyMoveStrat.swift */; };
 		99BA33C41BF2A24300152764 /* EnemyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E4141BE5721D007E9559 /* EnemyFactory.swift */; };
 		99BA33C71BF2A24800152764 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082F1BE035D80070F4B8 /* GameScene.swift */; };
-		99BA33C81BF2A24800152764 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD08311BE035D80070F4B8 /* GameViewController.swift */; };
 		99BA33C91BF2A24800152764 /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D680E91BE7FE2B00C877CE /* UpgradeView.swift */; };
 		99BA33CC1BF2A25F00152764 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082B1BE035D80070F4B8 /* AppDelegate.swift */; };
 		99BA33CD1BF2A25F00152764 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9946E41A1BE5766C007E9559 /* Entity.swift */; };
@@ -134,7 +131,6 @@
 		99FD082C1BE035D80070F4B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082B1BE035D80070F4B8 /* AppDelegate.swift */; };
 		99FD082E1BE035D80070F4B8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 99FD082D1BE035D80070F4B8 /* GameScene.sks */; };
 		99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD082F1BE035D80070F4B8 /* GameScene.swift */; };
-		99FD08321BE035D80070F4B8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD08311BE035D80070F4B8 /* GameViewController.swift */; };
 		99FD083A1BE035D80070F4B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99FD08381BE035D80070F4B8 /* LaunchScreen.storyboard */; };
 		99FD08451BE035D80070F4B8 /* TowerDefenseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD08441BE035D80070F4B8 /* TowerDefenseTests.swift */; };
 		99FD08501BE035D80070F4B8 /* TowerDefenseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99FD084F1BE035D80070F4B8 /* TowerDefenseUITests.swift */; };
@@ -214,7 +210,6 @@
 		993BC2B51C003A50009596FA /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		993BC2B81C011A6D009596FA /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		9943460D1C7924F1000012F0 /* PlanetPickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetPickView.swift; sourceTree = "<group>"; };
-		994346101C792662000012F0 /* SideScroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideScroll.swift; sourceTree = "<group>"; };
 		994346131C792776000012F0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9946E3FE1BE56E33007E9559 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		9946E4001BE56E54007E9559 /* TowerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowerBase.swift; sourceTree = "<group>"; };
@@ -245,7 +240,6 @@
 		99FD082B1BE035D80070F4B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99FD082D1BE035D80070F4B8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		99FD082F1BE035D80070F4B8 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		99FD08311BE035D80070F4B8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		99FD08391BE035D80070F4B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		99FD083B1BE035D80070F4B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99FD08401BE035D80070F4B8 /* TowerDefenseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TowerDefenseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -413,12 +407,10 @@
 				99CE60CA1C1BD45B00CB8F22 /* Audio */,
 				99FD082F1BE035D80070F4B8 /* GameScene.swift */,
 				99A868D51C65331E00A97EF1 /* SideScrolScene.swift */,
-				994346101C792662000012F0 /* SideScroll.swift */,
 				9943460D1C7924F1000012F0 /* PlanetPickView.swift */,
 				99C787D11CBEB2B300AEA313 /* MainTowerHUD.swift */,
 				97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */,
 				97176D2B1C87E53F006D38D1 /* Planet.swift */,
-				99FD08311BE035D80070F4B8 /* GameViewController.swift */,
 				99D680E91BE7FE2B00C877CE /* UpgradeView.swift */,
 			);
 			path = TowerDefense;
@@ -534,7 +526,7 @@
 					};
 					99FD08271BE035D80070F4B8 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = D5ZY76JTJB;
+						DevelopmentTeam = U3N5MJG292;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
 								enabled = 1;
@@ -656,11 +648,9 @@
 				99FD08301BE035D80070F4B8 /* GameScene.swift in Sources */,
 				7513D85F1CA322120025A96D /* TowerAttackSideScroll.swift in Sources */,
 				75D991521C8249BB008F2A70 /* EnemyAttackObstacle.swift in Sources */,
-				994346111C792662000012F0 /* SideScroll.swift in Sources */,
 				992622351BED1ECB0080D35A /* EnemyMoveBasic.swift in Sources */,
 				99A28B281C7E505B007B39DF /* TowerMainStat.swift in Sources */,
 				99A3BBEA1BE94C1900AAB350 /* TowerDefenseHeal.swift in Sources */,
-				99FD08321BE035D80070F4B8 /* GameViewController.swift in Sources */,
 				993BC2B61C003A50009596FA /* LoginController.swift in Sources */,
 				99C787D21CBEB2B300AEA313 /* MainTowerHUD.swift in Sources */,
 				9926222F1BED1E9F0080D35A /* EnemyMoveBoss.swift in Sources */,
@@ -709,10 +699,8 @@
 				998722941BED58ED0097B677 /* UpgradeNode.swift in Sources */,
 				99BA33C91BF2A24800152764 /* UpgradeView.swift in Sources */,
 				99CE60D31C1BD6B900CB8F22 /* Conductor.swift in Sources */,
-				99BA33C81BF2A24800152764 /* GameViewController.swift in Sources */,
 				7513D8631CA56BF90025A96D /* EnemySS2MoveStrat.swift in Sources */,
 				9919CF2D1C0CF77E0024DFBB /* TowerDefenseSlag.swift in Sources */,
-				994346121C792662000012F0 /* SideScroll.swift in Sources */,
 				7513D8601CA324FD0025A96D /* TowerAttackSideScroll.swift in Sources */,
 				99BA33C11BF2A24300152764 /* EnemyBase.swift in Sources */,
 				75D991591C8CF5D3008F2A70 /* EnemySSMoveStrat.swift in Sources */,
@@ -921,7 +909,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.gameDesign.TowerDefense;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Design.TowerDefense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -945,7 +933,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.gameDesign.TowerDefense;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Design.TowerDefense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

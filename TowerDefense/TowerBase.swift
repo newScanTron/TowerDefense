@@ -16,7 +16,7 @@ class TowerBase: Entity{
     var defenseSelection : Int = 0
     var value : Int = 0 // Value in gold of all attack strategies
     var attackSprite : SKSpriteNode // Sprite that changes based on attack strategy
-    
+
     init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
         
@@ -47,16 +47,17 @@ class TowerBase: Entity{
         // Store reference to self in userData. This is the only way to get a reference to this TowerBase when all we have is the SKSpriteNode
         sprite.userData = NSMutableDictionary()
         sprite.userData!.setValue(self,forKey: "object")
-        
-        // For some reason, adding these sprites to the scene at init was causing a crash before the login menu even loads. No idea. This fixed it.
-        if (GameScene.scene != nil) {
-            GameScene.scene!.addChild(sprite)
-            GameScene.scene!.addChild(attackSprite)
-        }
-        else if SideScrolScene.scene != nil{
-            //SideScrolScene.scene!.addChild(sprite)
-            SideScrolScene.scene!.addChild(attackSprite)
-        }
+//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//        // For some reason, adding these sprites to the scene at init was causing a crash before the login menu even loads. No idea. This fixed it.
+//        if (appDelegate.gameScene != nil) {
+//            appDelegate.gameScene! .addChild(sprite)
+//            appDelegate.gameScene!
+//                .addChild(attackSprite)
+//        }
+//        else if appDelegate.sideScrollScene!.scene != nil{
+//            //SideScrolScene.scene!.addChild(sprite)
+//            appDelegate.sideScrollScene!.addChild(attackSprite)
+//        }
         
     }
     

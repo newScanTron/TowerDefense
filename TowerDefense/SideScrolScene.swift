@@ -15,7 +15,7 @@ import AudioKit
 class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
     
-    var viewController: SideScroll!
+    var viewController: PlanetPickView!
 
     var backgroundNode: SKNode = SKNode()
     var midgroundNode: SKNode = SKNode()
@@ -29,18 +29,17 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     var touchDelta : CGPoint? = nil
     var touchTime : CGFloat = 0
     let earthSprite = SKSpriteNode(imageNamed: "earth10")
-    static var gameTime : CGFloat = 0
+     var gameTime : CGFloat = 0
     var deltaTime : CGFloat = 0
     var ship :TowerBase? = nil
-    static var items : [Item] = [Item]()
+     var items : [Item] = [Item]()
     //Enemy Factory
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
     
-    static var ships : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
-    static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
-    static var scene : SideScrolScene? = nil
-    
+     var ships : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
+     var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     override func didMoveToView(view: SKView) {
 
         physicsWorld.gravity = CGVectorMake(0,0)
@@ -63,7 +62,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
 
         ship = towerBuilder.BuildBaseShip()
-        SideScrolScene.ships.append(ship!)
+        appDelegate.sideScrollScene!.ships.append(ship!)
 
     }
     
@@ -98,7 +97,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
         
         deltaTime += 1.0
-        SideScrolScene.gameTime = CGFloat(currentTime)
+        appDelegate.sideScrollScene!.gameTime = CGFloat(currentTime)
         
         let newEnemy = enemyFactory.getNextSSEnemy()
         let newObstacle = enemyFactory.getObstacle()
@@ -115,37 +114,37 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         }
         if deltaTime > 40 && intro == true{
             deltaTime = 0
-            SideScrolScene.enemies.append(newEnemy)
-            SideScrolScene.scene?.addChild(newEnemy.sprite)
+            appDelegate.sideScrollScene!.enemies.append(newEnemy)
+            appDelegate.sideScrollScene!.scene?.addChild(newEnemy.sprite)
             //SideScrolScene.enemies.append(newObstacle!)
             //SideScrolScene.scene?.addChild(newObstacle!.sprite)
             
-            for (var i = 0; i < SideScrolScene.ships.count; i++)
+            for (var i = 0; i < appDelegate.sideScrollScene!.ships.count; i++)
             {
-                let e = SideScrolScene.ships[i]
+                let e = appDelegate.sideScrollScene!.ships[i]
                 e.TriggerAttack()
             }
 
         }
 
-        for (var i = 0; i < SideScrolScene.enemies.count; i++)
+        for (var i = 0; i < appDelegate.sideScrollScene!.enemies.count; i++)
         {
-            let e = SideScrolScene.enemies[i]
+            let e = appDelegate.sideScrollScene!.enemies[i]
             
             e.TriggerAttack()
             e.moveMore()
             if e.CheckIfDead(){
                 e.sprite.removeFromParent() 
                 
-                SideScrolScene.enemies.removeAtIndex(i)
+                appDelegate.sideScrollScene!.enemies.removeAtIndex(i)
                 i -= 1
             }
         }
-        for (var i = 0; i < SideScrolScene.items.count; i++) {
-            let item = SideScrolScene.items[i]
+        for (var i = 0; i < appDelegate.sideScrollScene!.items.count; i++) {
+            let item = appDelegate.sideScrollScene!.items[i]
             if (item.destroyThis) {
                 item.destroy()
-                SideScrolScene.items.removeAtIndex(i)
+                appDelegate.sideScrollScene!.items.removeAtIndex(i)
                 i -= 1;
             }
             else {
@@ -162,7 +161,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
         earthSprite.physicsBody?.velocity.dx = -200
         earthSprite.physicsBody?.velocity.dy = -10
         
-        SideScrolScene.scene?.addChild(earthSprite)
+        appDelegate.sideScrollScene!.scene?.addChild(earthSprite)
 
     }
 
@@ -182,7 +181,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             //this first case is executed when a tower bullet hits a enemy.
         case CategoryMask.Enemy | CategoryMask.TowerBullet:
             
-            for e in SideScrolScene.enemies{
+            for e in appDelegate.sideScrollScene!.enemies{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
@@ -204,7 +203,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             //this case is if an enemy bullet has hit a tower.
         case CategoryMask.Tower | CategoryMask.EnemyBullet:
             
-            for t in SideScrolScene.ships{
+            for t in appDelegate.sideScrollScene!.ships{
                 
                 if t.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet

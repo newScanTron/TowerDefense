@@ -101,12 +101,12 @@ class Bullet : Item {
     func activate2() {
         
         // Set start time so we can calculate when lifeTime has expired
-        startTime = SideScrolScene.gameTime
+        startTime = appDelegate.sideScrollScene!.gameTime
         
         // Add to scene
         if let thisSprite : SKSpriteNode = sprite
         {
-        SideScrolScene.scene!.addChild(thisSprite)
+        appDelegate.sideScrollScene!.addChild(thisSprite)
                 
         thisSprite.physicsBody?.velocity = Bullet.getVector(thisSprite.position, to: target.position, speed: speed)
         }

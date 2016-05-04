@@ -30,14 +30,14 @@ class EnemyMoveBasic: EnemyMoveStrat{
 
                 outOfBounds(enemy)
             }
-            else if(enemy.sprite.position.y >= SideScrolScene.scene!.size.height - offSet){
+            else if(enemy.sprite.position.y >= appDelegate.sideScrollScene!.size.height - offSet){
                 outOfBounds(enemy)
 
             }
             else if (enemy.sprite.position.x < offSet){
                 outOfBounds(enemy)
             }
-            else if (enemy.sprite.position.x > SideScrolScene.scene!.size.width - offSet) {
+            else if (enemy.sprite.position.x > appDelegate.sideScrollScene!.size.width - offSet) {
                 outOfBounds(enemy)
 
             }

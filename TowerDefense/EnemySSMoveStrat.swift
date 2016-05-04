@@ -6,13 +6,18 @@
 //  Copyright © 2016 Chris Murphy. All rights reserved.
 //
 
+import SpriteKit
+import UIKit
 import Foundation
+import CoreData
+import AudioKit
 
 class EnemySSMoveStrat: EnemyMoveStrat{
+    let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
     
-    var moveTo = SideScrolScene.scene?.ship?.sprite.position
     
     override func Move(enemy : EnemyBase){
+        let moveTo = appDelegate!.sideScrollScene!.ship?.sprite.position
         let vector = getVector(enemy.sprite.position, to: moveTo!, speed: 10)
         
         if enemy.sprite.position.x < moveTo?.x {

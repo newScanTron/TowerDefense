@@ -10,16 +10,16 @@ import Foundation
 import SpriteKit
 
 class EnemySS2MoveStrat: EnemyMoveStrat{
-    
+    let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
     override func Move(enemy : EnemyBase){
         
         enemy.sprite.physicsBody?.velocity.dx = -160
-        if enemy.sprite.position.x < (SideScrolScene.scene!.size.width - 100) {
+        if enemy.sprite.position.x < (appDelegate!.sideScrollScene!.size.width - 100) {
             enemy.sprite.physicsBody?.velocity.dx = 0
             enemy.sprite.physicsBody?.velocity.dy = 0
         }
         
-        if enemy.sprite.position.x < (SideScrolScene.scene!.size.width - 100) && enemy.sprite.physicsBody?.velocity.dx == 0{
+        if enemy.sprite.position.x < (appDelegate!.sideScrollScene!.size.width - 100) && enemy.sprite.physicsBody?.velocity.dx == 0{
             enemy.sprite.physicsBody?.velocity.dy = -120
             
         }
