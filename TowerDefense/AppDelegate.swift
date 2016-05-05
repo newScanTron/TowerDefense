@@ -249,6 +249,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         
         gameScene = GameScene(fileNamed:"GameScene")
+        GameScene.scene = gameScene
         let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
         self.sideScrollScene!.view?.presentScene(self.gameScene!, transition: transition)
         

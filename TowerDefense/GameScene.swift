@@ -190,7 +190,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         let touchLocation = touch.locationInView(self.view!)
         let tower : TowerBase = towerBuilder.BuildBaseTower(location)
-        
+        self.addChild(tower.sprite)
         if (addGold(-100)) {
             appDelegate!.gameScene!.towers.append(tower)
 
