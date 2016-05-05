@@ -191,9 +191,9 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             deltaTime = 0
 
             let newEnemy = enemyFactory.getNextSSEnemy()
-              appDelegate.sideScrollScene!.enemies.append(newEnemy!)
-           
-            self.addChild(newEnemy!.sprite)
+            appDelegate.sideScrollScene!.enemies.append(newEnemy!)
+            appDelegate.sideScrollScene!.scene?.addChild(newEnemy!.sprite)
+            //self.addChild(newEnemy!.sprite)
 
             //SideScrolScene.enemies.append(newObstacle!)
             //SideScrolScene.scene?.addChild(newObstacle!.sprite)
@@ -202,12 +202,8 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             {
                 
                 let e = appDelegate.sideScrollScene!.ships[i]
-                
-                let passTarget = SKSpriteNode()
-                passTarget.position = CGPointMake(e.attackSprite.position.x + 100, e.attackSprite.position.y)
-                
-                let b : Bullet = Bullet(_shooter: e, _target: passTarget, _speed: 530, _damage: 120, size: 15, shotByEnemy: false)
-                self.addChild(b.sprite)
+                e.TriggerAttack()
+
                 if superWeapon == false {
                     
                 }
@@ -219,14 +215,10 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
             for (var i = 0; i < appDelegate.sideScrollScene!.ships.count; i++)
             {
                 let e = appDelegate.sideScrollScene!.ships[i]
-                let passTarget = SKSpriteNode()
-                passTarget.position = CGPointMake(e.attackSprite.position.x + 100, e.attackSprite.position.y)
-                
-                let b : Bullet = Bullet(_shooter: e, _target: passTarget, _speed: 530, _damage: 120, size: 15, shotByEnemy: false)
-                self.addChild(b.sprite)
+                e.TriggerAttack()
                 if superWeapon == false {
                     
-                    e.TriggerAttack()
+
                 }
             }
         }
@@ -390,7 +382,6 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
             
         default:
-            
             print("other collision: \(contactMask)")
         }
     }

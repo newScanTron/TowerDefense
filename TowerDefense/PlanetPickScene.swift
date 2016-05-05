@@ -48,12 +48,12 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     //Enemy Factory
     
-    static var planets : [Planet] =  [Planet]() // Stores all planets in galaxy
+    // Stores all planets in galaxy
     static var scene : PlanetPickScene? = nil
+    var firstPlanet : Planet = Planet()
     
     override func didMoveToView(view: SKView) {
         
-        gameScene = GameScene(fileNamed: "GameScene")!
         
         
         cameraNode = SKCameraNode()
@@ -64,8 +64,11 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         
         self.backgroundColor = SKColor.blackColor()
         
+        
+        if !planetsAreSet
+        {
         for (var i = 0; i < 100 ; i++) {
-            PlanetPickScene.planets.append(Planet(
+            appDelegate!.planets.append(Planet(
                 size: 10 + CGFloat(arc4random_uniform(10)),
                 position: getPlanetPosition(),
                 color: getRandomColor(),
@@ -74,19 +77,26 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                 fuel: Int(arc4random_uniform(100))
             ));
         }
-        
-        let firstPlanet : Planet = PlanetPickScene.planets[Int(arc4random_uniform(UInt32(PlanetPickScene.planets.count)))]
+            planetIndex = Int(arc4random_uniform(UInt32(appDelegate!.planets.count)))
+            
+            planetsAreSet = true
+        }
+        firstPlanet = appDelegate!.planets[planetIndex]
         cameraNode.position = firstPlanet.position
         
         
         newDiscovery(firstPlanet.position.x, y: firstPlanet.position.y, r: 250);
         
         self.view!.multipleTouchEnabled = true;
+        //add the main HUD
+        let towerBuilder = TowerBuilder()
+        let each = towerBuilder.BuildMainTower(CGPoint(x: 0, y: 0))
+        towerBuilder.addMainUpgradView(each, location: CGPoint(x: 0,y: 0), gameScene: self)
         
     }
     
     func travelToPlanet(p : Planet) {
-        self.viewController.goToScene()
+       appDelegate?.goToSideScroll()
     }
     
     
@@ -101,14 +111,16 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         touchTimeDeleta = (event?.timestamp)!
         
         selectedPlanet = nil
-        
-        for p in PlanetPickScene.planets {
+        var planetCount = 0
+        for p in appDelegate!.planets {
             if (getDistance(p.position,to: touchLocation!) < p.size) {
                 selectedPlanet = p
+                planetIndex = planetCount
                 newDiscovery(p.position.x, y: p.position.y, r: 250)
                 travelToPlanet(p);
                 break
             }
+            planetCount += 1
         }
         
         if (selectedPlanet != nil) {
@@ -158,7 +170,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         touchTimeDeleta = (event?.timestamp)! - touchTimeDeleta
        
         
-        for p in PlanetPickScene.planets {
+        for p in appDelegate!.planets {
            
             
                 if (p.sprite != nil  && p.sprite!.containsPoint(location))
@@ -171,7 +183,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                         
                         let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
 
-                        self.view?.presentScene(appDelegate!.gameScene!, transition: transition)
+                        self.view?.presentScene(appDelegate!.sideScrollScene!, transition: transition)
 
                     }
                 }
@@ -255,7 +267,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         // Add circle back to scene
         PlanetPickScene.scene?.addChild(circle)
         
-        for p in PlanetPickScene.planets {
+        for p in appDelegate!.planets {
             p.checkDiscovery(r, position: CGPoint(x: x, y: y));
         }
     }

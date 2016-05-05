@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var sideScrollScene = SideScrolScene(fileNamed:"SideScrolScene")
     var planetPickScene = PlanetPickScene(fileNamed:"PlanetPickScene")
     var conductor = Conductor()
-  
+    var planets : [Planet] =  [Planet]()
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -231,6 +231,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.gameScene!.fuelLabel.text = ("fuel: \(self.user.fuel)")
         self.gameScene!.o2Label.text = ("o2: \(self.user.o2)")
      
+        
+    }
+    func updateMainTowerHUD()
+    {
+        MainTowerHUD.costLabel.text = ("cost: \(self.user.gold)")
+    }
+    func goToPlanetPick()
+    {
+        planetPickScene = PlanetPickScene(fileNamed:"PlanetPickScene")
+       PlanetPickScene.scene = planetPickScene
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.gameScene!.view?.presentScene(self.planetPickScene!, transition: transition)
+        
+    }
+    func goToTowerDefense()
+    {
+        
+        gameScene = GameScene(fileNamed:"GameScene")
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.sideScrollScene!.view?.presentScene(self.gameScene!, transition: transition)
+        
+    }
+    func goToSideScroll()
+    {
+        
+        sideScrollScene = SideScrolScene(fileNamed:"SideScrollScene")
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.sideScrollScene!.view?.presentScene(self.sideScrollScene!, transition: transition)
         
     }
 }

@@ -306,6 +306,9 @@ class EnemyFactory
 
     }
     func getSS2Enemy() -> EnemyBase? {
+        
+        let appDelegate =
+            UIApplication.sharedApplication().delegate as! AppDelegate
         //Set enemy strategies and variables
         let attack = EnemySSAttackStrat()
         
@@ -332,7 +335,7 @@ class EnemyFactory
         enemy.health = 100
         enemy.maxHealth = 100
 
-        enemy.sprite.position = CGPointMake(sideScrollScene.scene!.size.width - 60.0, -20)
+        enemy.sprite.position = CGPointMake(appDelegate.sideScrollScene!.size.width - 60.0, -20)
 
         //Return object to the GameScene
         
@@ -340,7 +343,8 @@ class EnemyFactory
         
     }
     func CreateEnemySSBoss() -> EnemyBase{
-        
+        let appDelegate =
+            UIApplication.sharedApplication().delegate as! AppDelegate
         
         //Set enemy strategies and variables
         let attack = EnemyAttackBoss()
@@ -368,7 +372,7 @@ class EnemyFactory
         //Set object specific variables
         enemy.health = 175
         enemy.maxHealth = 175
-        enemy.sprite.position = CGPointMake(sideScrollScene.scene!.size.width + 20, sideScrollScene.scene!.size.height / 2)
+        enemy.sprite.position = CGPointMake(appDelegate.sideScrollScene!.size.width + 20, appDelegate.sideScrollScene!.size.height / 2)
 
         //Return object to the GameScene
         return enemy
