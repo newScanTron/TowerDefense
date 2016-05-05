@@ -50,6 +50,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     // Stores all planets in galaxy
     static var scene : PlanetPickScene? = nil
+    var firstPlanet : Planet = Planet()
     
     override func didMoveToView(view: SKView) {
         
@@ -63,8 +64,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         
         self.backgroundColor = SKColor.blackColor()
         
-        var firstPlanet : Planet
-        var planetIndex = 0
+        
         if !planetsAreSet
         {
         for (var i = 0; i < 100 ; i++) {
@@ -111,14 +111,16 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         touchTimeDeleta = (event?.timestamp)!
         
         selectedPlanet = nil
-        
+        var planetCount = 0
         for p in appDelegate!.planets {
             if (getDistance(p.position,to: touchLocation!) < p.size) {
                 selectedPlanet = p
+                planetIndex = planetCount
                 newDiscovery(p.position.x, y: p.position.y, r: 250)
                 travelToPlanet(p);
                 break
             }
+            planetCount += 1
         }
         
         if (selectedPlanet != nil) {
