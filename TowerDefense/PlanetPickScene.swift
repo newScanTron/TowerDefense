@@ -96,7 +96,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     }
     
     func travelToPlanet(p : Planet) {
-       appDelegate?.goToSideScroll()
+      appDelegate?.goToSideScroll()
     }
     
     
