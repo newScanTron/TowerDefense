@@ -233,5 +233,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      
         
     }
+    func updateMainTowerHUD()
+    {
+        MainTowerHUD.costLabel.text = ("cost: \(self.user.gold)")
+    }
+    func goToPlanetPick()
+    {
+        
+       
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
+        self.sideScrollScene!.view?.presentScene(self.planetPickScene!, transition: transition)
+        
+    }
 }
 

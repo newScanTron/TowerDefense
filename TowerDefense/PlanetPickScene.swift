@@ -53,7 +53,6 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     override func didMoveToView(view: SKView) {
         
-        gameScene = GameScene(fileNamed: "GameScene")!
         
         
         cameraNode = SKCameraNode()

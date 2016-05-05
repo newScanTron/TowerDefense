@@ -93,12 +93,13 @@ class TowerBuilder
     //this method starts the chain be creating the upgradeView at the appropriate x and y location
     func addUpgradeView(tower: TowerBase, location : CGPoint, gameScene: GameScene)
     {
+            let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         var placeY: CGFloat
         var placeX: CGFloat
         let offset: CGFloat = 30.0
         let sizeOfView: CGFloat = 200
         //this set of if elses check what quatant the touch was in and moves the base location of the UIView so it will not display outside of the screen.
-        if (location.y) >= CGRectGetMaxY(gameScene.frame)/2
+        if (location.y) >= CGRectGetMaxY(appDelegate!.gameScene!.frame)/2
         {
             placeY = ((location.y) - CGFloat(sizeOfView - offset))
         }

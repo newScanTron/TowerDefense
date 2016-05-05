@@ -63,11 +63,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     
     override func didMoveToView(view: SKView) {
-        currentScene = self
+
         drawStuff()
         
         gameOver = false
-        gameScene = self
+
         cameraNode = SKCameraNode()
         cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
         cameraNode.setScale(0.5)
@@ -333,6 +333,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     override func update(currentTime: CFTimeInterval) {
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        appDelegate.updateMainTowerHUD()
+        
         if gameOver {
             return
         }
@@ -555,10 +558,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         appDelegate!.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
         appDelegate!.sideScrollScene!.scaleMode = .AspectFill
-        print("ha you suck")
         let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
         self.view?.presentScene(appDelegate!.sideScrollScene!, transition: transition)
-            print("ha you still suck")
     }
     func endGame() {
 

@@ -11,9 +11,7 @@ import SpriteKit
 
 //project level variables are allowed in swift.  I feel like i should have been using this more.
 var currentPlanet = Planet(size: CGFloat(2), position: CGPoint(x: 0, y: 0), color: SKColor.greenColor(), metal: 0, oxygen: 0, fuel: 0 )
-var currentScene : SKScene = SKScene()
-var gameScene = GameScene()
-var sideScrollScene = SideScrolScene()
+
 
 struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
     static let None              : UInt32 = 0
@@ -140,8 +138,7 @@ func getClosestTower(point : CGPoint) -> TowerBase? {
 
 // adds gold when an enemy is detsroyed
 func addGold(amount : Int) -> Bool{
-    let appDelegate =
-    UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     if (appDelegate.user.gold + amount >= 0) {
         // User has enough gold, return true
         appDelegate.user.gold += amount
@@ -170,10 +167,9 @@ func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
     }
 }
 func getItems() -> [Item]{
-    let appDelegate =
-        UIApplication.sharedApplication().delegate as? AppDelegate
-    if gameScene.scene != nil{
-        return gameScene.items
+    let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+    if appDelegate!.gameScene!.scene != nil{
+        return appDelegate!.gameScene!.items
     }
     else{
         return appDelegate!.sideScrollScene!.items
