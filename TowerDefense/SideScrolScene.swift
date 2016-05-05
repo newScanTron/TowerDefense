@@ -163,7 +163,7 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
     // Update function that moves background
     override func update(currentTime: NSTimeInterval) {
         if (ship?.attackSprite.position.x > appDelegate.sideScrollScene!.scene!.size.width - 50 || ship?.attackSprite.position.y > 100){
-            appDelegate.
+            appDelegate.goToTowerDefense()
         }
         
         deltaTime += 1.0

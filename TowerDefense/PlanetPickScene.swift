@@ -96,7 +96,8 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     }
     
     func travelToPlanet(p : Planet) {
-       appDelegate?.goToSideScroll()
+        appDelegate?.goToSideScroll()
+    
     }
     
     
@@ -184,7 +185,6 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                         let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
 
                         self.view?.presentScene(appDelegate!.sideScrollScene!, transition: transition)
-
                     }
                 }
         }
