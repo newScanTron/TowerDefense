@@ -293,6 +293,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         {
             let mainTower = towerBuilder.BuildMainTower(location)
             appDelegate!.gameScene!.towers.append(mainTower)
+            self.addChild(mainTower.sprite)
             mainBuild = true
             return
         }
