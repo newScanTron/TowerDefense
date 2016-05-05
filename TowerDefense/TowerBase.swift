@@ -16,7 +16,8 @@ class TowerBase: Entity{
     var defenseSelection : Int = 0
     var value : Int = 0 // Value in gold of all attack strategies
     var attackSprite : SKSpriteNode // Sprite that changes based on attack strategy
-
+    var color = SKColor.greenColor()
+    
     init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
         
@@ -72,7 +73,6 @@ class TowerBase: Entity{
         if health <= 0 {
             attack.Die(self) // If I am dead, tell my strategies to do their death things
             defense.Die(self)
-            attackSprite.removeFromParent()
             return true
         }
         return false
@@ -82,5 +82,25 @@ class TowerBase: Entity{
     func TriggerDefend() {
         defense.Defend(self)
     }
-    
+    //Updates the sprites color based on health
+    func UpdateLabel(){
+        
+        if self.health >= (maxHealth * 0.99) {
+            color = SKColor.whiteColor()
+        }
+        else if self.health >= (maxHealth * 0.8){
+            color = SKColor.grayColor()
+        }
+        else if self.health >= (maxHealth * 0.50){
+            color = SKColor.yellowColor()
+        }
+        else if self.health >= (maxHealth * 0.3) {
+            color = SKColor.orangeColor()
+        }
+        else if self.health >= 0  {
+            color = SKColor.redColor()
+        }
+        let changeColorAction = SKAction.colorizeWithColor(color, colorBlendFactor: 1.0, duration: 0.05)
+        self.attackSprite.runAction(changeColorAction)
+    }
 }

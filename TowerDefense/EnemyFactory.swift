@@ -343,7 +343,7 @@ class EnemyFactory
         
         
         //Set enemy strategies and variables
-        let attack = EnemyAttackBoss()
+        let attack = EnemyAttackSSBoss()
         let moveStrat = EnemyMoveSSBoss()
         let range: CGFloat = 999.00
         let moveDelay :CGFloat = 1.0

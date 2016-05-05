@@ -46,6 +46,8 @@
 		75D991651C9242C9008F2A70 /* ShipThruster.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D991631C9242C9008F2A70 /* ShipThruster.sks */; };
 		75D9916A1C931B02008F2A70 /* WeaponParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D991691C931B02008F2A70 /* WeaponParticle.sks */; };
 		75D9916B1C931B02008F2A70 /* WeaponParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75D991691C931B02008F2A70 /* WeaponParticle.sks */; };
+		75E2D7261CDBCD2A006D3EFE /* EnemyAttackSSBoss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E2D7251CDBCD2A006D3EFE /* EnemyAttackSSBoss.swift */; };
+		75E2D7271CDBCD2A006D3EFE /* EnemyAttackSSBoss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E2D7251CDBCD2A006D3EFE /* EnemyAttackSSBoss.swift */; };
 		97176D261C87D8CB006D38D1 /* PlanetPickScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */; };
 		97176D271C87D95E006D38D1 /* PlanetPickScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */; };
 		97176D291C87DC62006D38D1 /* PlanetPickScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 97176D281C87DC62006D38D1 /* PlanetPickScene.sks */; };
@@ -204,6 +206,7 @@
 		75D9915E1C9221BE008F2A70 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		75D991631C9242C9008F2A70 /* ShipThruster.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShipThruster.sks; sourceTree = "<group>"; };
 		75D991691C931B02008F2A70 /* WeaponParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WeaponParticle.sks; sourceTree = "<group>"; };
+		75E2D7251CDBCD2A006D3EFE /* EnemyAttackSSBoss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyAttackSSBoss.swift; sourceTree = "<group>"; };
 		97176D251C87D8CB006D38D1 /* PlanetPickScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetPickScene.swift; sourceTree = "<group>"; };
 		97176D281C87DC62006D38D1 /* PlanetPickScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlanetPickScene.sks; sourceTree = "<group>"; };
 		97176D2B1C87E53F006D38D1 /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
@@ -341,6 +344,7 @@
 				75148D7A1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift */,
 				75148D821CBAC6AC003087A9 /* EnemyMoveSSBoss.swift */,
 				75148D851CBAE4DB003087A9 /* EnemyMoveSSSwarm.swift */,
+				75E2D7251CDBCD2A006D3EFE /* EnemyAttackSSBoss.swift */,
 			);
 			name = Enemy;
 			sourceTree = "<group>";
@@ -360,7 +364,6 @@
 				75D991691C931B02008F2A70 /* WeaponParticle.sks */,
 				97176D281C87DC62006D38D1 /* PlanetPickScene.sks */,
 				75148D7F1CBAA6F3003087A9 /* Shield.sks */,
-				7513D8671CA587A80025A96D /* enemyExplosion.sks */,
 			);
 			name = Visual;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				75148D7B1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift in Sources */,
 				97176D261C87D8CB006D38D1 /* PlanetPickScene.swift in Sources */,
 				99A3BBE91BE94C1900AAB350 /* TowerAttackBasic.swift in Sources */,
+				75E2D7261CDBCD2A006D3EFE /* EnemyAttackSSBoss.swift in Sources */,
 				9943460E1C7924F2000012F0 /* PlanetPickView.swift in Sources */,
 				977E3CA71C13597200BA8F52 /* Item.swift in Sources */,
 				97B633C21C0D5CCB00CB6B8B /* Explosion.swift in Sources */,
@@ -748,6 +752,7 @@
 				99A28B261C7E4DDD007B39DF /* TowerMain.swift in Sources */,
 				99BA33C21BF2A24300152764 /* EnemyAttackStrat.swift in Sources */,
 				99EDA20C1C78FB2900AFF94E /* ToneGenerator.swift in Sources */,
+				75E2D7271CDBCD2A006D3EFE /* EnemyAttackSSBoss.swift in Sources */,
 				75148D8A1CBAEB29003087A9 /* TowerDefenseSideScroll.swift in Sources */,
 				75148D7C1CB2C2C8003087A9 /* EnemySS3MoveStrat.swift in Sources */,
 				99BA33B11BF2A23000152764 /* TowerDefenseHeal.swift in Sources */,

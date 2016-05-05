@@ -25,6 +25,8 @@ class TowerAttackSideScroll : TowerAttackStrat {
         
         let b : Bullet = Bullet(_shooter: tower, _target: passTarget, _speed: 530, _damage: 20, size: 15, shotByEnemy: false)
     }
-
+    override func Die(tower : TowerBase) {
+        tower.attackSprite.removeFromParent()
+    }
 }
 
