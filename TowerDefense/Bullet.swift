@@ -63,12 +63,7 @@ class Bullet : Item {
         // Set up initial location and size of projectile
         sprite.position = _shooter.sprite.position
         
-//        if GameScene.scene != nil {
-            //activate()
-//        }
-//        else{
-            activate2()
-//        }
+
         
         
     }

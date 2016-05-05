@@ -24,6 +24,7 @@ class TowerAttackSideScroll : TowerAttackStrat {
         passTarget.position = CGPointMake(tower.attackSprite.position.x + 100, tower.attackSprite.position.y)
         
         let b : Bullet = Bullet(_shooter: tower, _target: passTarget, _speed: 530, _damage: 20, size: 15, shotByEnemy: false)
+        b.activate2()
     }
     override func Die(tower : TowerBase) {
         tower.attackSprite.removeFromParent()

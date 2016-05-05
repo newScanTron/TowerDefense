@@ -137,6 +137,7 @@ class TowerAttackBasic : TowerAttackStrat {
                 
                 // Instantiate bullet
                 let b : Bullet = Bullet(_shooter: tower, _target: target!.sprite, _speed: speed, _damage: damage, size: 15, shotByEnemy: false)
+               b.activate()
                 if (expOn) {
                     b.setExplosion(expForce)
                 }
