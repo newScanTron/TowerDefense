@@ -446,7 +446,6 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
             
         default:
-            
             print("other collision: \(contactMask)")
         }
     }

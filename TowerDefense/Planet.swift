@@ -42,7 +42,22 @@ class Planet {
         //self.discover();
         self.makeMap()
     }
-    
+     init()
+    {
+        self.position = CGPoint(x:0, y:0)
+        self.size = CGFloat(0)
+        self.color = SKColor.redColor()
+        self.rotation = CGFloat(arc4random_uniform(628))/100.0
+        self.metal = 5
+        self.oxygen = 5
+        self.fuel = 5
+        
+        self.getColor();
+        
+        
+        //self.discover();
+        //self.makeMap()
+    }
     func getColor() {
         let sum : CGFloat = CGFloat(metal + oxygen + fuel)
         let mP = CGFloat(metal)/sum

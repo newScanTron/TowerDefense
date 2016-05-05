@@ -28,7 +28,7 @@ class EnemyMoveSSBoss: EnemyMoveStrat {
         target = appDelegate!.sideScrollScene!.ships
 
         //Determines sprite position and sets out of bounds or if there is near by target
-        if (enemy.sprite.position.x >= sideScrollScene.scene!.size.width - offSet || enemy.sprite.position.x <= 0 + offSet || enemy.sprite.position.y >= sideScrollScene.scene!.size.height - offSet || enemy.sprite.position.y <= 0 + offSet){
+        if (enemy.sprite.position.x >= appDelegate!.sideScrollScene!.size.width - offSet || enemy.sprite.position.x <= 0 + offSet || enemy.sprite.position.y >= appDelegate!.sideScrollScene!.size.height - offSet || enemy.sprite.position.y <= 0 + offSet){
             outOfSSBounds(enemy)
             
         }
