@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var sideScrollScene = SideScrolScene(fileNamed:"SideScrolScene")
     var planetPickScene = PlanetPickScene(fileNamed:"PlanetPickScene")
     var conductor = Conductor()
-  
+    var planets : [Planet] =  [Planet]()
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true

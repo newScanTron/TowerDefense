@@ -48,7 +48,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     //Enemy Factory
     
-    static var planets : [Planet] =  [Planet]() // Stores all planets in galaxy
+    // Stores all planets in galaxy
     static var scene : PlanetPickScene? = nil
     
     override func didMoveToView(view: SKView) {
@@ -63,8 +63,12 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         
         self.backgroundColor = SKColor.blackColor()
         
+        var firstPlanet : Planet
+        var planetIndex = 0
+        if !planetsAreSet
+        {
         for (var i = 0; i < 100 ; i++) {
-            PlanetPickScene.planets.append(Planet(
+            appDelegate!.planets.append(Planet(
                 size: 10 + CGFloat(arc4random_uniform(10)),
                 position: getPlanetPosition(),
                 color: getRandomColor(),
@@ -73,8 +77,11 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                 fuel: Int(arc4random_uniform(100))
             ));
         }
-        
-        let firstPlanet : Planet = PlanetPickScene.planets[Int(arc4random_uniform(UInt32(PlanetPickScene.planets.count)))]
+            planetIndex = Int(arc4random_uniform(UInt32(appDelegate!.planets.count)))
+            
+            planetsAreSet = true
+        }
+        firstPlanet = appDelegate!.planets[planetIndex]
         cameraNode.position = firstPlanet.position
         
         
@@ -105,7 +112,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         
         selectedPlanet = nil
         
-        for p in PlanetPickScene.planets {
+        for p in appDelegate!.planets {
             if (getDistance(p.position,to: touchLocation!) < p.size) {
                 selectedPlanet = p
                 newDiscovery(p.position.x, y: p.position.y, r: 250)
@@ -161,7 +168,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         touchTimeDeleta = (event?.timestamp)! - touchTimeDeleta
        
         
-        for p in PlanetPickScene.planets {
+        for p in appDelegate!.planets {
            
             
                 if (p.sprite != nil  && p.sprite!.containsPoint(location))
@@ -258,7 +265,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         // Add circle back to scene
         PlanetPickScene.scene?.addChild(circle)
         
-        for p in PlanetPickScene.planets {
+        for p in appDelegate!.planets {
             p.checkDiscovery(r, position: CGPoint(x: x, y: y));
         }
     }

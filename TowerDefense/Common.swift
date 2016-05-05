@@ -11,7 +11,7 @@ import SpriteKit
 
 //project level variables are allowed in swift.  I feel like i should have been using this more.
 var currentPlanet = Planet(size: CGFloat(2), position: CGPoint(x: 0, y: 0), color: SKColor.greenColor(), metal: 0, oxygen: 0, fuel: 0 )
-
+var planetsAreSet = false
 
 struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
     static let None              : UInt32 = 0
