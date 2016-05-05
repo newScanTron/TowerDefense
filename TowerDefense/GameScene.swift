@@ -313,7 +313,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 //conductor.playWaveMelody()
                 if (each.sprite.name == "mainTower" && !mainHudIsUP)
                 {
-                    towerBuilder.addMainUpgradView(each, location: viewLocation, gameScene: self)
+//                    towerBuilder.addMainUpgradView(each, location: viewLocation, gameScene: self)
                     mainHudIsUP = true
                 }
                 else if each.sprite.name == "tower"

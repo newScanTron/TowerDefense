@@ -239,10 +239,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func goToPlanetPick()
     {
+        planetPickScene = PlanetPickScene(fileNamed:"PlanetPickScene")
+       PlanetPickScene.scene = planetPickScene
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.gameScene!.view?.presentScene(self.planetPickScene!, transition: transition)
         
-       
-        let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
-        self.sideScrollScene!.view?.presentScene(self.planetPickScene!, transition: transition)
+    }
+    func goToTowerDefense()
+    {
+        
+        gameScene = GameScene(fileNamed:"GameScene")
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.sideScrollScene!.view?.presentScene(self.gameScene!, transition: transition)
+        
+    }
+    func goToSideScroll()
+    {
+        
+        sideScrollScene = SideScrolScene(fileNamed:"SideScrollScene")
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.sideScrollScene!.view?.presentScene(self.sideScrollScene!, transition: transition)
         
     }
 }

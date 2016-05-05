@@ -123,7 +123,7 @@ class TowerBuilder
         
     }
     //upgrade view for the main ship/drilling rig
-    func addMainUpgradView(tower: TowerBase, location : CGPoint, gameScene: GameScene)
+    func addMainUpgradView(tower: TowerBase, location : CGPoint, gameScene: SKScene)
     {
         var placeY: CGFloat
         var placeX: CGFloat

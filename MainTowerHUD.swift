@@ -67,19 +67,18 @@ class MainTowerHUD: UIView {
         let appDelegate =
             UIApplication.sharedApplication().delegate as? AppDelegate
         appDelegate?.goToPlanetPick()
-        self.removeFromSuperview()
     }
     func toSideScroll()
     {
         let appDelegate =
         UIApplication.sharedApplication().delegate as? AppDelegate
-        appDelegate?.gameScene?.toSideScroll()
+        appDelegate?.goToTowerDefense()
     }
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        /* Called when a touch begins */
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as? AppDelegate
-        appDelegate?.gameScene?.mainHudIsUP = false
+//        /* Called when a touch begins */
+//        let appDelegate =
+//        UIApplication.sharedApplication().delegate as? AppDelegate
+//        appDelegate?.gameScene?.mainHudIsUP = false
         
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

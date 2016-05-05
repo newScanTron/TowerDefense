@@ -81,11 +81,15 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         newDiscovery(firstPlanet.position.x, y: firstPlanet.position.y, r: 250);
         
         self.view!.multipleTouchEnabled = true;
+        //add the main HUD
+        let towerBuilder = TowerBuilder()
+        let each = towerBuilder.BuildMainTower(CGPoint(x: 0, y: 0))
+        towerBuilder.addMainUpgradView(each, location: CGPoint(x: 0,y: 0), gameScene: self)
         
     }
     
     func travelToPlanet(p : Planet) {
-        self.viewController.goToScene()
+       appDelegate?.goToSideScroll()
     }
     
     

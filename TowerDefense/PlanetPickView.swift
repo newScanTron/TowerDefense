@@ -20,8 +20,7 @@ class PlanetPickView: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate.planetPickScene = PlanetPickScene(fileNamed: "PlanetPickScene")!
-        appDelegate.gameScene = GameScene(fileNamed:"GameScene")
-        appDelegate.gameScene!.viewController = self
+  
         let skView = self.view as! SKView
         
         
@@ -39,17 +38,12 @@ class PlanetPickView: UIViewController
         appDelegate.planetPickScene?.paused = false
     }
     override func viewDidDisappear(animated: Bool) {
-        appDelegate.planetPickScene?.paused = true
+       // appDelegate.planetPickScene?.paused = true
     }
     func goToScene()
     {
         appDelegate.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
     }
-    func toSideScroll(){
-        performSegueWithIdentifier("gameToSide", sender: nil)
-    }
-    func goToTowerDefense(){
-        performSegueWithIdentifier("GoToSideScroll", sender: nil)
-    }
+
    
 }
