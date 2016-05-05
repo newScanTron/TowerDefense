@@ -171,7 +171,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                         
                         let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
 
-                        self.view?.presentScene(appDelegate!.gameScene!, transition: transition)
+                        self.view?.presentScene(appDelegate!.sideScrollScene!, transition: transition)
 
                     }
                 }
