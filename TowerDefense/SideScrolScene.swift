@@ -112,7 +112,8 @@ class SideScrolScene: SKScene , SKPhysicsContactDelegate{
 
         
         self.addChild(ship!.attackSprite)
-
+        let conductor = appDelegate.conductor
+        conductor.recursiveNotesRandom(45, maxLength: 1.0)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

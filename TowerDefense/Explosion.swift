@@ -49,7 +49,7 @@ class Explosion : Item {
         print("explosion trigger")
         location = _location
         
-        appDelegate!.sideScrollScene!.items.append(self)
+       // appDelegate!.sideScrollScene!.items.append(self)
         
     }
     

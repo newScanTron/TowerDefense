@@ -72,7 +72,7 @@ class Conductor {
 //function that is called when the enemy is hit.
     func stopEnemySound()
     {
-         self.toneGenerator.setRamp( 0.0)
+        // self.toneGenerator.setRamp( 0.0)
         toneGenerator.stop()
     }
     func hitEnemyPlaySound(duration: Float,  e: Entity) {
@@ -87,11 +87,12 @@ class Conductor {
         if repeats > 0
         {
             let note = self.scale.randomElement()
-            let octave = randomInt(3...6)  * 12
+            let octave = randomInt(4...6)  * 12
             self.toneGenerator.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
-            self.toneGenerator.setAmp( random(0.3, 0.6))
+            self.toneGenerator.setRamp(0.1)
+            self.toneGenerator.setAmp( random(0.3, 0.4))
             self.toneGenerator.start()
-            let rand = random(0.01, maxLength)
+            let rand = random(0.05, maxLength)
             delay(rand){self.stopEnemySound()
             let rep = repeats - 1
             self.recursiveNotesRandom(rep, maxLength: maxLength)}
