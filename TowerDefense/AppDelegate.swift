@@ -1,4 +1,4 @@
-
+ 
 //
 //  AppDelegate.swift
 //  TowerDefense
@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-        
         
         
     }
@@ -227,9 +226,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.gameScene!.xpLabel.text = ("XP: \(self.user.xp)")
         self.gameScene!.enemiesLabel.text = ("Enemies: \(self.gameState.enemies.count)")
         self.gameScene!.waveLabel.text = ("\(self.gameState.wave)")
-        self.gameScene!.metalLabel.text = ("metel: \(self.user.metal)")
-        self.gameScene!.fuelLabel.text = ("fuel: \(self.user.fuel)")
-        self.gameScene!.o2Label.text = ("o2: \(self.user.o2)")
+        MainTowerHUD.metalLabel.text = ("metel: \(self.user.metal)")
+        MainTowerHUD.fuelLabel.text = ("fuel: \(self.user.fuel)")
+        MainTowerHUD.o2Label.text = ("o2: \(self.user.o2)")
      
         
     }

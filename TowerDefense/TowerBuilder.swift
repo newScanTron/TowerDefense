@@ -127,7 +127,7 @@ class TowerBuilder
     {
         var placeY: CGFloat
         var placeX: CGFloat
-        let offset: CGFloat = 30.0
+        let offset: CGFloat = 0.0
         let sizeOfView: CGFloat = 200
         //this set of if elses check what quatant the touch was in and moves the base location of the UIView so it will not display outside of the screen.
         if (location.y) >= CGRectGetMaxY(gameScene.frame)/2

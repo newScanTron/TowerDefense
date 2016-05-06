@@ -39,8 +39,8 @@ class Explosion : Item {
 
         //print("explosion trigger")
         location = _location
-
-        appDelegate!.gameScene!.items.append(self)
+        
+      //  appDelegate!.gameScene!.items.append(self)
 
 
     }

@@ -25,6 +25,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let fuelLabel = SKLabelNode(fontNamed: "Square")
     let enemiesLabel = SKLabelNode(fontNamed:"Square")
     let waveLabel = SKLabelNode(fontNamed: "Square")
+   
+    var rectOne = CGRectMake(10, 10 ,200, 60)
+    var rectPlayerLbl = CGRectMake(10,20,200, 60)
+    static var rectCost = CGRectMake(10,35,200, 60)
+    var rectThree = CGRectMake(0,75,200, 65)
+    
+    
+    
     var background : SKSpriteNode? = nil
     let towerTotal = 20
     let bossNode: EnemyBase? = nil
@@ -113,20 +121,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
         
         cameraNode.addChild(waveLabel)
-        cameraNode.addChild(o2Label )
-       cameraNode.addChild(metalLabel)
-        cameraNode.addChild(fuelLabel)
+//        cameraNode.addChild(o2Label )
+//       cameraNode.addChild(metalLabel)
+//        cameraNode.addChild(fuelLabel)
         waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
         waveLabel.zPosition = ZPosition.bullet
         
-        cameraNode.addChild(enemiesLabel)
-        enemiesLabel.zPosition = ZPosition.bullet
-        
-        cameraNode.addChild(myLabel)
-        myLabel.zPosition = ZPosition.bullet
-        
-        cameraNode.addChild(xpLabel)
-        xpLabel.zPosition = ZPosition.bullet
+//        cameraNode.addChild(enemiesLabel)
+//        enemiesLabel.zPosition = ZPosition.bullet
+//        
+//        cameraNode.addChild(myLabel)
+//        myLabel.zPosition = ZPosition.bullet
+//        
+//        cameraNode.addChild(xpLabel)
+//        xpLabel.zPosition = ZPosition.bullet
 
 
         physicsWorld.gravity = CGVectorMake(0,0)
