@@ -67,7 +67,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         
         if !planetsAreSet
         {
-        for (var i = 0; i < 100 ; i++) {
+            for (var i = 0; i < 100 ; i+=1) {
             appDelegate!.planets.append(Planet(
                 size: 10 + CGFloat(arc4random_uniform(10)),
                 position: getPlanetPosition(),
@@ -84,8 +84,14 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         firstPlanet = appDelegate!.planets[planetIndex]
         cameraNode.position = firstPlanet.position
         
+        for(var i = 0; i < appDelegate!.discoveries.count; i+=1) {
+            let point : CGPoint = appDelegate!.discoveries[i];
+            newDiscovery(point.x,y: point.y,r:250);
+        }
+        
         
         newDiscovery(firstPlanet.position.x, y: firstPlanet.position.y, r: 250);
+        appDelegate!.discoveries.append(CGPoint(x: firstPlanet.position.x, y: firstPlanet.position.y))
         
         self.view!.multipleTouchEnabled = true;
         //add the main HUD
@@ -116,8 +122,8 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
             if (getDistance(p.position,to: touchLocation!) < p.size) {
                 selectedPlanet = p
                 planetIndex = planetCount
-                newDiscovery(p.position.x, y: p.position.y, r: 250)
                 travelToPlanet(p);
+                cameraNode.position = CGPoint(x: p.position.x, y: p.position.y)
                 break
             }
             planetCount += 1
