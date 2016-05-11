@@ -14,19 +14,28 @@ import CoreData
 class MainTowerHUD: UIView {
     var b = UIButton(frame: CGRectMake(25,120, 50,40))
     var c = UIButton(frame: CGRectMake(125,120, 50,40))
-    var rectOne = CGRectMake(10, 10 ,200, 60)
-    var rectPlayerLbl = CGRectMake(10,20,200, 60)
-    static var xpRect = CGRectMake(200, 10, 200, 60)
-    static var o2Rect = CGRectMake(200, 40, 200, 60)
-    static var metalRect = CGRectMake(200, 70, 200, 60)
-    static var fuelRect = CGRectMake(200, 100, 200, 60)
+    var rectOne = CGRectMake(10, 0, 200, 50)
+    var rectTwo = CGRectMake(200, 0, 200, 50)
+    var rectPlayerLbl = CGRectMake(10, 10, 200, 40)
+
+    static var xpRect = CGRectMake(200, 10, 200, 40)
+    static var o2Rect = CGRectMake(200, 40, 200, 30)
+    static var metalRect = CGRectMake(200, 70, 200, 30)
+    static var fuelRect = CGRectMake(200, 100, 200, 30)
     
-    static var rectCost = CGRectMake(10,35,200, 60)
-    static var rectThree = CGRectMake(0,75,200, 65)
+    //labels for the current planet data
+    static var o2RectPlanet = CGRectMake(10, 40, 200, 30)
+    static var metalRectPlanet = CGRectMake(10, 70, 200, 30)
+    static var fuelRectPlanet = CGRectMake(10, 100, 200, 30)
+    
+    static var rectCost = CGRectMake(10,35,200, 30)
+    static var rectThree = CGRectMake(0,75,200, 30)
     
     var mainLabel: UILabel
     var playerLabel: UILabel
 
+    var playerDataLbl: UILabel
+    
     static let xpLabel = UILabel(frame: xpRect)
     static let o2Label = UILabel(frame: o2Rect)
     static let metalLabel = UILabel(frame: metalRect)
@@ -37,6 +46,7 @@ class MainTowerHUD: UIView {
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectPlayerLbl)
         MainTowerHUD.costLabel = UILabel(frame: MainTowerHUD.rectCost)
+        playerDataLbl = UILabel(frame: rectTwo)
         super.init(coder: aDecoder)
         
     }
@@ -48,6 +58,7 @@ class MainTowerHUD: UIView {
         
         mainLabel = UILabel(frame: rectOne)
         playerLabel = UILabel(frame: rectPlayerLbl)
+        playerDataLbl = UILabel(frame: rectTwo)
        // costLabel = UILabel(frame: rectCost)
         //im passing in location info because this inherites from the other views but this one does not need a specail location.
         super.init(frame:CGRectMake(20, 20, 666, 160))
@@ -57,22 +68,33 @@ class MainTowerHUD: UIView {
         c.titleLabel!.font = UIFont(name: "Square", size: 23.0)
         b.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         c.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        mainLabel.text = appDelegate?.gameScene?.xpLabel.text
+        mainLabel.text = "Planet Data"//appDelegate?.gameScene?.xpLabel.text
         mainLabel.font = UIFont(name: "Square", size: 23.0)
-        mainLabel.sizeToFit()
-        playerLabel.text = "Heads up Display"
+       // mainLabel.sizeToFit()
+        playerDataLbl.text = "Ship Data"//appDelegate?.gameScene?.xpLabel.text
+        playerDataLbl.font = UIFont(name: "Square", size: 23.0)
+        
+        if let fuelText = appDelegate?.planetPickScene?.firstPlanet.fuel
+        {
+            playerLabel.text = "Fuel: \(fuelText)"
+        }
+        
         playerLabel.font = UIFont(name: "Square", size: 18.0)
         MainTowerHUD.costLabel.text = "Gold: "
         MainTowerHUD.costLabel.font = UIFont(name: "Square", size: 18.0)
-        self.addSubview(b)
-        self.addSubview(c)
+        
         self.addSubview(mainLabel)
+        self.addSubview(playerDataLbl)
         self.addSubview(playerLabel)
         self.addSubview(MainTowerHUD.costLabel)
+       
         self.addSubview(MainTowerHUD.xpLabel)
         self.addSubview(MainTowerHUD.o2Label)
         self.addSubview(MainTowerHUD.metalLabel)
         self.addSubview(MainTowerHUD.fuelLabel)
+        
+        self.addSubview(b)
+        self.addSubview(c)
         
         MainTowerHUD.costLabel.text = "cost"
         MainTowerHUD.xpLabel.font = UIFont(name: "Square", size: 18.0)
