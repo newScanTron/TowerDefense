@@ -24,7 +24,7 @@ class Planet {
     var metal : Int = 0;
     var oxygen : Int = 0;
     var fuel : Int = 0;
-
+    var mapArray = Array(count: 64, repeatedValue: Array(count: 48, repeatedValue: 0))
     
     
     init (size : CGFloat, position : CGPoint, color : SKColor, metal : Int, oxygen : Int, fuel : Int) {
@@ -40,8 +40,24 @@ class Planet {
         
         
         //self.discover();
+        self.makeMap()
     }
-    
+     init()
+    {
+        self.position = CGPoint(x:0, y:0)
+        self.size = CGFloat(0)
+        self.color = SKColor.redColor()
+        self.rotation = CGFloat(arc4random_uniform(628))/100.0
+        self.metal = 5
+        self.oxygen = 5
+        self.fuel = 5
+        
+        self.getColor();
+        
+        
+        //self.discover();
+        //self.makeMap()
+    }
     func getColor() {
         let sum : CGFloat = CGFloat(metal + oxygen + fuel)
         let mP = CGFloat(metal)/sum
@@ -96,5 +112,40 @@ class Planet {
     func update(offset : CGPoint) {
         circle?.position = CGPoint(x: self.position.x + offset.x, y: self.position.y + offset.y);
     }
-    
+    //function to build a 2d array for placement of objects in the TowerDefenseScene
+    func makeMap()
+    {
+        
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        let towDefScene = appDelegate?.gameScene!
+        //say my icons are 32 by 32 then we will divide the scene height and width by that to allow the array to represent the location of the
+        let widthOffset =  (towDefScene?.size.width)!/32
+        let heightOffset =  (towDefScene?.size.height)!/32
+        for (var i : CGFloat = 0; i < widthOffset; i++)
+        {
+            for (var j : CGFloat = 0; j < heightOffset; j++)
+            {
+                
+                let ii = Int(i)
+                let jj = Int(j)
+             
+                if (i == 0 || i == widthOffset-1 || j == heightOffset-1 || j == 0)
+                {
+                    
+                   mapArray[ii][jj] = 0
+                    
+                   
+                }
+                else {
+                    let randNum = arc4random_uniform(UInt32(55))
+                    mapArray[ii][jj] = Int(randNum)
+                    
+                }
+            
+            }
+        }
+        
+        
+    }
 }

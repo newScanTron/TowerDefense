@@ -33,4 +33,18 @@ class TowerDefenseUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    func testUIButtons() {
+        XCUIDevice.sharedDevice().orientation = .LandscapeLeft
+        XCUIApplication().buttons["PLAY!"].tap()
+        
+    }
+    func testLoginCancel(){
+        XCUIDevice.sharedDevice().orientation = .LandscapeLeft
+        
+        let app = XCUIApplication()
+        app.buttons["NEW USER"].tap()
+        app.buttons["CANCEL"].tap()
+        
+    }
+    
 }

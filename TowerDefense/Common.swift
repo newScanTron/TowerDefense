@@ -9,11 +9,15 @@
 import Foundation
 import SpriteKit
 
+//project level variables are allowed in swift.  I feel like i should have been using this more.
+var currentPlanet = Planet(size: CGFloat(2), position: CGPoint(x: 0, y: 0), color: SKColor.greenColor(), metal: 0, oxygen: 0, fuel: 0 )
+var planetsAreSet = false
+var planetIndex = 0
 struct CategoryMask { // Assigns categories for use with CollisionMask and ContactMask. Should all only have one 1 digit.
-    static let None         : UInt32 = 0
-    static let All          : UInt32 = UInt32.max
-    static let Tower        : UInt32 = 0b0001
-    static let Enemy        : UInt32 = 0b0010
+    static let None              : UInt32 = 0
+    static let All               : UInt32 = UInt32.max
+    static let Tower             : UInt32 = 0b00001
+    static let Enemy             : UInt32 = 0b00010
     static let EnemyBullet       : UInt32 = 0b00100
     static let TowerBullet       : UInt32 = 0b01000
     static let TowerShield       : UInt32 = 0b10000
@@ -22,8 +26,8 @@ struct CategoryMask { // Assigns categories for use with CollisionMask and Conta
 struct CollisionMask { // Which categories should this object "collide" with, i.e. interact with physically. Match with categories above.
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max
-    static let Tower        : UInt32 = 0b0000 // Towers only collide with other Towers and Enemies
-    static let Enemy        : UInt32 = 0b0000 // Enemies only collide with other Enemies and Towers
+    static let Tower        : UInt32 = 0b00001 // Towers only collide with other Towers and Enemies
+    static let Enemy        : UInt32 = 0b00000 // Enemies only collide with other Enemies and Towers
     static let EnemyBullet       : UInt32 = 0b10000 // EnemyBullet only collides with TowerShield
     static let TowerBullet       : UInt32 = 0b00000 // TowerBullet does not collide with anything
 }
@@ -31,10 +35,10 @@ struct CollisionMask { // Which categories should this object "collide" with, i.
 struct ContactMask { // Which categories should this object trigger notifications about, i.e. in didBeginContact(). Match with categories above.
     static let None         : UInt32 = 0
     static let All          : UInt32 = UInt32.max
-    static let Tower        : UInt32 = 0
-    static let Enemy        : UInt32 = 0
-    static let EnemyBullet  : UInt32 = 0b0001 // EnemyBullet should only trigger contacts with Towers, so they can deal damage then be destroyed
-    static let TowerBullet  : UInt32 = 0b0010 // TowerBullet should only trigger contacts with Enemies, so they can deal damage then be destroyed
+    static let Tower        : UInt32 = 0b00010
+    static let Enemy        : UInt32 = 0b00001
+    static let EnemyBullet  : UInt32 = 0b00001 // EnemyBullet should only trigger contacts with Towers, so they can deal damage then be destroyed
+    static let TowerBullet  : UInt32 = 0b00010 // TowerBullet should only trigger contacts with Enemies, so they can deal damage then be destroyed
 }
 
 // Sets the Z position of an x,y,z cartesian plane
@@ -44,6 +48,7 @@ struct ZPosition {
     static let tower        : CGFloat = 5
     static let enemy        : CGFloat = 6
     static let bullet       : CGFloat = 7
+    static let camera       : CGFloat = 20
 }
 
 extension UIView {
@@ -65,12 +70,13 @@ extension UIView {
 
 // Returns closest enemy to given point
 func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var closestEnemy : EnemyBase?
     var closestDistance : CGFloat = 999999
     var tempDistance : CGFloat
     
-    for e in GameScene.enemies {
+    for e in appDelegate!.gameScene!.enemies {
         tempDistance = getDistance(point,to: e.sprite.position)
         if (tempDistance < closestDistance) {
             closestDistance = tempDistance
@@ -87,8 +93,10 @@ func getClosestEnemy(point : CGPoint, range : CGFloat) -> EnemyBase? {
 
 // Returns a list of towers in range to given points range
 func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var inRange : [TowerBase] = [TowerBase]()
-    for t in GameScene.towers {
+    for t in appDelegate!.gameScene!.towers {
         if (getDistance(point,to:t.sprite.position) < range) {
             inRange.append(t);
         }
@@ -98,8 +106,10 @@ func getTowersInRange(point : CGPoint, range : CGFloat) -> [TowerBase] {
 
 // Returns a list of enemies in range to given points range
 func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var inRange : [EnemyBase] = [EnemyBase]()
-    for e in GameScene.enemies {
+    for e in appDelegate!.gameScene!.enemies {
         if (getDistance(point,to:e.sprite.position) < range) {
             inRange.append(e);
         }
@@ -109,12 +119,13 @@ func getEnemiesInRange(point : CGPoint, range : CGFloat) -> [EnemyBase] {
 
 // Returns closest tower to given point
 func getClosestTower(point : CGPoint) -> TowerBase? {
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as? AppDelegate
     var closestTower : TowerBase?
     var closestDistance : CGFloat = 999999
     var tempDistance : CGFloat
     
-    for t in GameScene.towers {
+    for t in appDelegate!.gameScene!.towers {
         tempDistance = getDistance(point,to: t.sprite.position)
         if (tempDistance < closestDistance) {
             closestDistance = tempDistance
@@ -127,8 +138,7 @@ func getClosestTower(point : CGPoint) -> TowerBase? {
 
 // adds gold when an enemy is detsroyed
 func addGold(amount : Int) -> Bool{
-    let appDelegate =
-    UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     if (appDelegate.user.gold + amount >= 0) {
         // User has enough gold, return true
         appDelegate.user.gold += amount
@@ -156,6 +166,15 @@ func Clamp(value: CGFloat, min: CGFloat, max: CGFloat) -> CGFloat {
         return value
     }
 }
+func getItems() -> [Item]{
+    let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+    if appDelegate!.gameScene!.scene != nil{
+        return appDelegate!.gameScene!.items
+    }
+    else{
+        return appDelegate!.sideScrollScene!.items
+    }
+}
 //delay function that can be called as a clouser 
 func delay(delay:Double, closure:()->()) {
     dispatch_after(
@@ -175,4 +194,8 @@ func random(min min: CGFloat, max: CGFloat) -> CGFloat{
 }
 func randomVect(min min: CGFloat, max: CGFloat) -> CGVector{
     return CGVector(dx: random() * (max - min) + min, dy: 0)
+}
+func getVector(from : CGPoint, to : CGPoint, speed : CGFloat) -> CGVector {
+    let dis : CGFloat = getDistance(from,to: to)
+    return CGVectorMake((to.x - from.x)/dis * speed, (to.y - from.y)/dis * speed)
 }

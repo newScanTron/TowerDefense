@@ -8,7 +8,7 @@
 import AudioKit
 import Foundation
 class Conductor {
-    let audioKit = AKManager.sharedInstance
+
     var toneGenerator = ToneGenerator()
     let scale = [0,2,4,5,7,9,11,12]
 
@@ -18,9 +18,9 @@ class Conductor {
     var thisKey = [65.41, 73.42, 82.41, 87.31, 98.00,  110.00, 123.47, 130.81, 146.83, 164.81, 174.61, 196.00, 220.00, 246.94, 261.63]
     init() {
         
-        audioKit.audioOutput = toneGenerator.toneGenerator
+        AudioKit.output = toneGenerator.toneGenerator
         
-        audioKit.start()
+        AudioKit.start()
        //toneGenerator.start()
   
 
@@ -30,7 +30,9 @@ class Conductor {
    
     func playWaveMelody()
     {
-        let enemies = GameScene.enemies
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        let enemies = appDelegate!.gameScene!.enemies
    
         
         for _ in enemies
@@ -70,7 +72,7 @@ class Conductor {
 //function that is called when the enemy is hit.
     func stopEnemySound()
     {
-         self.toneGenerator.setRamp( 0.0)
+        // self.toneGenerator.setRamp( 0.0)
         toneGenerator.stop()
     }
     func hitEnemyPlaySound(duration: Float,  e: Entity) {
@@ -85,11 +87,12 @@ class Conductor {
         if repeats > 0
         {
             let note = self.scale.randomElement()
-            let octave = randomInt(3...6)  * 12
+            let octave = randomInt(4...6)  * 12
             self.toneGenerator.toneGenerator.frequency = (note + octave).midiNoteToFrequency()
-            self.toneGenerator.setAmp( random(0.3, 0.6))
+            self.toneGenerator.setRamp(0.1)
+            self.toneGenerator.setAmp( random(0.3, 0.4))
             self.toneGenerator.start()
-            let rand = random(0.01, maxLength)
+            let rand = random(0.05, maxLength)
             delay(rand){self.stopEnemySound()
             let rep = repeats - 1
             self.recursiveNotesRandom(rep, maxLength: maxLength)}

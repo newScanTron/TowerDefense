@@ -23,14 +23,48 @@ class TowerBuilder
         let tower = TowerBase(location: point, _attack: attack, _defense: defense)
         return tower
     }
+
     //function to build the main tower that will be deffended.
     func BuildMainTower(point : CGPoint) -> TowerMain
     {
         let attack = TowerMainAttackStrat()
         let defense = TowerMainDefenseStrat()
-        let tower = TowerMain(locaton: point, _attack: attack, _defense: defense)
+        let mainTower = TowerMain(locaton: point, _attack: attack, _defense: defense)
+        return mainTower
+    }
+
+    
+    func BuildBaseShip()  -> TowerBase {
+        let attack = TowerAttackSideScroll()
+        let defense = TowerDefenseSideScroll()
+        let tower = TowerBase(location: CGPointMake(200, 200), _attack: attack, _defense: defense)
+        
+
+        tower.sprite.physicsBody?.dynamic = false
+        tower.sprite.physicsBody?.mass = 1
+        tower.sprite.physicsBody?.restitution = 1.0
+        tower.sprite.physicsBody?.linearDamping = 1.0
+        tower.sprite.physicsBody?.angularDamping = 1.0
+        tower.sprite.physicsBody?.allowsRotation = false
+        tower.sprite.zPosition = ZPosition.tower-10
+        tower.sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(10, 10))
+        //tower.sprite.zRotation = CGFloat(-M_PI/2)
+        tower.attackSprite.zRotation = CGFloat(-M_PI/2)
+        tower.sprite.xScale = 0.15
+        tower.sprite.yScale = 0.15
+        tower.attackSprite.xScale = 0.15
+        tower.attackSprite.yScale = 0.15
+        tower.attackSprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(25, 25))
+        tower.attackSprite.physicsBody?.categoryBitMask = CategoryMask.Tower
+        tower.attackSprite.physicsBody?.collisionBitMask = CollisionMask.Tower
+        tower.attackSprite.physicsBody?.contactTestBitMask = ContactMask.Tower
+  //      SideScrolScene.scene?.addChild(tower.sprite)
+        
         return tower
     }
+
+    
+
     func copyTower(tower : TowerBase) {
         pasteTower(&clipboard,source: tower)
     }
@@ -59,12 +93,13 @@ class TowerBuilder
     //this method starts the chain be creating the upgradeView at the appropriate x and y location
     func addUpgradeView(tower: TowerBase, location : CGPoint, gameScene: GameScene)
     {
+            let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
         var placeY: CGFloat
         var placeX: CGFloat
         let offset: CGFloat = 30.0
         let sizeOfView: CGFloat = 200
         //this set of if elses check what quatant the touch was in and moves the base location of the UIView so it will not display outside of the screen.
-        if (location.y) >= CGRectGetMaxY(gameScene.frame)/2
+        if (location.y) >= CGRectGetMaxY(appDelegate!.gameScene!.frame)/2
         {
             placeY = ((location.y) - CGFloat(sizeOfView - offset))
         }
@@ -88,11 +123,11 @@ class TowerBuilder
         
     }
     //upgrade view for the main ship/drilling rig
-    func addMainUpgradView(tower: TowerBase, location : CGPoint, gameScene: GameScene)
+    func addMainUpgradView(tower: TowerBase, location : CGPoint, gameScene: SKScene)
     {
         var placeY: CGFloat
         var placeX: CGFloat
-        let offset: CGFloat = 30.0
+        let offset: CGFloat = 0.0
         let sizeOfView: CGFloat = 200
         //this set of if elses check what quatant the touch was in and moves the base location of the UIView so it will not display outside of the screen.
         if (location.y) >= CGRectGetMaxY(gameScene.frame)/2

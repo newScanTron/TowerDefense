@@ -15,9 +15,10 @@ class EnemyMoveSwarm : EnemyMoveStrat{
     var lastMove : CGFloat = 0
     
     override func Move(enemy : EnemyBase) {
-        
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
         //Causes all sprites with this strategy to circle the boss
-        for e in GameScene.enemies{
+        for e in appDelegate!.gameScene!.enemies{
             
             //Finds the boss for the target
             if e.name == "BossSprite"{

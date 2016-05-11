@@ -48,7 +48,7 @@ class EnemyBase: Entity{
         sprite.xScale = 0.25
         sprite.yScale = 0.25
         
-        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(0.1, 0.1))
+        sprite.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(10.0, 10.0))
 
         
         let actualY = random(min: 10.0, max: 768)
@@ -90,7 +90,7 @@ class EnemyBase: Entity{
     func moveMore(){
         
         //Some code to track the sprites
-        let size = GameScene.scene!.size
+        /*let size = GameScene.scene!.size
 
         if (sprite.position.x < size.width && sprite.position.x > 0 && sprite.position.y < size.height && sprite.position.y > 0) {
                 indicator.removeFromParent()
@@ -101,7 +101,7 @@ class EnemyBase: Entity{
             if (indicator.parent == nil) {
                 GameScene.scene!.addChild(indicator)
             }
-        }
+        }*/
         
 
         moveStrat.Move(self)
@@ -117,10 +117,9 @@ class EnemyBase: Entity{
     //Check sprite position and health. If dead or too far off the screen the sprite is killed
     override func CheckIfDead() -> Bool {
 
-        
-        //offset to set how far off screen to allow sprite
-        let offSet: CGFloat = 110
-        if (health <= 0 || self.sprite.position.x < -offSet || self.sprite.position.x > GameScene.scene!.size.width + offSet || self.sprite.position.y > GameScene.scene!.size.height + offSet || self.sprite.position.y < -offSet ){
+
+        if (health <= 0){
+
 
             attack.Die()
             indicator.removeFromParent()

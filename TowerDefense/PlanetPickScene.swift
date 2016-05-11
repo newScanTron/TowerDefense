@@ -15,7 +15,8 @@ import AudioKit
 class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     var viewController: PlanetPickView!
-    
+    let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
     var backgroundNode: SKNode = SKNode()
     
     var lastTouchPosition: CGPoint = CGPoint(x: 0.0, y: 0.0);
@@ -32,6 +33,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     var firstTouch : CGPoint? = nil
     
         var touchDelta : CGPoint? = nil
+    var touchTimeDeleta : NSTimeInterval = 0.0
     
     var selectedPlanet : Planet?
     
@@ -46,10 +48,13 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     //Enemy Factory
     
-    static var planets : [Planet] =  [Planet]() // Stores all planets in galaxy
+    // Stores all planets in galaxy
     static var scene : PlanetPickScene? = nil
+    var firstPlanet : Planet = Planet()
     
     override func didMoveToView(view: SKView) {
+        
+        
         
         cameraNode = SKCameraNode()
         cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
@@ -59,8 +64,11 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         
         self.backgroundColor = SKColor.blackColor()
         
-        for (var i = 0; i < 100 ; i++) {
-            PlanetPickScene.planets.append(Planet(
+        
+        if !planetsAreSet
+        {
+            for (var i = 0; i < 100 ; i+=1) {
+            appDelegate!.planets.append(Planet(
                 size: 10 + CGFloat(arc4random_uniform(10)),
                 position: getPlanetPosition(),
                 color: getRandomColor(),
@@ -69,19 +77,32 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                 fuel: Int(arc4random_uniform(100))
             ));
         }
-        
-        let firstPlanet : Planet = PlanetPickScene.planets[Int(arc4random_uniform(UInt32(PlanetPickScene.planets.count)))]
+            planetIndex = Int(arc4random_uniform(UInt32(appDelegate!.planets.count)))
+            
+            planetsAreSet = true
+        }
+        firstPlanet = appDelegate!.planets[planetIndex]
         cameraNode.position = firstPlanet.position
+        
+        for(var i = 0; i < appDelegate!.discoveries.count; i+=1) {
+            let point : CGPoint = appDelegate!.discoveries[i];
+            newDiscovery(point.x,y: point.y,r:250);
+        }
         
         
         newDiscovery(firstPlanet.position.x, y: firstPlanet.position.y, r: 250);
+        appDelegate!.discoveries.append(CGPoint(x: firstPlanet.position.x, y: firstPlanet.position.y))
         
         self.view!.multipleTouchEnabled = true;
+        //add the main HUD
+        let towerBuilder = TowerBuilder()
+        let each = towerBuilder.BuildMainTower(CGPoint(x: 0, y: 0))
+        towerBuilder.addMainUpgradView(each, location: CGPoint(x: 0,y: 0), gameScene: self)
         
     }
     
-    func travelToPlanet(Planet p) {
-        
+    func travelToPlanet(p : Planet) {
+      appDelegate?.goToSideScroll()
     }
     
     
@@ -93,17 +114,19 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
 //        }
         
         touchLocation = touches.first!.locationInNode(self)
-        
+        touchTimeDeleta = (event?.timestamp)!
         
         selectedPlanet = nil
-        
-        for p in PlanetPickScene.planets {
+        var planetCount = 0
+        for p in appDelegate!.planets {
             if (getDistance(p.position,to: touchLocation!) < p.size) {
                 selectedPlanet = p
-                newDiscovery(p.position.x, y: p.position.y, r: 250)
+                planetIndex = planetCount
                 travelToPlanet(p);
+                cameraNode.position = CGPoint(x: p.position.x, y: p.position.y)
                 break
             }
+            planetCount += 1
         }
         
         if (selectedPlanet != nil) {
@@ -128,8 +151,6 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
                 isZoomed = true
                 print("zoom")
             
-            
-                
             }
             else
             {
@@ -147,19 +168,39 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         //this gets set to nil for a check in the touchesMoved function
-        lastTouch = nil
+        let touch = touches.first
         
+        let location = touch!.locationInNode(self)
+        lastTouch = nil
+        //this calulates how long the touch was and sends the player  to the planet they pressed on for atleast a set time interval
+        touchTimeDeleta = (event?.timestamp)! - touchTimeDeleta
+       
+        
+        for p in appDelegate!.planets {
+           
+            
+                if (p.sprite != nil  && p.sprite!.containsPoint(location))
+                {
+                    currentPlanet = p
+                    if touchTimeDeleta > 0.7
+                    {
+                        //self.viewController.goToTowerDefense()
+                        print("touchTimeDelta \(touchTimeDeleta)")
+                        
+                        let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
+
+                        self.view?.presentScene(appDelegate!.sideScrollScene!, transition: transition)
+
+                    }
+                }
+        }
     }
 
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first! as UITouch
         let touchLocation = touch.locationInNode(self)
-        //var counter = 0
-//        for touch in touches {
-//            desTouches.append(touch)
-//            counter++
-//        }
+
         
         if lastTouch == nil {
             lastTouch = firstTouch
@@ -169,9 +210,6 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         //these devisors are just floats that feel nice to make the differnece in width to height
         self.cameraNode.position.x -= touchDelta!.x/2.0
         self.cameraNode.position.y -= touchDelta!.y/1.25
-        
-        
-        
         
     }
     
@@ -235,7 +273,7 @@ class PlanetPickScene: SKScene , SKPhysicsContactDelegate{
         // Add circle back to scene
         PlanetPickScene.scene?.addChild(circle)
         
-        for p in PlanetPickScene.planets {
+        for p in appDelegate!.planets {
             p.checkDiscovery(r, position: CGPoint(x: x, y: y));
         }
     }

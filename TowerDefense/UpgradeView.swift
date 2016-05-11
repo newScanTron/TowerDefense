@@ -85,7 +85,9 @@ class UpgradeView: UIView, UpgradeNode {
     //the upgrade funtion is the first fuction called when
     func upgrade(tower: TowerBase)
     {
-        GameScene.scene?.view?.addSubview(self)
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
+        appDelegate!.gameScene!.view?.addSubview(self)
         self.tower = tower
         upgradeSelection.selectRow(previousSelection, inComponent: 0, animated: false)
         selection = previousSelection
@@ -96,7 +98,8 @@ class UpgradeView: UIView, UpgradeNode {
     }
     //this method is used by the various nodes to display a circle that shows how large the area of effect will be whhile the various options are contemplated by the UpgradeView.
     func visualizeCircle(inout circle: SKShapeNode, radius: CGFloat, color: SKColor) {
-        
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as? AppDelegate
         circle.removeFromParent()
         circle = SKShapeNode(circleOfRadius: radius)
         circle.position = tower!.sprite.position
@@ -105,7 +108,7 @@ class UpgradeView: UIView, UpgradeNode {
         circle.fillColor = color
         circle.zPosition = ZPosition.tower-1
         circle.blendMode = SKBlendMode.Screen
-        GameScene.scene!.addChild(circle)
+        appDelegate!.gameScene!.addChild(circle)
     }
     //this funciton was originaly only in the start node and because Xcode will not yet automaticly refactor swift code its is still named start node. really it is the function that calles the next node and removes the current node from the scene.
     func startUpgradeChain()

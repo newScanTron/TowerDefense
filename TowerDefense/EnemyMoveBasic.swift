@@ -16,11 +16,13 @@ class EnemyMoveBasic: EnemyMoveStrat{
     let offSet : CGFloat = 150
     //Continuously call the execute method passing the strategy
     // and sprite to be moved
+   
     override func Move(enemy : EnemyBase){
 
         //if (GameScene.gameTime > lastMove + enemy.moveDelay) {
-            
-            lastMove = GameScene.gameTime
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+            lastMove = appDelegate.gameScene!.gameTime
             
             //Handles what strategy to use depending on the sprite position
 
@@ -28,14 +30,14 @@ class EnemyMoveBasic: EnemyMoveStrat{
 
                 outOfBounds(enemy)
             }
-            else if(enemy.sprite.position.y >= GameScene.scene!.size.height - offSet){
+            else if(enemy.sprite.position.y >= appDelegate.sideScrollScene!.size.height - offSet){
                 outOfBounds(enemy)
 
             }
             else if (enemy.sprite.position.x < offSet){
                 outOfBounds(enemy)
             }
-            else if (enemy.sprite.position.x > GameScene.scene!.size.width - offSet) {
+            else if (enemy.sprite.position.x > appDelegate.sideScrollScene!.size.width - offSet) {
                 outOfBounds(enemy)
 
             }
@@ -49,16 +51,58 @@ class EnemyMoveBasic: EnemyMoveStrat{
     }
 }
 
+class EnemyMoveBasicTowerDefense: EnemyMoveStrat{
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    //Instance variable
+    var lastMove : CGFloat = 0
+    let offSet : CGFloat = 150
+    //Continuously call the execute method passing the strategy
+    // and sprite to be moved
+    override func Move(enemy : EnemyBase){
+        
+        //if (GameScene.gameTime > lastMove + enemy.moveDelay) {
+        
+        lastMove = appDelegate.gameScene!.gameTime
+        
+        //Handles what strategy to use depending on the sprite position
+        
+//        if (enemy.sprite.position.y <= offSet){
+//            
+//            outOfBounds(enemy)
+//        }
+//        else if(enemy.sprite.position.y >= SideScrolScene.scene!.size.height - offSet){
+//            outOfBounds(enemy)
+//            
+//        }
+//        else if (enemy.sprite.position.x < offSet){
+//            outOfBounds(enemy)
+//        }
+//        else if (enemy.sprite.position.x > SideScrolScene.scene!.size.width - offSet) {
+//            outOfBounds(enemy)
+//            
+//        }
+//            //            else if (nodeToMove.sprite.position.x > GameScene.scene!.size.width - 150) {
+//            //                outOfBounds()
+//            //}
+//        else {
+            enemy.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), getImpulseYRand()))
+//        }
+        // }
+    }
+}
+
 //Handles enemy wander - when the y coordinate is approaching zero
 
 class stateYLow : EnemyMoveStrat{
  
     var lastMove : CGFloat = 0
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     override func Move(nodeToMove : EnemyBase){
-        if (GameScene.gameTime > lastMove + nodeToMove.moveDelay) {
+        if (appDelegate.gameScene!.gameTime > lastMove + nodeToMove.moveDelay) {
             
-            lastMove = GameScene.gameTime
+            lastMove = appDelegate.gameScene!.gameTime
 
             nodeToMove.sprite.physicsBody?.linearDamping = 0.50
             nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), (getImpulseYPos()*(3))))
@@ -74,14 +118,15 @@ class stateYLow : EnemyMoveStrat{
 
 //Handles enemy wander in the other direction, top of screen
 class stateYHigh : EnemyMoveStrat{
-    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
     var lastMove : CGFloat = 0
     
     override func Move(nodeToMove : EnemyBase){
         
-        if GameScene.gameTime > lastMove + nodeToMove.moveDelay{
+        if appDelegate.gameScene!.gameTime > lastMove + nodeToMove.moveDelay{
             
-            lastMove = GameScene.gameTime
+            lastMove = appDelegate.gameScene!.gameTime
             
             nodeToMove.sprite.physicsBody?.linearDamping = 0.50
             nodeToMove.sprite.physicsBody?.applyImpulse(CGVectorMake(getImpulseXRand(), (getImpulseYNeg()*(3))))

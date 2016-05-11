@@ -16,6 +16,7 @@ class TowerBase: Entity{
     var defenseSelection : Int = 0
     var value : Int = 0 // Value in gold of all attack strategies
     var attackSprite : SKSpriteNode // Sprite that changes based on attack strategy
+    var color = SKColor.greenColor()
     
     init (location: CGPoint, _attack : TowerAttackStrat, _defense :TowerDefenseStrat )
     {
@@ -39,7 +40,9 @@ class TowerBase: Entity{
         sprite.physicsBody?.categoryBitMask = CategoryMask.Tower
         sprite.physicsBody?.collisionBitMask = CollisionMask.Tower
         sprite.physicsBody?.contactTestBitMask = ContactMask.Tower
-        sprite.physicsBody?.dynamic = false
+        
+        //Testing
+        sprite.physicsBody?.dynamic = true
         sprite.zPosition = ZPosition.tower
         attackSprite.zPosition = ZPosition.tower + 1
         sprite.name = "tower"
@@ -47,13 +50,7 @@ class TowerBase: Entity{
         // Store reference to self in userData. This is the only way to get a reference to this TowerBase when all we have is the SKSpriteNode
         sprite.userData = NSMutableDictionary()
         sprite.userData!.setValue(self,forKey: "object")
-        
-        // For some reason, adding these sprites to the scene at init was causing a crash before the login menu even loads. No idea. This fixed it.
-        if (GameScene.scene != nil) {
-            GameScene.scene!.addChild(sprite)
-            GameScene.scene!.addChild(attackSprite)
-        }
-        
+
         
     }
     
@@ -76,7 +73,6 @@ class TowerBase: Entity{
         if health <= 0 {
             attack.Die(self) // If I am dead, tell my strategies to do their death things
             defense.Die(self)
-            attackSprite.removeFromParent()
             return true
         }
         return false
@@ -86,5 +82,25 @@ class TowerBase: Entity{
     func TriggerDefend() {
         defense.Defend(self)
     }
-    
+    //Updates the sprites color based on health
+    func UpdateLabel(){
+        
+        if self.health >= (maxHealth * 0.99) {
+            color = SKColor.whiteColor()
+        }
+        else if self.health >= (maxHealth * 0.8){
+            color = SKColor.grayColor()
+        }
+        else if self.health >= (maxHealth * 0.50){
+            color = SKColor.yellowColor()
+        }
+        else if self.health >= (maxHealth * 0.3) {
+            color = SKColor.orangeColor()
+        }
+        else if self.health >= 0  {
+            color = SKColor.redColor()
+        }
+        let changeColorAction = SKAction.colorizeWithColor(color, colorBlendFactor: 1.0, duration: 0.05)
+        self.attackSprite.runAction(changeColorAction)
+    }
 }

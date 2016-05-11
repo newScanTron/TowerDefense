@@ -14,7 +14,7 @@ import AudioKit
 
 class GameScene: SKScene , SKPhysicsContactDelegate{
 
-    var viewController: GameViewController!
+    var viewController: PlanetPickView!
     let appDelegate = 
     UIApplication.sharedApplication().delegate as? AppDelegate
     //let conductor = Conductor()
@@ -25,6 +25,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     let fuelLabel = SKLabelNode(fontNamed: "Square")
     let enemiesLabel = SKLabelNode(fontNamed:"Square")
     let waveLabel = SKLabelNode(fontNamed: "Square")
+   
+    var rectOne = CGRectMake(10, 10 ,200, 60)
+    var rectPlayerLbl = CGRectMake(10,20,200, 60)
+    static var rectCost = CGRectMake(10,35,200, 60)
+    var rectThree = CGRectMake(0,75,200, 65)
+    
+    
+    
     var background : SKSpriteNode? = nil
     let towerTotal = 20
     let bossNode: EnemyBase? = nil
@@ -46,27 +54,32 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     var enemyFactory = EnemyFactory()
     var towerBuilder = TowerBuilder()
     //making all of these static allows us to not have to pass them around method calls
-    static var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
-    static var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
-    static var items : [Item] = [Item]()
+     var towers : [TowerBase] =  [TowerBase]() // Stores all towers in level in order to call their strategies each frame
+    var enemies : [EnemyBase] = [EnemyBase]() // Stores all towers in level in order to call their strategies each frame
+     var items : [Item] = [Item]()
+     var spawnLocs : [CGPoint] = [CGPoint]()
     //static var boss : [EnemyBase] = [EnemyBase]()
-    static var gameTime : CGFloat = 0
-    static var deltaTime : CGFloat = 0
+    var gameTime : CGFloat = 0
+    var deltaTime : CGFloat = 0
+    var totalTime : CGFloat = 0.0
     static var scene : GameScene? = nil
     //bool actions
     var mainHudIsUP = false
     var mainBuild = false
     var odd : Bool = false // This is just for switching between tower types until we get tower building fully functional
     var towerHardLimit : Int = 20
-    static var totalTime : CGFloat = 0.0
+    
     
     override func didMoveToView(view: SKView) {
 
+        drawStuff()
+        
         gameOver = false
-     
+
         cameraNode = SKCameraNode()
         cameraNode.position = CGPoint(x: self.size.width / 4, y: self.size.height / 4)
         cameraNode.setScale(0.5)
+        cameraNode.zPosition = ZPosition.camera
         self.addChild(cameraNode)
         self.camera = cameraNode
 
@@ -101,45 +114,98 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         o2Label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
         o2Label.text = "o2 lael"
 
+        fuelLabel.fontSize = 45;
+        fuelLabel.position = CGPoint(x: labelOffset, y: labelOffsetY - 300)
+        fuelLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        fuelLabel.text = "fuelLabel"
+        
         
         cameraNode.addChild(waveLabel)
-        cameraNode.addChild(o2Label )
-       cameraNode.addChild(metalLabel)
+//        cameraNode.addChild(o2Label )
+//       cameraNode.addChild(metalLabel)
+//        cameraNode.addChild(fuelLabel)
         waveLabel.fontColor = UIColor(red: 1.0, green: 0.0 / 255, blue: 0.0 / 255, alpha: 1.0)
         waveLabel.zPosition = ZPosition.bullet
         
-        cameraNode.addChild(enemiesLabel)
-        enemiesLabel.zPosition = ZPosition.bullet
-        
-        cameraNode.addChild(myLabel)
-        myLabel.zPosition = ZPosition.bullet
-        
-        cameraNode.addChild(xpLabel)
-        xpLabel.zPosition = ZPosition.bullet
+//        cameraNode.addChild(enemiesLabel)
+//        enemiesLabel.zPosition = ZPosition.bullet
+//        
+//        cameraNode.addChild(myLabel)
+//        myLabel.zPosition = ZPosition.bullet
+//        
+//        cameraNode.addChild(xpLabel)
+//        xpLabel.zPosition = ZPosition.bullet
 
 
         physicsWorld.gravity = CGVectorMake(0,0)
         physicsWorld.contactDelegate = self
         self.view!.multipleTouchEnabled = true
+        //randomize the spawn locations then put those locations in spawnLocs[]
+        enumerateChildNodesWithName("spawn", usingBlock: {
+            (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
+            
+         
+            // do something with node or stop
+            let randNumWidth = arc4random_uniform(UInt32(self.size.width))
+            let randNumHeight = arc4random_uniform(UInt32(self.size.height))
+            
+            node.position = CGPoint(x: CGFloat(randNumWidth), y: CGFloat(randNumHeight))
+            
+            self.spawnLocs.append(node.position)
+            
+        })
         
     }
-    
+    func drawStuff()
+    {
+        let mapArray = currentPlanet.mapArray
+        var sprite : SKSpriteNode
+        for (var i = 0; i < 2048/32; i++)
+        {
+            for (var j = 0; j < 1536/32; j++)
+            {
+               if mapArray[i][j] == 0
+               {
+                sprite = SKSpriteNode(imageNamed: "fuel")
+                sprite.position.x = CGFloat(i * 32 + 16)
+                sprite.position.y = CGFloat(j * 32 + 16)
+                sprite.zPosition = ZPosition.wall
+                self.addChild(sprite)
+                }
+                else if mapArray[i][j] == 1
+                {
+                    sprite = SKSpriteNode(imageNamed: "o2")
+                    sprite.position.x = CGFloat(i * 32 + 16)
+                    sprite.position.y = CGFloat(j * 32 + 16)
+                    self.addChild(sprite)
+                     sprite.zPosition = ZPosition.wall
+                }
+                else if mapArray[i][j] == 2
+                {
+                    sprite = SKSpriteNode(imageNamed: "rock32by32")
+                    sprite.position.x = CGFloat(i * 32 + 16)
+                    sprite.position.y = CGFloat(j * 32 + 16)
+                    self.addChild(sprite)
+                     sprite.zPosition = ZPosition.wall
+                }
+            }
+
+        }
+    }
     //helper to make towers
     func addTower(location: CGPoint, touch: UITouch)
     {
 
         let touchLocation = touch.locationInView(self.view!)
         let tower : TowerBase = towerBuilder.BuildBaseTower(location)
-        
+        self.addChild(tower.sprite)
         if (addGold(-100)) {
-            GameScene.towers.append(tower)
+            appDelegate!.gameScene!.towers.append(tower)
 
 
             towerBuilder.addUpgradeView(tower, location: touchLocation, gameScene: self)
 
         }
-     
-        
     
     }
     //this function we are mostly just grabbing the differnet locations of the touch events
@@ -206,8 +272,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
             self.cameraNode.position.x -= touchDelta!.x/2.0
             self.cameraNode.position.y -= touchDelta!.y/1.25
         
-        
-        
     
     }
     
@@ -236,28 +300,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //if touches.count > 1 && !mainBuild
         {
             let mainTower = towerBuilder.BuildMainTower(location)
-            GameScene.towers.append(mainTower)
+            appDelegate!.gameScene!.towers.append(mainTower)
+            self.addChild(mainTower.sprite)
             mainBuild = true
             return
         }
         else if touch?.tapCount > 1
         {
         //if we found a tower open menu else add tower
-        if GameScene.towers.count <= towerHardLimit
+        if appDelegate!.gameScene!.towers.count <= towerHardLimit
         {
             
             addTower(location, touch: touch!)
             return
         }
         }
-        for each in GameScene.towers
+        for each in appDelegate!.gameScene!.towers
         {
             if each.sprite.containsPoint(location)
             {
                 //conductor.playWaveMelody()
                 if (each.sprite.name == "mainTower" && !mainHudIsUP)
                 {
-                    towerBuilder.addMainUpgradView(each, location: viewLocation, gameScene: self)
+//                    towerBuilder.addMainUpgradView(each, location: viewLocation, gameScene: self)
                     mainHudIsUP = true
                 }
                 else if each.sprite.name == "tower"
@@ -275,46 +340,60 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     
     //in the SpriteKit game framework the update method is the main game loop
     override func update(currentTime: CFTimeInterval) {
-
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        appDelegate.updateMainTowerHUD()
+        
         if gameOver {
             return
         }
 
-        GameScene.deltaTime = CGFloat(currentTime) - GameScene.gameTime
-        GameScene.totalTime += GameScene.deltaTime
-        GameScene.gameTime = CGFloat(currentTime)
+        appDelegate.gameScene!.deltaTime = CGFloat(currentTime) - appDelegate.gameScene!.gameTime
+        appDelegate.gameScene!.totalTime += appDelegate.gameScene!.deltaTime
+        appDelegate.gameScene!.gameTime = CGFloat(currentTime)
+        
+        
+        
+        giveResources(appDelegate.gameScene!.totalTime)
         
         //We can't put a appDelegate in the constructor because GameScene is in AppDelegate
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
+       
         
         appDelegate.updateMyLabel()
         
         // Get enemies and add them to list and scene
         let newEnemy = enemyFactory.getNextEnemy()
         if newEnemy != nil {
-            nextWaveDelay = false
-            GameScene.enemies.append(newEnemy!)
-            appDelegate.gameState.enemies.append(newEnemy!)
-            GameScene.scene?.addChild(newEnemy!.sprite)
+           let randNum = arc4random_uniform(UInt32(spawnLocs.count))
+            //going to set the location to one of the enemy spawn spots
+            let spawnLocation = spawnLocs[Int(randNum)]
+                newEnemy?.sprite.position = spawnLocation
+                nextWaveDelay = false
+                appDelegate.gameScene!.enemies.append(newEnemy!)
+                appDelegate.gameState.enemies.append(newEnemy!)
+                appDelegate.gameScene!.addChild(newEnemy!.sprite)
+            
+            
+           
         }
         // Trigger attack/defend strategies for each tower
-        for (var i = 0; i < GameScene.towers.count; i++)
+        for (var i = 0; i < appDelegate.gameScene!.towers.count; i++)
         {
-            let t = GameScene.towers[i]
+            let t = appDelegate.gameScene!.towers[i]
             t.TriggerAttack()
             t.TriggerDefend()
             
             if t.CheckIfDead(){
                 t.sprite.removeFromParent()
                 
-                GameScene.towers.removeAtIndex(i)
+                appDelegate.gameScene!.towers.removeAtIndex(i)
                 i -= 1
             }
         }
-        for (var i = 0; i < GameScene.enemies.count; i++)
+        for (var i = 0; i < appDelegate.gameScene!.enemies.count; i++)
         {
-            let e = GameScene.enemies[i]
+            let e = appDelegate.gameScene!.enemies[i]
             e.TriggerAttack()
             e.moveMore()
             e.UpdateLabel()
@@ -326,16 +405,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
                 appDelegate.user.gold += e.reward
                 appDelegate.gameState.enemies.removeAtIndex(i)
                 
-                GameScene.enemies.removeAtIndex(i)
+                appDelegate.gameScene!.enemies.removeAtIndex(i)
                 i -= 1
             }
         }
         
-        for (var i = 0; i < GameScene.items.count; i++) {
-            let item = GameScene.items[i]
+        for (var i = 0; i < appDelegate.gameScene!.items.count; i++) {
+            let item = appDelegate.gameScene!.items[i]
             if (item.destroyThis) {
                 item.destroy()
-                GameScene.items.removeAtIndex(i)
+                appDelegate.gameScene!.items.removeAtIndex(i)
                 i -= 1;
             }
             else {
@@ -345,23 +424,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
 
         // Calculate player y offset
         if bossNode?.sprite.position.y > 200.0 {
-        for t in GameScene.towers{
+        for t in appDelegate.gameScene!.towers{
             t.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/10))
         }
-        for e in GameScene.enemies {
+        for e in appDelegate.gameScene!.enemies {
             e.sprite.position = CGPoint(x: 0.0, y: -((bossNode!.sprite.position.y - 200.0)/4))
         }
         
             background!.position = CGPoint(x: 0.0, y: -(bossNode!.sprite.position.y - 200.0))
         }
         
-        if GameScene.enemies.isEmpty && appDelegate.user.gold < 100 && GameScene.towers.isEmpty {
+        if appDelegate.gameScene!.enemies.isEmpty && appDelegate.user.gold < 100 && appDelegate.gameScene!.towers.isEmpty {
             
             endGame()
             appDelegate.resetUser()
-        } else if GameScene.enemies.isEmpty && !GameScene.towers.isEmpty && !nextWaveDelay{
+        } else if appDelegate.gameScene!.enemies.isEmpty && !appDelegate.gameScene!.towers.isEmpty && !nextWaveDelay{
            nextWave()
-        } else if !GameScene.enemies.isEmpty && GameScene.towers.isEmpty && appDelegate.user.gold < 100{
+        } else if !appDelegate.gameScene!.enemies.isEmpty && appDelegate.gameScene!.towers.isEmpty && appDelegate.user.gold < 100{
             appDelegate.resetUser()
             endGame()
 
@@ -369,13 +448,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         
     }
     //function to give resources to the play based on how long they defend the tower
+    
+    
+    
     func giveResources(time: CGFloat)
     {
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.user.o2 += Int(time)
-        appDelegate.user.metal += Int(time)
-        appDelegate.user.fuel += Int(time)
+        appDelegate.user.o2 += Int(time/(time-1))
+        appDelegate.user.metal += Int(time/(time-21))
+        appDelegate.user.fuel += Int(time/(time-134))
     }
     
     //function to add xp to the player currently based on the damage of the strategy of the enemy
@@ -418,7 +500,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
         //this first case is executed when a tower bullet hits a enemy.
         case CategoryMask.Enemy | CategoryMask.TowerBullet:
             
-            for e in GameScene.enemies{
+            for e in appDelegate!.gameScene!.enemies{
                 if e.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
                     e.health -= contactTest.damage
@@ -440,7 +522,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
          //this case is if an enemy bullet has hit a tower.
         case CategoryMask.Tower | CategoryMask.EnemyBullet:
             
-            for t in GameScene.towers{
+            for t in appDelegate!.gameScene!.towers{
                 
                 if t.sprite == contact.bodyA.node{
                     let contactTest : Bullet = contact.bodyB.node?.userData?["object"] as! Bullet
@@ -466,13 +548,33 @@ class GameScene: SKScene , SKPhysicsContactDelegate{
     }
     func toPlanetPicker()
     {
-        self.viewController.toPlanetPicker()
+//        if self.viewController != nil{
+//               self.viewController.toPlanetPicker()
+//        }
+        //else
+        //{
+      
+    
+  
+            
+          // self.view?.presentScene(SideScrolScene(fileNamed: "SideScrollScene")!)
+       // }
+     
+    }
+    func toSideScroll()
+    {
+       // sideScrollScene = SideScrolScene(fileNamed:"SideScrollScene")!
+        
+        appDelegate!.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
+        appDelegate!.sideScrollScene!.scaleMode = .AspectFill
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 1)
+        self.view?.presentScene(appDelegate!.sideScrollScene!, transition: transition)
     }
     func endGame() {
 
     gameOver = true
         
-    self.viewController.gameOver()    
+    //self.viewController.gameOver()
         
     /*let reveal = SKTransition.fadeWithDuration(0.05)
     let endGameScene = EndGameScene(size: self.size)

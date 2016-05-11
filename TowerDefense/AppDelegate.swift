@@ -1,4 +1,4 @@
-
+ 
 //
 //  AppDelegate.swift
 //  TowerDefense
@@ -9,7 +9,7 @@
 
 import UIKit
 import CoreData
-
+import SpriteKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var sideScrollScene = SideScrolScene(fileNamed:"SideScrolScene")
     var planetPickScene = PlanetPickScene(fileNamed:"PlanetPickScene")
     var conductor = Conductor()
-   
+    var planets : [Planet] =  [Planet]()
+    var discoveries : [CGPoint] = [CGPoint]()
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -30,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-        
         
         
     }
@@ -227,6 +227,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.gameScene!.xpLabel.text = ("XP: \(self.user.xp)")
         self.gameScene!.enemiesLabel.text = ("Enemies: \(self.gameState.enemies.count)")
         self.gameScene!.waveLabel.text = ("\(self.gameState.wave)")
+        MainTowerHUD.metalLabel.text = ("metel: \(self.user.metal)")
+        MainTowerHUD.fuelLabel.text = ("fuel: \(self.user.fuel)")
+        MainTowerHUD.o2Label.text = ("o2: \(self.user.o2)")
+     
+        
+    }
+    func updateMainTowerHUD()
+    {
+        MainTowerHUD.costLabel.text = ("cost: \(self.user.gold)")
+    }
+    func goToPlanetPick()
+    {
+        planetPickScene = PlanetPickScene(fileNamed:"PlanetPickScene")
+       PlanetPickScene.scene = planetPickScene
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.gameScene!.view?.presentScene(self.planetPickScene!, transition: transition)
+        
+    }
+    func goToTowerDefense()
+    {
+        
+        gameScene = GameScene(fileNamed:"GameScene")
+        GameScene.scene = gameScene
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.sideScrollScene!.view?.presentScene(self.gameScene!, transition: transition)
+        
+    }
+    func goToSideScroll()
+    {
+        
+        sideScrollScene = SideScrolScene(fileNamed:"SideScrollScene")
+        let transition = SKTransition.moveInWithDirection(.Right, duration: 0.1)
+        self.sideScrollScene!.view?.presentScene(self.sideScrollScene!, transition: transition)
+        
     }
 }
 

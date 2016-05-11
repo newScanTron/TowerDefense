@@ -20,14 +20,14 @@ class PlanetPickView: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         appDelegate.planetPickScene = PlanetPickScene(fileNamed: "PlanetPickScene")!
-        
+  
         let skView = self.view as! SKView
         
         
         
         
         /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView.ignoresSiblingOrder = true
+        skView.ignoresSiblingOrder = false
         
         /* Set the scale mode to scale to fit the window */
         appDelegate.planetPickScene!.scaleMode = .AspectFill
@@ -35,6 +35,15 @@ class PlanetPickView: UIViewController
         
         appDelegate.planetPickScene!.viewController = self
         skView.presentScene(appDelegate.planetPickScene)
+        appDelegate.planetPickScene?.paused = false
     }
-    
+    override func viewDidDisappear(animated: Bool) {
+       // appDelegate.planetPickScene?.paused = true
+    }
+    func goToScene()
+    {
+        appDelegate.sideScrollScene = SideScrolScene(fileNamed: "SideScrollScene")!
+    }
+
+   
 }

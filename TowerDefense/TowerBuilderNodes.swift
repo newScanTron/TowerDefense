@@ -37,7 +37,7 @@ func setPicker(inout upgradeSelection: UIPickerView) -> Int
 class StartNode: UpgradeView, UIPickerViewDelegate, UIPickerViewDataSource
 {
     //each node needs a towerBase variable because we need access to it outside of the upgrade function
-    var costs = [0,0,0,GameScene.scene!.towerBuilder.clipboard.value]
+    var costs = [0,0,0, 200/*gameScene.towerBuilder.clipboard.value*/]
     //this array represents the datasource for the UIPickerView
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate

@@ -28,7 +28,7 @@ class EnemyMoveStrat
     
     //This is called when the sprite is going off the screen
     func outOfBounds(enemy : EnemyBase){
-        let centerPoint = CGPointMake(GameScene.scene!.size.width/2, GameScene.scene!.size.height/2)
+        let centerPoint = CGPointMake(1024, 768)
         let center = getVector(enemy.sprite.position, to: centerPoint, speed: 4)
         enemy.sprite.physicsBody?.linearDamping = 0.5
         enemy.sprite.physicsBody?.applyImpulse(center)
@@ -36,7 +36,15 @@ class EnemyMoveStrat
 
         
     }
-    
+    func outOfSSBounds(enemy : EnemyBase){
+        let centerPoint = CGPointMake(512, 364)
+        let center = getVector(enemy.sprite.position, to: centerPoint, speed: 4)
+        enemy.sprite.physicsBody?.linearDamping = 0.5
+        enemy.sprite.physicsBody?.applyImpulse(center)
+        
+        
+        
+    }
     //Helper functions almost all strategies will need
     //Returns impulse vestors to move sprites along x or y axis
     func getImpulseXRand() -> CGFloat{
