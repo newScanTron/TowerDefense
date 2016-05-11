@@ -14,13 +14,13 @@ import CoreData
 class MainTowerHUD: UIView {
     var b = UIButton(frame: CGRectMake(25,120, 50,40))
     var c = UIButton(frame: CGRectMake(125,120, 50,40))
-    var rectOne = CGRectMake(10, 0, 200, 50)
-    var rectTwo = CGRectMake(200, 0, 200, 50)
-    var rectPlayerLbl = CGRectMake(10, 10, 200, 40)
+    var rectOne = CGRectMake(10, 0, 200, 60)
+    var rectTwo = CGRectMake(200, 0, 200, 60)
+    var rectPlayerLbl = CGRectMake(20, 10, 200, 40)
 
-    static var xpRect = CGRectMake(200, 10, 200, 40)
-    static var o2Rect = CGRectMake(200, 40, 200, 30)
-    static var metalRect = CGRectMake(200, 70, 200, 30)
+    static var xpRect = CGRectMake(200, 20, 200, 40)
+    static var o2Rect = CGRectMake(200, 40, 200, 40)
+    static var metalRect = CGRectMake(200, 70, 200, 40)
     static var fuelRect = CGRectMake(200, 100, 200, 30)
     
     //labels for the current planet data
